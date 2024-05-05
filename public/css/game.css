@@ -18,7 +18,7 @@ body
     align-items: center;
     align-content: center;
 
-    min-height: 88vh;
+    min-height: 85vh;
     max-height: fit-content;
     padding-bottom: 1vh;
     padding-top: 1vh;
@@ -182,7 +182,7 @@ input.answer:active
     h2.question
     {
         margin: 0 0 12px 0;
-        font-size: 14.5px;
+        font-size: 16px;
         line-height: 20px;
     }
 
@@ -194,7 +194,7 @@ input.answer:active
     }
 
     .answer-block {
-        min-width: 230px;
+        min-width: 250px;
     }
 
     input.answer {

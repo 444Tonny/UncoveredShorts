@@ -76,7 +76,7 @@ button.hl-icon svg:active
 
     div.header-links
     {
-        width: 95px;
+        width: 105px;
         display: flex;
         flex-direction: row;
         justify-content: space-between;

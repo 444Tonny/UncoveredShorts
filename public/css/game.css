@@ -1,6 +1,9 @@
 body
 {
     background-color: #161616;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow-x: hidden !important;
 }
 
 .game-section
@@ -15,8 +18,8 @@ body
 
     min-height: 85vh;
     max-height: fit-content;
-    padding-bottom: 3vh;
-    padding-top: 3vh;
+    padding-bottom: 2vh;
+    padding-top: 2vh;
 }
 
 .game-block

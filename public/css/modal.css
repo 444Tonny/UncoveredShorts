@@ -318,6 +318,8 @@ div.rules-text strong
 .feedback-form .send
 {
     display: flex;
+    justify-content: center;
+    align-content: center;
     align-self: flex-end;
     font-family: "Inknut Antiqua", serif;
     color: white;

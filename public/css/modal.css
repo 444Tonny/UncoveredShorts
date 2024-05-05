@@ -76,6 +76,7 @@ input.search
     border-radius: 20px;
     box-sizing: border-box;
 
+    font-size: 17px;
     width: 100%;
     height: 45px;
     padding: 5px 20px;
@@ -119,7 +120,7 @@ span.single-suggestion p
 {
     color: #bebebe;
     padding-right: 10px;
-    font-size: 17px;
+    font-size: 18px;
     font-family: "Rubik", serif;
 }
 
@@ -159,7 +160,7 @@ span.single-suggestion button:focus
     }
 
     span.single-suggestion p {
-        font-size: 14px;
+        font-size: 16px;
         padding-right: 6px;
     }
 
@@ -168,6 +169,11 @@ span.single-suggestion button:focus
         padding: 5px 12px;
         height: 34px;
         font-size: 11px;
+    }
+
+    .input-search
+    {
+        font-size: 16px;
     }
 }
 

@@ -64,7 +64,7 @@ button.hl-icon svg:active
     {
         height: 55px;
         padding-left: 4%;
-        padding-right: 8%;
+        padding-right: 4%;
         overflow: hidden;
     }
 
@@ -75,6 +75,7 @@ button.hl-icon svg:active
 
     div.header-links
     {
+        margin-right: 10px;
         width: 90px;
         display: flex;
         flex-direction: row;

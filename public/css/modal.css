@@ -310,6 +310,7 @@ div.rules-text strong
 
 .feedback-form textarea
 {
+    resize: none;
     padding-top: 15px ;
     height: 15vh;
 }

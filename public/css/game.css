@@ -18,10 +18,10 @@ body
     align-items: center;
     align-content: center;
 
-    min-height: 85vh;
+    min-height: 88vh;
     max-height: fit-content;
-    padding-bottom: 2vh;
-    padding-top: 2vh;
+    padding-bottom: 1vh;
+    padding-top: 1vh;
 }
 
 .game-block
@@ -77,7 +77,7 @@ span.numero
     font-family: "Rubik", serif;
     font-weight: 100;
 
-    font-size: 13px;
+    font-size: 14px;
     height: 35px;
     width: 32px;
     border-right: 1.5px solid #2b2b2b;
@@ -89,7 +89,7 @@ span.numero
 h2.question
 {
     margin: 0 0 15px 0;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: 300;
     line-height: 22px;
 }
@@ -175,20 +175,20 @@ input.answer:active
 
     div.question-block
     {
-        margin-top: 5px;
-        margin-bottom: 5px;
+        margin-top: 3px;
+        margin-bottom: 3px;
     }
 
     h2.question
     {
         margin: 0 0 12px 0;
-        font-size: 12px;
+        font-size: 14.5px;
         line-height: 20px;
     }
 
     span.numero
     {
-        font-size: 11px;
+        font-size: 12px;
         height: 26px;
         width: 25px;
     }

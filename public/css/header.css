@@ -1,0 +1,77 @@
+body
+{
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+header
+{
+    background-color: #1b1b1b;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-content: center;
+    align-items: center;
+
+    height: 9vh;
+    padding-left: 4%;
+    padding-right: 4%;
+}
+
+.h-logo
+{
+    height: 40px;    
+}
+
+div.header-links
+{
+    width: 120px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+button.hl-icon
+{
+    background: none;
+    border: none;
+}
+
+button.hl-icon svg
+{
+    fill: #dedede !important;
+    background: none !important;
+}
+
+button.hl-icon svg:hover,
+button.hl-icon svg:focus,
+button.hl-icon svg:active
+{
+    transition: 0.2s;
+    -o-transition: 0.2s;
+    -moz-transition: 0.2s;
+    cursor: pointer;
+    fill: #a0a0a0 !important;
+    background: none !important;
+}
+
+@media only screen and (max-width: 768px) 
+{
+    header
+    {
+        height: 55px;
+    }
+
+    .h-logo
+    {
+        height: 35px;    
+    }
+
+    div.header-links
+    {
+        width: 100px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+}

@@ -1,0 +1,471 @@
+.modal-background {    
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+    backdrop-filter: blur(1px); 
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* couleur de fond assombri */
+}
+  
+.modal {
+    position: relative;
+    box-sizing: border-box;
+    border: 2px solid rgb(47, 47, 47) ;
+    border-radius: 5px;
+}
+
+.close-modal
+{
+    box-sizing: border-box;
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: rgb(221, 221, 221);
+    background: none;
+    border: none;
+    border: 1.5px solid #2b2b2b00;
+
+    border-bottom-left-radius: 4px;
+    font-size: 20px;
+    font-weight: 400;
+    height: 30px;
+    width: 30px;
+}
+
+.close-modal:hover,
+.close-modal:active,
+.close-modal:focus
+{
+    cursor: pointer;
+    transition: 0.2s;
+    -o-transition: 0.2s;
+    -moz-transition: 0.2s;
+    box-sizing: border-box;
+    border: 1.5px solid #2b2b2b;
+}
+
+/* Search suggestion answer */
+
+#searchModal {
+    display: none;
+    flex-direction: column;
+    background-color: #161616;
+    width: 40%;
+    max-width: 450px;
+    min-width: 300px;
+    padding: 25px 0px 0px 0px;
+}
+
+div.search-bar
+{
+    box-sizing: border-box;
+    width: 100%;
+    padding: 0px 30px 0px 20px;
+}
+
+input.search
+{
+    font-family: "Inknut Antiqua", serif;
+    background-color: #202020;
+    color: #979797;
+    border: none;
+    border-radius: 20px;
+    box-sizing: border-box;
+
+    width: 100%;
+    height: 45px;
+    padding: 5px 20px;
+}
+
+input:hover,
+input:focus,
+input:active,
+textarea:hover,
+textarea:focus,
+textarea:active
+{
+    outline: none !important;
+}
+
+div.suggestions
+{
+    display: flex;
+    flex-direction: column;
+
+    margin-top: 25px;
+    max-height: 60vh;
+    /* overflow-y: scroll; */
+}
+
+span.single-suggestion
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1b1b1b;
+    border-bottom: 2px solid rgb(20, 20, 20);
+
+    padding: 5px 25px;
+}
+
+
+span.single-suggestion p
+{
+    color: #bebebe;
+    padding-right: 10px;
+    font-size: 17px;
+    font-family: "Rubik", serif;
+}
+
+span.single-suggestion button
+{
+    font-family: "Inknut Antiqua", serif;
+    color: white;
+    background-color: #558c57;
+    border: none;
+    border-radius: 3px;
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.1);
+
+    font-size: 12px;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    height: 35px;
+    font-weight: 500;
+    line-height: 22px;
+}
+
+span.single-suggestion button:hover,
+span.single-suggestion button:active,
+span.single-suggestion button:focus
+{
+    transition: 0.2s;
+    -o-transition: 0.2s;
+    -moz-transition: 0.2s;
+    cursor: pointer;
+    background-color: #487349;
+}
+
+@media only screen and (max-width: 768px) 
+{
+    span.single-suggestion
+    {
+        padding: 5px 20px;
+    }
+
+    span.single-suggestion p {
+        font-size: 14px;
+        padding-right: 6px;
+    }
+
+    span.single-suggestion button
+    {
+        padding: 5px 12px;
+        height: 34px;
+        font-size: 11px;
+    }
+}
+
+/* Rules */
+
+#rulesModal {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    background-color: #161616;
+    width: 60%;
+    max-width: 600px;
+    min-width: 320px;
+    padding: 10px 25px 30px 25px;
+    color: rgb(220, 220, 220);
+}
+
+h3
+{
+    box-sizing: border-box;
+    width: 100%;
+    text-align: left;
+    margin: 5px 0px -10px 0px; 
+    font-size: 26px;
+    font-weight: 700;
+    font-family: "Inknut Antiqua", serif;
+}
+
+div.rules-text
+{
+    font-family: "Rubik", serif;
+    font-weight: 100;
+    font-size: 14px;
+    line-height: 22px;
+    max-height: 65vh;
+    overflow-y: scroll;
+}
+
+div.rules-text strong
+{
+    font-size: 16px;
+    font-weight: 500;
+}
+
+#rulesModal button.play
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: "Inknut Antiqua", serif;
+    color: white;
+    background-color: #558c57;
+    border: none;
+    border-radius: 3px;
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+    margin-top: 15px;
+    margin-bottom: 5px;
+
+    font-size: 16px;
+    width: 220px;
+    text-transform: uppercase;
+    padding: 14px 20px;
+    height: 50px;
+    font-weight: 700;
+}
+
+#rulesModal button.play:hover,
+#rulesModal button.play:active,
+#rulesModal button.play:focus
+{
+    transition: 0.2s;
+    -o-transition: 0.2s;
+    -moz-transition: 0.2s;
+    cursor: pointer;
+    background-color: #487349;
+}
+
+/* Feedback */
+
+#feedbackModal {
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    background-color: #161616;
+    width: 40%;
+    max-width: 400px;
+    min-width: 320px;
+    padding: 10px 25px 30px 25px;
+    color: rgb(220, 220, 220);
+}
+
+.feedback-text
+{
+    margin-top: 5px;
+    font-weight: 100;
+    font-size: 13px;
+    line-height: 20px;
+    font-family: "Rubik", serif;
+}
+
+.feedback-form
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    font-family: "Rubik", serif;
+}
+
+.feedback-form label
+{
+    width: 100%;
+    text-align: left;
+    font-size: 13px;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.feedback-form input[type=text],
+.feedback-form input[type=email],
+.feedback-form textarea
+{
+    color: rgb(214, 214, 214);
+    box-sizing: border-box;
+    border: 1px solid rgb(103, 103, 103);
+    background: none;
+    border-radius: 1px;
+    padding: 5px 15px;
+    width: 100%;
+
+    height: 40px;
+}
+
+.feedback-form textarea
+{
+    padding-top: 15px ;
+    height: 15vh;
+}
+
+.feedback-form .send
+{
+    display: flex;
+    align-self: flex-end;
+    font-family: "Inknut Antiqua", serif;
+    color: white;
+    background-color: #55628c;
+    border: none;
+    border-radius: 3px;
+    text-shadow: 0px 2px 2px rgba(0, 0, 0, 0.2);
+    margin-top: 25px;
+    margin-bottom: 5px;
+
+    font-size: 13px;
+    font-weight: 700;
+    line-height: 20px;
+    width: 100px;
+    text-transform: uppercase;
+    padding: 10px 14px;
+    height: 40px;
+}
+
+.feedback-form .send:hover,
+.feedback-form .send:active,
+.feedback-form .send:focus
+{
+    transition: 0.2s;
+    -o-transition: 0.2s;
+    -moz-transition: 0.2s;
+    cursor: pointer;
+    background-color: #374162;
+}
+
+/* Statistics  */
+
+#statsModal {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    background-color: #161616;
+    width: 50%;
+    max-width: 450px;
+    min-width: 350px;
+    padding: 10px 25px 30px 25px;
+    color: rgb(220, 220, 220);
+}
+
+.statsModal-text
+{
+    width: 100%;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-weight: 100;
+    font-size: 13px;
+    line-height: 20px;
+    font-family: "Rubik", serif;
+    text-align: center;
+}
+
+.smt1
+{
+    margin-top: 0px;
+    font-size: 15px;
+}
+
+.smt2
+{
+    font-family: "Inkut Antiqua", serif;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.boxes-container
+{
+    padding-top: 20px;
+    border-top: 1.5px solid rgb(39, 39, 39);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#statsModal .box
+{
+    font-family: 'Rubik', serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgb(30, 30, 30);
+    border-radius: 5px;
+    height: 100px;
+    width: 90px;
+    margin: 10px;
+    transition: 0.2s;
+    -o-transition: 0.2s;
+    -moz-transition: 0.2s;
+}
+
+.scale
+{
+    transform: scale(1.1);
+    margin: auto 10px;
+}
+
+.box:hover
+{
+    transition: 0.2s;
+    -o-transition: 0.2s;
+    -moz-transition: 0.2s;
+    transform: scale(1.15);
+}
+
+#statsModal p.stats-value 
+{
+    display: block;
+    margin: 0;
+    font-size: 20px;
+    font-weight: 600;
+    color: #d3c56b;
+}
+
+#statsModal label 
+{
+    margin-top: 8px;
+    font-size: 11px;
+    font-weight: 300;
+    color: #cfcfcf;
+    text-align: center;
+}
+
+
+@media only screen and (max-width: 768px) 
+{
+    #statsModal{
+        min-width: 310px;
+    }
+
+    #statsModal .box
+    {
+        width: 80px;
+        height: 90px;
+        margin: 6px;
+    }
+
+    #statsModal p.stats-value
+    {
+        font-size: 18px;
+    }
+
+    #statsModal label {
+        font-size: 10px;
+    }
+}

@@ -202,7 +202,7 @@ input.answer:active
     }
 
     .answer-block {
-        min-width: 250px;
+        min-width: 270px;
     }
 
     input.answer {
@@ -213,7 +213,7 @@ input.answer:active
 
     .point
     {
-        margin-left: 8px;
+        margin-left: 12px;
         min-width: 45px;
         height: 44px;
         font-size: 18px;

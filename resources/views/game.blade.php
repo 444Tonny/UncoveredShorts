@@ -43,7 +43,7 @@
         <div class="game-block">
           <div class="question-block">
             <span class="numero">Q1</span>
-            <h2 class="question">Name a global city with a major ($1 trillion market market cap or greater) stock exchange ?</h2>
+            <h2 class="question">Name a global city with a major stock exchange ?</h2>
             <div class="answer-block">
               <input class='answer' type="text" name="answer" value='TOKYO' placeholder='ANSWER HERE...' readonly>
               <span class='point point-set'>90</span>

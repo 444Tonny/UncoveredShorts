@@ -8,10 +8,11 @@
    
  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Uncovered Shorts</title>
-
-    <link rel="stylesheet" href="{{ asset('css/header.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/game.css') }}">
-    <link rel="stylesheet" href="{{ asset('css/modal.css') }}">
+    
+    <link rel="stylesheet" href="{{ asset('css/header.css') }}?t={{ time() }}">
+    <link rel="stylesheet" href="{{ asset('css/game.css') }}?t={{ time() }}">
+    <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t={{ time() }}">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300;400;500;600;700;800;900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">

@@ -382,7 +382,7 @@ div.rules-text strong
 .smt1
 {
     margin-top: 0px;
-    font-size: 15px;
+    font-size: 16px;
 }
 
 .smt2
@@ -466,6 +466,6 @@ div.rules-text strong
     }
 
     #statsModal label {
-        font-size: 13px;
+        font-size: 14px;
     }
 }

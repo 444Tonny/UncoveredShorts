@@ -63,8 +63,9 @@ button.hl-icon svg:active
     header
     {
         height: 55px;
-        padding-left: 18px;
-        padding-right: 18px;
+        padding-left: 4%;
+        padding-right: 6%;
+        overflow: hidden;
     }
 
     .h-logo

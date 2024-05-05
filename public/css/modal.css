@@ -350,7 +350,7 @@ div.rules-text strong
 /* Statistics  */
 
 #statsModal {
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-content: center;

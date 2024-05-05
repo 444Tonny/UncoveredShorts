@@ -18,10 +18,10 @@ body
     align-items: center;
     align-content: center;
 
-    min-height: 83vh;
+    min-height: 80vh;
     max-height: fit-content;
     padding-bottom: 1vh;
-    padding-top: 1vh;
+    padding-top: 0.5vh;
 }
 
 .game-block

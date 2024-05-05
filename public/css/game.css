@@ -111,6 +111,7 @@ h2.question
 
 input.answer
 {
+    box-sizing: border-box;
     overflow: hidden;
     display: flex;    
     width: 100%;

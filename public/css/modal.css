@@ -51,6 +51,8 @@
 /* Search suggestion answer */
 
 #searchModal {
+    position: absolute;
+    top: 50px;
     display: none;
     flex-direction: column;
     background-color: #161616;
@@ -99,7 +101,7 @@ div.suggestions
 
     margin-top: 25px;
     max-height: 60vh;
-    /* overflow-y: scroll; */
+    overflow-y: scroll; 
 }
 
 span.single-suggestion
@@ -189,7 +191,7 @@ span.single-suggestion button:focus
     width: 60%;
     max-width: 600px;
     min-width: 340px;
-    padding: 10px 25px 30px 25px;
+    padding: 5px 18px 12px 22px;
     color: rgb(220, 220, 220);
 }
 
@@ -208,10 +210,15 @@ div.rules-text
 {
     font-family: "Rubik", serif;
     font-weight: 100;
-    font-size: 16px;
+    font-size: 14.5px;
     line-height: 22px;
     max-height: 65vh;
     overflow-y: scroll;
+}
+
+div.rules-text p
+{
+    margin-top: 10px;
 }
 
 div.rules-text strong
@@ -319,7 +326,7 @@ div.rules-text strong
 {
     resize: none;
     padding-top: 15px ;
-    height: 15vh;
+    height: 21vh;
 }
 
 .feedback-form .send
@@ -422,12 +429,6 @@ div.rules-text strong
     transition: 0.2s;
     -o-transition: 0.2s;
     -moz-transition: 0.2s;
-}
-
-.scale
-{
-    transform: scale(1.1);
-    margin: auto 10px;
 }
 
 .box:hover

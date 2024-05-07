@@ -45,8 +45,8 @@
             <span class="numero">Q1</span>
             <h2 class="question">Name a global city with a major stock exchange ?</h2>
             <div class="answer-block">
-              <input class='answer' type="text" name="answer" value='TOKYO' placeholder='ANSWER HERE...' readonly>
-              <span class='point point-set'>90</span>
+              <input id='us-ipt1' onclick="displaySuggestions(suggestions1), openModalById('searchModal')"  class='answer' type="text" name="answer" value='TOKYO' placeholder='ANSWER HERE...' readonly>
+              <span id='us-pts1' class='point point-set'>90</span>
             </div>
           </div>
 
@@ -54,8 +54,8 @@
             <span class="numero">Q2</span>
             <h2 class="question">Name a company with a single letter stock ticker ?</h2>
             <div class="answer-block">
-              <input onclick=openModalById('searchModal') class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
-              <span class='point point-unset'>-</span>
+              <input id='us-ipt2' onclick="displaySuggestions(suggestions2), openModalById('searchModal')" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
+              <span id='us-pts2' class='point point-unset'>-</span>
             </div>
           </div>
 
@@ -63,8 +63,8 @@
             <span class="numero">Q3</span>
             <h2 class="question">Name the shortest tenured company in the DJIA?</h2>
             <div class="answer-block">
-              <input class='answer' type="text" name="answer" value='CITIGROUP' placeholder='ANSWER HERE...' readonly>
-              <span class='point point-set'>90</span>
+              <input id='us-ipt3' onclick="displaySuggestions(suggestions3), openModalById('searchModal')" class='answer' type="text" name="answer" value='CITIGROUP' placeholder='ANSWER HERE...' readonly>
+              <span id='us-pts3' class='point point-set'>90</span>
             </div>
           </div>
 
@@ -72,8 +72,8 @@
             <span class="numero">Q4</span>
             <h2 class="question">Name the largest company by market cap in Germany?</h2>
             <div class="answer-block">
-              <input class='answer' type="text" name="answer" value='SAP SE' placeholder='ANSWER HERE...' readonly>
-              <span class='point point-set'>90</span>
+              <input id='us-ipt4' onclick="displaySuggestions(suggestions4), openModalById('searchModal')" class='answer' type="text" name="answer" value='SAP SE' placeholder='ANSWER HERE...' readonly>
+              <span id='us-pts4' class='point point-set'>90</span>
             </div>
           </div>
         </div>
@@ -88,31 +88,55 @@
       <div class="modal" id="searchModal">
         <button class="close-modal" onclick=closeModalById('searchModal')>×</button>
         <div class="search-bar">
-          <input type="text" class='search' name="" id="" placeholder="Type here...">
+          <input id="us-search" type="text" class='search' oninput="filterSuggestions(this.value)" placeholder="Type here...">
         </div>
-        <div class="suggestions">
+        <div id="suggestions" class="suggestions">
           <span class="single-suggestion">
-            <p>Argentina</p>
-            <button>Select</button>
-          </span>
-          <span class="single-suggestion">
-            <p>Albania</p>
-            <button>Select</button>
-          </span>
-          <span class="single-suggestion">
-            <p>Andorre</p>
-            <button>Select</button>
-          </span>
-          <span class="single-suggestion">
-            <p>Armenia</p>
-            <button>Select</button>
-          </span>
-          <span class="single-suggestion">
-            <p>Angola</p>
+            <p>-</p>
             <button>Select</button>
           </span>
         </div>
       </div>
+
+      <script>
+        var suggestions1 = {!! $suggestions1 !!};
+        var suggestions2 = {!! $suggestions2 !!};
+        var suggestions3 = {!! $suggestions3 !!};
+        var suggestions4 = {!! $suggestions4 !!};
+
+        // Utiliser les données dans votre script JavaScript
+
+        function displaySuggestions(suggestions) 
+        {
+          var suggestionsContainer = document.getElementById('suggestions');
+          var searchInput = document.getElementById('us-search');
+          suggestionsContainer.innerHTML = '';
+          searchInput.value = '';
+
+          suggestions.forEach(function(suggestion) {
+              var span = document.createElement('span');
+              span.className = 'single-suggestion';
+              span.innerHTML = '<p>' + suggestion + '</p><button>Select</button>';
+              suggestionsContainer.appendChild(span);
+          });
+        }
+        
+        function filterSuggestions(searchTerm) {
+            var suggestionsContainer = document.getElementById('suggestions');
+            var suggestions = suggestionsContainer.getElementsByClassName('single-suggestion');
+
+            Array.from(suggestions).forEach(function(suggestion) {
+                var text = suggestion.querySelector('p').innerText.toLowerCase();
+                if (text.includes(searchTerm.toLowerCase())) {
+                    suggestion.style.display = 'flex';
+                    hasResults = true; 
+                } else {
+                    suggestion.style.display = 'none';
+                }
+            })
+        }
+
+      </script>
 
       <!-- Rules modal -->
       <div class="modal" id="rulesModal">

@@ -1,0 +1,146 @@
+/* row */
+
+.spacing
+{
+    display: block;
+    height: 40px;
+}
+
+.row
+{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+}
+
+
+/* Style de base du tableau - Table */
+.admin-content table {
+    width: 100%;
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.admin-content table thead{
+    border-top: 1px solid lightgray;
+}
+
+.admin-content tr:nth-child(even) {background-color: #f5f5f5;}
+
+.admin-content th,
+.admin-content td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+    font-size: 0.9em;
+}
+
+/* Style buttons actions */
+.admin-content td a,
+.admin-content td button {
+    padding: 8px 18px;
+    text-decoration: none;
+    font-weight: 600;
+    color: #333;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+}
+
+.admin-content td a:hover,
+.admin-content td button:hover {
+    transition: 0.2s;
+    cursor: pointer;
+    filter: grayscale(0.4);
+}
+
+/* Media queries pour les appareils mobiles */
+@media only screen and (max-width: 600px) {
+    .admin-content th,
+    .admin-content td {
+        padding: 6px;
+    }
+
+    .admin-content td a,
+    .admin-content td button {
+        padding: 8px 12px;
+        font-size: 0.8em;
+    }
+}
+
+/* Status */
+
+.game-status
+{
+    display: block;
+    text-align: center;
+    padding: 6px 10px;
+    border-radius: 8px;
+    max-width: 110px;
+}
+
+.current
+{
+    border: 1px solid #ffd062;
+    background: #fff4c7;
+    color: #c89656;
+}
+
+.finished{
+    border: 1px solid #d1d1d1;
+    background: #e8e8e8;
+    color: #585858;
+}
+
+.ready
+{
+    border: 1px solid #bcffbc;
+    background: #e5ffe5;
+    color: #286220;
+}
+
+.unset
+{
+    border: 1px solid #faa;
+    background: #ffbdbd;
+    color: #d54d4d;
+}
+
+/* Buttons */
+
+.center
+{
+    text-align: center !important;
+}
+
+.center-buttons{
+    padding-top: 22px !important;
+    text-align: center !important;
+    padding: 10px auto;
+}
+
+.center-buttons form
+{
+    margin-top: 17px;
+    margin-bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+}
+
+.edit
+{
+    border: none !important;
+    background-color: #395f95 !important;
+    color: rgb(255, 255, 255) !important;
+}
+
+.delete
+{
+    border: none !important;
+    background-color: #DF1A56 !important;
+    color: white !important;
+    max-width: 80px;
+}

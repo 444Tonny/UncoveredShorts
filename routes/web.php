@@ -13,10 +13,19 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('game');
+/* Public */
+Route::get('/', [App\Http\Controllers\GameController::class, 'index'])->name('index');
+
+Route::prefix('admin')->group(function () {
+    Auth::routes();
+
+    Route::middleware('auth')->group(function () {
+        Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('home');
+        Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+    });
+    
+    Route::resource('games', \App\Http\Controllers\Admin\GameController::class);
+    
+    Route::resource('questions', \App\Http\Controllers\Admin\QuestionController::class);
 });
 
-Auth::routes();
-
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

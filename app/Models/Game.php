@@ -12,6 +12,7 @@ class Game extends Model
     protected $table = 'games';
 
     protected $fillable = [
+        'status',
         'date_start',
         'date_end',
     ];

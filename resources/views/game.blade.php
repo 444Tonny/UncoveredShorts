@@ -43,44 +43,44 @@
         <div class="game-block">
           <div class="question-block">
             <span class="numero">Q1</span>
-            <h2 class="question">Name a global city with a major stock exchange ?</h2>
+            <h2 class="question">{{ $questions[0]->value }}</h2>
             <div class="answer-block">
-              <input id='us-ipt1' onclick="displaySuggestions(suggestions1), openModalById('searchModal')"  class='answer' type="text" name="answer" value='TOKYO' placeholder='ANSWER HERE...' readonly>
-              <span id='us-pts1' class='point point-set'>90</span>
+              <input id='us-ipt1' onclick="displaySuggestions(suggestions1), openModalById('searchModal')"  class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
+              <span id='us-pts1' class='points'>-</span>
             </div>
           </div>
 
           <div class="question-block">
             <span class="numero">Q2</span>
-            <h2 class="question">Name a company with a single letter stock ticker ?</h2>
+            <h2 class="question">{{ $questions[1]->value }}</h2>
             <div class="answer-block">
               <input id='us-ipt2' onclick="displaySuggestions(suggestions2), openModalById('searchModal')" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
-              <span id='us-pts2' class='point point-unset'>-</span>
+              <span id='us-pts2' class='points'>-</span>
             </div>
           </div>
 
           <div class="question-block">
             <span class="numero">Q3</span>
-            <h2 class="question">Name the shortest tenured company in the DJIA?</h2>
+            <h2 class="question">{{ $questions[2]->value }}</h2>
             <div class="answer-block">
-              <input id='us-ipt3' onclick="displaySuggestions(suggestions3), openModalById('searchModal')" class='answer' type="text" name="answer" value='CITIGROUP' placeholder='ANSWER HERE...' readonly>
-              <span id='us-pts3' class='point point-set'>90</span>
+              <input id='us-ipt3' onclick="setActivePlayerInput('us-ipt3'), displaySuggestions(suggestions3), openModalById('searchModal')" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
+              <span id='us-pts3' class='points'>-</span>
             </div>
           </div>
 
           <div class="question-block">
             <span class="numero">Q4</span>
-            <h2 class="question">Name the largest company by market cap in Germany?</h2>
+            <h2 class="question">{{ $questions[3]->value }}</h2>
             <div class="answer-block">
-              <input id='us-ipt4' onclick="displaySuggestions(suggestions4), openModalById('searchModal')" class='answer' type="text" name="answer" value='SAP SE' placeholder='ANSWER HERE...' readonly>
-              <span id='us-pts4' class='point point-set'>90</span>
+              <input id='us-ipt4' onclick="setActivePlayerInput('us-ipt4'), displaySuggestions(suggestions4), openModalById('searchModal')" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
+              <span id='us-pts4' class='points'>-</span>
             </div>
           </div>
         </div>
       </div>
     </main>
 
-    <!-- Windows -->
+    <!-- Windows --> 
 
     <div class="modal-background" id="modalBackground">
 
@@ -103,8 +103,22 @@
         var suggestions2 = {!! $suggestions2 !!};
         var suggestions3 = {!! $suggestions3 !!};
         var suggestions4 = {!! $suggestions4 !!};
+        
+        var rankedAnswers3 = {!! $rankedAnswers3 !!};
+        var rankedAnswers4 = {!! $rankedAnswers4 !!};
 
-        // Utiliser les données dans votre script JavaScript
+        var activePlayerInput;
+
+        // Remove inputs value
+        for (let index = 1; index <= 4; index++) {
+          const inputElement = document.getElementById('us-ipt'+index);
+          inputElement.value = '';
+        }
+
+        function setActivePlayerInput(idinput) 
+        { 
+          activePlayerInput = idinput; 
+        }
 
         function displaySuggestions(suggestions) 
         {
@@ -116,11 +130,49 @@
           suggestions.forEach(function(suggestion) {
               var span = document.createElement('span');
               span.className = 'single-suggestion';
-              span.innerHTML = '<p>' + suggestion + '</p><button>Select</button>';
+              span.innerHTML = '<p>' + suggestion + '</p><button onclick=selectSuggestion(event) data-value="'+ suggestion +'" data-inputTargetId="'+ activePlayerInput +'" class="selectButton">Select</button>';
               suggestionsContainer.appendChild(span);
           });
         }
+
+        /* Select answer , show points and siable input onclick*/
+        function selectSuggestion(event) 
+        {
+          var inputTargetId = event.target.getAttribute('data-inputTargetId');
+          var inputTarget = document.getElementById(inputTargetId);
+
+          let valueSelected = event.target.getAttribute('data-value');
+
+          inputTarget.value = valueSelected;
+          inputTarget.readOnly = true;
+          
+          // Calculate and display point 
+          let playerPoints;
+          let idEnding = inputTargetId.charAt(inputTargetId.length - 1);
+          let pointContainer = document.getElementById('us-pts'+idEnding);
+
+          switch (idEnding) {
+            case '3': 
+              playerPoints = calculateRankedPoints(rankedAnswers3, valueSelected);
+              break;
+            case '4':
+              playerPoints = calculateRankedPoints(rankedAnswers4, valueSelected);
+              break;
+          }
+          let roundedPoints = Math.round(playerPoints / 5) * 5;
+          pointContainer.innerHTML = '' + playerPoints;
+          pointContainer.classList.add('points-set');
+          pointContainer.classList.add('points-' + roundedPoints);
+
+          // disable onclick
+          inputTarget.removeAttribute('onclick');
+
+          // Hide modal
+          document.getElementById('searchModal').style.display = 'none';
+          document.getElementById('modalBackground').style.display = 'none';
+        }
         
+        /* Search */
         function filterSuggestions(searchTerm) {
             var suggestionsContainer = document.getElementById('suggestions');
             var suggestions = suggestionsContainer.getElementsByClassName('single-suggestion');

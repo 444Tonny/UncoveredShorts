@@ -20,4 +20,9 @@ class Question extends Model
     ];
 
     public $timestamps = true;
+
+    public function scopeByGameId($query, $gameId)
+    {
+        return $query->where('game_id', $gameId)->orderBy('number');
+    }
 }

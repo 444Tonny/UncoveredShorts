@@ -31,8 +31,8 @@
                                 <td>
                                     <span class='game-status {{ $game->status }}'> {{ $game->status }} </span>
                                 </td>
-                                <td>{{ $game->date_start }}</td>
-                                <td>{{ $game->date_end }}</td>
+                                <td>{!! date('d-m-Y', strtotime($game->date_start)) !!} <br> {!! date('H:i', strtotime($game->date_start)) !!}</td>
+                                <td>{!! date('d-m-Y', strtotime($game->date_end)) !!} <br> {!! date('H:i', strtotime($game->date_start)) !!}</td>
                                 <td class='center-buttons'>
                                     <a href="{{ route('games.edit', $game->id) }}" class='edit'>Edit</a>
                                     <form action="{{ route('games.destroy', $game->id) }}" method="POST">

@@ -7,6 +7,8 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('css/admin/index.css') }}?t={{ time() }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/admin/buttons.css') }}?t={{ time() }}">
     <link rel="stylesheet" type="text/css" href="{{ asset('css/admin/forms.css') }}?t={{ time() }}">
+
+    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
 </head>
 <body>
     @include('admin.sidebar')

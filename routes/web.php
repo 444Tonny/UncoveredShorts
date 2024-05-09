@@ -24,8 +24,17 @@ Route::prefix('admin')->group(function () {
         Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
     });
     
-    Route::resource('games', \App\Http\Controllers\Admin\GameController::class);
+    Route::resource('games', \App\Http\Controllers\Admin\AdminGameController::class);
     
     Route::resource('questions', \App\Http\Controllers\Admin\QuestionController::class);
+
+    Route::resource('ranked-answers', \App\Http\Controllers\Admin\RankedAnswerController::class);
+    Route::get('questions/{question}/ranked-answers', '\App\Http\Controllers\Admin\RankedAnswerController@show')->name('ranked-answers.show');
+    Route::put('questions/{question}/ranked-answers/update-all', '\App\Http\Controllers\Admin\RankedAnswerController@updateAll')->name('ranked-answers.updateAll');
+
+    Route::resource('unique-answers', \App\Http\Controllers\Admin\UniqueAnswerController::class);
+    Route::get('questions/{question}/unique-answers', '\App\Http\Controllers\Admin\UniqueAnswerController@show')->name('unique-answers.show');
+    Route::put('questions/{question}/unique-answers/update-all', '\App\Http\Controllers\Admin\UniqueAnswerController@updateAll')->name('unique-answers.updateAll');
+
 });
 

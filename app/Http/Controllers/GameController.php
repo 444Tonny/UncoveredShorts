@@ -3,8 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Google\Client;
-use Google\Service\Sheets;
+
+use App\Models\Game; 
+use App\Models\Question; 
+use App\Models\RankedAnswer;
+use App\Models\UniqueAnswer; 
 
 class GameController extends Controller
 {
@@ -29,35 +32,18 @@ class GameController extends Controller
      */
     public function index()
     {
-        $suggestions1 = $this->getDataFromSheet('1_unmigukw3Ff5ljnRfoF1FR_sFiKK5A3FIEaSvmDFjI', 'CountrySheet');
-        $suggestions2 = $this->getDataFromSheet('1_unmigukw3Ff5ljnRfoF1FR_sFiKK5A3FIEaSvmDFjI', 'FruitSheet');
-        $suggestions3 = $this->getDataFromSheet('1_unmigukw3Ff5ljnRfoF1FR_sFiKK5A3FIEaSvmDFjI', 'ColorSheet');
-        $suggestions4 = $this->getDataFromSheet('1_unmigukw3Ff5ljnRfoF1FR_sFiKK5A3FIEaSvmDFjI', 'BrandSheet');
+        $currentGame = Game::getCurrentGame();
 
-        return view('game', compact('suggestions1', 'suggestions2', 'suggestions3', 'suggestions4'));
-    }
+        $questions = Question::byGameId($currentGame->id)->get();
 
+        $suggestions1 = Game::getDataFromSheet($questions[0]['sheet_url']);
+        $suggestions2 = Game::getDataFromSheet($questions[1]['sheet_url']);
+        $suggestions3 = Game::getDataFromSheet($questions[2]['sheet_url']);
+        $suggestions4 = Game::getDataFromSheet($questions[3]['sheet_url']);
 
-    /* retrieve data from google sheet */
-    public function getDataFromSheet($sheetID = '1_unmigukw3Ff5ljnRfoF1FR_sFiKK5A3FIEaSvmDFjI', $sheetName = 'CountrySheet')
-    {
-        $client = new Client();
-        $client->setDeveloperKey('AIzaSyBrqQUbKt4cmtAd_fWKJKag3v8TWnxZNhI');
-        $client->setApplicationName('Your Application Name');
-        $client->setScopes([Sheets::SPREADSHEETS_READONLY]);
-        $client->setAuthConfig(base_path('secret.json'));
+        $rankedAnswers3 = RankedAnswer::getAnswersByQuestionId($questions[2]->id);
+        $rankedAnswers4 = RankedAnswer::getAnswersByQuestionId($questions[3]->id);
 
-        $service = new Sheets($client);
-
-        $spreadsheetId = $sheetID;
-
-        $range = $sheetName.'!A:A';
-
-        $response = $service->spreadsheets_values->get($spreadsheetId, $range);
-        $values = $response->getValues();
-
-        $suggestions = array_map('current', $values);
-
-        return json_encode($suggestions);
+        return view('game', compact('questions', 'suggestions1', 'suggestions2', 'suggestions3', 'suggestions4', 'rankedAnswers3', 'rankedAnswers4'));
     }
 }

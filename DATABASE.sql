@@ -109,4 +109,5 @@ CREATE TABLE `colors_gradient` (
 --- php artisan make:model GamePlayed
 --- php artisan make:model ColorGradient
 
-
+ALTER TABLE games
+ADD COLUMN name VARCHAR(255);

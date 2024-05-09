@@ -64,7 +64,7 @@ body {
 }
 
 .logout {
-    margin-top: auto;
+    /* margin-top: auto; */
 }
 
 #pgside a.current {
@@ -121,6 +121,7 @@ h3
 @media screen and (max-width:768px) {
     #pgside {
         width: 70px;
+        height: 100%;
     }
 
     #pgside #pguser {

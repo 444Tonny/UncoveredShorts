@@ -18,4 +18,9 @@ class UniqueAnswer extends Model
     ];
 
     public $timestamps = true;
+
+    public static function getAnswersByQuestionId($questionId)
+    {
+        return self::where('question_id', $questionId)->orderBy('percentage')->get();
+    }
 }

@@ -38,7 +38,7 @@
 
         @foreach($games as $game)
           <div class="list-row">
-            <span class="date">{{ $game->date_game }}</span>
+            <span class="date">what</span>
             <span class="status {{ strtolower($game->status) }}">{{ strtoupper($game->status) }}</span>
             <span class="stats">
               <a class='stats-btn' href="{{ route('gameStatistics', ['id' => $game->id_games]) }}">

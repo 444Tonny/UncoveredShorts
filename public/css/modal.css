@@ -170,8 +170,8 @@ span.single-suggestion button:focus
     span.single-suggestion button
     {
         padding: 5px 12px;
-        height: 34px;
-        font-size: 11px;
+        height: 38px;
+        font-size: 12px;
     }
 
     .input-search
@@ -262,13 +262,14 @@ div.go-buttons button
     transition: 0.2s;
     -o-transition: 0.2s;
     -moz-transition: 0.2s;
+    font-size: 15px;
 }
 
 div.go-buttons button:hover,
 div.go-buttons button:active,
 div.go-buttons button:focus
 {
-    font-size: 15px;
+    font-size: 16px;
     transition: 0.2s;
     -o-transition: 0.2s;
     -moz-transition: 0.2s;

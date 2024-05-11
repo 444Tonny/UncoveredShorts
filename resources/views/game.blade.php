@@ -309,7 +309,7 @@
         </div>
       </div>
     
-    <script src="{{ asset('js/game.js') }}"></script>
+    <script src="{{ asset('js/game.js') }}?t={{ time() }}"></script>
 
   </body>
 

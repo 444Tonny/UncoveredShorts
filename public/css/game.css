@@ -224,15 +224,15 @@ input.answer:active
 
     input.answer {
         padding: 12px 10px;
-        font-size: 15px;
-        height: 44px;
+        font-size: 16px;
+        height: 48px;
     }
 
     .points
     {
         margin-left: 12px;
-        min-width: 45px;
-        height: 44px;
-        font-size: 16px;
+        min-width: 49px;
+        height: 48px;
+        font-size: 17px;
     }
 }

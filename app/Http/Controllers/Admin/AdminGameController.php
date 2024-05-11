@@ -120,6 +120,10 @@ class AdminGameController extends Controller
 
     public function destroy(Game $game)
     {
+        if (Game::count() <= 1) {
+            return redirect()->back()->with('error', 'You need at least 1 game.');
+        }
+
         // Récupérer toutes les questions associées à la Game
         $questions = Question::where('game_id', $game->id)->get();
 

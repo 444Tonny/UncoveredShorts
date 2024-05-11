@@ -24,8 +24,7 @@ Route::prefix('admin')->group(function () {
     Auth::routes();
 
     Route::middleware('auth')->group(function () {
-        Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('home');
-        Route::get('/dashboard', [App\Http\Controllers\Admin\DashboardController::class, 'index'])->name('dashboard');
+        Route::get('/', [App\Http\Controllers\Admin\AdminGameController::class, 'index'])->name('home');
     
         Route::resource('games', \App\Http\Controllers\Admin\AdminGameController::class);
         Route::resource('questions', \App\Http\Controllers\Admin\QuestionController::class);
@@ -40,3 +39,7 @@ Route::prefix('admin')->group(function () {
     });
 });
 
+// 404 not found pages
+Route::fallback(function () {
+    return redirect()->route('index'); 
+});

@@ -69,6 +69,17 @@
     font-family: monospace;
 }
 
+td i
+{
+    font-weight: 100 !important;
+    font-style: normal;
+    font-family: monospace;
+  font-size: 17px;
+  color: #3a3a3a;
+  margin-top: 5px;
+  display: inline-block;
+}
+
 /* Media queries pour les appareils mobiles */
 @media only screen and (max-width: 600px) {
     .admin-content th,
@@ -147,7 +158,7 @@
 
 .edit
 {
-    border: rgb(34, 34, 34) solid 1.5px !important;
+    border: rgb(34, 34, 34) solid 1.2px !important;
     background-color: #ffffff !important;
     color: rgb(34, 34, 34) !important;
 }

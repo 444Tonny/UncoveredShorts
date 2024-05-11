@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 use App\Models\UniqueAnswer;
 use App\Models\Question;
@@ -69,26 +70,78 @@ class UniqueAnswerController extends Controller
 
     public function updateAll(Request $request, $questionId)
     {
+        // Verify inputs value
+        $validator = Validator::make($request->all(), [
+            'answers.*.percentage' => 'nullable|numeric', 
+            'answers.*.answer' => 'nullable|string',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
+
+
+        // Verify if sum = 100%
+        $totalPercentage = 0;
+
         foreach ($request->answers as $answerData) {
+            if ($answerData['percentage'] !== null) $totalPercentage += $answerData['percentage'];
+        }
 
-            $validator = Validator::make($answerData, [
-                'percentage' => 'required|numeric',
-                'answer' => 'required|string',
-            ]);
-            if ($validator->fails()) return redirect()->back()->withErrors($validator)->withInput();
+        if ($totalPercentage != 100) {
+            $validator->errors()->add('answers', 'The sum of percentages must be exactly equal to 100%');
+            return redirect()->back()->withErrors($validator)->withInput();
+        }
 
-            // Vérifier si le pourcentage ou la valeur est vide
-            if (empty($answerData['percentage']) || empty($answerData['answer'])) {
-                return redirect()->back()->with('error', 'Percentage and answer values are required');
+        // Delete old percentages and insert new for that questions
+        try {
+            DB::beginTransaction();
+          
+            // Delete previous answers for that questions
+            UniqueAnswer::where('question_id', $questionId)->delete();
+
+            // Insert new answers
+            $totalPercentage = 0;
+
+            foreach ($request->answers as $answerData) {
+
+                // Verify if any empty field
+                if (empty($answerData['percentage']) || empty($answerData['answer'])) 
+                { 
+                    // Even if other inputs are empty, if 100% commit, and don't show error message     
+                    if($totalPercentage == 100)
+                    {
+                        DB::commit();
+                        return redirect()->back()->with('success', 'Answers updated successfully');
+                    } 
+                    else
+                    {
+                        DB::rollBack();
+
+                        $validator->errors()->add('answers', 'Percentage and answer values are required');
+                        return redirect()->back()->withErrors($validator)->withInput();   
+                    }    
+                }
+        
+                $percentage = floatval($answerData['percentage']);
+
+                UniqueAnswer::updateOrCreate(
+                    ['question_id' => $questionId, 'value' => $answerData['answer']],
+                    ['percentage' => $percentage]
+                );
+                
+                $totalPercentage = $totalPercentage + $answerData['percentage'];
             }
-    
-            $uniqueAnswer = UniqueAnswer::updateOrCreate(
-                ['question_id' => $questionId, 'value' => $answerData['answer']],
-                ['percentage' => $answerData['percentage']]
-            );
+
+            DB::commit();
+        }
+        catch (\Exception $e) {
+            DB::rollback();
+            dd($e);
+            $validator->errors()->add('answers', 'An error occured : '.$e);
+            return redirect()->back()->withErrors($validator)->withInput();
         }
     
-        return redirect()->back()->with('success', 'Answers updated/created successfully');
+        return redirect()->back()->with('success', 'Answers updated successfully');
     }    
 
     /**

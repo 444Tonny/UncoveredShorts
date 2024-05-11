@@ -6,6 +6,12 @@
     height: 40px;
 }
 
+.spacing-20
+{
+    display: block;
+    height: 20px;
+}
+
 .row
 {
     width: 100%;
@@ -17,6 +23,7 @@
 /* Style de base du tableau - Table */
 .admin-content table {
     width: 100%;
+    min-width: 650px;
     border-collapse: collapse;
     border-spacing: 0;
 }
@@ -31,8 +38,9 @@
 .admin-content td {
     padding: 10px;
     text-align: left;
-    border-bottom: 1px solid #e4e4e4;
+    border-bottom: 1px solid #d4d4d4;
     font-size: 0.9em;
+    vertical-align: middle;
 }
 
 /* Style buttons actions */
@@ -52,6 +60,13 @@
     transition: 0.2s;
     cursor: pointer;
     filter: grayscale(0.4);
+}
+
+.admin-content td.point
+{
+    font-size: 24px;
+    font-weight: 100;
+    font-family: monospace;
 }
 
 /* Media queries pour les appareils mobiles */
@@ -132,9 +147,15 @@
 
 .edit
 {
-    border: none !important;
-    background-color: #395f95 !important;
-    color: rgb(255, 255, 255) !important;
+    border: rgb(34, 34, 34) solid 1.5px !important;
+    background-color: #ffffff !important;
+    color: rgb(34, 34, 34) !important;
+}
+
+.edit:hover
+{
+    background-color: rgb(34, 34, 34) !important;
+    color:  #ffffff !important;
 }
 
 .delete

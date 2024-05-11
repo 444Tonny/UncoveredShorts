@@ -111,3 +111,25 @@ CREATE TABLE `colors_gradient` (
 
 ALTER TABLE games
 ADD COLUMN name VARCHAR(255);
+
+ALTER TABLE unique_answers
+MODIFY COLUMN percentage DECIMAL(10, 1);
+
+ALTER TABLE games_played
+MODIFY COLUMN score_1 DECIMAL(10, 1);
+
+ALTER TABLE games_played
+MODIFY COLUMN score_2 DECIMAL(10, 1);
+
+ALTER TABLE games_played
+MODIFY COLUMN score_3 DECIMAL(10, 1);
+
+ALTER TABLE games_played
+MODIFY COLUMN score_4 DECIMAL(10, 1);
+
+ALTER TABLE games_played
+MODIFY COLUMN total_score DECIMAL(10, 1);
+
+
+ALTER TABLE unique_answers
+ADD COLUMN votes INTEGER DEFAULT 100;

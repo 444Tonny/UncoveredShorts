@@ -14,6 +14,9 @@ class AdminGameController extends Controller
 {
     public function index()
     {
+        // To update current game status
+        Game::getCurrentGame();
+
         $games = Game::all();
         return view('admin.games.index', compact('games'));
     }

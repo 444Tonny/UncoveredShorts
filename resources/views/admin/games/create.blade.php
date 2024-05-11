@@ -27,6 +27,9 @@
                 <form action="{{ route('games.store') }}" method="POST">
                     @csrf
 
+                    <button type="submit" class="primary-btn my-btn create"><b>+</b> Create</button>
+                    
+                    <div class="spacing"></div>
                     
                     <h3>Game informations</h3>
                     <div class="mywrapped-block">
@@ -55,16 +58,18 @@
 
                             <label for="type_{{ $i }}">Type</label>
                             <select name="questions[{{ $i }}][type]" id="type_{{ $i }}">
-                                <option value="unique" {{ old('questions.'.$i.'.type') == 'unique' ? 'selected' : '' }}>Unique</option>
-                                <option value="ranked" {{ old('questions.'.$i.'.type') == 'ranked' ? 'selected' : '' }}>Ranked</option>
-                            </select>                            
+                                @if ($i <= 2)
+                                <option value="unique" selected>Unique</option>
+                                @else
+                                <option value="ranked" selected>Ranked</option>
+                                @endif
+                            </select>                              
 
                             <label for="sheet_url_{{ $i }}">Answer suggestions (Google sheet)</label>
                             <input type="text" placeholder='Enter a sheet URL...' name="questions[{{ $i }}][sheet_url]" value="{{ old('questions.'.$i.'.sheet_url') }}" id="sheet_url_{{ $i }}">
                         </div>
                         @endfor
                     </div>
-                    <button type="submit" class=''>CREATE</button>
                 </form>
             </div>
             <div class="spacing"></div>

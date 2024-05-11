@@ -23,12 +23,16 @@
             @endif
             <!---------------------->
 
-
             <div class="admin-content">
+
                 <form action="{{ route('games.update', $game->id) }}" method="POST">
                     @csrf
                     @method('PUT')
+
+                    <button type="submit" class="primary-btn my-btn create"><b>&#x21bb;</b> Update the game</button>
                     
+                    <div class="spacing"></div>
+
                     <h3>Game informations</h3>
                     <div class="mywrapped-block">
                         <div class="myadmin-block">
@@ -43,7 +47,9 @@
                             <label for="date_end">End date</label>
                             <input type="datetime-local" name="date_end" id="date_end" value="{{ old('date_end') ?: \Carbon\Carbon::parse($game->date_end)->format('Y-m-d\TH:i') }}">
                         </div>   
-                    </div>                                      
+                    </div>     
+                    
+                    <div class="spacing-20"></div>
                         
                     <h3>Questions</h3>
                     <div class="mywrapped-block">
@@ -68,6 +74,8 @@
                             <label for="sheet_url_{{ $k }}">Answer suggestions (Google sheet)</label>
                             <input type="text" placeholder='Enter a sheet URL...' name="questions[{{ $k }}][sheet_url]" value="{{ $question->sheet_url }}" id="sheet_url_{{ $k }}">
                             
+                            <div class="spacing-20"></div>
+
                             <!-- Bouton "Answer" -->
                             @if ($k <= 2)
                                 <a href="{{ route('unique-answers.show', ['question' => $question->id]) }}" class="btn btn-primary">View answers</a>
@@ -79,7 +87,6 @@
                         <?php $k++ ?>
                         @endforeach
                     </div>
-                    <button type="submit" class=''>UPDATE</button>
                 </form>
             </div>
             <div class="spacing"></div>

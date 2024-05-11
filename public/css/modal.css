@@ -1,4 +1,5 @@
-.modal-background {    
+.modal-background {   
+    z-index: 6; 
     display: none;
     justify-content: center;
     align-items: center;    
@@ -177,6 +178,115 @@ span.single-suggestion button:focus
     {
         font-size: 16px;
     }
+}
+
+/* Game over */
+
+#gameOverModal {
+    
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 5;
+    display: none;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    background-color: #161616;
+    width: 100%;
+    height: 100vh;
+    font-family: "Inknut Antiqua", serif;
+}
+
+.go-box
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 60%;
+    max-width: 600px;
+    min-width: 340px;
+    padding: 5px 20px 5px 20px;
+    color: rgb(220, 220, 220);
+    text-align: center;
+}
+
+.gameOverLogo
+{
+    margin-bottom: 15px;
+}
+
+.go-text
+{
+    font-weight: 100;
+    line-height: 32px;
+    font-size: 18px;
+    font-family: "Rubik", serif;
+}
+
+.go-text b
+{
+    font-size: 28px;
+    font-family: "Inknut Antiqua", serif;
+}
+
+#go-points
+{
+    margin-bottom: 35px;
+    font-size: 50px;
+    font-weight: 800;
+    color: #d3c56b;
+    font-family: "Rubik", serif;
+}
+
+div.go-buttons
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+div.go-buttons button
+{
+    box-sizing: border-box;
+    margin: auto 8px auto 8px ;
+    width: 130px;
+    height: 50px;
+    border-radius: 50px;
+    font-weight: 500;
+    transition: 0.2s;
+    -o-transition: 0.2s;
+    -moz-transition: 0.2s;
+}
+
+div.go-buttons button:hover,
+div.go-buttons button:active,
+div.go-buttons button:focus
+{
+    font-size: 15px;
+    transition: 0.2s;
+    -o-transition: 0.2s;
+    -moz-transition: 0.2s;
+    cursor: pointer;
+}
+
+button.go-share
+{
+    background: none;
+    border: 1.2px solid whitesmoke;
+    color: whitesmoke;
+}
+
+button.go-stats
+{
+    background: whitesmoke;
+    border: 1.5px solid whitesmoke;
+    color: #161616;
 }
 
 /* Rules */
@@ -367,6 +477,7 @@ div.rules-text strong
 /* Statistics  */
 
 #statsModal {
+    z-index: 6;
     display: none;
     flex-direction: column;
     justify-content: center;

@@ -6,11 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="noindex, nofollow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-   
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Uncovered Shorts</title>
 
-    <link rel="stylesheet" href="{{ asset('css/header.css') }}?t={{ time() }}">
+    <link rel="stylesheet" href="{{ asset('css/header.css') }}">
     <link rel="stylesheet" href="{{ asset('css/game.css') }}?t={{ time() }}">
     <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t={{ time() }}">
     
@@ -22,7 +23,7 @@
   <body>
 
     <header>
-      <img class='h-logo' src="{{ asset('img/logo.png') }}" alt="">
+      <img class='h-logo' src="{{ asset('img/logo.png') }}" alt="uncovered-short-logo">
       <div class="header-links">
         <button class='hl-icon' onclick=openModalById('rulesModal')> 
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22"><g id="_01_align_center" data-name="01 align center"><path d="M12,24A12,12,0,1,1,24,12,12.013,12.013,0,0,1,12,24ZM12,2A10,10,0,1,0,22,12,10.011,10.011,0,0,0,12,2Z"/><path d="M14,19H12V12H10V10h2a2,2,0,0,1,2,2Z"/><circle cx="12" cy="6.5" r="1.5"/></g></svg>
@@ -45,7 +46,7 @@
             <span class="numero">Q1</span>
             <h2 class="question">{{ $questions[0]->value }}</h2>
             <div class="answer-block">
-              <input id='us-ipt1' onclick="displaySuggestions(suggestions1), openModalById('searchModal')"  class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
+              <input id='us-ipt1' onclick="setActivePlayerInput('us-ipt1'), displaySuggestions(suggestions1), openModalById('searchModal')"  class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
               <span id='us-pts1' class='points'>-</span>
             </div>
           </div>
@@ -54,7 +55,7 @@
             <span class="numero">Q2</span>
             <h2 class="question">{{ $questions[1]->value }}</h2>
             <div class="answer-block">
-              <input id='us-ipt2' onclick="displaySuggestions(suggestions2), openModalById('searchModal')" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
+              <input id='us-ipt2' onclick="setActivePlayerInput('us-ipt2'), displaySuggestions(suggestions2), openModalById('searchModal')" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
               <span id='us-pts2' class='points'>-</span>
             </div>
           </div>
@@ -80,7 +81,21 @@
       </div>
     </main>
 
-    <!-- Windows --> 
+    <!-- Modals --> 
+
+      <div class="modal" id="gameOverModal">
+        <button class="close-modal" onclick=closeModalById('gameOverModal')>×</button>
+        <div class="go-box">
+          <img src="{{ asset('img/logo.png') }}" width='180' alt="uncovered-shorts-logo" class="gameOverLogo">
+          <p class="go-text"><b>Congratulations!</b> <br> Your score today :</p>
+          <span id="go-points playerFinalScore">00</span>
+          <div class="go-buttons">
+            <button class="go-share">SHARE</button>
+            <button class="go-stats" onclick=openModalById('statsModal')>STATS</button>
+          </div>
+          <p class="go-date">May 11, 2024</p>
+        </div>
+      </div>
 
     <div class="modal-background" id="modalBackground">
 
@@ -104,10 +119,15 @@
         var suggestions3 = {!! $suggestions3 !!};
         var suggestions4 = {!! $suggestions4 !!};
         
+        var uniqueAnswers1 = {!! $uniqueAnswers1 !!};
+        var uniqueAnswers2 = {!! $uniqueAnswers2 !!};
         var rankedAnswers3 = {!! $rankedAnswers3 !!};
         var rankedAnswers4 = {!! $rankedAnswers4 !!};
 
         var activePlayerInput;
+
+        var playerFinalScore = 0;
+        var answerCount = 0;
 
         // Remove inputs value
         for (let index = 1; index <= 4; index++) {
@@ -135,7 +155,7 @@
           });
         }
 
-        /* Select answer , show points and siable input onclick*/
+        /* Select answer , show points and disable input onclick*/
         function selectSuggestion(event) 
         {
           var inputTargetId = event.target.getAttribute('data-inputTargetId');
@@ -152,6 +172,12 @@
           let pointContainer = document.getElementById('us-pts'+idEnding);
 
           switch (idEnding) {
+            case '1': 
+              playerPoints = calculateUniquePoints(uniqueAnswers1, valueSelected);
+              break;
+            case '2': 
+              playerPoints = calculateUniquePoints(uniqueAnswers2, valueSelected);
+              break;
             case '3': 
               playerPoints = calculateRankedPoints(rankedAnswers3, valueSelected);
               break;
@@ -159,6 +185,7 @@
               playerPoints = calculateRankedPoints(rankedAnswers4, valueSelected);
               break;
           }
+
           let roundedPoints = Math.round(playerPoints / 5) * 5;
           pointContainer.innerHTML = '' + playerPoints;
           pointContainer.classList.add('points-set');
@@ -170,6 +197,21 @@
           // Hide modal
           document.getElementById('searchModal').style.display = 'none';
           document.getElementById('modalBackground').style.display = 'none';
+
+          // Score
+          playerFinalScore = playerFinalScore + playerPoints;
+          answerCount++;
+
+          if(answerCount >= 4) gameOver();
+        }
+
+        function gameOver()
+        {
+          document.getElementById('playerFinalScore').innerHTML = ''+playerFinalScore;
+
+          setTimeout(function() {
+            openModalById('gameOverModal', false);
+          }, 1000);
         }
         
         /* Search */
@@ -253,15 +295,15 @@
         </span>
         <div class="boxes-container">
           <div class="box">
-            <p class="stats-value">166.4</p>
+            <p class="stats-value">100</p>
             <label>Average <br> score</label>
           </div>
           <div class="box scale">
-            <p class="stats-value">56</p>
+            <p class="stats-value">50</p>
             <label>Games <br> played</label>
           </div>
           <div class="box">
-            <p class="stats-value">239.6</p>
+            <p class="stats-value">200</p>
             <label>Top <br> score</label>
           </div>
         </div>

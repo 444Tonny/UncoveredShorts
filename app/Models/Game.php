@@ -46,6 +46,13 @@ class Game extends Model
                 ->first();
         }
 
+        if (!$game) {
+
+            $game = self::where('id', '>', '0')
+                ->orderBy('id','DESC')
+                ->first();
+        }
+
         Game::updateGameStatus($game->id);
         return $game;
     }

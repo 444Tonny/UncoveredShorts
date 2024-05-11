@@ -15,6 +15,7 @@ class UniqueAnswer extends Model
         'question_id',
         'percentage',
         'value',
+        'votes'
     ];
 
     public $timestamps = true;
@@ -22,5 +23,16 @@ class UniqueAnswer extends Model
     public static function getAnswersByQuestionId($questionId)
     {
         return self::where('question_id', $questionId)->orderBy('percentage')->get();
+    }
+
+    public static function addVote($questionId, $value)
+    {
+        $uniqueAnswer = UniqueAnswer::where('question_id', $questionId)
+                        ->where('value', $value)
+                        ->first();
+
+        if ($uniqueAnswer) {
+            $uniqueAnswer->increment('votes');
+        }
     }
 }

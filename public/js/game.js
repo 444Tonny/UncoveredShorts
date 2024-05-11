@@ -1,5 +1,8 @@
-function openModalById(modalId) {
-    document.getElementById("modalBackground").style.display = "flex";
+var baseUrl = 'http://localhost:8080/UncoveredShorts/public'; 
+var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+function openModalById(modalId, showBackground = true) {
+    if(showBackground == true) document.getElementById("modalBackground").style.display = "flex";
     
     document.getElementById(modalId).style.display = "flex";
 }
@@ -13,10 +16,7 @@ function closeModalById(modalId) {
 function calculateRankedPoints(arrayAnswer, playerAnswer) 
 {
     playerAnswer = playerAnswer.toLowerCase();
-    console.log('pA = ' +playerAnswer);
     var foundAnswer = arrayAnswer.find(answer => answer.value && answer.value.toLowerCase() === playerAnswer);
-
-    console.log(foundAnswer);
 
     if (foundAnswer) {
         switch (foundAnswer.rank) {
@@ -44,7 +44,49 @@ function calculateRankedPoints(arrayAnswer, playerAnswer)
             default:
                 return 0; // Return 0 if rank is not between 1 and 10
         }
-    } else {
-        return 0; // Return 0 if answer is not found
+    } 
+    else return 0; // Return 0 if answer is not found
+}
+
+/* calculate unique points */
+function calculateUniquePoints(arrayAnswer, playerAnswer, voteCount = 101)
+{
+    
+    playerAnswer = playerAnswer.toLowerCase();
+    var foundAnswer = arrayAnswer.find(answer => answer.value && answer.value.toLowerCase() === playerAnswer);
+
+    console.log(foundAnswer);
+
+    if(foundAnswer) 
+    {
+        var questionId = foundAnswer.question_id;
+        var value = foundAnswer.value;
+        let url = baseUrl + '/add-vote';
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('X-CSRF-Token', csrfToken);
+
+        // Gestionnaire de succès de la requête
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                console.log(xhr.responseText);
+            } else {
+                console.error('Request failed with status:', xhr.status);
+            }
+        };
+
+        // Gestionnaire d'erreur de la requête
+        xhr.onerror = function() {
+            console.error('Request failed');
+        };
+
+        // Envoi de la requête avec les données JSON
+        xhr.send(JSON.stringify({ question_id: questionId, value: value }));
+        
+        return (100 - foundAnswer.percentage);
     }
+
+    else return 0;
 }

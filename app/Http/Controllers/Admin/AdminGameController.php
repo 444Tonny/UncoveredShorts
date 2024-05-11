@@ -120,6 +120,15 @@ class AdminGameController extends Controller
 
     public function destroy(Game $game)
     {
+        // Récupérer toutes les questions associées à la Game
+        $questions = Question::where('game_id', $game->id)->get();
+
+        // Parcourir chaque question et supprimer les enregistrements liés dans les tables
+        foreach ($questions as $question) {
+            $question->uniqueAnswers()->delete();
+            $question->rankedAnswers()->delete();
+        }
+
         $game->questions()->delete();
         $game->delete();
         return redirect()->route('games.index');

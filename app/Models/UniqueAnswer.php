@@ -33,6 +33,22 @@ class UniqueAnswer extends Model
 
         if ($uniqueAnswer) {
             $uniqueAnswer->increment('votes');
+            self::recalculatePercentage($uniqueAnswer->question_id);
+        }
+    }
+
+    public static function recalculatePercentage($questionId)
+    {
+        // Récupérer le total des votes pour cette question
+        $totalVotes = UniqueAnswer::where('question_id', $questionId)->sum('votes');
+
+        // Récupérer toutes les réponses uniques pour cette question
+        $answers = UniqueAnswer::where('question_id', $questionId)->get();
+
+        // Mettre à jour les pourcentages pour chaque réponse unique
+        foreach ($answers as $answer) {
+            $newPercentage = (100 * ($answer->votes / $totalVotes));
+            $answer->update(['percentage' => $newPercentage]);
         }
     }
 }

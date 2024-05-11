@@ -88,12 +88,12 @@
         <div class="go-box">
           <img src="{{ asset('img/logo.png') }}" width='180' alt="uncovered-shorts-logo" class="gameOverLogo">
           <p class="go-text"><b>Congratulations!</b> <br> Your score today :</p>
-          <span id="go-points playerFinalScore">00</span>
+          <span id="go-points">00</span>
           <div class="go-buttons">
             <button class="go-share">SHARE</button>
             <button class="go-stats" onclick=openModalById('statsModal')>STATS</button>
           </div>
-          <p class="go-date">May 11, 2024</p>
+          <p class="go-date">{{ now()->format('M d, Y') }}</p>
         </div>
       </div>
 
@@ -207,7 +207,7 @@
 
         function gameOver()
         {
-          document.getElementById('playerFinalScore').innerHTML = ''+playerFinalScore;
+          document.getElementById('go-points').innerHTML = ''+playerFinalScore;
 
           setTimeout(function() {
             openModalById('gameOverModal', false);

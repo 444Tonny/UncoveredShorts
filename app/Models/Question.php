@@ -21,6 +21,16 @@ class Question extends Model
 
     public $timestamps = true;
 
+    public function uniqueAnswers()
+    {
+        return $this->hasMany(UniqueAnswer::class);
+    }
+
+    public function rankedAnswers()
+    {
+        return $this->hasMany(RankedAnswer::class);
+    }
+
     public function scopeByGameId($query, $gameId)
     {
         return $query->where('game_id', $gameId)->orderBy('number');

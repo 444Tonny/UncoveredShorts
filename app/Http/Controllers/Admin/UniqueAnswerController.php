@@ -126,7 +126,7 @@ class UniqueAnswerController extends Controller
 
                 UniqueAnswer::updateOrCreate(
                     ['question_id' => $questionId, 'value' => $answerData['answer']],
-                    ['percentage' => $percentage]
+                    ['percentage' => $percentage, 'votes' => $percentage]
                 );
                 
                 $totalPercentage = $totalPercentage + $answerData['percentage'];
@@ -136,7 +136,6 @@ class UniqueAnswerController extends Controller
         }
         catch (\Exception $e) {
             DB::rollback();
-            dd($e);
             $validator->errors()->add('answers', 'An error occured : '.$e);
             return redirect()->back()->withErrors($validator)->withInput();
         }

@@ -132,6 +132,8 @@
         var playerFinalScore = 0;
         var answerCount = 0;
 
+        var currentSuggestions;
+
         // Remove inputs value
         for (let index = 1; index <= 4; index++) {
           const inputElement = document.getElementById('us-ipt'+index);
@@ -145,6 +147,8 @@
 
         function displaySuggestions(suggestions) 
         {
+          currentSuggestions = suggestions;
+          
           var suggestionsContainer = document.getElementById('suggestions');
           var searchInput = document.getElementById('us-search');
           suggestionsContainer.innerHTML = '';
@@ -239,6 +243,7 @@
         
         /* Search */
         function filterSuggestions(searchTerm) {
+
             var suggestionsContainer = document.getElementById('suggestions');
             var suggestions = suggestionsContainer.getElementsByClassName('single-suggestion');
 

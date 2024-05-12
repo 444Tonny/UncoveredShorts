@@ -114,6 +114,8 @@
       </div>
 
       <script>
+        var currentGameId = {!! $currentGame->id !!}
+
         var suggestions1 = {!! $suggestions1 !!};
         var suggestions2 = {!! $suggestions2 !!};
         var suggestions3 = {!! $suggestions3 !!};
@@ -125,6 +127,7 @@
         var rankedAnswers4 = {!! $rankedAnswers4 !!};
 
         var activePlayerInput;
+        var score1 = 0, score2 = 0, score3 = 0, score4 = 0;
 
         var playerFinalScore = 0;
         var answerCount = 0;
@@ -166,7 +169,7 @@
           inputTarget.value = valueSelected;
           inputTarget.readOnly = true;
           
-          // Calculate and display point 
+          // Calculate points and display  
           let playerPoints;
           let idEnding = inputTargetId.charAt(inputTargetId.length - 1);
           let pointContainer = document.getElementById('us-pts'+idEnding);
@@ -174,15 +177,19 @@
           switch (idEnding) {
             case '1': 
               playerPoints = calculateUniquePoints(uniqueAnswers1, valueSelected);
+              score1 = playerPoints;
               break;
             case '2': 
               playerPoints = calculateUniquePoints(uniqueAnswers2, valueSelected);
+              score2 = playerPoints;
               break;
             case '3': 
               playerPoints = calculateRankedPoints(rankedAnswers3, valueSelected);
+              score3 = playerPoints;
               break;
             case '4':
               playerPoints = calculateRankedPoints(rankedAnswers4, valueSelected);
+              score4 = playerPoints;
               break;
           }
 
@@ -205,9 +212,25 @@
           if(answerCount >= 4) gameOver();
         }
 
+        /* Alloa */
         function gameOver()
         {
           document.getElementById('go-points').innerHTML = ''+playerFinalScore;
+
+          // Insert game 
+          storeGameSession(currentGameId, score1, score2, score3, score4, playerFinalScore);
+
+          // Get updated statistics including the new game
+          getStatistics(currentGameId)
+            .then(statisticsUpdated => {
+                console.log(statisticsUpdated);
+                document.getElementById('TopScore').innerHTML = '' + statisticsUpdated.TopScore;
+                document.getElementById('AverageScore').innerHTML = '' + statisticsUpdated.AverageScore;
+                document.getElementById('GamesPlayed').innerHTML = '' + statisticsUpdated.GamesPlayed;
+            })
+            .catch(error => {
+                console.error("Une erreur s'est produite lors de la récupération des statistiques :", error);
+            });
 
           setTimeout(function() {
             openModalById('gameOverModal', false);
@@ -291,19 +314,25 @@
           Today's game stats 
         </span>
         <span class='statsModal-text smt2'>
-          UNCOVERED SHORTS #25 
+          UNCOVERED SHORTS #{{ $currentGame->id }} 
         </span>
         <div class="boxes-container">
           <div class="box">
-            <p class="stats-value">100</p>
+            <p id='AverageScore' class="stats-value">
+              {{ $statistics['AverageScore'] == intval($statistics['AverageScore']) ? intval($statistics['AverageScore']) : number_format($statistics['AverageScore'], 1) }}
+            </p>
             <label>Average <br> score</label>
           </div>
           <div class="box scale">
-            <p class="stats-value">50</p>
+            <p id='GamesPlayed' class="stats-value">
+              {{ $statistics['GamesPlayed'] }}
+            </p>
             <label>Games <br> played</label>
           </div>
           <div class="box">
-            <p class="stats-value">200</p>
+            <p id ="TopScore" class="stats-value">
+              {{ $statistics['TopScore'] == intval($statistics['TopScore']) ? intval($statistics['TopScore']) : number_format($statistics['TopScore'], 1) }}
+            </p>
             <label>Top <br> score</label>
           </div>
         </div>

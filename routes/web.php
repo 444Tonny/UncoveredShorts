@@ -18,7 +18,8 @@ Route::get('/', [App\Http\Controllers\GameController::class, 'index'])->name('in
 
 /* Add vote unique */
 Route::post('/add-vote', [App\Http\Controllers\GameController::class, 'addVote'])->name('addVote');
-
+Route::post('/store-game-session', [App\Http\Controllers\GameController::class, 'storeGameSession'])->name('storeGameSession');
+Route::post('/get-statistics', [App\Http\Controllers\GameController::class, 'getStatisticsJSON'])->name('getStatisticsJSON');
 
 Route::prefix('admin')->group(function () {
     Auth::routes();

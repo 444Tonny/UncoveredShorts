@@ -28,7 +28,6 @@ class Game extends Model
         return $this->hasMany(Question::class);
     }
 
-
     public static function getCurrentGame()
     {
         $now = now()->setTimezone('America/New_York');
@@ -80,7 +79,6 @@ class Game extends Model
             throw $e;
         }
     }
-
 
     public static function getDataFromSheet($sheetURL)
     {

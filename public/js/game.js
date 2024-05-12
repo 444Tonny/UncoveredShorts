@@ -1,6 +1,5 @@
-//var baseUrl = 'http://localhost:8080/UncoveredShorts/public'; 
-
-var baseUrl = 'https://phplaravel-1258294-4520213.cloudwaysapps.com';
+var baseUrl = 'http://localhost:8080/UncoveredShorts/public'; 
+//var baseUrl = 'https://phplaravel-1258294-4520213.cloudwaysapps.com';
 
 var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -92,4 +91,63 @@ function calculateUniquePoints(arrayAnswer, playerAnswer, voteCount = 101)
     }
 
     else return 0;
+}
+
+function storeGameSession(game_id, score1, score2, score3, score4, totalScore)
+{
+    let url = baseUrl + '/store-game-session';
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('X-CSRF-Token', csrfToken);
+
+    // Gestionnaire de succès de la requête
+    xhr.onload = function() {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            console.log(xhr.responseText);
+        } else {
+            console.error('Request failed with status:', xhr.status);
+        }
+    };
+
+    // Gestionnaire d'erreur de la requête
+    xhr.onerror = function() {
+        console.error('Request failed');
+    };
+
+    // Envoi de la requête avec les données JSON
+    xhr.send(JSON.stringify({ 
+        game_id: game_id, 
+        score1: score1, 
+        score2: score2, 
+        score3: score3, 
+        score4: score4, 
+        totalScore: totalScore
+    }));
+}
+
+function getStatistics(game_id) {
+    return new Promise((resolve, reject) => {
+        let url = baseUrl + '/get-statistics';
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('X-CSRF-Token', csrfToken);
+
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                var statistics = JSON.parse(xhr.responseText);
+                resolve(statistics); // Résoudre la promesse avec les statistiques
+            } else {
+                reject('Request get Statistics failed with status: ' + xhr.status); // Rejeter la promesse avec une erreur
+            }
+        };
+
+        xhr.onerror = function() {
+            reject('Request failed'); // Rejeter la promesse avec une erreur
+        };
+
+        xhr.send(JSON.stringify({ game_id: game_id }));
+    });
 }

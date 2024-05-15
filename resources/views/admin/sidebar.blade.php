@@ -24,17 +24,12 @@
         <i class="ico">&#9858;</i>
         <i class="txt">Games</i>
       </a>
-      <a href="" id="menu-credentials">
+      <a href="{{ route('statistics.index') }}" id="menu-statistics">
         <i class="ico">&#9432;</i>
         <i class="txt">Statistics</i>
       </a>
 
-      <a href="" id="menu-credentials">
-        <i class="ico">&#9432;</i>
-        <i class="txt">Sheets</i>
-      </a>
-
-      <a href="" id="menu-credentials">
+      <a href="{{ route('adminCredentials') }}" id="menu-credentials">
         <i class="ico">&#9432;</i>
         <i class="txt">Credentials</i>
       </a>

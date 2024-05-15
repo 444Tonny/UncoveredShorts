@@ -1,0 +1,305 @@
+.statistics
+{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding: 3%;
+    box-sizing: border-box;
+}
+
+.stats-blocks
+{
+    width: 100%;
+    max-width: 1200px;
+    display: flex;
+    flex-direction: row;
+    align-self: center;
+    flex-wrap: wrap;
+    justify-content: space-around;
+
+    margin-bottom: 15px;
+}
+
+.sb-single
+{
+    box-sizing: border-box;
+    padding: 10px 25px;
+    width: 23%;
+    max-width: 300px;
+    min-width: 200px;
+    min-width: none;
+    min-height: 150px;
+    margin: auto 10px;
+    margin-bottom: 25px;
+    box-shadow: inset 0 0 1px rgba(22, 22, 22, 0.2);
+    background: radial-gradient(circle, #00000006, #0e0e0e46);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    color: white;
+    border-radius: 10px;
+}
+
+.sb-single-bw
+{
+    text-align: center;
+    min-height: 125px !important;
+    background:  none !important;
+    color: rgb(50, 50, 50);
+    box-shadow: 0px 0px 6px rgb(198, 198, 198);
+    align-items: center;
+}
+
+.sb-single-bw p { text-align: center !important; }
+
+.sb-single-bw b { font-size: 16px !important; }
+
+.sb-single label
+{
+    font-weight: 100 !important;
+}
+
+.sb-single b
+{
+    font-size: 18px;
+    font-weight: 700 !important;
+    letter-spacing: -1px;
+}
+
+.lv-stats
+{
+    width: 100%;
+    text-align: right;
+    font-weight: bold;
+    font-size: 32px;
+    margin-bottom: 5px;
+}
+
+#single-TodayVisits { background-color: rgb(86, 166, 126) ;}
+
+#single-WeekVisits { background-color: rgb(85, 102, 179) ;}
+
+#single-MonthVisits { background-color: rgb(187, 105, 105) ;}
+
+#single-TotalVisits { background-color: rgb(44, 44, 44) ;}
+
+
+#single-TodayGames { background-color: rgb(140, 186, 112) ;}
+
+#single-WeekGames { background-color: rgb(163, 131, 222) ;}
+
+#single-MonthGames { background-color: rgb(193, 79, 79) ;}
+
+#single-TotalGames { background-color: rgb(44, 44, 44) ;}
+
+/* Graph STATS */ 
+
+.stats-charts
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    align-content: center;
+}
+
+.stats-charts h3
+{
+    width:100%; 
+    text-align:center;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    font-size: 32px;
+    font-weight: 600;
+}
+
+ /* FIGURE */
+ figure{
+    min-width: 200px;
+    max-width: 480px;
+    padding: 1.5rem 1.5rem 1.5rem;
+    box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+    margin: 15px 15px !important;
+  }
+  
+  /* TABLE */
+  .barChart_h{
+    display: block;
+    height: auto;                         /* Do I need this? */
+    width: 100%;
+    overflow-wrap: break-word;
+    border-spacing: 0;
+  }
+  
+  /* CAPTION */
+  .barChart_h caption{
+    display: block;
+    padding: 0 0 1rem 0;
+    line-height: 1.1;
+    font-size: 1.1rem;
+    font-weight: 400;
+    text-align: left;
+  }
+  
+  /* TBODY */    
+  .barChart_h tbody{
+    display: block                        /* All HTML elements have a "display" value assigned by the User-Agent (UA).
+                                             Default-values assigned:
+                                                tbody ==> (display: table-row-group)
+                                                tr    ==> (display: table-row)
+                                                td    ==> (display: table-cell)
+                                             Assigning (display: block) allows us to turn a table into a horizontal display. */
+  }
+
+  .barChart_h tbody:after{                /* For IE9 and under, need to enclose floats... */
+    content: "";
+    display: block;
+    clear: both;
+    height: 0;
+  }
+  
+  /* TH */
+  .barChart_h tbody th{
+    width: 25%;
+    font-weight: normal;
+    text-align: right;
+  }
+
+  /* TD */
+  .barChart_h tbody td{         /* X-AXIS. (vertical) */
+    
+    border-right: 1px solid #DDD;         /* Finish out repeating vertical-gridlines. */
+    background-image: linear-gradient(to right, #DDD 1px, transparent 1px);
+                                          /* Create black-transparent gradient for 1px, then remainder of gradient is transparent.
+                                             This creates the illusion of a 1px vertical-line. */
+    background-size: 10% 100%;            /* Go right in 10% increments. */
+  }
+
+  /* TH+TD */
+  .barChart_h tbody th,
+  .barChart_h tbody td{
+    padding: 0.5rem 0 0.4rem 0;   
+    padding-right: 5px !important;
+    font-size: 12px !important;        
+  }
+                                          
+  .barChart_h tbody tr.firstRow th,
+  .barChart_h tbody tr.firstRow td{
+    padding: 1rem 0 0.5rem 0; 
+  }
+  
+  .barChart_h tbody tr.lastRow th,
+  .barChart_h tbody tr.lastRow td{
+    padding: 0.5rem 0 1rem 0;             /* Add spacing. */
+  }
+  
+  /* BARS */
+  .barChart_h tbody td span{
+    position: relative;                   /* Needed for absolute-positioning of Bar-value. */
+    display: block;                       /* Expands <span> to fill <td> */
+    height: 12px;
+    background: #262626;
+    border-top-right-radius: 1px;
+    border-bottom-right-radius: 1px;
+  }
+  
+  /* BAR-VALUES */
+  .barChart_h tbody td span b{
+    position: absolute;
+    left: 100%;
+    top: 0;
+    right: auto;
+    bottom: 0;
+    display: block;
+    padding: 0 0 0 0.5rem;
+  }
+      
+  /* Y-AXIS TITLE+LABELS */
+  .barChart_h tbody th.y-axis{
+    display: block;
+    width: 100%;
+/*      width: calc(100% + 2px);            /* Hide right border. /**/
+
+    display: flex;                        /* Create Flexbox (Flex-Container). */
+    padding-bottom: 1.4rem;
+    font-weight: bold;       /* Y-AXIS. (horizontal) */
+    background-color: #FFF;
+  }
+
+  
+  /* NEED HELP WITH STYLES BELOW... */
+
+  /* Y-AXIS TITLE */
+  .barChart_h tbody .rotate{
+    display: block;
+  }
+/*    
+    -ms-writing-mode: initial;
+    writing-mode: initial;
+    white-space: nowrap;
+    transform: none;
+    margin: 0;
+    line-height: normal;
+    font-size: 0.9rem;
+  }
+/**/
+
+  /* Y-AXIS LABELS */
+  .barChart_h tbody th.y-axis ol.segments{
+    position: absolute;
+    top: auto;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: flex;                        /* Create Flexbox (Flex-Container). */
+    flex-direction: row;
+    font-size: 0.9rem;
+  }
+
+  .barChart_h tbody ol.segments li{
+    flex: 1 0 0;
+    text-align: right;
+  }
+
+  .barChart_h tbody ol.segments li b{
+    display: inline-flex;
+    transform: translate(50%, 0%);
+  }
+
+  .barChart_h tbody ol.segments li.zero{
+    left: 0;
+    right: auto;
+    bottom: auto;
+    top: 0;
+  }
+
+  .barChart_h tbody ol.segments li.zero b{
+    transform: translate(-50%, 0%);
+  }
+
+  /**************************************************************************/
+  /* MOBILE                                                                 */
+  /**************************************************************************/
+  @media screen and (max-width: 414px){
+    body{
+      font-size: 0.8em;
+    }
+    
+    /* CAPTION */
+    .barChart_h caption{
+      font-size: 1rem;
+    }
+
+    /* FIGURE */
+    figure{
+      margin: 0;
+      padding: 1rem;
+    }
+    
+    /* TD */
+    .barChart_h tbody td{
+      width: 60%;
+    }
+  }

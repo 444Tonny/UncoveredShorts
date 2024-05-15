@@ -132,8 +132,6 @@
         var playerFinalScore = 0;
         var answerCount = 0;
 
-        var currentSuggestions;
-
         // Remove inputs value
         for (let index = 1; index <= 4; index++) {
           const inputElement = document.getElementById('us-ipt'+index);
@@ -146,9 +144,7 @@
         }
 
         function displaySuggestions(suggestions) 
-        {
-          currentSuggestions = suggestions;
-          
+        {          
           var suggestionsContainer = document.getElementById('suggestions');
           var searchInput = document.getElementById('us-search');
           suggestionsContainer.innerHTML = '';
@@ -160,6 +156,8 @@
               span.innerHTML = '<p>' + suggestion + '</p><button onclick=selectSuggestion(event) data-value="'+ suggestion +'" data-inputTargetId="'+ activePlayerInput +'" class="selectButton">Select</button>';
               suggestionsContainer.appendChild(span);
           });
+          
+          document.getElementById("us-search").focus();
         }
 
         /* Select answer , show points and disable input onclick*/

@@ -20,6 +20,7 @@ Route::get('/', [App\Http\Controllers\GameController::class, 'index'])->name('in
 Route::post('/add-vote', [App\Http\Controllers\GameController::class, 'addVote'])->name('addVote');
 Route::post('/store-game-session', [App\Http\Controllers\GameController::class, 'storeGameSession'])->name('storeGameSession');
 Route::post('/get-statistics', [App\Http\Controllers\GameController::class, 'getStatisticsJSON'])->name('getStatisticsJSON');
+Route::post('/record-visit', [App\Http\Controllers\Admin\VisitsController::class, 'recordVisit'])->name('recordVisit');
 
 Route::prefix('admin')->group(function () {
     Auth::routes();
@@ -30,6 +31,9 @@ Route::prefix('admin')->group(function () {
         Route::resource('games', \App\Http\Controllers\Admin\AdminGameController::class);
         Route::resource('questions', \App\Http\Controllers\Admin\QuestionController::class);
 
+        Route::get('credentials', '\App\Http\Controllers\admin\CredentialsController@indexEditor')->name('adminCredentials');
+        Route::put('credentials', '\App\Http\Controllers\admin\CredentialsController@editPassword')->name('passwordEdited');    
+
         Route::resource('ranked-answers', \App\Http\Controllers\Admin\RankedAnswerController::class);
         Route::get('questions/{question}/ranked-answers', '\App\Http\Controllers\Admin\RankedAnswerController@show')->name('ranked-answers.show');
         Route::put('questions/{question}/ranked-answers/update-all', '\App\Http\Controllers\Admin\RankedAnswerController@updateAll')->name('ranked-answers.updateAll');
@@ -37,6 +41,8 @@ Route::prefix('admin')->group(function () {
         Route::resource('unique-answers', \App\Http\Controllers\Admin\UniqueAnswerController::class);
         Route::get('questions/{question}/unique-answers', '\App\Http\Controllers\Admin\UniqueAnswerController@show')->name('unique-answers.show');
         Route::put('questions/{question}/unique-answers/update-all', '\App\Http\Controllers\Admin\UniqueAnswerController@updateAll')->name('unique-answers.updateAll');
+    
+        Route::get('statistics', '\App\Http\Controllers\Admin\StatsController@index')->name('statistics.index');
     });
 });
 

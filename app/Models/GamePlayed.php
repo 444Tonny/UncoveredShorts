@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Carbon;
 
 class GamePlayed extends Model
 {
@@ -60,4 +61,44 @@ class GamePlayed extends Model
             'GamesPlayed' => $gamesPlayed,
         ];
     }
+
+    // Admin Stats ------ start
+    
+    public static function getAdminGameStats()
+    {
+        $now = now()->setTimezone('America/New_York');
+        
+        $todayGames = static::getGamesByDate($now->toDateString());
+
+        $weekGames = static::getGamesByDateRange(
+            $now->copy()->subDays(6)->toDateString(),
+            $now->toDateString()
+        );
+
+        $monthGames = static::getGamesByDateRange(
+            $now->copy()->subDays(29)->toDateString(),
+            $now->toDateString()
+        );
+
+        $totalGames = static::count();
+
+        return [
+            'todayGames' => $todayGames,
+            'weekGames' => $weekGames,
+            'monthGames' => $monthGames,
+            'totalGames' => $totalGames,
+        ];
+    }
+
+    private static function getGamesByDate($date)
+    {
+        return static::whereDate('created_at', $date)->count();
+    }
+
+    private static function getGamesByDateRange($startDate, $endDate)
+    {
+        return static::whereBetween('created_at', [$startDate, $endDate])->count();
+    }
+
+    // Stats ------ end
 }

@@ -1,5 +1,5 @@
-//var baseUrl = 'http://localhost:8080/UncoveredShorts/public'; 
-var baseUrl = 'https://phplaravel-1258294-4520213.cloudwaysapps.com';
+var baseUrl = 'http://localhost:8080/UncoveredShorts/public'; 
+//var baseUrl = 'https://phplaravel-1258294-4520213.cloudwaysapps.com';
 
 var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -151,3 +151,29 @@ function getStatistics(game_id) {
         xhr.send(JSON.stringify({ game_id: game_id }));
     });
 }
+
+//Check visits
+document.addEventListener("DOMContentLoaded", function() {
+
+    if (!sessionStorage.getItem('visit_recorded')) 
+    {    
+        let url = baseUrl + '/record-visit';
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('X-CSRF-Token', csrfToken);
+        
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if (xhr.status === 200) {
+                    // La visite a été enregistrée avec succès
+                    sessionStorage.setItem('visit_recorded', 'true');
+                } else {
+                    console.error("An error occured. VISIT XHR", xhr.status);
+                }
+            }
+        };
+        xhr.send(JSON.stringify({}));
+    }
+});

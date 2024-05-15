@@ -134,3 +134,15 @@ MODIFY COLUMN total_score DECIMAL(10, 1);
 
 ALTER TABLE unique_answers
 ADD COLUMN votes DECIMAL(10, 2) DEFAULT 0;
+
+
+--- MAR 14 AVRIL
+
+CREATE TABLE visits (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  ip_address VARCHAR(45) NOT NULL,
+  country VARCHAR(255),
+  date_visit DATE,
+  created_at DATETIME,
+  updated_at DATETIME
+);

@@ -16,8 +16,6 @@
     align-self: center;
     flex-wrap: wrap;
     justify-content: space-around;
-
-    margin-bottom: 15px;
 }
 
 .sb-single
@@ -109,7 +107,7 @@
 {
     width:100%; 
     text-align:center;
-    margin-top: 40px;
+    margin-top: 30px;
     margin-bottom: 20px;
     font-size: 32px;
     font-weight: 600;
@@ -122,6 +120,7 @@
     padding: 1.5rem 1.5rem 1.5rem;
     box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
     margin: 15px 15px !important;
+    width: 70%;
   }
   
   /* TABLE */
@@ -203,6 +202,10 @@
     background: #262626;
     border-top-right-radius: 1px;
     border-bottom-right-radius: 1px;
+  }
+
+  .barChart_h tbody td span.green-bar{
+    background: #3f865b;
   }
   
   /* BAR-VALUES */

@@ -44,10 +44,73 @@
                         <p class='lv-stats' id='TotalGames'>{{ $gamesStats['totalGames'] }}</p>
                     </div>
                 </div>
+
+                <div class="stats-charts">
+                    <h3>COUNTRY</h3>
+
+                    <figure>
+                        <table class="barChart_h">
+                            <caption>The country of visitors</caption>
+                    
+                            <tbody>
+                            <!-- Y-axis -->
+                            <tr>
+                              <th class="blankCell"></th>
+                              <th class="y-axis">
+                              </th>
+                            </tr>
+                            
+                            <!-- Data Rows -->
+                            <tr class="firstRow">
+                              <th scope="row">United States:</th>
+                              <td><span style="width:10%"><b>70</b></span></td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Canada:</th>
+                              <td><span style="width:30%"><b>30</b></span></td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Canada:</th>
+                              <td><span style="width:30%"><b>30</b></span></td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Canada:</th>
+                              <td><span style="width:30%"><b>30</b></span></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </figure>          
+                      
+                    <figure>
+                        <table class="barChart_h">
+                          <caption>Country of fully completed quizzes</caption>
+                    
+                          <tbody>
+                            <!-- Y-axis -->
+                            <tr>
+                              <th class="blankCell"></th>
+                              <th class="y-axis">
+                              </th>
+                            </tr>
+                            
+                            <!-- Data Rows -->
+                            <tr class="firstRow">
+                              <th scope="row">United States:</th>
+                              <td><span style="width:10%"><b>70</b></span></td>
+                            </tr>
+                            <tr>
+                              <th scope="row">Canada:</th>
+                              <td><span style="width:30%"><b>30</b></span></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                    </figure>         
+                </div>
                 
                 <div class="stats-charts">
                     <h3>ANSWERS</h3>
 
+                    @for($i = 0 ; $i < 4 ; $i ++)
                     <figure>
                         <table class="barChart_h">
                           <caption>Q1: What is the question number #1 ?</caption>
@@ -66,100 +129,11 @@
                               <td><span style="width:10%"><b>70</b></span></td>
                             </tr>
                             <tr>
-                              <th scope="row">Canada:</th>
-                              <td><span style="width:30%"><b>30</b></span></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Canada:</th>
-                              <td><span style="width:30%"><b>30</b></span></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Canada:</th>
-                              <td><span style="width:30%"><b>30</b></span></td>
-                            </tr>
                           </tbody>
                         </table>
-                      </figure>          
-                      
-                      <figure>
-                        <table class="barChart_h">
-                          <caption>Q1: What is the question number #1 ?</caption>
-                    
-                          <tbody>
-                            <!-- Y-axis -->
-                            <tr>
-                              <th class="blankCell"></th>
-                              <th class="y-axis">
-                              </th>
-                            </tr>
-                            
-                            <!-- Data Rows -->
-                            <tr class="firstRow">
-                              <th scope="row">United States:</th>
-                              <td><span style="width:10%"><b>70</b></span></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Canada:</th>
-                              <td><span style="width:30%"><b>30</b></span></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </figure>       
-
-                      <figure>
-                        <table class="barChart_h">
-                          <caption>Q1: What is the question number #1 ?</caption>
-                    
-                          <tbody>
-                            <!-- Y-axis -->
-                            <tr>
-                              <th class="blankCell"></th>
-                              <th class="y-axis">
-                              </th>
-                            </tr>
-                            
-                            <!-- Data Rows -->
-                            <tr class="firstRow">
-                              <th scope="row">United States:</th>
-                              <td><span style="width:10%"><b>70</b></span></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Canada:</th>
-                              <td><span style="width:30%"><b>30</b></span></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </figure>       
-
-                      <figure>
-                        <table class="barChart_h">
-                          <caption>Q1: What is the question number #1 ?</caption>
-                    
-                          <tbody>
-                            <!-- Y-axis -->
-                            <tr>
-                              <th class="blankCell"></th>
-                              <th class="y-axis">
-                              </th>
-                            </tr>
-                            
-                            <!-- Data Rows -->
-                            <tr class="firstRow">
-                              <th scope="row">United States:</th>
-                              <td><span style="width:10%"><b>70</b></span></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Canada:</th>
-                              <td><span style="width:30%"><b>30</b></span></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Canada:</th>
-                              <td><span style="width:30%"><b>30</b></span></td>
-                            </tr>
-                          </tbody>
-                        </table>
-                      </figure>       
-  
+                    </figure> 
+                    @endfor         
+            
                 </div>
             </div>
 

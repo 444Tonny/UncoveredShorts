@@ -80,7 +80,21 @@ class Game extends Model
         }
     }
 
-    public static function getDataFromSheet($sheetURL)
+    public static function getDataFromSheet($sheetURL, $questionId)
+    {
+        $values = static::getArray2DFromSheet($sheetURL, $questionId);
+
+        //$percentagesResponse = $service->spreadsheets_values->get($sheetId, $rangePercentages);
+        //$valuesPercentages = $percentagesResponse->getValues();
+
+        //UniqueAnswer::synchroniseInitialPercentage($values, $questionId);
+
+        $suggestions = array_map('current', $values);
+
+        return json_encode($suggestions);
+    }    
+
+    public static function getArray2DFromSheet($sheetURL, $questionId)
     {
         $client = new Client();
         $client->setDeveloperKey('AIzaSyBrqQUbKt4cmtAd_fWKJKag3v8TWnxZNhI');
@@ -107,15 +121,13 @@ class Game extends Model
 
         $sheetTitle = Game::getSheetTitleFromId($allSheets, $sheetURL);
 
-        $range = $sheetTitle.'!A:A';
+        $range = $sheetTitle.'!A:B';
 
         $response = $service->spreadsheets_values->get($sheetID, $range);
         $values = $response->getValues();
 
-        $suggestions = array_map('current', $values);
-
-        return json_encode($suggestions);
-    }    
+        return $values;
+    } 
 
     public static function getSheetTitleFromId($allSheets, $sheetURL)
     {

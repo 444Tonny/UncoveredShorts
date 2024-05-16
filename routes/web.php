@@ -41,6 +41,7 @@ Route::prefix('admin')->group(function () {
         Route::resource('unique-answers', \App\Http\Controllers\Admin\UniqueAnswerController::class);
         Route::get('questions/{question}/unique-answers', '\App\Http\Controllers\Admin\UniqueAnswerController@show')->name('unique-answers.show');
         Route::put('questions/{question}/unique-answers/update-all', '\App\Http\Controllers\Admin\UniqueAnswerController@updateAll')->name('unique-answers.updateAll');
+        Route::get('questions/{question}/unique-answers/synchronize', '\App\Http\Controllers\Admin\UniqueAnswerController@synchronize')->name('unique-answers.synchronize');
     
         Route::get('statistics', '\App\Http\Controllers\Admin\StatsController@index')->name('statistics.index');
     });

@@ -41,10 +41,10 @@ class GameController extends Controller
 
         $questions = Question::byGameId($currentGameId)->get();
 
-        $suggestions1 = Game::getDataFromSheet($questions[0]['sheet_url']);
-        $suggestions2 = Game::getDataFromSheet($questions[1]['sheet_url']);
-        $suggestions3 = Game::getDataFromSheet($questions[2]['sheet_url']);
-        $suggestions4 = Game::getDataFromSheet($questions[3]['sheet_url']);
+        $suggestions1 = Game::getDataFromSheet($questions[0]['sheet_url'], $questions[0]->id);
+        $suggestions2 = Game::getDataFromSheet($questions[1]['sheet_url'], $questions[1]->id);
+        $suggestions3 = Game::getDataFromSheet($questions[2]['sheet_url'], $questions[2]->id);
+        $suggestions4 = Game::getDataFromSheet($questions[3]['sheet_url'], $questions[3]->id);
 
         $uniqueAnswers1 = UniqueAnswer::getAnswersByQuestionId($questions[0]->id);
         $uniqueAnswers2 = UniqueAnswer::getAnswersByQuestionId($questions[1]->id);

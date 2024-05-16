@@ -86,7 +86,7 @@
 
                             <!-- Bouton "Answer" -->
                             @if ($k <= 2)
-                                <a href="{{ route('unique-answers.show', ['question' => $question->id]) }}" class="btn btn-primary">View answers</a>
+                                <a href="{{ route('unique-answers.synchronize', ['question' => $question->id]) }}" class="btn btn-primary">Synchronize answers</a>
                             @else
                                 <a href="{{ route('ranked-answers.show', ['question' => $question->id]) }}" class="btn btn-primary">View answers</a>
                             @endif

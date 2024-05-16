@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use App\Models\Game;
 use App\Models\UniqueAnswer;
 use App\Models\Question;
 use Validator;
@@ -142,6 +143,23 @@ class UniqueAnswerController extends Controller
     
         return redirect()->back()->with('success', 'Answers updated successfully');
     }    
+
+    public function synchronize(Request $request, $questionId)
+    {
+        $question = Question::where('id', $questionId)->first();
+        $excelData = Game::getArray2DFromSheet($question->sheet_url, $questionId);
+
+        try
+        {
+            UniqueAnswer::synchroniseInitialPercentage($excelData, $questionId);
+            return redirect()->back()->with('success', 'Synchronization done successfully.');
+        }
+        catch(\Exception $e)
+        {
+            dd($e);
+            return redirect()->back()->withErrors($e);
+        }
+    }
 
     /**
      * Remove the specified resource from storage.

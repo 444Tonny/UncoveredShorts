@@ -149,3 +149,6 @@ CREATE TABLE visits (
 
 ALTER TABLE games_played
 ADD COLUMN country VARCHAR(255) NULL;
+
+--- Jeudi 
+ALTER TABLE unique_answers CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

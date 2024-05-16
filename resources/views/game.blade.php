@@ -249,7 +249,7 @@
 
           setTimeout(function() {
             openModalById('gameOverModal', false);
-          }, 1000);
+          }, 500);
         }
         
         /* Search */

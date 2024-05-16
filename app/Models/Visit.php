@@ -79,5 +79,7 @@ class Visit extends Model
         } catch (\Exception $e) {
             $country = "";
         }
+
+        return $country;
     }
 }

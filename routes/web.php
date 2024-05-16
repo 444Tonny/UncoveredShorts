@@ -31,8 +31,8 @@ Route::prefix('admin')->group(function () {
         Route::resource('games', \App\Http\Controllers\Admin\AdminGameController::class);
         Route::resource('questions', \App\Http\Controllers\Admin\QuestionController::class);
 
-        Route::get('credentials', '\App\Http\Controllers\admin\CredentialsController@indexEditor')->name('adminCredentials');
-        Route::put('credentials', '\App\Http\Controllers\admin\CredentialsController@editPassword')->name('passwordEdited');    
+        Route::get('credentials', '\App\Http\Controllers\Admin\CredentialsController@indexEditor')->name('adminCredentials');
+        Route::put('credentials', '\App\Http\Controllers\Admin\CredentialsController@editPassword')->name('passwordEdited');    
 
         Route::resource('ranked-answers', \App\Http\Controllers\Admin\RankedAnswerController::class);
         Route::get('questions/{question}/ranked-answers', '\App\Http\Controllers\Admin\RankedAnswerController@show')->name('ranked-answers.show');

@@ -17,6 +17,7 @@ class VisitsController extends Controller
         $visit = new Visit();
         $visit->ip_address = $request->ip();
         $visit->date_visit = $dateVisit;
+        $visit->country = Visit::getCountryFromIP($request->ip());
         // Ajoutez d'autres champs si nécessaire, comme 'country'
         $visit->save();
 

@@ -356,11 +356,15 @@
     
     <script src="{{ asset('js/game.js') }}?t={{ time() }}"></script>
 
-    @if(\App\Models\Visit::where('ip_address', request()->ip())->exists())
-      <script>  </script>
-    @else
-      <script> openModalById('rulesModal') </script>
-    @endif
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        if(localStorage.getItem('showRules') !== 'true') 
+        { 
+          openModalById('rulesModal')
+          localStorage.setItem('showRules', 'true');
+        }
+      });
+    </script>
 
   </body>
 

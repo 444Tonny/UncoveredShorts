@@ -75,7 +75,7 @@ class Visit extends Model
     {
         try {
             $currentUserInfo = Location::get($ip_address);
-            $country = $currentUserInfo ? $currentUserInfo->country : "";
+            $country = $currentUserInfo ? $currentUserInfo->countryName : "";
         } catch (\Exception $e) {
             $country = "";
         }

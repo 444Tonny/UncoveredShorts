@@ -9,6 +9,7 @@ use App\Models\GamePlayed;
 use App\Models\Question; 
 use App\Models\RankedAnswer;
 use App\Models\UniqueAnswer; 
+use App\Models\Visit; 
 
 class GameController extends Controller
 {

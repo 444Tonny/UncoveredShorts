@@ -18,7 +18,7 @@ class VisitsController extends Controller
         $visit->ip_address = $request->ip();
         $visit->date_visit = $dateVisit;
         $visit->country = Visit::getCountryFromIP($request->ip());
-        // Ajoutez d'autres champs si nécessaire, comme 'country'
+        dd($visit);
         $visit->save();
 
         return response()->json(['message' => 'Visit registered'], 200);

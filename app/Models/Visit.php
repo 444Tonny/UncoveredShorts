@@ -63,14 +63,6 @@ class Visit extends Model
     }
 
     /* Others */
-    public function recordVisit(Request $request)
-    {
-        $visite = new Visit();
-        $visite->ip_address = static::getCountryFromIP($request->ip());
-        $visite->save();
-
-        return response()->json(['message' => 'Visit registered.'], 200);
-    }
     public static function getCountryFromIP($ip_address)
     {
         try {

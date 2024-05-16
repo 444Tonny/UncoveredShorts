@@ -32,8 +32,10 @@ class GameController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index()
+    public function index(Request $request)
     {
+        //Visit::getCountryFromIP('70.26.212.228');
+
         $currentGame = Game::getCurrentGame();
         $currentGameId = $currentGame->id;
 

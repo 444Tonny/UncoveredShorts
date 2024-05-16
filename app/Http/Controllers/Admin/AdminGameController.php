@@ -17,7 +17,7 @@ class AdminGameController extends Controller
         // To update current game status
         Game::getCurrentGame();
 
-        $games = Game::all();
+        $games = Game::select('*')->orderBy('id', 'DESC')->get();
         return view('admin.games.index', compact('games'));
     }
 
@@ -45,7 +45,7 @@ class AdminGameController extends Controller
             ]);
     
             DB::transaction(function () use ($request) {
-                $game = Game::create($request->only('date_start', 'date_end') + ['status' => 'ready']);
+                $game = Game::create($request->only('date_start', 'date_end') + ['status' => 'ready', 'name' => $request->input('name')]);
     
                 // Insert the questions associated with this game
                 foreach ($request->questions as $questionData) {

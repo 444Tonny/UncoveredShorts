@@ -49,7 +49,7 @@
                     <tbody>
                         @foreach ($games as $game)
                             <tr>
-                                <td>{{ $game->id }}</td>
+                                <td>{{ $game->name ?: 'Game#'.$game->id }}</td>
                                 <td>
                                     <span class='game-status {{ $game->status }}'> {{ $game->status }} </span>
                                 </td>

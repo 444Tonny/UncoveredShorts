@@ -6,6 +6,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\DB;
+
+use App\Models\Visit;
 
 class GamePlayed extends Model
 {
@@ -21,6 +24,7 @@ class GamePlayed extends Model
         'score_4',
         'total_score',
         'ip_address',
+        'country'
     ];
 
     public $timestamps = true;
@@ -28,6 +32,7 @@ class GamePlayed extends Model
     public static function storeGameSession($game_id, $score1, $score2, $score3, $score4, $totalScore)
     {
         $ip_address = Request::ip();
+        $countryName = Visit::getCountryFromIP($ip_address);
 
         $gamePlayed = new GamePlayed([
             'game_id' => $game_id,
@@ -37,6 +42,7 @@ class GamePlayed extends Model
             'score_4' => $score4,
             'total_score' => $totalScore,
             'ip_address' => $ip_address,
+            'country' => $countryName
         ]);
 
         $gamePlayed->save();
@@ -44,6 +50,7 @@ class GamePlayed extends Model
         return $gamePlayed;
     }
 
+    // Statistics for players
     public static function getGameStats($game_id)
     {
         // Top score
@@ -62,7 +69,14 @@ class GamePlayed extends Model
         ];
     }
 
-    // Admin Stats ------ start
+    // Statistics for admin ------ start
+    public static function getGamesStatsByCountry()
+    {
+        return static::select('country', DB::raw('COUNT(*) as played'))
+            ->groupBy('country')
+            ->orderBy('played', 'desc')
+            ->get();
+    }
     
     public static function getAdminGameStats()
     {
@@ -89,7 +103,6 @@ class GamePlayed extends Model
             'totalGames' => $totalGames,
         ];
     }
-
     private static function getGamesByDate($date)
     {
         return static::whereDate('created_at', $date)->count();

@@ -46,7 +46,7 @@
             <span class="numero">Q1</span>
             <h2 class="question">{{ $questions[0]->value }}</h2>
             <div class="answer-block">
-              <input id='us-ipt1' onclick="setActivePlayerInput('us-ipt1'), displaySuggestions(suggestions1), openModalById('searchModal')"  class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
+              <input id='us-ipt1' onclick="setActivePlayerInput('us-ipt1'), openModalById('searchModal'), displaySuggestions(suggestions1)"  class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
               <span id='us-pts1' class='points'>-</span>
             </div>
           </div>
@@ -55,7 +55,7 @@
             <span class="numero">Q2</span>
             <h2 class="question">{{ $questions[1]->value }}</h2>
             <div class="answer-block">
-              <input id='us-ipt2' onclick="setActivePlayerInput('us-ipt2'), displaySuggestions(suggestions2), openModalById('searchModal')" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
+              <input id='us-ipt2' onclick="setActivePlayerInput('us-ipt2'), openModalById('searchModal'), displaySuggestions(suggestions2)" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
               <span id='us-pts2' class='points'>-</span>
             </div>
           </div>
@@ -64,7 +64,7 @@
             <span class="numero">Q3</span>
             <h2 class="question">{{ $questions[2]->value }}</h2>
             <div class="answer-block">
-              <input id='us-ipt3' onclick="setActivePlayerInput('us-ipt3'), displaySuggestions(suggestions3), openModalById('searchModal')" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
+              <input id='us-ipt3' onclick="setActivePlayerInput('us-ipt3'), openModalById('searchModal'), displaySuggestions(suggestions3)" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
               <span id='us-pts3' class='points'>-</span>
             </div>
           </div>
@@ -73,7 +73,7 @@
             <span class="numero">Q4</span>
             <h2 class="question">{{ $questions[3]->value }}</h2>
             <div class="answer-block">
-              <input id='us-ipt4' onclick="setActivePlayerInput('us-ipt4'), displaySuggestions(suggestions4), openModalById('searchModal')" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
+              <input id='us-ipt4' onclick="setActivePlayerInput('us-ipt4'), openModalById('searchModal'), displaySuggestions(suggestions4)" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
               <span id='us-pts4' class='points'>-</span>
             </div>
           </div>
@@ -89,6 +89,10 @@
           <img src="{{ asset('img/logo.png') }}" width='180' alt="uncovered-shorts-logo" class="gameOverLogo">
           <p class="go-text"><b>Congratulations!</b> <br> Your score today :</p>
           <span id="go-points">00</span>
+          <div class="two-column">
+            <span>Average <br> Score <br><b id='AverageScoreResults'>{{ $statistics['AverageScore'] == intval($statistics['AverageScore']) ? intval($statistics['AverageScore']) : number_format($statistics['AverageScore'], 1) }}</b></span>
+            <span>Top <br>Score <br><b id='TopScoreResults'>{{ $statistics['TopScore'] == intval($statistics['TopScore']) ? intval($statistics['TopScore']) : number_format($statistics['TopScore'], 1) }}</b></span>
+          </div>
           <div class="go-buttons">
             <button class="go-share">SHARE</button>
             <button class="go-stats" onclick=openModalById('statsModal')>STATS</button>
@@ -149,6 +153,10 @@
           var searchInput = document.getElementById('us-search');
           suggestionsContainer.innerHTML = '';
           searchInput.value = '';
+        
+          // auto focus on input
+          searchInput.focus();
+          searchInput.select();
 
           suggestions.forEach(function(suggestion) {
               var span = document.createElement('span');
@@ -224,11 +232,16 @@
 
           // Get updated statistics including the new game
           getStatistics(currentGameId)
-            .then(statisticsUpdated => {
-                console.log(statisticsUpdated);
-                document.getElementById('TopScore').innerHTML = '' + statisticsUpdated.TopScore;
-                document.getElementById('AverageScore').innerHTML = '' + statisticsUpdated.AverageScore;
-                document.getElementById('GamesPlayed').innerHTML = '' + statisticsUpdated.GamesPlayed;
+            .then(statisticsUpdated => 
+            {
+              console.log(statisticsUpdated);
+              document.getElementById('TopScore').innerHTML = '' + statisticsUpdated.TopScore;
+              document.getElementById('AverageScore').innerHTML = '' + statisticsUpdated.AverageScore;
+              document.getElementById('GamesPlayed').innerHTML = '' + statisticsUpdated.GamesPlayed;
+
+              // Results screen
+              document.getElementById('TopScoreResults').innerHTML = '' + statisticsUpdated.TopScore;
+              document.getElementById('AverageScoreResults').innerHTML = '' + statisticsUpdated.AverageScore;
             })
             .catch(error => {
                 console.error("Une erreur s'est produite lors de la récupération des statistiques :", error);
@@ -342,6 +355,12 @@
       </div>
     
     <script src="{{ asset('js/game.js') }}?t={{ time() }}"></script>
+
+    @if(\App\Models\Visit::where('ip_address', request()->ip())->exists())
+      <script>  </script>
+    @else
+      <script> openModalById('rulesModal') </script>
+    @endif
 
   </body>
 

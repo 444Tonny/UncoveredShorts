@@ -134,3 +134,31 @@ form#credentials p {
 }
 
 /* Credentials end */
+
+/* Edit game */
+
+.row-sheet
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.row-sheet input
+{
+    width: 86%;
+}
+
+.row-sheet a
+{
+    width: 12%;
+    height: 45px;
+
+    box-sizing: border-box;
+    text-align: center;  
+    padding-top: 10px;
+    
+    border: 1px solid #d6d6d6;
+    border-radius: 3px;
+    color: rgb(86, 86, 86);
+}

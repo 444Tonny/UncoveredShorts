@@ -6,6 +6,13 @@ body {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
+.admin-logo-container{
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+    padding-bottom: 15px;
+}
+
 .admin-content
 {
     padding: 3%;

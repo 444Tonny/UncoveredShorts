@@ -146,3 +146,6 @@ CREATE TABLE visits (
   created_at DATETIME,
   updated_at DATETIME
 );
+
+ALTER TABLE games_played
+ADD COLUMN country VARCHAR(255) NULL;

@@ -1,5 +1,5 @@
-var baseUrl = 'http://localhost:8080/UncoveredShorts/public'; 
-//var baseUrl = 'https://phplaravel-1258294-4520213.cloudwaysapps.com';
+// var baseUrl = 'http://localhost:8080/UncoveredShorts/public'; 
+var baseUrl = 'https://phplaravel-1258294-4520213.cloudwaysapps.com';
 
 var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -53,7 +53,6 @@ function calculateRankedPoints(arrayAnswer, playerAnswer)
 /* calculate unique points */
 function calculateUniquePoints(arrayAnswer, playerAnswer, voteCount = 101)
 {
-    
     playerAnswer = playerAnswer.toLowerCase();
     var foundAnswer = arrayAnswer.find(answer => answer.value && answer.value.toLowerCase() === playerAnswer);
 
@@ -86,13 +85,42 @@ function calculateUniquePoints(arrayAnswer, playerAnswer, voteCount = 101)
 
         // Envoi de la requête avec les données JSON
         xhr.send(JSON.stringify({ question_id: questionId, value: value }));
-        
-        return (100 - foundAnswer.percentage);
+
+        let result = (100 - foundAnswer.percentage).toFixed(1);
+        result = parseFloat(result);
+        return result;
     }
 
     else return 0;
 }
 
+// 
+function getStatistics(game_id) {
+    return new Promise((resolve, reject) => {
+        let url = baseUrl + '/get-statistics';
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('X-CSRF-Token', csrfToken);
+
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                var statistics = JSON.parse(xhr.responseText);
+                resolve(statistics); // Résoudre la promesse avec les statistiques
+            } else {
+                reject('Request get Statistics failed with status: ' + xhr.status); // Rejeter la promesse avec une erreur
+            }
+        };
+
+        xhr.onerror = function() {
+            reject('Request failed'); // Rejeter la promesse avec une erreur
+        };
+
+        xhr.send(JSON.stringify({ game_id: game_id }));
+    });
+}
+
+// Store the game when it's finished
 function storeGameSession(game_id, score1, score2, score3, score4, totalScore)
 {
     let url = baseUrl + '/store-game-session';
@@ -125,31 +153,6 @@ function storeGameSession(game_id, score1, score2, score3, score4, totalScore)
         score4: score4, 
         totalScore: totalScore
     }));
-}
-
-function getStatistics(game_id) {
-    return new Promise((resolve, reject) => {
-        let url = baseUrl + '/get-statistics';
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', url, true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.setRequestHeader('X-CSRF-Token', csrfToken);
-
-        xhr.onload = function() {
-            if (xhr.status >= 200 && xhr.status < 300) {
-                var statistics = JSON.parse(xhr.responseText);
-                resolve(statistics); // Résoudre la promesse avec les statistiques
-            } else {
-                reject('Request get Statistics failed with status: ' + xhr.status); // Rejeter la promesse avec une erreur
-            }
-        };
-
-        xhr.onerror = function() {
-            reject('Request failed'); // Rejeter la promesse avec une erreur
-        };
-
-        xhr.send(JSON.stringify({ game_id: game_id }));
-    });
 }
 
 //Check visits

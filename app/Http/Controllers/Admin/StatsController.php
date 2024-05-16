@@ -10,14 +10,20 @@ use App\Models\GamePlayed;
 
 class StatsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
         $stats = 0;
         
         $visitStats = Visit::getVisitStats();
 
+        $countryStats = Visit::getVisitStatsByCountry();
+
         $gamesStats = GamePlayed::getAdminGameStats();
 
-        return view('admin.statistics.stats', compact('visitStats', 'gamesStats'));
+        $countryGamesStats = GamePlayed::getGamesStatsByCountry();
+
+        return view('admin.statistics.stats', compact('visitStats', 'gamesStats', 'countryStats', 'countryGamesStats'));
     }
+
+
 }

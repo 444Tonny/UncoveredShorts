@@ -66,7 +66,7 @@
                             </select>                              
 
                             <label for="sheet_url_{{ $i }}">Answer suggestions (Google sheet)</label>
-                            <input type="text" placeholder='Enter a sheet URL...' name="questions[{{ $i }}][sheet_url]" value="{{ old('questions.'.$i.'.sheet_url') }}" id="sheet_url_{{ $i }}">
+                            <input type="text" placeholder='Enter a sheet URL...' name="questions[{{ $i }}][sheet_url]" value="{{ old('questions.'.$i.'.sheet_url') }}" id="sheet_url_{{ $i }}" required>
                         </div>
                         @endfor
                     </div>

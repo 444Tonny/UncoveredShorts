@@ -50,7 +50,7 @@
 
                     <figure>
                         <table class="barChart_h">
-                            <caption>The country of visitors</caption>
+                            <caption>Country of visitors</caption>
                     
                             <tbody>
                             <!-- Y-axis -->
@@ -60,32 +60,24 @@
                               </th>
                             </tr>
                             
+                            @foreach ($countryStats as $cs)
+                                
                             <!-- Data Rows -->
                             <tr class="firstRow">
-                              <th scope="row">United States:</th>
-                              <td><span style="width:10%"><b>70</b></span></td>
+                              <th scope="row">{{ empty($cs->country) ? 'Unknown' : $cs->country }}</th>
+                              <td><span style="width:{{ ($cs->visits * 100 ) / $visitStats['totalVisits'] }}%"><b>{{ $cs->visits }}</b></span></td>
                             </tr>
-                            <tr>
-                              <th scope="row">Canada:</th>
-                              <td><span style="width:30%"><b>30</b></span></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Canada:</th>
-                              <td><span style="width:30%"><b>30</b></span></td>
-                            </tr>
-                            <tr>
-                              <th scope="row">Canada:</th>
-                              <td><span style="width:30%"><b>30</b></span></td>
-                            </tr>
+
+                            @endforeach
                           </tbody>
                         </table>
-                    </figure>          
-                      
+                    </figure>     
+                    
                     <figure>
                         <table class="barChart_h">
-                          <caption>Country of fully completed quizzes</caption>
+                            <caption>Country of fully completed quizzes</caption>
                     
-                          <tbody>
+                            <tbody>
                             <!-- Y-axis -->
                             <tr>
                               <th class="blankCell"></th>
@@ -93,18 +85,19 @@
                               </th>
                             </tr>
                             
+                            @foreach ($countryGamesStats as $cgs)
+                                
                             <!-- Data Rows -->
                             <tr class="firstRow">
-                              <th scope="row">United States:</th>
-                              <td><span style="width:10%"><b>70</b></span></td>
+                              <th scope="row">{{ empty($cgs->country) ? 'Unknown' : $cgs->country }}</th>
+                              <td><span style="width:{{ ($cgs->played * 100 ) / $gamesStats['totalGames'] }}%"><b>{{ $cgs->played }}</b></span></td>
                             </tr>
-                            <tr>
-                              <th scope="row">Canada:</th>
-                              <td><span style="width:30%"><b>30</b></span></td>
-                            </tr>
+
+                            @endforeach
                           </tbody>
                         </table>
-                    </figure>         
+                    </figure> 
+                       
                 </div>
                 
                 <div class="stats-charts">
@@ -113,7 +106,7 @@
                     @for($i = 0 ; $i < 4 ; $i ++)
                     <figure>
                         <table class="barChart_h">
-                          <caption>Q1: What is the question number #1 ?</caption>
+                          <caption>Q{{$i+1}}: Question number #{{$i+1}}</caption>
                     
                           <tbody>
                             <!-- Y-axis -->
@@ -125,8 +118,8 @@
                             
                             <!-- Data Rows -->
                             <tr class="firstRow">
-                              <th scope="row">United States:</th>
-                              <td><span style="width:10%"><b>70</b></span></td>
+                              <th scope="row">Answer:</th>
+                              <td><span style="width:1%"><b>0</b></span></td>
                             </tr>
                             <tr>
                           </tbody>

@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use Stevebauman\Location\Facades\Location;
+use Illuminate\Support\Facades\DB;
 
 class Visit extends Model
 {
@@ -14,15 +16,33 @@ class Visit extends Model
 
     protected $fillable = ['ip_address', 'country', 'date_visit', 'created_at', 'updated_at'];
 
-    public function recordVisit(Request $request)
+    /* Country stats */
+    public static function getVisitStatsByCountry()
     {
-        // Enregistre la visite dans la base de données
-        $visite = new Visit();
-        $visite->ip_address = $request->ip();
-        // Ajoutez d'autres champs si nécessaire, comme 'country'
-        $visite->save();
+        return static::select('country', DB::raw('COUNT(*) as visits'))
+            ->groupBy('country')
+            ->orderBy('visits', 'desc')
+            ->get();
+    }
 
-        return response()->json(['message' => 'Visite enregistrée avec succès'], 200);
+    public static function getTotalVisitsByCountry()
+    {
+        return static::select(DB::raw('COUNT(*) as total_visits'))
+            ->groupBy('country')
+            ->orderBy('total_visits', 'desc')
+            ->get()
+            ->sum('total_visits');
+    }
+
+    /* STATS VISITS */
+    private static function getVisitsByDate($date)
+    {
+        return static::whereDate('date_visit', $date)->count();
+    }
+
+    private static function getVisitsByDateRange($startDate, $endDate)
+    {
+        return static::whereBetween('date_visit', [$startDate, $endDate])->count();
     }
 
     public static function getVisitStats()
@@ -42,13 +62,22 @@ class Visit extends Model
         ];
     }
 
-    private static function getVisitsByDate($date)
+    /* Others */
+    public function recordVisit(Request $request)
     {
-        return static::whereDate('date_visit', $date)->count();
-    }
+        $visite = new Visit();
+        $visite->ip_address = static::getCountryFromIP($request->ip());
+        $visite->save();
 
-    private static function getVisitsByDateRange($startDate, $endDate)
+        return response()->json(['message' => 'Visit registered.'], 200);
+    }
+    public static function getCountryFromIP($ip_address)
     {
-        return static::whereBetween('date_visit', [$startDate, $endDate])->count();
+        try {
+            $currentUserInfo = Location::get($ip_address);
+            $country = $currentUserInfo ? $currentUserInfo->country : "";
+        } catch (\Exception $e) {
+            $country = "";
+        }
     }
 }

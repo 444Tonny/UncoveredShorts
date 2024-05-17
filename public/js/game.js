@@ -38,6 +38,8 @@ function calculateUniquePoints(arrayAnswer, playerAnswer, question_id, voteCount
     playerAnswer = playerAnswer.toLowerCase();
     var foundAnswer = arrayAnswer.find(answer => answer.value && answer.value.toLowerCase() === playerAnswer);
 
+    console.log(arrayAnswer);
+
     var xhr = new XMLHttpRequest();
     let url = baseUrl + '/add-vote';
     xhr.open('POST', url, true);
@@ -68,10 +70,9 @@ function calculateUniquePoints(arrayAnswer, playerAnswer, question_id, voteCount
         let result = Math.round(100 - foundAnswer.percentage);
 
         result = parseFloat(result);
-        //return result;
+        return result;
     }
-
-    return 0;
+    else return 0;
 }
 
 // 

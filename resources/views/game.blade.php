@@ -161,13 +161,6 @@
           // auto focus on input
           searchInput.focus();
           searchInput.select();
-
-          suggestions.forEach(function(suggestion) {
-              var span = document.createElement('span');
-              span.className = 'single-suggestion';
-              span.innerHTML = '<p>' + suggestion + '</p><button onclick=selectSuggestion(event) data-value="'+ suggestion +'" data-inputTargetId="'+ activePlayerInput +'" class="selectButton">Select</button>';
-              suggestionsContainer.appendChild(span);
-          });
         }
 
         var suggestionsContainer = document.getElementById('suggestions');

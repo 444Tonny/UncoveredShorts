@@ -147,12 +147,8 @@
           activePlayerInput = idinput; 
         }
 
-        // Save quelles suggestions utilisons nous mtn
-        var currentSuggestions;
-
         function displaySuggestions(suggestions) 
         {          
-          currentSuggestions = suggestions;
           var suggestionsContainer = document.getElementById('suggestions');
           var searchInput = document.getElementById('us-search');
           suggestionsContainer.innerHTML = '';
@@ -175,20 +171,20 @@
         
         /* Search */
         function filterSuggestions(searchTerm) {
-
+          
           suggestionsContainer.innerHTML = '';
-          if(searchTerm != '') 
-          {
-            currentSuggestions.forEach(text => {
-              if (text.toLowerCase().indexOf(searchTerm.toLowerCase()) !== -1) {
-                // Créer l'élément de suggestion et l'ajouter au conteneur
-                var span = document.createElement('span');
-                span.className = 'single-suggestion';
-                span.innerHTML = '<p>' + text + '</p><button onclick=selectSuggestion(event) data-value="'+ text +'" data-inputTargetId="'+ activePlayerInput +'" class="selectButton">Select</button>';
-                suggestionsContainer.appendChild(span);
+
+          // Parcourir les suggestions une seule fois
+          var text = '';
+          Array.from(suggestions).forEach(function(suggestion) {
+              text = suggestion.querySelector('p').innerText;
+              // Utiliser indexOf pour vérifier l'inclusion du terme de recherche
+              if (text.indexOf(searchTerm) !== -1) {
+                  suggestion.style.display = 'flex';
+              } else {
+                  suggestion.style.display = 'none';
               }
-            });
-          }
+          });
         }
 
         /* Select answer , show points and disable input onclick*/

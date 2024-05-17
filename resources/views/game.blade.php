@@ -44,7 +44,7 @@
         <div class="game-block">
           <div class="question-block">
             <span class="numero">Q1</span>
-            <h2 class="question">{{ $questions[0]->value }}</h2>
+            <h2 class="question">{!! $questions[0]->value !!}</h2>
             <div class="answer-block">
               <input id='us-ipt1' onclick="setActivePlayerInput('us-ipt1'), openModalById('searchModal'), displaySuggestions(suggestions1)"  class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
               <span id='us-pts1' class='points'>-</span>
@@ -53,7 +53,7 @@
 
           <div class="question-block">
             <span class="numero">Q2</span>
-            <h2 class="question">{{ $questions[1]->value }}</h2>
+            <h2 class="question">{!! $questions[1]->value !!}</h2>
             <div class="answer-block">
               <input id='us-ipt2' onclick="setActivePlayerInput('us-ipt2'), openModalById('searchModal'), displaySuggestions(suggestions2)" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
               <span id='us-pts2' class='points'>-</span>
@@ -62,7 +62,7 @@
 
           <div class="question-block">
             <span class="numero">Q3</span>
-            <h2 class="question">{{ $questions[2]->value }}</h2>
+            <h2 class="question">{!! $questions[2]->value !!}</h2>
             <div class="answer-block">
               <input id='us-ipt3' onclick="setActivePlayerInput('us-ipt3'), openModalById('searchModal'), displaySuggestions(suggestions3)" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
               <span id='us-pts3' class='points'>-</span>
@@ -71,7 +71,7 @@
 
           <div class="question-block">
             <span class="numero">Q4</span>
-            <h2 class="question">{{ $questions[3]->value }}</h2>
+            <h2 class="question">{!! $questions[3]->value !!}</h2>
             <div class="answer-block">
               <input id='us-ipt4' onclick="setActivePlayerInput('us-ipt4'), openModalById('searchModal'), displaySuggestions(suggestions4)" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
               <span id='us-pts4' class='points'>-</span>

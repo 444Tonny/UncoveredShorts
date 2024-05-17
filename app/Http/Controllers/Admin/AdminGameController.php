@@ -43,16 +43,18 @@ class AdminGameController extends Controller
                 'questions.*.type' => 'required', // Validate that each question has a valid type
                 'questions.*.sheet_url' => 'url', // Validate that the sheet URL is optional but valid if present
             ]);
+
     
             DB::transaction(function () use ($request) {
                 $game = Game::create($request->only('date_start', 'date_end') + ['status' => 'ready', 'name' => $request->input('name')]);
     
                 // Insert the questions associated with this game
                 foreach ($request->questions as $questionData) {
+                    $value = str_replace('&', '<span style="font-family:arial;">&amp;</span>', $questionData['value']);
                     $question = new Question([
                         'game_id' => $game->id,
                         'number' => $questionData['number'], // Fill in if necessary
-                        'value' => $questionData['value'],
+                        'value' => $value,
                         'type' => $questionData['type'],
                         'sheet_url' => $questionData['sheet_url'] ?? '',
                     ]);
@@ -87,11 +89,13 @@ class AdminGameController extends Controller
     
                 // Update or insert the questions associated with this game
                 foreach ($request->questions as $questionData) {
+
+                    $value = str_replace('&', '<span style="font-family:arial;">&amp;</span>', $questionData['value']);
                     if (isset($questionData['id'])) {
                         $question = Question::findOrFail($questionData['id']);
                         $question->update([
                             'number' => $questionData['number'], // Fill in if necessary
-                            'value' => $questionData['value'],
+                            'value' => $value,
                             'type' => $questionData['type'],
                             'sheet_url' => $questionData['sheet_url'] ?? '',
                         ]);
@@ -99,7 +103,7 @@ class AdminGameController extends Controller
                         $question = new Question([
                             'game_id' => $game->id,
                             'number' => $questionData['number'], // Fill in if necessary
-                            'value' => $questionData['value'],
+                            'value' => $value,
                             'type' => $questionData['type'],
                             'sheet_url' => $questionData['sheet_url'] ?? '',
                         ]);
@@ -112,9 +116,9 @@ class AdminGameController extends Controller
     
         } catch (ValidationException $e) {
             return redirect()->back()->withErrors($e->validator->getMessageBag()->all())->withInput();
-        } catch (\Exception $e) {
-            dd($e);
-            return redirect()->back()->withErrors(['An error occurred while processing your request. Please try again.'])->withInput();
+        } catch (\Exception $e) 
+        {
+            return redirect()->back()->withErrors(['An error occurred while processing your request. Please try again:' .$e])->withInput();
         }
     }
 

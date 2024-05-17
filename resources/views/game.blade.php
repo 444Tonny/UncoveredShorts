@@ -221,8 +221,27 @@
 
           if(answerCount >= 4) gameOver();
         }
+        
+        var suggestionsContainer = document.getElementById('suggestions');
+        var suggestions = suggestionsContainer.getElementsByClassName('single-suggestion');
+        
+        /* Search */
+        function filterSuggestions(searchTerm) {
+          // Parcourir les suggestions une seule fois
+          var text = '';
+          Array.from(suggestions).forEach(function(suggestion) {
+              text = suggestion.querySelector('p').innerText;
+              // Utiliser indexOf pour vérifier l'inclusion du terme de recherche
+              if (text.indexOf(searchTerm) !== -1) {
+                  suggestion.style.display = 'flex';
+              } else {
+                  suggestion.style.display = 'none';
+              }
+          });
+        }
 
-        /* Alloa */
+        
+        /* Results */
         function gameOver()
         {
           document.getElementById('go-points').innerHTML = ''+playerFinalScore;
@@ -250,23 +269,6 @@
           setTimeout(function() {
             openModalById('gameOverModal', false);
           }, 500);
-        }
-        
-        /* Search */
-        function filterSuggestions(searchTerm) {
-
-            var suggestionsContainer = document.getElementById('suggestions');
-            var suggestions = suggestionsContainer.getElementsByClassName('single-suggestion');
-
-            Array.from(suggestions).forEach(function(suggestion) {
-                var text = suggestion.querySelector('p').innerText.toLowerCase();
-                if (text.includes(searchTerm.toLowerCase())) {
-                    suggestion.style.display = 'flex';
-                    hasResults = true; 
-                } else {
-                    suggestion.style.display = 'none';
-                }
-            })
         }
 
       </script>

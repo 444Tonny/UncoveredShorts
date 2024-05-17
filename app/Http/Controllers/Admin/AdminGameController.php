@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\GamePlayed;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
@@ -129,6 +130,7 @@ class AdminGameController extends Controller
 
         // Récupérer toutes les questions associées à la Game
         $questions = Question::where('game_id', $game->id)->get();
+        $gamePlayed = GamePlayed::where('game_id', $game->id)->get();
 
         // Parcourir chaque question et supprimer les enregistrements liés dans les tables
         foreach ($questions as $question) {
@@ -137,6 +139,7 @@ class AdminGameController extends Controller
         }
 
         $game->questions()->delete();
+        $game->gameplayed()->delete();
         $game->delete();
         return redirect()->route('games.index');
     }

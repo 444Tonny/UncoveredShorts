@@ -309,7 +309,7 @@
       <div class="modal" id="feedbackModal">
         <button class="close-modal" onclick=closeModalById('feedbackModal')>×</button>
         <h3>FEEDBACK</h3>
-        <span class='feedback-text'>Lorem ipsum dolor sit amet consectetur adipisicing elit. Modi hic vero facilis quibusdam. </span>
+        <span class='feedback-text'>Hi there! We'd greatly appreciate your feedback on our game to help us enhance the experience for everyone. Thanks for sharing! </span>
         <form class='feedback-form' action="" method="get">
           <label for="">Name</label>
           <input type="text" placeholder="Name...">

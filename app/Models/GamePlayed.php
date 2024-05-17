@@ -63,8 +63,8 @@ class GamePlayed extends Model
         $gamesPlayed = self::where('game_id', $game_id)->count();
 
         return [
-            'TopScore' => $topScore,
-            'AverageScore' => $averageScore,
+            'TopScore' => round(($topScore !== null) ? $topScore : 0),
+            'AverageScore' => round($averageScore),
             'GamesPlayed' => $gamesPlayed,
         ];
     }

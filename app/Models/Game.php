@@ -28,6 +28,11 @@ class Game extends Model
         return $this->hasMany(Question::class);
     }
 
+    public function gameplayed()
+    {
+        return $this->hasMany(GamePlayed::class);
+    }
+
     public static function getCurrentGame()
     {
         $now = now()->setTimezone('America/New_York');

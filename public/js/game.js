@@ -63,7 +63,9 @@ function calculateUniquePoints(arrayAnswer, playerAnswer, voteCount = 101)
         // Envoi de la requête avec les données JSON
         xhr.send(JSON.stringify({ question_id: questionId, value: value }));
 
-        let result = (100 - foundAnswer.percentage).toFixed(1);
+        //let result = (100 - foundAnswer.percentage).toFixed(1);
+        let result = Math.round(100 - foundAnswer.percentage);
+
         result = parseFloat(result);
         return result;
     }

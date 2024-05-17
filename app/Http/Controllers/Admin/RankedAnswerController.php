@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Models\RankedAnswer;
 use App\Models\Question;
+use App\Models\Game;
 use Validator;
 
 class RankedAnswerController extends Controller
@@ -90,6 +91,23 @@ class RankedAnswerController extends Controller
         }
 
         return redirect()->back()->with('success', 'Ranked answers updated successfully.');
+    }
+
+    public function synchronize(Request $request, $questionId)
+    {
+        $question = Question::where('id', $questionId)->first();
+        $excelData = Game::getArray2DFromSheet($question->sheet_url, $questionId);
+
+        try
+        {
+            RankedAnswer::synchronizeInitialRanking($excelData, $questionId);
+            return redirect()->back()->with('success', 'Synchronization done successfully.');
+        }
+        catch(\Exception $e)
+        {
+            dd($e);
+            return redirect()->back()->withErrors($e);
+        }
     }
 
     /**

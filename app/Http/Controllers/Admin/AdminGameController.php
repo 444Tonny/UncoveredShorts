@@ -43,7 +43,6 @@ class AdminGameController extends Controller
                 'questions.*.type' => 'required', // Validate that each question has a valid type
                 'questions.*.sheet_url' => 'url', // Validate that the sheet URL is optional but valid if present
             ]);
-
     
             DB::transaction(function () use ($request) {
                 $game = Game::create($request->only('date_start', 'date_end') + ['status' => 'ready', 'name' => $request->input('name')]);

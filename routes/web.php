@@ -37,6 +37,7 @@ Route::prefix('admin')->group(function () {
         Route::resource('ranked-answers', \App\Http\Controllers\Admin\RankedAnswerController::class);
         Route::get('questions/{question}/ranked-answers', '\App\Http\Controllers\Admin\RankedAnswerController@show')->name('ranked-answers.show');
         Route::put('questions/{question}/ranked-answers/update-all', '\App\Http\Controllers\Admin\RankedAnswerController@updateAll')->name('ranked-answers.updateAll');
+        Route::get('questions/{question}/ranked-answers/synchronize', '\App\Http\Controllers\Admin\RankedAnswerController@synchronize')->name('ranked-answers.synchronize');
 
         Route::resource('unique-answers', \App\Http\Controllers\Admin\UniqueAnswerController::class);
         Route::get('questions/{question}/unique-answers', '\App\Http\Controllers\Admin\UniqueAnswerController@show')->name('unique-answers.show');

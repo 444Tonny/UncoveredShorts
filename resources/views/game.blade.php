@@ -82,7 +82,6 @@
     </main>
 
     <!-- Modals --> 
-
       <div class="modal" id="gameOverModal">
         <button class="close-modal" onclick=closeModalById('gameOverModal')>×</button>
         <div class="go-box">
@@ -94,7 +93,7 @@
             <span>Top <br>Score <br><b id='TopScoreResults'>{{ $statistics['TopScore'] == intval($statistics['TopScore']) ? intval($statistics['TopScore']) : number_format($statistics['TopScore'], 1) }}</b></span>
           </div>
           <div class="go-buttons">
-            <button class="go-share">SHARE</button>
+            <button class="go-share" onclick="openModalById('shareModal'), shareGame()">SHARE</button>
             <button class="go-stats" onclick=openModalById('statsModal')>STATS</button>
           </div>
           <p class="go-date">{{ now()->format('M d, Y') }}</p>
@@ -187,6 +186,8 @@
         /* Select answer , show points and disable input onclick*/
         function selectSuggestion(event) 
         {
+          var questions = {!! $questions !!};
+
           var inputTargetId = event.target.getAttribute('data-inputTargetId');
           var inputTarget = document.getElementById(inputTargetId);
 
@@ -202,19 +203,19 @@
 
           switch (idEnding) {
             case '1': 
-              playerPoints = calculateUniquePoints(uniqueAnswers1, valueSelected);
+              playerPoints = calculateUniquePoints(uniqueAnswers1, valueSelected, questions[0].id);
               score1 = playerPoints;
               break;
             case '2': 
-              playerPoints = calculateUniquePoints(uniqueAnswers2, valueSelected);
+              playerPoints = calculateUniquePoints(uniqueAnswers2, valueSelected, questions[1].id);
               score2 = playerPoints;
               break;
             case '3': 
-              playerPoints = calculateRankedPoints(rankedAnswers3, valueSelected);
+              playerPoints = calculateRankedPoints(rankedAnswers3, valueSelected, questions[2].id);
               score3 = playerPoints;
               break;
             case '4':
-              playerPoints = calculateRankedPoints(rankedAnswers4, valueSelected);
+              playerPoints = calculateRankedPoints(rankedAnswers4, valueSelected, questions[3].id);
               score4 = playerPoints;
               break;
           }
@@ -352,18 +353,48 @@
           </div>
         </div>
       </div>
-    
-    <script src="{{ asset('js/game.js') }}?t={{ time() }}"></script>
 
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        if(localStorage.getItem('showRules') !== 'true') 
-        { 
-          openModalById('rulesModal')
-          localStorage.setItem('showRules', 'true');
-        }
-      });
-    </script>
+      <div class="modal share-container" id='shareModal'>
+        <button class="close-modal" onclick=closeModalById('shareModal')>×</button>
+        <div class="share-text-container">
+          <textarea id='share-text' class="share-text" readonly>Uncovered Shorts #1, 305 Points. Q1: 90, Q2: 85, Q3: 90, Q4: 40. Play at uncoveredshorts.com</textarea>
+          <button class="copy-btn">COPY</button>
+        </div>
+      </div>
+
+      <script>
+        function shareGame() {
+          // Générer le texte à copier
+          var shareText = "🕵🏼‍♂️ Uncovered Shorts #"+currentGameId+", "+playerFinalScore+" Points.\n";
+          shareText += "Q1: "+score1+", Q2: "+score2+", Q3: "+score3+", Q4: "+score4+"\n";
+          shareText += "🎲 Play at uncoveredshorts.com";
+
+          // Sélectionner les éléments nécessaires
+          var shareTextarea = document.querySelector('.share-text');
+          var copyBtn = document.querySelector('.copy-btn');
+
+          shareTextarea.value = shareText;
+
+          copyBtn.addEventListener('click', function() {
+          shareTextarea.select();
+          document.execCommand('copy');
+          copyBtn.textContent = 'Copied';
+          copyBtn.classList.add('copied-btn');
+        });
+      };
+      </script>
+    
+      <script src="{{ asset('js/game.js') }}?t={{ time() }}"></script>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+          if(localStorage.getItem('showRules') !== 'true') 
+          { 
+            openModalById('rulesModal')
+            localStorage.setItem('showRules', 'true');
+          }
+        });
+      </script>
 
   </body>
 

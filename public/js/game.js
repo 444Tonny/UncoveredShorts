@@ -15,8 +15,11 @@ function closeModalById(modalId) {
 }
 
 /* Calculate rank points */
-function calculateRankedPoints(arrayAnswer, playerAnswer) 
+function calculateRankedPoints(arrayAnswer, playerAnswer, question_id) 
 {
+    // Store answer
+    storeAnwser('store-player-ranked', question_id, playerAnswer);
+
     playerAnswer = playerAnswer.toLowerCase();
     var foundAnswer = arrayAnswer.find(answer => answer.value && answer.value.toLowerCase() === playerAnswer);
 
@@ -27,24 +30,24 @@ function calculateRankedPoints(arrayAnswer, playerAnswer)
 }
 
 /* calculate unique points */
-function calculateUniquePoints(arrayAnswer, playerAnswer, voteCount = 101)
+function calculateUniquePoints(arrayAnswer, playerAnswer, question_id, voteCount = 101)
 {
-    console.log(arrayAnswer);
+    // Store the answer 
+    storeAnwser('store-player-unique', question_id, playerAnswer);
+
     playerAnswer = playerAnswer.toLowerCase();
     var foundAnswer = arrayAnswer.find(answer => answer.value && answer.value.toLowerCase() === playerAnswer);
 
-    console.log(foundAnswer);
+    var xhr = new XMLHttpRequest();
+    let url = baseUrl + '/add-vote';
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('X-CSRF-Token', csrfToken);
 
     if(foundAnswer) 
     {
         var questionId = foundAnswer.question_id;
         var value = foundAnswer.value;
-        let url = baseUrl + '/add-vote';
-
-        var xhr = new XMLHttpRequest();
-        xhr.open('POST', url, true);
-        xhr.setRequestHeader('Content-Type', 'application/json');
-        xhr.setRequestHeader('X-CSRF-Token', csrfToken);
 
         // Gestionnaire de succès de la requête
         xhr.onload = function() {
@@ -55,22 +58,20 @@ function calculateUniquePoints(arrayAnswer, playerAnswer, voteCount = 101)
             }
         };
 
-        // Gestionnaire d'erreur de la requête
         xhr.onerror = function() {
             console.error('Request failed');
         };
 
-        // Envoi de la requête avec les données JSON
         xhr.send(JSON.stringify({ question_id: questionId, value: value }));
 
         //let result = (100 - foundAnswer.percentage).toFixed(1);
         let result = Math.round(100 - foundAnswer.percentage);
 
         result = parseFloat(result);
-        return result;
+        //return result;
     }
 
-    else return 0;
+    return 0;
 }
 
 // 
@@ -132,6 +133,31 @@ function storeGameSession(game_id, score1, score2, score3, score4, totalScore)
         score4: score4, 
         totalScore: totalScore
     }));
+}
+
+function storeAnwser(urlEnd, questionId, value)
+{
+    let url = baseUrl + '/' + urlEnd;
+
+    
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('X-CSRF-Token', csrfToken);
+
+    xhr.onload = function() {
+        if (xhr.status >= 200 && xhr.status < 300) {
+            console.log(xhr.responseText + 'Answeres successfully stored.');
+        } else {
+            console.error('Request failed with status:', xhr.status);
+        }
+    };
+
+    xhr.onerror = function() {
+        console.error('Insert answer request failed');
+    };
+
+    xhr.send(JSON.stringify({ question_id: questionId, value: value }));
 }
 
 //Check visits

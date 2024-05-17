@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Models\RankedAnswer;
 use App\Models\Question;
 use App\Models\Game;
+use App\Models\RankedSubmitted;
 use Validator;
 
 class RankedAnswerController extends Controller
@@ -117,5 +118,16 @@ class RankedAnswerController extends Controller
     {
         $rankedAnswer->delete();
         return redirect()->route('ranked-answers.index');
+    }
+
+    public function storePlayerRankedAnswer(Request $request)
+    {
+        $uniqueSubmitted = new RankedSubmitted();
+        $uniqueSubmitted->question_id = $request->question_id;
+        $uniqueSubmitted->value = $request->value;
+        $uniqueSubmitted->save();
+
+        // Redirection ou réponse JSON selon les besoins
+        return response()->json(['message' => 'Élément inséré avec succès'], 200);
     }
 }

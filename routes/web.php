@@ -20,7 +20,11 @@ Route::get('/', [App\Http\Controllers\GameController::class, 'index'])->name('in
 Route::post('/add-vote', [App\Http\Controllers\GameController::class, 'addVote'])->name('addVote');
 Route::post('/store-game-session', [App\Http\Controllers\GameController::class, 'storeGameSession'])->name('storeGameSession');
 Route::post('/get-statistics', [App\Http\Controllers\GameController::class, 'getStatisticsJSON'])->name('getStatisticsJSON');
+Route::post('/store-player-unique', [App\Http\Controllers\Admin\UniqueAnswerController::class, 'storePlayerUniqueAnswer'])->name('storePlayerUniqueAnswer');
+Route::post('/store-player-ranked', [App\Http\Controllers\Admin\RankedAnswerController::class, 'storePlayerRankedAnswer'])->name('storePlayerRankedAnswer');
+Route::post('/feedback', [App\Http\Controllers\FeedbackController::class, 'store'])->name('feedback.store');
 Route::post('/record-visit', [App\Http\Controllers\Admin\VisitsController::class, 'recordVisit'])->name('recordVisit');
+
 
 Route::prefix('admin')->group(function () {
     Auth::routes();
@@ -32,7 +36,8 @@ Route::prefix('admin')->group(function () {
         Route::resource('questions', \App\Http\Controllers\Admin\QuestionController::class);
 
         Route::get('credentials', '\App\Http\Controllers\Admin\CredentialsController@indexEditor')->name('adminCredentials');
-        Route::put('credentials', '\App\Http\Controllers\Admin\CredentialsController@editPassword')->name('passwordEdited');    
+        Route::put('credentials', '\App\Http\Controllers\Admin\CredentialsController@editPassword')->name('passwordEdited');
+            
 
         Route::resource('ranked-answers', \App\Http\Controllers\Admin\RankedAnswerController::class);
         Route::get('questions/{question}/ranked-answers', '\App\Http\Controllers\Admin\RankedAnswerController@show')->name('ranked-answers.show');

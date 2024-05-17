@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Game;
 use App\Models\UniqueAnswer;
 use App\Models\Question;
+use App\Models\UniqueSubmitted;
 use Validator;
 
 class UniqueAnswerController extends Controller
@@ -168,5 +169,16 @@ class UniqueAnswerController extends Controller
     {
         $UniqueAnswer->delete();
         return redirect()->route('unique-answers.index');
+    }
+
+    public function storePlayerUniqueAnswer(Request $request)
+    {
+        $uniqueSubmitted = new UniqueSubmitted();
+        $uniqueSubmitted->question_id = $request->question_id;
+        $uniqueSubmitted->value = $request->value;
+        $uniqueSubmitted->save();
+
+        // Redirection ou réponse JSON selon les besoins
+        return response()->json(['message' => 'Élément inséré avec succès'], 200);
     }
 }

@@ -16,5 +16,5 @@ class RankedSubmitted extends Model
         'value',
     ];
 
-    public $timestamps = true;
+    public $timestamps = false;
 }

@@ -367,7 +367,8 @@ div.rules-text strong
     font-weight: 500;
 }
 
-#rulesModal button.play
+#rulesModal button.play,
+.copy-btn
 {
     display: flex;
     flex-direction: column;
@@ -392,7 +393,12 @@ div.rules-text strong
 
 #rulesModal button.play:hover,
 #rulesModal button.play:active,
-#rulesModal button.play:focus
+#rulesModal button.play:focus,
+.copy-btn:hover,
+
+.copy-btn:focus,
+
+.copy-btn:active
 {
     transition: 0.2s;
     -o-transition: 0.2s;
@@ -615,5 +621,71 @@ div.rules-text strong
 
     #statsModal label {
         font-size: 14px;
+    }
+}
+
+/* Share Modal */
+
+.share-container
+{
+    display: none;
+    width: 85%;
+    max-width: 450px;
+    min-width: 330px;
+    align-self: center;
+    z-index: 7;
+    position: absolute; /* ou position: fixed; */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: #191919;
+    padding: 40px 35px 30px 35px;
+}
+
+.share-text-container
+{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow: hidden;
+}
+
+.share-text-container textarea
+{
+    text-align: center;
+    line-height: 25px;
+    background-color: #161616;
+    min-height: 140px;
+    height: fit-content;
+    color: #efefef;
+    font-family: "Rubik", serif;
+    border: none;
+    border-radius: 5px;
+    padding: 20px 15px;
+    font-size: 17px;
+    margin-bottom: 15px;
+}
+
+.copy-btn{
+    align-self: center;
+}
+
+.copied-btn,
+.copied-btn:hover,
+.copied-btn:active,
+.copied-btn:focus
+{
+    transition: 0.1s;
+    -moz-transition: 0.1s;
+    -o-transition: 0.1s;
+    cursor: default !important;
+    background-color: #979797 !important;
+}
+
+@media only screen and (max-width: 768px) 
+{
+    .share-container
+    {
+        padding: 35px 18px 35px 18px;
     }
 }

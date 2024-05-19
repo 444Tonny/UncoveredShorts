@@ -50,7 +50,7 @@ class AdminGameController extends Controller
     
                 // Insert the questions associated with this game
                 foreach ($request->questions as $questionData) {
-                    $value = str_replace('&', '<span style="font-family:arial;">&amp;</span>', $questionData['value']);
+                    $value = str_replace('&', '<span style="font-family:arial;">&</span>', $questionData['value']);
                     $question = new Question([
                         'game_id' => $game->id,
                         'number' => $questionData['number'], // Fill in if necessary

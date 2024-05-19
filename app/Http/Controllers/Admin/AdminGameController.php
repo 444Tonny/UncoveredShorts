@@ -89,12 +89,11 @@ class AdminGameController extends Controller
                 // Update or insert the questions associated with this game
                 foreach ($request->questions as $questionData) {
 
-                    $value = str_replace('&', '<span style="font-family:arial;">&amp;</span>', $questionData['value']);
                     if (isset($questionData['id'])) {
                         $question = Question::findOrFail($questionData['id']);
                         $question->update([
                             'number' => $questionData['number'], // Fill in if necessary
-                            'value' => $value,
+                            'value' => $questionData['value'],
                             'type' => $questionData['type'],
                             'sheet_url' => $questionData['sheet_url'] ?? '',
                         ]);
@@ -102,7 +101,7 @@ class AdminGameController extends Controller
                         $question = new Question([
                             'game_id' => $game->id,
                             'number' => $questionData['number'], // Fill in if necessary
-                            'value' => $value,
+                            'value' => $questionData['value'],
                             'type' => $questionData['type'],
                             'sheet_url' => $questionData['sheet_url'] ?? '',
                         ]);

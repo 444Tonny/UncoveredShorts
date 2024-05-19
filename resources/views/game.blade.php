@@ -136,15 +136,25 @@
         var answerCount = 0;
 
         // Change special chars
-        document.addEventListener('DOMContentLoaded', () => {
-          // Select all elements with the class 'question'
-          const questionElements = document.querySelectorAll('.question');
 
-          questionElements.forEach(element => {
-              // Replace each occurrence of '&' with the desired span
-              element.innerHTML = element.innerHTML.replace(/&/g, '<span style="font-family:arial;">&amp;</span>');
-          });
-        });
+// Use a regular expression to find & characters that are not part of an HTML entity
+document.addEventListener('DOMContentLoaded', () => {
+    // Select all elements with the class 'question'
+    const questionElements = document.querySelectorAll('.question');
+
+    questionElements.forEach(element => {
+        // Get the HTML content of the element
+        let content = element.innerHTML;
+
+        // Check if the content contains the character '&'
+        if (content.includes('&')) {
+            // Use a regular expression to find & characters that are not part of an HTML entity
+            element.innerHTML = element.innerHTML.replace(/&amp;/g, '<span style="font-family:arial;">&amp;</span>');
+        }
+    });
+});
+
+
 
 
         // Remove inputs value

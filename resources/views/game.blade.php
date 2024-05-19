@@ -135,6 +135,18 @@
         var playerFinalScore = 0;
         var answerCount = 0;
 
+        // Change special chars
+        document.addEventListener('DOMContentLoaded', () => {
+          // Select all elements with the class 'question'
+          const questionElements = document.querySelectorAll('.question');
+
+          questionElements.forEach(element => {
+              // Replace each occurrence of '&' with the desired span
+              element.innerHTML = element.innerHTML.replace(/&/g, '<span style="font-family:arial;">&amp;</span>');
+          });
+        });
+
+
         // Remove inputs value
         for (let index = 1; index <= 4; index++) {
           const inputElement = document.getElementById('us-ipt'+index);

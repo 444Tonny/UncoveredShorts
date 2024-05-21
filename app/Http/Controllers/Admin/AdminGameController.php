@@ -167,12 +167,14 @@ class AdminGameController extends Controller
                 $submittedAnswers = RankedSubmitted::select('value', 'is_correct', \DB::raw('count(*) as count'))
                     ->where('question_id', $question->id)
                     ->groupBy('value', 'is_correct')
+                    ->orderBy('count', 'desc') 
                     ->get();
             } else {
                 $totalVotes = UniqueSubmitted::where('question_id', $question->id)->count();
                 $submittedAnswers = UniqueSubmitted::select('value', 'is_correct', \DB::raw('count(*) as count'))
                     ->where('question_id', $question->id)
                     ->groupBy('value', 'is_correct')
+                    ->orderBy('count', 'desc') 
                     ->get();
             }
 

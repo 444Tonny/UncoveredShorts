@@ -156,34 +156,43 @@ class AdminGameController extends Controller
     {
         $game = Game::find($id_game);
 
-        // Récupérer les questions pour le jeu donné
         $questions = Question::where('game_id', $id_game)->get();
-
-        // Initialiser un tableau pour les réponses groupées
         $statistics = [];
 
-        // Pour chaque question, récupérer les réponses soumises (classées et uniques)
         foreach ($questions as $question) {
+            $answers = [];
+
             if ($question->type == 'ranked') {
-                // Récupérer les réponses classées pour cette question
-                $rankedAnswers = RankedSubmitted::select('value', 'is_correct', \DB::raw('count(*) as count'))
+                $totalVotes = RankedSubmitted::where('question_id', $question->id)->count();
+                $submittedAnswers = RankedSubmitted::select('value', 'is_correct', \DB::raw('count(*) as count'))
                     ->where('question_id', $question->id)
                     ->groupBy('value', 'is_correct')
-                    ->orderBy('count', 'desc')
                     ->get();
-                $statistics[$question->id] = ['type' => 'ranked', 'answers' => $rankedAnswers];
-            } elseif ($question->type == 'unique') {
-                // Récupérer les réponses uniques pour cette question
-                $uniqueAnswers = UniqueSubmitted::select('value', \DB::raw('count(*) as count'))
+            } else {
+                $totalVotes = UniqueSubmitted::where('question_id', $question->id)->count();
+                $submittedAnswers = UniqueSubmitted::select('value', 'is_correct', \DB::raw('count(*) as count'))
                     ->where('question_id', $question->id)
-                    ->groupBy('value')
-                    ->orderBy('count', 'desc')
+                    ->groupBy('value', 'is_correct')
                     ->get();
-                $statistics[$question->id] = ['type' => 'unique', 'answers' => $uniqueAnswers];
             }
+
+            foreach ($submittedAnswers as $answer) {
+                $percentage = $totalVotes > 0 ? ($answer->count / $totalVotes) * 100 : 0;
+                $answers[] = [
+                    'value' => $answer->value,
+                    'is_correct' => $answer->is_correct,
+                    'count' => $answer->count,
+                    'percentage' => $percentage,
+                ];
+            }
+
+            $statistics[$question->id] = [
+                'type' => $question->type,
+                'answers' => $answers,
+            ];
         }
 
-        //dd($statistics);
+        //dd($statistics[516]['answers']);
 
         // Retourner les données à la vue
         return view('admin.games.statistics', ['statistics' => $statistics, 'questions' => $questions, 'game' => $game]);

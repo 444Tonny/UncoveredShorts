@@ -155,3 +155,11 @@ ALTER TABLE unique_answers CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unic
 ALTER TABLE unique_submitted CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE ranked_answers CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE unique_submitted CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+--- lundi 19mai 
+ALTER TABLE `unique_submitted`
+ADD COLUMN `is_correct` BOOLEAN DEFAULT FALSE;
+
+ALTER TABLE `ranked_submitted`
+ADD COLUMN `is_correct` BOOLEAN DEFAULT FALSE;
+

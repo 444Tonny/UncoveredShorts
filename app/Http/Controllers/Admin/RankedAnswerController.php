@@ -122,10 +122,11 @@ class RankedAnswerController extends Controller
 
     public function storePlayerRankedAnswer(Request $request)
     {
-        $uniqueSubmitted = new RankedSubmitted();
-        $uniqueSubmitted->question_id = $request->question_id;
-        $uniqueSubmitted->value = $request->value;
-        $uniqueSubmitted->save();
+        $rankedSubmitted = new RankedSubmitted();
+        $rankedSubmitted->question_id = $request->question_id;
+        $rankedSubmitted->value = $request->value;
+        $rankedSubmitted->is_correct = $request->is_correct;
+        $rankedSubmitted->save();
 
         // Redirection ou réponse JSON selon les besoins
         return response()->json(['message' => 'Élément inséré avec succès'], 200);

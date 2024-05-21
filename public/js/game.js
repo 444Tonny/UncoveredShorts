@@ -17,24 +17,25 @@ function closeModalById(modalId) {
 /* Calculate rank points */
 function calculateRankedPoints(arrayAnswer, playerAnswer, question_id) 
 {
-    // Store answer
-    storeAnwser('store-player-ranked', question_id, playerAnswer);
 
     playerAnswer = playerAnswer.toLowerCase();
     var foundAnswer = arrayAnswer.find(answer => answer.value && answer.value.toLowerCase() === playerAnswer);
 
     if (foundAnswer) {
+        // Store answer
+        storeAnwser('store-player-ranked', question_id, playerAnswer, true);
         return foundAnswer.rank;
     } 
-    else return 0; // Return 0 if answer is not found
+    else 
+    {
+        storeAnwser('store-player-ranked', question_id, playerAnswer, false);
+        return 0; // Return 0 if answer is not found
+    }
 }
 
 /* calculate unique points */
 function calculateUniquePoints(arrayAnswer, playerAnswer, question_id, voteCount = 101)
 {
-    // Store the answer 
-    storeAnwser('store-player-unique', question_id, playerAnswer);
-
     playerAnswer = playerAnswer.toLowerCase();
     var foundAnswer = arrayAnswer.find(answer => answer.value && answer.value.toLowerCase() === playerAnswer);
 
@@ -70,9 +71,15 @@ function calculateUniquePoints(arrayAnswer, playerAnswer, question_id, voteCount
         let result = Math.round(100 - foundAnswer.percentage);
 
         result = parseFloat(result);
+
+        storeAnwser('store-player-unique', question_id, playerAnswer, true);
         return result;
     }
-    else return 0;
+    else
+    {
+        storeAnwser('store-player-unique', question_id, playerAnswer, false); 
+        return 0;
+    } 
 }
 
 // 
@@ -136,11 +143,10 @@ function storeGameSession(game_id, score1, score2, score3, score4, totalScore)
     }));
 }
 
-function storeAnwser(urlEnd, questionId, value)
+function storeAnwser(urlEnd, questionId, value, is_correct = false)
 {
     let url = baseUrl + '/' + urlEnd;
 
-    
     var xhr = new XMLHttpRequest();
     xhr.open('POST', url, true);
     xhr.setRequestHeader('Content-Type', 'application/json');
@@ -158,7 +164,7 @@ function storeAnwser(urlEnd, questionId, value)
         console.error('Insert answer request failed');
     };
 
-    xhr.send(JSON.stringify({ question_id: questionId, value: value }));
+    xhr.send(JSON.stringify({ question_id: questionId, value: value, is_correct: is_correct }));
 }
 
 //Check visits

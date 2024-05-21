@@ -176,6 +176,7 @@ class UniqueAnswerController extends Controller
         $uniqueSubmitted = new UniqueSubmitted();
         $uniqueSubmitted->question_id = $request->question_id;
         $uniqueSubmitted->value = $request->value;
+        $uniqueSubmitted->is_correct = $request->is_correct;
         $uniqueSubmitted->save();
 
         // Redirection ou réponse JSON selon les besoins

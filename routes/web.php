@@ -33,6 +33,9 @@ Route::prefix('admin')->group(function () {
         Route::get('/', [App\Http\Controllers\Admin\AdminGameController::class, 'index'])->name('home');
     
         Route::resource('games', \App\Http\Controllers\Admin\AdminGameController::class);
+        Route::get('games/{id}/statistics', '\App\Http\Controllers\Admin\AdminGameController@showStatistics')->name('game.showStatistics');
+
+        Route::resource('questions', \App\Http\Controllers\Admin\QuestionController::class);
         Route::resource('questions', \App\Http\Controllers\Admin\QuestionController::class);
 
         Route::get('credentials', '\App\Http\Controllers\Admin\CredentialsController@indexEditor')->name('adminCredentials');

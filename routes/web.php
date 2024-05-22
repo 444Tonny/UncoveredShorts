@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\FeedbackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,9 +23,8 @@ Route::post('/store-game-session', [App\Http\Controllers\GameController::class, 
 Route::post('/get-statistics', [App\Http\Controllers\GameController::class, 'getStatisticsJSON'])->name('getStatisticsJSON');
 Route::post('/store-player-unique', [App\Http\Controllers\Admin\UniqueAnswerController::class, 'storePlayerUniqueAnswer'])->name('storePlayerUniqueAnswer');
 Route::post('/store-player-ranked', [App\Http\Controllers\Admin\RankedAnswerController::class, 'storePlayerRankedAnswer'])->name('storePlayerRankedAnswer');
-Route::post('/feedback', [App\Http\Controllers\FeedbackController::class, 'store'])->name('feedback.store');
 Route::post('/record-visit', [App\Http\Controllers\Admin\VisitsController::class, 'recordVisit'])->name('recordVisit');
-
+Route::post('/send-feedback', [FeedbackController::class, 'send'])->name('send.feedback');
 
 Route::prefix('admin')->group(function () {
     Auth::routes();

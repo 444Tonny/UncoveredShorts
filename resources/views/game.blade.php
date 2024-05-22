@@ -333,13 +333,14 @@ document.addEventListener('DOMContentLoaded', () => {
         <button class="close-modal" onclick=closeModalById('feedbackModal')>×</button>
         <h3>FEEDBACK</h3>
         <span class='feedback-text'>Hi there! We'd greatly appreciate your feedback on our game to help us enhance the experience for everyone. Thanks for sharing! </span>
-        <form class='feedback-form' action="" method="get">
+        <form class='feedback-form' action="{{ route('send.feedback') }}" method="POST">
+          @csrf
           <label for="">Name</label>
-          <input type="text" placeholder="Name...">
+          <input name='name' type="text" placeholder="Name..." required>
           <label for="">Your email</label>
-          <input type="email" placeholder="youremail@example.com">
+          <input name='email' type="email" placeholder="youremail@example.com" required>
           <label for="">Message</label>
-          <textarea name="" id="" cols="30" rows="10" placeholder="Message..."></textarea>
+          <textarea name="message" id="" cols="30" rows="10" placeholder="Message..." required></textarea>
           <input type="submit" class='send' value="SEND">
         </form>
       </div>

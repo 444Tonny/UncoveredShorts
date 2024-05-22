@@ -8,14 +8,38 @@ use App\Mail\FeedbackMail;
 
 class FeedbackController extends Controller
 {
-    public function store(Request $request)
-    {
-        // Validation des données du formulaire si nécessaire
+    public function send(Request $request)
+    { 
 
-        // Envoi de l'email
-        Mail::to('tonny.freelancing@gmail.com')->send(new FeedbackMail($request->all()));
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|max:255',
+            'message' => 'required|string',
+        ]);
 
-        // Rediriger l'utilisateur après la soumission
-        return redirect()->back()->with('success', 'Merci pour votre feedback!');
+        $data = [
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'message' => $request->input('message'),
+        ];
+
+        try {
+            Mail::send([], [], function ($message) use ($data) {
+                $message->to('tonny@uncoveredshorts.com')
+                    ->subject('New Feedback from Website')
+                    ->from($data['email'], $data['name'])
+                    ->text(
+                        "Name: {$data['name']}\n".
+                        "Email: {$data['email']}\n".
+                        "Message:\n{$data['message']}\n"
+                    );
+            });
+
+            return back()->with('success', 'Feedback sent successfully.');
+        } catch (\Exception $e) {
+            dd($e);
+
+            return back()->with('error', 'Failed to send feedback. Please try again later.');
+        }
     }
 }

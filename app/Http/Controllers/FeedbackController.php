@@ -25,13 +25,13 @@ class FeedbackController extends Controller
 
         try {
             Mail::send([], [], function ($message) use ($data) {
-                $message->to('tonny@uncoveredshorts.com')
+                $message->to('tucker@uncoveredshorts.com')
+                    ->cc('tonny@uncoveredshorts.com')
                     ->subject('New Feedback from Website')
-                    ->from($data['email'], $data['name'])
+                    ->from('tucker@uncoveredshorts.com')
                     ->text(
-                        "Name: {$data['name']}\n".
-                        "Email: {$data['email']}\n".
-                        "Message:\n{$data['message']}\n"
+                        "From: {$data['email']}, {$data['name']}\n" . // Ajout de l'adresse e-mail et du nom de l'utilisateur
+                        "Message:\n{$data['message']}\n" // Message de l'utilisateur
                     );
             });
 

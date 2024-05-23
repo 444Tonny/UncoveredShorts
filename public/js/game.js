@@ -4,14 +4,30 @@ var baseUrl = 'https://phplaravel-1258294-4520213.cloudwaysapps.com';
 var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
 function openModalById(modalId, showBackground = true) {
-    if(showBackground == true) document.getElementById("modalBackground").style.display = "flex";
+    if (showBackground) {
+        document.getElementById("modalBackground").style.display = "flex";
+    }
+
+    const modal = document.getElementById(modalId);
+    modal.style.display = "flex";
     
-    document.getElementById(modalId).style.display = "flex";
+    // Ajoute une petite temporisation pour permettre au navigateur de rendre l'élément avant d'ajouter la classe d'animation
+    setTimeout(() => {
+        modal.classList.add("show");
+    }, 10);
 }
 
-function closeModalById(modalId) {
-    document.getElementById("modalBackground").style.display = "none";
-    document.getElementById(modalId).style.display = "none";
+function closeModalById(modalId, hideBackground = true) {
+    const modal = document.getElementById(modalId);
+    modal.classList.remove("show");
+    
+    // Attendre la fin de l'animation avant de masquer le modal
+    setTimeout(() => {
+        modal.style.display = "none";
+        if (hideBackground) {
+            document.getElementById("modalBackground").style.display = "none";
+        }
+    }, 300); // Correspond à la durée de l'animation définie dans le CSS
 }
 
 /* Calculate rank points */

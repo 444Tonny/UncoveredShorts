@@ -44,9 +44,9 @@ class Game extends Model
             ->first();
 
         if (!$game) {
-            // Si aucun jeu actif, chercher le jeu avec la date start la plus proche
-            $game = self::where('date_start', '>', $now)
-                ->orderBy('date_start')
+            // Si aucun jeu actif, chercher le jeu avec la date end la plus proche
+            $game = self::where('date_end', '<', $now)
+                ->orderBy('date_end', 'DESC')
                 ->first();
         }
 

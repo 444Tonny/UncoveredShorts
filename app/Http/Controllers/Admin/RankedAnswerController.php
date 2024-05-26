@@ -106,8 +106,7 @@ class RankedAnswerController extends Controller
         }
         catch(\Exception $e)
         {
-            dd($e);
-            return redirect()->back()->withErrors($e);
+            return redirect()->back()->withErrors($e->getMessage());
         }
     }
 

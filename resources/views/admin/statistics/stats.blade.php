@@ -96,10 +96,8 @@
                             @endforeach
                           </tbody>
                         </table>
-                    </figure> 
-                       
+                    </figure>  
                 </div>
-            
             </div>
 
             <div class="spacing"></div>

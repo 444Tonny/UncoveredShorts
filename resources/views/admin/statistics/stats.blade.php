@@ -99,35 +99,7 @@
                     </figure> 
                        
                 </div>
-                
-                <div class="stats-charts">
-                    <h3>ANSWERS</h3>
-
-                    @for($i = 0 ; $i < 4 ; $i ++)
-                    <figure>
-                        <table class="barChart_h">
-                          <caption>Q{{$i+1}}: Question number #{{$i+1}}</caption>
-                    
-                          <tbody>
-                            <!-- Y-axis -->
-                            <tr>
-                              <th class="blankCell"></th>
-                              <th class="y-axis">
-                              </th>
-                            </tr>
-                            
-                            <!-- Data Rows -->
-                            <tr class="firstRow">
-                              <th scope="row">Answer:</th>
-                              <td><span style="width:1%"><b>0</b></span></td>
-                            </tr>
-                            <tr>
-                          </tbody>
-                        </table>
-                    </figure> 
-                    @endfor         
             
-                </div>
             </div>
 
             <div class="spacing"></div>

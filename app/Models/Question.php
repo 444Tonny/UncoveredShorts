@@ -31,6 +31,16 @@ class Question extends Model
         return $this->hasMany(RankedAnswer::class);
     }
 
+    public function uniqueSubmitted()
+    {
+        return $this->hasMany(UniqueSubmitted::class);
+    }
+
+    public function rankedSubmitted()
+    {
+        return $this->hasMany(RankedSubmitted::class);
+    }
+
     public function scopeByGameId($query, $gameId)
     {
         return $query->where('game_id', $gameId)->orderBy('number');

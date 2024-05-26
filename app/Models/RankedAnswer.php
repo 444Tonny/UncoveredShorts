@@ -52,6 +52,9 @@ class RankedAnswer extends Model
             
             // Delete previous answers for that questions
             RankedAnswer::where('question_id', $questionId)->delete();
+            
+            $question = Question::find($questionId);
+            $question->rankedSubmitted()->delete();
 
             // Reset rankedAnswerCount and Insert new answers
             $rankedAnswerCount = 0;

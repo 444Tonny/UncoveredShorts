@@ -114,7 +114,8 @@ class AdminGameController extends Controller
     
             return redirect()->back()->with('success', 'Game updated successfully!');
     
-        } catch (ValidationException $e) {
+        } catch (ValidationException $e) 
+        {
             return redirect()->back()->withErrors($e->validator->getMessageBag()->all())->withInput();
         } catch (\Exception $e) 
         {
@@ -136,6 +137,8 @@ class AdminGameController extends Controller
         foreach ($questions as $question) {
             $question->uniqueAnswers()->delete();
             $question->rankedAnswers()->delete();
+            $question->uniqueSubmitted()->delete();
+            $question->rankedSubmitted()->delete();
         }
 
         $game->questions()->delete();

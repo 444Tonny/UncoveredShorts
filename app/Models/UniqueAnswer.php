@@ -81,6 +81,10 @@ class UniqueAnswer extends Model
             // Delete previous answers for that questions
             UniqueAnswer::where('question_id', $questionId)->delete();
 
+            $question = Question::find($questionId);
+            $question->uniqueSubmitted()->delete();
+            $question->rankedSubmitted()->delete();
+
             // Reset totalPercentage and Insert new answers
             $totalPercentage = 0;
 

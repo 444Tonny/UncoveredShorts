@@ -22,6 +22,7 @@ body {
 /* (B) SIDEBAR */
 /* (B1) SIDEBAR ITSELF */
 #pgside {
+    box-sizing: border-box;
     width: 200px;
     flex-shrink: 0;
     transition: width 0.2s;
@@ -29,6 +30,8 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
+    position: fixed;
+    height: 100vh;
 }
 
 /* (B2) USER OR BRANDING */
@@ -102,6 +105,7 @@ body {
 
 #pgmain {
     width: 100%;
+    margin-left: 200px;
 }
 
 h2 {
@@ -128,6 +132,11 @@ h3
 @media screen and (max-width:768px) {
     #pgside {
         width: 70px;
+    }
+
+    #pgmain
+    {
+        margin-left: 70px !important;
     }
 
     #pgside #pguser {

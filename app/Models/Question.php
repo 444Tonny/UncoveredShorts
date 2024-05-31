@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
+use App\Models\Suggestion;
 
 class Question extends Model
 {
@@ -45,4 +47,32 @@ class Question extends Model
     {
         return $query->where('game_id', $gameId)->orderBy('number');
     }
+
+    public static function synchronizeSuggestions($excelValues, $questionId)
+    {
+        try {
+            DB::beginTransaction();
+
+            Suggestion::where('question_id', $questionId)->delete();
+
+            foreach ($excelValues as $answerData) {
+
+                if(isset($answerData[0])) 
+                {
+                    Suggestion::updateOrCreate(
+                        ['question_id' => $questionId, 'value' => $answerData[0]],
+                    );
+                }
+            }
+
+            DB::commit();
+        }
+        catch (\Exception $e) 
+        {
+            DB::rollback();   
+            throw new \Exception('An error occured.');
+        }
+    
+        //return redirect()->back()->with('success', 'Answers updated successfully');
+    }  
 }

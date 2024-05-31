@@ -87,16 +87,16 @@ class Game extends Model
 
     public static function getDataFromSheet($sheetURL, $questionId)
     {
-        $values = static::getArray2DFromSheet($sheetURL, $questionId);
+        $values = Suggestion::getSuggestionsByQuestionId($questionId);
 
         //$percentagesResponse = $service->spreadsheets_values->get($sheetId, $rangePercentages);
         //$valuesPercentages = $percentagesResponse->getValues();
 
         //UniqueAnswer::synchroniseInitialPercentage($values, $questionId);
 
-        $suggestions = array_map('current', $values);
+        //$suggestions = array_map('current', $values);
 
-        return json_encode($suggestions);
+        return json_encode($values);
     }    
 
     public static function getArray2DFromSheet($sheetURL, $questionId)

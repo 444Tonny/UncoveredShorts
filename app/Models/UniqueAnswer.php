@@ -83,7 +83,6 @@ class UniqueAnswer extends Model
 
             $question = Question::find($questionId);
             $question->uniqueSubmitted()->delete();
-            $question->rankedSubmitted()->delete();
 
             // Reset totalPercentage and Insert new answers
             $totalPercentage = 0;

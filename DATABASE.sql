@@ -163,3 +163,13 @@ ADD COLUMN `is_correct` BOOLEAN DEFAULT FALSE;
 ALTER TABLE `ranked_submitted`
 ADD COLUMN `is_correct` BOOLEAN DEFAULT FALSE;
 
+--- Bugs
+CREATE TABLE suggestions (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  question_id INTEGER,
+  value VARCHAR(255),
+  created_at DATETIME,
+  updated_at DATETIME
+  FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`)
+);
+ALTER TABLE suggestions CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

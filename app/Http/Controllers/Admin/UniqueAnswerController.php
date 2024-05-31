@@ -153,6 +153,7 @@ class UniqueAnswerController extends Controller
         try
         {
             UniqueAnswer::synchroniseInitialPercentage($excelData, $questionId);
+            Question::synchronizeSuggestions($excelData, $questionId);
             return redirect()->back()->with('success', 'Synchronization done successfully.');
         }
         catch(\Exception $e)

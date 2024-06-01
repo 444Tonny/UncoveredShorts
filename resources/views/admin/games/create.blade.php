@@ -34,15 +34,15 @@
                     <h3>Game informations</h3>
                     <div class="mywrapped-block">
                         <div class="myadmin-block">
-                            <label for="date_end">Game name</label>
+                            <label for="date_end">Game name:</label>
                             <input type="text" name="name" id="name" value="{{ old('name') ?: 'Game#' . $nextId }}">
                         </div>  
     
                         <div class="myadmin-block">
-                            <label for="date_start">Start date :</label>
+                            <label for="date_start">Start date: (Eastern Time)</label>
                             <input type="datetime-local" name="date_start" id="date_start" value="{{ old('date_start') }}">
                             
-                            <label for="date_end">End date</label>
+                            <label for="date_end">End date: (Eastern Time)</label>
                             <input type="datetime-local" name="date_end" id="date_end" value="{{ old('date_end') }}">
                         </div>   
                     </div>                 

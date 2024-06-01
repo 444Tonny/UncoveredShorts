@@ -23,7 +23,7 @@ class UniqueAnswer extends Model
 
     public static function getAnswersByQuestionId($questionId)
     {
-        return self::where('question_id', $questionId)->orderBy('percentage')->get();
+        return self::where('question_id', $questionId)->orderBy('percentage', 'ASC')->get();
     }
 
     public static function addVote($questionId, $value)

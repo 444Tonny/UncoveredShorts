@@ -22,7 +22,7 @@ class RankedAnswer extends Model
 
     public static function getAnswersByQuestionId($questionId)
     {
-        return self::where('question_id', $questionId)->orderBy('rank')->get();
+        return self::where('question_id', $questionId)->orderBy('rank', 'DESC')->get();
     }
 
     public static function synchronizeInitialRanking($excelValues, $questionId)

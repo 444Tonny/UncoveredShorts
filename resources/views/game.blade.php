@@ -86,17 +86,21 @@
         <button class="close-modal" onclick=closeModalById('gameOverModal')>×</button>
         <div class="go-box">
           <img src="{{ asset('img/logo.png') }}" width='180' alt="uncovered-shorts-logo" class="gameOverLogo">
-          <p class="go-text"><b>Congratulations!</b> <br> Your score today :</p>
+          <p class="go-text"><b>Congrats! Your score today:</b></p>
           <span id="go-points">00</span>
           <div class="two-column">
             <span>Average <br> Score <br><b id='AverageScoreResults'>{{ $statistics['AverageScore'] == intval($statistics['AverageScore']) ? intval($statistics['AverageScore']) : number_format($statistics['AverageScore'], 1) }}</b></span>
             <span>Top <br>Score <br><b id='TopScoreResults'>{{ $statistics['TopScore'] == intval($statistics['TopScore']) ? intval($statistics['TopScore']) : number_format($statistics['TopScore'], 1) }}</b></span>
           </div>
+          <p class="go-text"><b>BEST ANSWERS</b></p>
+          <span class='go-best-answer'><b><u>Q1 :</u></b> {{ $uniqueAnswers1[0]->value }}</span>
+          <span class='go-best-answer'><b><u>Q2 :</u></b> {{ $uniqueAnswers2[0]->value }}</span>
+          <span class='go-best-answer'><b><u>Q3 :</u></b> {{ $rankedAnswers3[0]->value }}</span>
+          <span class='go-best-answer'><b><u>Q4 :</u></b> {{ $rankedAnswers4[0]->value }}</span>
           <div class="go-buttons">
             <button class="go-share" onclick="openModalById('shareModal'), shareGame()">SHARE</button>
             <button class="go-stats" onclick=openModalById('statsModal')>STATS</button>
           </div>
-          <p class="go-date">{{ now()->format('M d, Y') }}</p>
         </div>
       </div>
 
@@ -137,25 +141,22 @@
 
         // Change special chars
 
-// Use a regular expression to find & characters that are not part of an HTML entity
-document.addEventListener('DOMContentLoaded', () => {
-    // Select all elements with the class 'question'
-    const questionElements = document.querySelectorAll('.question');
+        // Use a regular expression to find & characters that are not part of an HTML entity
+        document.addEventListener('DOMContentLoaded', () => {
+            // Select all elements with the class 'question'
+            const questionElements = document.querySelectorAll('.question');
 
-    questionElements.forEach(element => {
-        // Get the HTML content of the element
-        let content = element.innerHTML;
+            questionElements.forEach(element => {
+                // Get the HTML content of the element
+                let content = element.innerHTML;
 
-        // Check if the content contains the character '&'
-        if (content.includes('&')) {
-            // Use a regular expression to find & characters that are not part of an HTML entity
-            element.innerHTML = element.innerHTML.replace(/&amp;/g, '<span style="font-family:arial;">&amp;</span>');
-        }
-    });
-});
-
-
-
+                // Check if the content contains the character '&'
+                if (content.includes('&')) {
+                    // Use a regular expression to find & characters that are not part of an HTML entity
+                    element.innerHTML = element.innerHTML.replace(/&amp;/g, '<span style="font-family:arial;">&amp;</span>');
+                }
+            });
+        });
 
         // Remove inputs value
         for (let index = 1; index <= 4; index++) {

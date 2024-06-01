@@ -230,6 +230,8 @@ span.single-suggestion button:focus
 .gameOverLogo
 {
     margin-bottom: 15px;
+    position: relative;
+    width: 40%;
 }
 
 .go-text
@@ -241,17 +243,22 @@ span.single-suggestion button:focus
     font-family: "Rubik", serif;
 }
 
+.go-best-answer
+{
+    line-height: 34px;
+}
+
 .go-text b
 {
-    font-size: 25px;
+    font-size: 18px;
     font-weight: 900;
     font-family: "Inknut Antiqua", serif;
 }
 
 #go-points
 {
-    margin-bottom: 30px;
-    font-size: 50px;
+    margin-bottom: 14px;
+    font-size: 45px;
     font-weight: 800;
     color: #d3c56b;
     font-family: "Rubik", serif;
@@ -263,7 +270,7 @@ span.single-suggestion button:focus
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: center;
-    margin-bottom: 40px;
+    margin-bottom: 16px;
 }
 
 .two-column span
@@ -290,6 +297,7 @@ div.go-buttons
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: center;
+    margin-top: 40px;
     margin-bottom: 15px;
 }
 

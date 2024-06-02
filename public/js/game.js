@@ -4,7 +4,7 @@ var baseUrl = 'https://phplaravel-1258294-4520213.cloudwaysapps.com';
 var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
 function openModalById(modalId, showBackground = true) {
-    if (showBackground) {
+    if (modalId !== "gameOverModal") {
         document.getElementById("modalBackground").style.display = "flex";
     }
 
@@ -55,7 +55,7 @@ function calculateUniquePoints(arrayAnswer, playerAnswer, question_id, voteCount
     playerAnswer = playerAnswer.toLowerCase();
     var foundAnswer = arrayAnswer.find(answer => answer.value && answer.value.toLowerCase() === playerAnswer);
 
-    console.log(arrayAnswer);
+    // console.log(arrayAnswer);
 
     var xhr = new XMLHttpRequest();
     let url = baseUrl + '/add-vote';
@@ -71,7 +71,7 @@ function calculateUniquePoints(arrayAnswer, playerAnswer, question_id, voteCount
         // Gestionnaire de succès de la requête
         xhr.onload = function() {
             if (xhr.status >= 200 && xhr.status < 300) {
-                console.log(xhr.responseText);
+                // console.log(xhr.responseText);
             } else {
                 console.error('Request failed with status:', xhr.status);
             }
@@ -99,7 +99,7 @@ function calculateUniquePoints(arrayAnswer, playerAnswer, question_id, voteCount
 }
 
 // 
-function getStatistics(game_id) {
+function getStatistics(game_id, playerScore) {
     return new Promise((resolve, reject) => {
         let url = baseUrl + '/get-statistics';
         var xhr = new XMLHttpRequest();
@@ -120,43 +120,47 @@ function getStatistics(game_id) {
             reject('Request failed'); // Rejeter la promesse avec une erreur
         };
 
-        xhr.send(JSON.stringify({ game_id: game_id }));
+        xhr.send(JSON.stringify({ game_id: game_id, player_score : playerScore }));
     });
 }
 
 // Store the game when it's finished
-function storeGameSession(game_id, score1, score2, score3, score4, totalScore)
-{
+function storeGameSession(game_id, score1, score2, score3, score4, totalScore) {
     let url = baseUrl + '/store-game-session';
 
-    var xhr = new XMLHttpRequest();
-    xhr.open('POST', url, true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.setRequestHeader('X-CSRF-Token', csrfToken);
+    return new Promise((resolve, reject) => {
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('X-CSRF-Token', csrfToken);
 
-    // Gestionnaire de succès de la requête
-    xhr.onload = function() {
-        if (xhr.status >= 200 && xhr.status < 300) {
-            console.log(xhr.responseText);
-        } else {
-            console.error('Request failed with status:', xhr.status);
-        }
-    };
+        // Gestionnaire de succès de la requête
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 300) {
+                // console.log(xhr.responseText);
+                resolve(xhr.responseText); // Résoudre la promesse
+            } else {
+                // console.error('Request failed with status:', xhr.status);
+                reject('Request failed with status: ' + xhr.status); // Rejeter la promesse
+            }
+        };
 
-    // Gestionnaire d'erreur de la requête
-    xhr.onerror = function() {
-        console.error('Request failed');
-    };
+        // Gestionnaire d'erreur de la requête
+        xhr.onerror = function() {
+            console.error('storeGameSession Request failed');
+            reject('Request failed'); // Rejeter la promesse
+        };
 
-    // Envoi de la requête avec les données JSON
-    xhr.send(JSON.stringify({ 
-        game_id: game_id, 
-        score1: score1, 
-        score2: score2, 
-        score3: score3, 
-        score4: score4, 
-        totalScore: totalScore
-    }));
+        // Envoi de la requête avec les données JSON
+        xhr.send(JSON.stringify({
+            game_id: game_id,
+            score1: score1,
+            score2: score2,
+            score3: score3,
+            score4: score4,
+            totalScore: totalScore
+        }));
+    });
 }
 
 function storeAnwser(urlEnd, questionId, value, is_correct = false)
@@ -170,9 +174,9 @@ function storeAnwser(urlEnd, questionId, value, is_correct = false)
 
     xhr.onload = function() {
         if (xhr.status >= 200 && xhr.status < 300) {
-            console.log(xhr.responseText + 'Answeres successfully stored.');
+            // console.log(xhr.responseText + 'Answeres successfully stored.');
         } else {
-            console.error('Request failed with status:', xhr.status);
+            // console.error('Request failed with status:', xhr.status);
         }
     };
 

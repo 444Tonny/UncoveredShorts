@@ -85,7 +85,7 @@ div.search-bar
 
 input.search
 {
-    font-family: "Inknut Antiqua", serif;
+    font-family: "switzer", serif;
     background-color: #202020;
     color: #979797;
     border: none;
@@ -137,12 +137,12 @@ span.single-suggestion p
     color: #bebebe;
     padding-right: 10px;
     font-size: 18px;
-    font-family: "Rubik", serif;
+    font-family: "switzer", serif;
 }
 
 span.single-suggestion button
 {
-    font-family: "Inknut Antiqua", serif;
+    font-family: "switzer", serif;
     color: white;
     background-color: #558c57;
     border: none;
@@ -203,26 +203,27 @@ span.single-suggestion button:focus
     z-index: 5;
     display: none;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-content: center;
     align-items: center;
     background-color: #161616;
     width: 100%;
     height: 100vh;
-    font-family: "Inknut Antiqua", serif;
+    font-family: "switzer", serif;
+    overflow-y: scroll;
 }
 
 .go-box
 {
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: flex-start;
     align-content: center;
     align-items: center;
     width: 60%;
     max-width: 600px;
     min-width: 340px;
-    padding: 5px 20px 5px 20px;
+    padding: 40px 20px 30px 20px;
     color: rgb(220, 220, 220);
     text-align: center;
 }
@@ -236,32 +237,34 @@ span.single-suggestion button:focus
 
 .go-text
 {
-    margin-bottom: 5px;
+    margin-bottom: 0px;
     font-weight: 100;
     line-height: 32px;
     font-size: 18px;
-    font-family: "Rubik", serif;
+    font-family: "switzer", serif;
 }
 
 .go-best-answer
 {
-    line-height: 34px;
+    line-height: 25px;
+    font-size: 15px;
 }
 
 .go-text b
 {
-    font-size: 18px;
+    font-size: 17px;
     font-weight: 900;
-    font-family: "Inknut Antiqua", serif;
+    font-family: "switzer", serif;
 }
 
 #go-points
 {
-    margin-bottom: 14px;
+    margin-bottom: -5px;
+    margin-top: -5px;
     font-size: 45px;
     font-weight: 800;
     color: #d3c56b;
-    font-family: "Rubik", serif;
+    font-family: "switzer", serif;
 }
 
 .two-column
@@ -270,7 +273,8 @@ span.single-suggestion button:focus
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: center;
-    margin-bottom: 16px;
+    margin-bottom: 16px;  
+    margin-top: 18px;
 }
 
 .two-column span
@@ -278,8 +282,9 @@ span.single-suggestion button:focus
     width: 90px;
     margin: 0px 22px;
     text-align: center;
-    font-size: 15px !important;
-    line-height: 22px;
+    font-size: 14.5px !important;
+    text-transform: uppercase;
+    line-height: 18px;
 }
 
 .two-column span b
@@ -288,7 +293,22 @@ span.single-suggestion button:focus
     padding-top: 10px;
     font-size: 35px !important;
     font-weight: 800;
-    font-family: "Rubik", serif;
+    font-family: "switzer", serif;
+}
+
+#go-percentile
+{
+    font-size: 20px;
+    font-weight: 400;
+}
+
+div.go-bestanswers
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
 }
 
 div.go-buttons
@@ -298,15 +318,16 @@ div.go-buttons
     flex-wrap: nowrap;
     justify-content: center;
     margin-top: 40px;
-    margin-bottom: 15px;
+    margin-top: 15px;
+    margin-bottom: 25px;
 }
 
 div.go-buttons button
 {
     box-sizing: border-box;
     margin: auto 8px auto 8px ;
-    width: 130px;
-    height: 50px;
+    width: 110px;
+    height: 45px;
     border-radius: 50px;
     font-weight: 500;
     transition: 0.2s;
@@ -364,13 +385,13 @@ h3
     margin: 5px 0px -10px 0px; 
     font-size: 26px;
     font-weight: 700;
-    font-family: "Inknut Antiqua", serif;
+    font-family: "switzer", serif;
 }
 
 div.rules-text
 {
-    font-family: "Rubik", serif;
-    font-weight: 100;
+    font-family: "switzer", serif;
+    font-weight: 200;
     font-size: 14.5px;
     line-height: 22px;
     max-height: 65vh;
@@ -395,7 +416,7 @@ div.rules-text strong
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    font-family: "Inknut Antiqua", serif;
+    font-family: "switzer", serif;
     color: white;
     background-color: #558c57;
     border: none;
@@ -447,10 +468,10 @@ div.rules-text strong
 .feedback-text
 {
     margin-top: 8px;
-    font-weight: 100;
-    font-size: 16px;
+    font-weight: 200;
+    font-size: 15px;
     line-height: 20px;
-    font-family: "Rubik", serif;
+    font-family: "switzer", serif;
 }
 
 .feedback-form
@@ -461,7 +482,7 @@ div.rules-text strong
     justify-content: center;
     align-content: center;
     align-items: center;
-    font-family: "Rubik", serif;
+    font-family: "switzer", serif;
 }
 
 .feedback-form label
@@ -502,7 +523,7 @@ div.rules-text strong
     justify-content: center;
     align-content: center;
     align-self: flex-end;
-    font-family: "Inknut Antiqua", serif;
+    font-family: "switzer", serif;
     color: white;
     background-color: #55628c;
     border: none;
@@ -556,7 +577,7 @@ div.rules-text strong
     font-weight: 100;
     font-size: 13px;
     line-height: 20px;
-    font-family: "Rubik", serif;
+    font-family: "switzer", serif;
     text-align: center;
 }
 
@@ -584,7 +605,7 @@ div.rules-text strong
 
 #statsModal .box
 {
-    font-family: 'Rubik', serif;
+    font-family: 'switzer', serif;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -679,7 +700,7 @@ div.rules-text strong
     min-height: 140px;
     height: fit-content;
     color: #efefef;
-    font-family: "Rubik", serif;
+    font-family: "switzer", serif;
     border: none;
     border-radius: 5px;
     padding: 20px 15px;

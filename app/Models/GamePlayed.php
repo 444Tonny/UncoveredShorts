@@ -113,5 +113,23 @@ class GamePlayed extends Model
         return static::whereBetween('created_at', [$startDate, $endDate])->count();
     }
 
-    // Stats ------ end
+    public static function calculatePercentile($playerScore, $allScore) {
+
+        if($playerScore == 0) return 0;
+
+        // Trier les scores des jeux joués en ordre décroissant
+        rsort($allScore);
+    
+        // Trouver l'index du score du joueur dans le tableau trié
+        $rank = array_search($playerScore, $allScore) + 1;
+    
+        // Calculer le percentile en utilisant la formule
+        $totalPlayers = count($allScore);
+        $percentile = (($totalPlayers - $rank) / ($totalPlayers - 1)) * 100;
+    
+        $percentile = round($percentile);
+
+        return $percentile;
+    }
+    
 }

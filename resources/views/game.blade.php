@@ -4,16 +4,32 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="robots" content="noindex, nofollow">
+    <meta name="robots" content="index, follow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Uncovered Shorts</title>
 
+    <!-- Open Graph meta tags -->
+    <meta property="og:title" content="Uncovered Shorts">
+    <meta property="og:description" content="The goal of the game is to get the highest score possible. You will be presented with four questions, which will be of two question types 'Unique' and 'Ranked'">
+    <meta property="og:image" content="{{ asset('img/logo.png') }}">
+    <meta property="og:url" content="https://www.uncoveredshorts.com">
+    
+    <!-- Twitter Card meta tags -->
+    <meta name="twitter:card" content="uncovered_shorts_image">
+    <meta name="twitter:title" content="Uncovered Shorts">
+    <meta name="twitter:description" content="The goal of the game is to get the highest score possible. You will be presented with four questions, which will be of two question types 'Unique' and 'Ranked' ">
+    
+
     <link rel="stylesheet" href="{{ asset('css/header.css') }}">
     <link rel="stylesheet" href="{{ asset('css/game.css') }}?t={{ time() }}">
     <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t={{ time() }}">
+
+    <!-- Fonts -->
+    <link rel="stylesheet" href="https://use.typekit.net/eki0tyr.css">
+    <link href="https://fonts.cdnfonts.com/css/switzer" rel="stylesheet">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -29,7 +45,7 @@
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22"><g id="_01_align_center" data-name="01 align center"><path d="M12,24A12,12,0,1,1,24,12,12.013,12.013,0,0,1,12,24ZM12,2A10,10,0,1,0,22,12,10.011,10.011,0,0,0,12,2Z"/><path d="M14,19H12V12H10V10h2a2,2,0,0,1,2,2Z"/><circle cx="12" cy="6.5" r="1.5"/></g></svg>
         </button>
 
-        <button class='hl-icon' onclick=openModalById('statsModal')> 
+        <button class='hl-icon' onclick=openModalById('gameOverModal')> 
           <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="22" height="22"><path d="M13,0h-2c-1.1,0-2,.9-2,2V24h6V2c0-1.1-.9-2-2-2Zm0,22h-2V2h2V22ZM22,6h-2c-1.1,0-2,.9-2,2V24h6V8c0-1.1-.9-2-2-2Zm0,16h-2V8h2v14ZM4,12H2c-1.1,0-2,.9-2,2v10H6V14c0-1.1-.9-2-2-2Zm0,10H2V14h2v8Z"/></svg>
         </button>
 
@@ -86,20 +102,42 @@
         <button class="close-modal" onclick=closeModalById('gameOverModal')>×</button>
         <div class="go-box">
           <img src="{{ asset('img/logo.png') }}" width='180' alt="uncovered-shorts-logo" class="gameOverLogo">
-          <p class="go-text"><b>Congrats! Your score today:</b></p>
-          <span id="go-points">00</span>
+          <p class="go-text"><b id='congrats-text'>Your score today:</b></p>
+          <span id="go-points">0</span>
+          <span><b id="go-percentile">(0%)</b></span>
           <div class="two-column">
             <span>Average <br> Score <br><b id='AverageScoreResults'>{{ $statistics['AverageScore'] == intval($statistics['AverageScore']) ? intval($statistics['AverageScore']) : number_format($statistics['AverageScore'], 1) }}</b></span>
             <span>Top <br>Score <br><b id='TopScoreResults'>{{ $statistics['TopScore'] == intval($statistics['TopScore']) ? intval($statistics['TopScore']) : number_format($statistics['TopScore'], 1) }}</b></span>
           </div>
-          <p class="go-text"><b>BEST ANSWERS</b></p>
-          <span class='go-best-answer'><b><u>Q1 :</u></b> {{ $uniqueAnswers1[0]->value }}</span>
-          <span class='go-best-answer'><b><u>Q2 :</u></b> {{ $uniqueAnswers2[0]->value }}</span>
-          <span class='go-best-answer'><b><u>Q3 :</u></b> {{ $rankedAnswers3[0]->value }}</span>
-          <span class='go-best-answer'><b><u>Q4 :</u></b> {{ $rankedAnswers4[0]->value }}</span>
           <div class="go-buttons">
             <button class="go-share" onclick="openModalById('shareModal'), shareGame()">SHARE</button>
-            <button class="go-stats" onclick=openModalById('statsModal')>STATS</button>
+          </div>
+          <div id="go-bestanswers" class="go-bestanswers">
+            <p class="go-text"><b>Q1 - Popular answers</b></p>
+            <span class='go-best-answer'><b>#1 :</b> {{ $uniqueAnswers1[0]->value }}</span>
+            <span class='go-best-answer'><b>#2 :</b> {{ $uniqueAnswers1[1]->value }}</span>
+            <span class='go-best-answer'><b>#3 :</b> {{ $uniqueAnswers1[2]->value }}</span>
+          </div>
+          <br>
+          <div  class="go-bestanswers">
+            <p class="go-text"><b>Q2 - Popular answers</b></p>
+            <span class='go-best-answer'><b>#1 :</b> {{ $uniqueAnswers2[0]->value }}</span>
+            <span class='go-best-answer'><b>#2 :</b> {{ $uniqueAnswers2[1]->value }}</span>
+            <span class='go-best-answer'><b>#3 :</b> {{ $uniqueAnswers2[2]->value }}</span>
+          </div>
+          <br>
+          <div class="go-bestanswers">
+            <p class="go-text"><b>Q3 - Top answers</b></p>
+            <span class='go-best-answer'><b>#1 :</b> {{ $rankedAnswers3[0]->value }}</span>
+            <span class='go-best-answer'><b>#2 :</b> {{ $rankedAnswers3[1]->value }}</span>
+            <span class='go-best-answer'><b>#3 :</b> {{ $rankedAnswers3[2]->value }}</span>
+          </div>
+          <br>
+          <div class="go-bestanswers">
+            <p class="go-text"><b>Q4 - Top answers</b></p>
+            <span class='go-best-answer'><b>#1 :</b> {{ $rankedAnswers4[0]->value }}</span>
+            <span class='go-best-answer'><b>#2 :</b> {{ $rankedAnswers4[1]->value }}</span>
+            <span class='go-best-answer'><b>#3 :</b> {{ $rankedAnswers4[2]->value }}</span>
           </div>
         </div>
       </div>
@@ -122,6 +160,7 @@
 
       <script>
         var currentGameId = {!! $currentGame->id !!}
+        var currentGameName = {!! json_encode($currentGame->name) !!};
 
         var suggestions1 = {!! $suggestions1 !!};
         var suggestions2 = {!! $suggestions2 !!};
@@ -154,6 +193,11 @@
                 if (content.includes('&')) {
                     // Use a regular expression to find & characters that are not part of an HTML entity
                     element.innerHTML = element.innerHTML.replace(/&amp;/g, '<span style="font-family:arial;">&amp;</span>');
+                }
+
+                if (content.includes('1')) {
+                    // Use a regular expression to find & characters that are not part of an HTML entity
+                    element.innerHTML = element.innerHTML.replace(/&amp;/g, '<span style="font-family:arial;">1</span>');
                 }
             });
         });
@@ -267,29 +311,32 @@
         {
           document.getElementById('go-points').innerHTML = ''+playerFinalScore;
 
-          // Insert game 
-          storeGameSession(currentGameId, score1, score2, score3, score4, playerFinalScore);
+          document.getElementById('go-bestanswers').style.display = 'flex';
 
-          // Get updated statistics including the new game
-          getStatistics(currentGameId)
-            .then(statisticsUpdated => 
-            {
-              console.log(statisticsUpdated);
+          // Insert game 
+          storeGameSession(currentGameId, score1, score2, score3, score4, playerFinalScore)
+          .then(() => {
+              // Get updated statistics including the new game
+              return getStatistics(currentGameId, playerFinalScore);
+          })
+          .then(statisticsUpdated => {
+              //console.log("Stats update =");
+              //console.log(statisticsUpdated);
               document.getElementById('TopScore').innerHTML = '' + statisticsUpdated.TopScore;
               document.getElementById('AverageScore').innerHTML = '' + statisticsUpdated.AverageScore;
               document.getElementById('GamesPlayed').innerHTML = '' + statisticsUpdated.GamesPlayed;
+              document.getElementById('go-percentile').innerHTML = '(' + statisticsUpdated.Percentile + '%)';
 
               // Results screen
               document.getElementById('TopScoreResults').innerHTML = '' + statisticsUpdated.TopScore;
               document.getElementById('AverageScoreResults').innerHTML = '' + statisticsUpdated.AverageScore;
-            })
-            .catch(error => {
-                console.error("Une erreur s'est produite lors de la récupération des statistiques :", error);
-            });
 
-          setTimeout(function() {
-            openModalById('gameOverModal', false);
-          }, 500);
+              // Open the game over modal
+              openModalById('gameOverModal', false);
+          })
+          .catch(error => {
+              console.error("Une erreur s'est produite lors de la récupération des statistiques :", error);
+          });
         }
 
       </script>
@@ -381,7 +428,7 @@
       <div class="modal share-container" id='shareModal'>
         <button class="close-modal" onclick=closeModalById('shareModal')>×</button>
         <div class="share-text-container">
-          <textarea id='share-text' class="share-text" readonly>Uncovered Shorts #1, 305 Points. Q1: 90, Q2: 85, Q3: 90, Q4: 40. Play at uncoveredshorts.com</textarea>
+          <textarea id='share-text' class="share-text" readonly>{{ $currentGame->name }}, 0 Points. Q1: 90, Q2: 85, Q3: 90, Q4: 40. Play at uncoveredshorts.com</textarea>
           <button class="copy-btn">COPY</button>
         </div>
       </div>
@@ -389,7 +436,7 @@
       <script>
         function shareGame() {
           // Générer le texte à copier
-          var shareText = "🕵🏼‍♂️ Uncovered Shorts #"+currentGameId+", "+playerFinalScore+" Points.\n";
+          var shareText = "🕵🏼‍♂️ "+currentGameName+", "+playerFinalScore+" Points.\n";
           shareText += "Q1: "+score1+", Q2: "+score2+", Q3: "+score3+", Q4: "+score4+"\n";
           shareText += "🎲 Play at uncoveredshorts.com";
 

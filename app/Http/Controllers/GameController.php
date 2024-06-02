@@ -90,6 +90,17 @@ class GameController extends Controller
         $game_id = $request->input('game_id');
 
         $statistics = GamePlayed::getGameStats($game_id);
+
+        $playerScore = $request->input('player_score');
+        $allScore = GamePlayed::where('game_id', $game_id)
+                                ->orderBy('total_score', 'DESC')
+                                ->pluck('total_score')
+                                ->toArray();
+
+        $percentile = GamePlayed::calculatePercentile($playerScore, $allScore);
+
+        $statistics['Percentile'] = $percentile;
+
         return response()->json($statistics);
     }
 }

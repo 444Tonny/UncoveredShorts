@@ -35,7 +35,7 @@
                     <div class="mywrapped-block">
                         <div class="myadmin-block">
                             <label for="date_end">Game name:</label>
-                            <input type="text" name="name" id="name" value="{{ old('name') ?: 'Game#' . $nextId }}">
+                            <input type="text" name="name" id="name" value="{{ old('name') ?: 'Game#' . $nextId }}" required>
                         </div>  
     
                         <div class="myadmin-block">

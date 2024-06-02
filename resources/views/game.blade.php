@@ -113,14 +113,14 @@
             <button class="go-share" onclick="openModalById('shareModal'), shareGame()">SHARE</button>
           </div>
           <div id="go-bestanswers" class="go-bestanswers">
-            <p class="go-text"><b>Q1 - Popular answers</b></p>
+            <p class="go-text"><b>Q1 - Best answers</b></p>
             <span class='go-best-answer'><b>#1 :</b> {{ $uniqueAnswers1[0]->value }}</span>
             <span class='go-best-answer'><b>#2 :</b> {{ $uniqueAnswers1[1]->value }}</span>
             <span class='go-best-answer'><b>#3 :</b> {{ $uniqueAnswers1[2]->value }}</span>
           </div>
           <br>
           <div  class="go-bestanswers">
-            <p class="go-text"><b>Q2 - Popular answers</b></p>
+            <p class="go-text"><b>Q2 - Best answers</b></p>
             <span class='go-best-answer'><b>#1 :</b> {{ $uniqueAnswers2[0]->value }}</span>
             <span class='go-best-answer'><b>#2 :</b> {{ $uniqueAnswers2[1]->value }}</span>
             <span class='go-best-answer'><b>#3 :</b> {{ $uniqueAnswers2[2]->value }}</span>
@@ -262,6 +262,7 @@
 
           inputTarget.value = valueSelected;
           inputTarget.readOnly = true;
+          inputTarget.classList.add("answer-submitted");
           
           // Calculate points and display  
           let playerPoints;
@@ -330,6 +331,14 @@
               // Results screen
               document.getElementById('TopScoreResults').innerHTML = '' + statisticsUpdated.TopScore;
               document.getElementById('AverageScoreResults').innerHTML = '' + statisticsUpdated.AverageScore;
+
+              // Display answers
+              var bestAnswers = document.getElementsByClassName('go-bestanswers');
+              document.getElementById('gameOverModal').classList.add('show-answers');
+
+              Array.from(bestAnswers).forEach(element => {
+                  element.style.display = 'flex';
+              });
 
               // Open the game over modal
               openModalById('gameOverModal', false);

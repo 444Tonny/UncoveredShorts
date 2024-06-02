@@ -203,7 +203,7 @@ span.single-suggestion button:focus
     z-index: 5;
     display: none;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-content: center;
     align-items: center;
     background-color: #161616;
@@ -213,8 +213,14 @@ span.single-suggestion button:focus
     overflow-y: scroll;
 }
 
+.show-answers
+{   
+    justify-content: flex-start !important;
+}
+
 .go-box
 {
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -223,25 +229,26 @@ span.single-suggestion button:focus
     width: 60%;
     max-width: 600px;
     min-width: 340px;
-    padding: 40px 20px 30px 20px;
+    padding: 40px 20px 100px 20px;
     color: rgb(220, 220, 220);
     text-align: center;
 }
 
 .gameOverLogo
 {
-    margin-bottom: 15px;
     position: relative;
-    width: 40%;
+    width: 115px;
 }
 
 .go-text
 {
     margin-bottom: 0px;
+    margin-top: 8px;
     font-weight: 100;
     line-height: 32px;
     font-size: 18px;
     font-family: "switzer", serif;
+    text-transform: uppercase;
 }
 
 .go-best-answer
@@ -252,8 +259,8 @@ span.single-suggestion button:focus
 
 .go-text b
 {
-    font-size: 17px;
-    font-weight: 900;
+    font-size: 16px;
+    font-weight: 800;
     font-family: "switzer", serif;
 }
 
@@ -298,13 +305,13 @@ span.single-suggestion button:focus
 
 #go-percentile
 {
-    font-size: 20px;
-    font-weight: 400;
+    font-size: 22px;
+    font-weight: 300;
 }
 
 div.go-bestanswers
 {
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: center;
@@ -319,7 +326,7 @@ div.go-buttons
     justify-content: center;
     margin-top: 40px;
     margin-top: 15px;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
 }
 
 div.go-buttons button
@@ -386,6 +393,8 @@ h3
     font-size: 26px;
     font-weight: 700;
     font-family: "switzer", serif;
+    margin-bottom: 2px;
+    margin-top: 10px;
 }
 
 div.rules-text

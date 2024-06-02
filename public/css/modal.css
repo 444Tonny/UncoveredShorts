@@ -259,7 +259,7 @@ span.single-suggestion button:focus
 
 .go-text b
 {
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 800;
     font-family: "switzer", serif;
 }
@@ -400,7 +400,7 @@ h3
 div.rules-text
 {
     font-family: "switzer", serif;
-    font-weight: 200;
+    font-weight: 400;
     font-size: 14.5px;
     line-height: 22px;
     max-height: 65vh;
@@ -477,7 +477,7 @@ div.rules-text strong
 .feedback-text
 {
     margin-top: 8px;
-    font-weight: 200;
+    font-weight: 400;
     font-size: 15px;
     line-height: 20px;
     font-family: "switzer", serif;

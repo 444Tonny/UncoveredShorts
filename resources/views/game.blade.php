@@ -358,19 +358,19 @@
           <p>
           The goal is to get the highest score possible.
           <br>
-          You will be presented with four questions, which will be of two question types:  
+          You will be presented with four questions, which will be of two question types: 
           <br>
           <br>
-          <strong>"Unique"</strong> questions will have multiple correct answers.  Points for correct answers will be based on how unique your answer is compared to other participants.
+          The first two questions will be "Unique" questions. The goal is to name the most unique correct answer. Scoring will change throughout the day based on other user's answers.
           <br>
           For example:
           <br>
           <strong>&bull;</strong> Name a company in the S&P 500?
           <br>
           <strong>&bull;</strong> Apple, while being a correct answer, will likely yield less points than Hershey
-          </br>          
+          </br> 
           <br>
-          <strong>"Ranked List"</strong> questions will challenge you to name the top ranking of a list.  The top 10 will score points in descending order.  
+          The second two questions will be "Ranked List" questions. The goal is to name the top ranking of a list. The top 10 will score points in descending order.
           <br>
           For example:
           <br>

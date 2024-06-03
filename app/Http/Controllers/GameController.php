@@ -53,10 +53,23 @@ class GameController extends Controller
 
         $statistics = GamePlayed::getGameStats($currentGameId);
 
+        $hasAlreadyPlayed = GamePlayed::hasAlreadyPlayed($currentGame->id);
+        if($hasAlreadyPlayed >= 0) 
+        {
+            $allScore = GamePlayed::where('game_id', $currentGame->id)
+                                ->orderBy('total_score', 'DESC')
+                                ->pluck('total_score')
+                                ->toArray();
+                                
+            $percentile = GamePlayed::calculatePercentile($hasAlreadyPlayed, $allScore);
+            $statistics['Percentile'] = $percentile;
+        } 
+        else $statistics['Percentile'] = 0;
+
         return view('game', compact('currentGame', 'questions', 
                                     'suggestions1', 'suggestions2', 'suggestions3', 'suggestions4',
                                     'uniqueAnswers1', 'uniqueAnswers2', 'rankedAnswers3', 'rankedAnswers4', 
-                                    'statistics'));
+                                    'statistics', 'hasAlreadyPlayed'));
     }
 
 

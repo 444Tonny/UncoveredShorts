@@ -172,6 +172,9 @@
         var rankedAnswers3 = {!! $rankedAnswers3 !!};
         var rankedAnswers4 = {!! $rankedAnswers4 !!};
 
+        var hasAlreadyPlayed = {!! $hasAlreadyPlayed !!}
+        var percentileInital = "{{ $statistics['Percentile'] }}"
+
         var activePlayerInput;
         var score1 = 0, score2 = 0, score3 = 0, score4 = 0;
 
@@ -182,6 +185,18 @@
 
         // Use a regular expression to find & characters that are not part of an HTML entity
         document.addEventListener('DOMContentLoaded', () => {
+
+            // Check if user has already played, if yes show results without the close button
+            if(hasAlreadyPlayed >= 0)
+            {
+              document.getElementById('go-points').innerHTML = ''+hasAlreadyPlayed;
+              document.getElementById('go-percentile').innerHTML = '(' + percentileInital + '%)';
+              openModalById("gameOverModal");
+              var modalResult = document.getElementById("gameOverModal");
+              var closeModalElements = modalResult.getElementsByClassName('close-modal');
+              closeModalElements[0].style.display = 'none';
+            }
+
             // Select all elements with the class 'question'
             const questionElements = document.querySelectorAll('.question');
 
@@ -189,16 +204,12 @@
                 // Get the HTML content of the element
                 let content = element.innerHTML;
 
-                // Check if the content contains the character '&'
+                /* Check if the content contains the character '&'
                 if (content.includes('&')) {
                     // Use a regular expression to find & characters that are not part of an HTML entity
                     element.innerHTML = element.innerHTML.replace(/&amp;/g, '<span style="font-family:arial;">&amp;</span>');
                 }
-
-                if (content.includes('1')) {
-                    // Use a regular expression to find & characters that are not part of an HTML entity
-                    element.innerHTML = element.innerHTML.replace(/&amp;/g, '<span style="font-family:arial;">1</span>');
-                }
+                */
             });
         });
 

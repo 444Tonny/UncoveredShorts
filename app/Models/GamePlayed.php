@@ -28,6 +28,32 @@ class GamePlayed extends Model
     ];
 
     public $timestamps = true;
+
+    public static function hasAlreadyPlayed($game_id)
+    {
+        $ip_address = Request::ip();
+
+        $whiteListIPs = [
+            '192.168.10.120',
+            '192.168.10.121',
+            '104.28.50.187',
+            '192.168.2.12',
+            '127.0.0.1'
+        ];
+
+        if (in_array($ip_address, $whiteListIPs)) {
+            return -1;
+        }
+
+        $gamePlayed = DB::table('games_played')
+                    ->where('game_id', $game_id)
+                    ->where('ip_address', $ip_address)
+                    ->first();
+
+        // Si une entrée est trouvée, retourner true, sinon retourner false
+        if($gamePlayed !== null) return $gamePlayed->total_score; 
+        else return -1;
+    }
     
     public static function storeGameSession($game_id, $score1, $score2, $score3, $score4, $totalScore)
     {

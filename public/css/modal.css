@@ -682,7 +682,7 @@ div.rules-text strong
     display: none;
     width: 85%;
     max-width: 450px;
-    min-width: 330px;
+    min-width: 340px;
     align-self: center;
     z-index: 7;
     position: absolute; /*  
@@ -712,7 +712,7 @@ div.rules-text strong
     font-family: "switzer", serif;
     border: none;
     border-radius: 5px;
-    padding: 20px 15px;
+    padding: 20px 10px;
     font-size: 17px;
     margin-bottom: 15px;
 }

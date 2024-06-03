@@ -9,7 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Uncovered Shorts</title>
+    <title>Uncovered Shorts - A daily quiz game</title>
 
     <!-- Open Graph meta tags -->
     <meta property="og:title" content="Uncovered Shorts">
@@ -28,7 +28,6 @@
     <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t={{ time() }}">
 
     <!-- Fonts -->
-    <link rel="stylesheet" href="https://use.typekit.net/eki0tyr.css">
     <link href="https://fonts.cdnfonts.com/css/switzer" rel="stylesheet">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -448,7 +447,7 @@
       <div class="modal share-container" id='shareModal'>
         <button class="close-modal" onclick=closeModalById('shareModal')>×</button>
         <div class="share-text-container">
-          <textarea id='share-text' class="share-text" readonly>{{ $currentGame->name }}, 0 Points. Q1: 90, Q2: 85, Q3: 90, Q4: 40. Play at uncoveredshorts.com</textarea>
+          <textarea id='share-text' class="share-text" readonly>{{ $currentGame->name }}, 0pts Q1: 90, Q2: 85, Q3: 90, Q4: 40. Play at uncoveredshorts.com</textarea>
           <button class="copy-btn">COPY</button>
         </div>
       </div>
@@ -456,7 +455,7 @@
       <script>
         function shareGame() {
           // Générer le texte à copier
-          var shareText = "🕵🏼‍♂️ "+currentGameName+", "+playerFinalScore+" Points.\n";
+          var shareText = "🕵🏼‍♂️ "+currentGameName+", "+playerFinalScore+"pts\n";
           shareText += "Q1: "+score1+", Q2: "+score2+", Q3: "+score3+", Q4: "+score4+"\n";
           shareText += "🎲 Play at uncoveredshorts.com";
 

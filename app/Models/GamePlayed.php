@@ -29,6 +29,7 @@ class GamePlayed extends Model
 
     public $timestamps = true;
 
+    /*
     public static function hasAlreadyPlayed($game_id)
     {
         $ip_address = Request::ip();
@@ -54,6 +55,7 @@ class GamePlayed extends Model
         if($gamePlayed !== null) return $gamePlayed->total_score; 
         else return -1;
     }
+    */
     
     public static function storeGameSession($game_id, $score1, $score2, $score3, $score4, $totalScore)
     {
@@ -152,6 +154,9 @@ class GamePlayed extends Model
         // Calculer le percentile en utilisant la formule
         $totalPlayers = count($allScore);
         
+        if($totalPlayers == 1 && $playerScore > 0) return 100;
+        else if($totalPlayers == 1 && $playerScore == 0) return 0;
+
         try
         {
             $percentile = (($totalPlayers - $rank) / ($totalPlayers - 1)) * 100;

@@ -20,8 +20,8 @@ body
 
     min-height: 90vh;
     max-height: fit-content;
-    padding-bottom: 1vh;
-    padding-top: 2.5vh;
+    padding-bottom: 4vh;
+    padding-top: 5vh;
 }
 
 .game-block
@@ -195,6 +195,8 @@ input.answer:active
     .game-section
     {
         min-height: 80vh;
+        padding-top: 2.5vh;
+        padding-bottom: 2vh;
     }
 
     .game-block {

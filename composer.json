@@ -12,6 +12,7 @@
         "laravel/sanctum": "^3.2",
         "laravel/tinker": "^2.8",
         "samluvanda/o365-sendmail": "^1.0",
+        "spatie/laravel-cookie-consent": "^3.2",
         "stevebauman/location": "^7.2"
     },
     "require-dev": {

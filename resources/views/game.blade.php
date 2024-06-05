@@ -4,23 +4,27 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="author" content="Tonny Andriambololona">
+    <link rel="icon" href="{{ asset('img/favicon.png') }}" type="image/x-icon">
     <meta name="robots" content="index, follow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="description" content="Uncovered Shorts : The goal of the game is to get the highest score possible. You will be presented with four questions, which will be of two question types 'Unique' and 'Ranked'">
+
 
  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Uncovered Shorts - A daily quiz game</title>
+    <title>Uncovered Shorts - Daily quiz game</title>
 
     <!-- Open Graph meta tags -->
     <meta property="og:title" content="Uncovered Shorts">
-    <meta property="og:description" content="The goal of the game is to get the highest score possible. You will be presented with four questions, which will be of two question types 'Unique' and 'Ranked'">
+    <meta property="og:description" content="Uncovered Shorts : The goal of the game is to get the highest score possible. You will be presented with four questions, which will be of two question types 'Unique' and 'Ranked'">
     <meta property="og:image" content="{{ asset('img/logo.png') }}">
     <meta property="og:url" content="https://www.uncoveredshorts.com">
     
     <!-- Twitter Card meta tags -->
     <meta name="twitter:card" content="uncovered_shorts_image">
     <meta name="twitter:title" content="Uncovered Shorts">
-    <meta name="twitter:description" content="The goal of the game is to get the highest score possible. You will be presented with four questions, which will be of two question types 'Unique' and 'Ranked' ">
+    <meta name="twitter:description" content="Uncovered Shorts : The goal of the game is to get the highest score possible. You will be presented with four questions, which will be of two question types 'Unique' and 'Ranked' ">
     
 
     <link rel="stylesheet" href="{{ asset('css/header.css') }}">
@@ -54,6 +58,7 @@
     </header>
 
     <main>
+      <h1>Uncovered shorts</h1>
       <div class='game-section'>
         <div class="game-block">
           <div class="question-block">

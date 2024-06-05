@@ -171,8 +171,10 @@
         var rankedAnswers3 = {!! $rankedAnswers3 !!};
         var rankedAnswers4 = {!! $rankedAnswers4 !!};
 
-        var hasAlreadyPlayed = {!! $hasAlreadyPlayed !!}
         var percentileInital = "{{ $statistics['Percentile'] }}"
+
+        // If already played
+        // var gameAlreadyPlayed = {!! $gameAlreadyPlayed ? $gameAlreadyPlayed : 'null' !!};
 
         var activePlayerInput;
         var score1 = 0, score2 = 0, score3 = 0, score4 = 0;
@@ -186,14 +188,90 @@
         document.addEventListener('DOMContentLoaded', () => {
 
             // Check if user has already played, if yes show results without the close button
-            if(hasAlreadyPlayed >= 0)
+            // if visitor already played
+            if(getCookie('Game_'+currentGameId) !== null)
             {
-              document.getElementById('go-points').innerHTML = ''+hasAlreadyPlayed;
-              document.getElementById('go-percentile').innerHTML = '(' + percentileInital + '%)';
-              openModalById("gameOverModal");
-              var modalResult = document.getElementById("gameOverModal");
-              var closeModalElements = modalResult.getElementsByClassName('close-modal');
-              closeModalElements[0].style.display = 'none';
+              // Dans cookie se trouve l'id du game_played
+              getGameAlreadyPlayedInformations(getCookie('Game_' + currentGameId), currentGameId)
+              .then((gameAlreadyPlayedJSON) => 
+              {
+                let gameAlreadyPlayed = gameAlreadyPlayedJSON.gameAlreadyPlayed;
+                let percentile = gameAlreadyPlayedJSON.percentile;
+
+                // Auto populate scores in the results page
+                document.getElementById('go-points').innerHTML = '' + Math.round(gameAlreadyPlayed.total_score);
+                document.getElementById('go-percentile').innerHTML = '(' + percentile + '%)';
+
+                // Auto populate scores in the share text
+                playerFinalScore = Math.round(gameAlreadyPlayed.total_score);
+                score1 = Math.round(gameAlreadyPlayed.score_1);
+                score2 = Math.round(gameAlreadyPlayed.score_2);
+                score3 = Math.round(gameAlreadyPlayed.score_3);
+                score4 = Math.round(gameAlreadyPlayed.score_4);
+
+                // Auto populate score boxes
+                let iLoop = 1;
+                var pointsBoxes = document.getElementsByClassName("points");
+                Array.from(pointsBoxes).forEach(element => {
+                  // Carre points
+                  element.classList.add("points-set");
+                  
+                  // Recuperer l'input a coté du carré de points et Populate
+                  let inputNear = element.previousElementSibling;
+                  inputNear.value = localStorage.getItem('Answer_'+iLoop+'_Game_'+currentGameId);
+                  inputNear.readOnly = true;
+                  inputNear.classList.add("answer-submitted");
+                  inputNear.removeAttribute('onclick');
+
+                  switch (element.id) 
+                  {
+                    case 'us-pts1': 
+                      element.classList.add('points-' + Math.round(score1 / 5) * 5);
+                      element.innerHTML = '' + score1;
+                      break;
+                    case 'us-pts2': 
+                      element.classList.add('points-' + Math.round(score2 / 5) * 5);
+                      element.innerHTML = '' + score2;
+                      break;
+                    case 'us-pts3': 
+                      element.classList.add('points-' + Math.round(score3 / 5) * 5);
+                      element.innerHTML = '' + score3;
+                      break;
+                    case 'us-pts4': 
+                      element.classList.add('points-' + Math.round(score4 / 5) * 5);
+                      element.innerHTML = '' + score4;
+                      break;
+                  }
+
+                  iLoop++;
+                });
+ 
+                // Display answers cause he already played
+                var bestAnswers = document.getElementsByClassName('go-bestanswers');
+                document.getElementById('gameOverModal').classList.add('show-answers');
+
+                Array.from(bestAnswers).forEach(element => {
+                    element.style.display = 'flex';
+                });
+
+                // Show results page 
+                openModalById("gameOverModal");
+              })
+              .catch((error) => {
+                console.error("Resolve promise getGameAlreadyPlayedInformations" + error);
+              });  
+            }
+            else
+            {
+              // alert('Not played yet');
+              document.getElementById('go-percentile').innerHTML = '(0%)';
+            }
+
+            /* Show rules once */
+            if(localStorage.getItem('showRules') !== 'true') 
+            { 
+              openModalById('rulesModal')
+              localStorage.setItem('showRules', 'true');
             }
 
             // Select all elements with the class 'question'
@@ -278,8 +356,13 @@
           let playerPoints;
           let idEnding = inputTargetId.charAt(inputTargetId.length - 1);
           let pointContainer = document.getElementById('us-pts'+idEnding);
+          
+          // Store in local storage so we can re-use it to show his answer
+          let localStorageKey = 'Answer_' + idEnding + '_Game_' + currentGameId;
+          localStorage.setItem(localStorageKey, valueSelected);
 
-          switch (idEnding) {
+          switch (idEnding) 
+          {
             case '1': 
               playerPoints = calculateUniquePoints(uniqueAnswers1, valueSelected, questions[0].id);
               score1 = playerPoints;
@@ -292,7 +375,7 @@
               playerPoints = calculateRankedPoints(rankedAnswers3, valueSelected, questions[2].id);
               score3 = playerPoints;
               break;
-            case '4':
+            case '4': 
               playerPoints = calculateRankedPoints(rankedAnswers4, valueSelected, questions[3].id);
               score4 = playerPoints;
               break;
@@ -322,39 +405,41 @@
         {
           document.getElementById('go-points').innerHTML = ''+playerFinalScore;
 
-          document.getElementById('go-bestanswers').style.display = 'flex';
+          localStorage.setItem('Game_'+currentGameId, playerFinalScore, 7);
 
           // Insert game 
           storeGameSession(currentGameId, score1, score2, score3, score4, playerFinalScore)
           .then(() => {
-              // Get updated statistics including the new game
-              return getStatistics(currentGameId, playerFinalScore);
+            // Get updated statistics including the new game
+            return getStatistics(currentGameId, playerFinalScore);
+
           })
           .then(statisticsUpdated => {
-              //console.log("Stats update =");
-              //console.log(statisticsUpdated);
-              document.getElementById('TopScore').innerHTML = '' + statisticsUpdated.TopScore;
-              document.getElementById('AverageScore').innerHTML = '' + statisticsUpdated.AverageScore;
-              document.getElementById('GamesPlayed').innerHTML = '' + statisticsUpdated.GamesPlayed;
-              document.getElementById('go-percentile').innerHTML = '(' + statisticsUpdated.Percentile + '%)';
+            //console.log("Stats update =");
+            //console.log(statisticsUpdated);
+            //alert(statisticsUpdated.Percentile);
+            document.getElementById('TopScore').innerHTML = '' + statisticsUpdated.TopScore;
+            document.getElementById('AverageScore').innerHTML = '' + statisticsUpdated.AverageScore;
+            document.getElementById('GamesPlayed').innerHTML = '' + statisticsUpdated.GamesPlayed;
+            document.getElementById('go-percentile').innerHTML = '(' + statisticsUpdated.Percentile + '%)';
 
-              // Results screen
-              document.getElementById('TopScoreResults').innerHTML = '' + statisticsUpdated.TopScore;
-              document.getElementById('AverageScoreResults').innerHTML = '' + statisticsUpdated.AverageScore;
+            // Results screen
+            document.getElementById('TopScoreResults').innerHTML = '' + statisticsUpdated.TopScore;
+            document.getElementById('AverageScoreResults').innerHTML = '' + statisticsUpdated.AverageScore;
 
-              // Display answers
-              var bestAnswers = document.getElementsByClassName('go-bestanswers');
-              document.getElementById('gameOverModal').classList.add('show-answers');
+            // Display answers
+            var bestAnswers = document.getElementsByClassName('go-bestanswers');
+            document.getElementById('gameOverModal').classList.add('show-answers');
 
-              Array.from(bestAnswers).forEach(element => {
-                  element.style.display = 'flex';
-              });
+            Array.from(bestAnswers).forEach(element => {
+                element.style.display = 'flex';
+            });
 
-              // Open the game over modal
-              openModalById('gameOverModal', false);
+            // Open the game over modal
+            openModalById('gameOverModal', false);
           })
           .catch(error => {
-              console.error("Une erreur s'est produite lors de la récupération des statistiques :", error);
+            console.error("Une erreur s'est produite lors de la récupération des statistiques :", error);
           });
         }
 
@@ -475,17 +560,6 @@
       </script>
     
       <script src="{{ asset('js/game.js') }}?t={{ time() }}"></script>
-
-      <script>
-        document.addEventListener('DOMContentLoaded', function() {
-          if(localStorage.getItem('showRules') !== 'true') 
-          { 
-            openModalById('rulesModal')
-            localStorage.setItem('showRules', 'true');
-          }
-        });
-      </script>
-
   </body>
 
 </html>

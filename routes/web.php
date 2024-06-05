@@ -19,7 +19,10 @@ Route::get('/', [App\Http\Controllers\GameController::class, 'index'])->name('in
 
 /* Add vote unique */
 Route::post('/add-vote', [App\Http\Controllers\GameController::class, 'addVote'])->name('addVote');
+
 Route::post('/store-game-session', [App\Http\Controllers\GameController::class, 'storeGameSession'])->name('storeGameSession');
+
+Route::post('/get-game-already-played', [App\Http\Controllers\GameController::class, 'getGameAlreadyPlayedInformations'])->name('getGameAlreadyPlayedInformations');
 Route::post('/get-statistics', [App\Http\Controllers\GameController::class, 'getStatisticsJSON'])->name('getStatisticsJSON');
 Route::post('/store-player-unique', [App\Http\Controllers\Admin\UniqueAnswerController::class, 'storePlayerUniqueAnswer'])->name('storePlayerUniqueAnswer');
 Route::post('/store-player-ranked', [App\Http\Controllers\Admin\RankedAnswerController::class, 'storePlayerRankedAnswer'])->name('storePlayerRankedAnswer');

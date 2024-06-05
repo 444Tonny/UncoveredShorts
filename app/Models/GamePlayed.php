@@ -73,7 +73,7 @@ class GamePlayed extends Model
 
         $gamePlayed->save();
 
-        return $gamePlayed;
+        return $gamePlayed->id;
     }
 
     // Statistics for players
@@ -151,11 +151,17 @@ class GamePlayed extends Model
     
         // Calculer le percentile en utilisant la formule
         $totalPlayers = count($allScore);
-        $percentile = (($totalPlayers - $rank) / ($totalPlayers - 1)) * 100;
-    
-        $percentile = round($percentile);
-
-        return $percentile;
+        
+        try
+        {
+            $percentile = (($totalPlayers - $rank) / ($totalPlayers - 1)) * 100;
+            $percentile = round($percentile);
+            return $percentile;
+        }
+        catch(\Exception $e)
+        {
+            return 0;
+        }
     }
     
 }

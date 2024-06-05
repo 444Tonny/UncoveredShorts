@@ -35,7 +35,6 @@ class GameController extends Controller
     public function index(Request $request)
     {
         //Visit::getCountryFromIP('70.26.212.228');
-
         $currentGame = Game::getCurrentGame();
         $currentGameId = $currentGame->id;
 
@@ -53,25 +52,52 @@ class GameController extends Controller
 
         $statistics = GamePlayed::getGameStats($currentGameId);
 
-        $hasAlreadyPlayed = GamePlayed::hasAlreadyPlayed($currentGame->id);
-        if($hasAlreadyPlayed >= 0) 
+        // Check if a user has played (if the cookie with the game id exist in the user cookies)
+        
+        if($request->hasCookie('Game_'.$currentGameId))
         {
+            $idGamePlayed = $request->cookie('Game_' . $currentGameId);
+            $gameAlreadyPlayed = GamePlayed::find($idGamePlayed);
             $allScore = GamePlayed::where('game_id', $currentGame->id)
                                 ->orderBy('total_score', 'DESC')
                                 ->pluck('total_score')
                                 ->toArray();
                                 
-            $percentile = GamePlayed::calculatePercentile($hasAlreadyPlayed, $allScore);
+            $percentile = GamePlayed::calculatePercentile($gameAlreadyPlayed->total_score, $allScore);
             $statistics['Percentile'] = $percentile;
         } 
-        else $statistics['Percentile'] = 0;
+        else 
+        {
+            $statistics['Percentile'] = 0;
+            $gameAlreadyPlayed = null;
+        }
 
         return view('game', compact('currentGame', 'questions', 
                                     'suggestions1', 'suggestions2', 'suggestions3', 'suggestions4',
                                     'uniqueAnswers1', 'uniqueAnswers2', 'rankedAnswers3', 'rankedAnswers4', 
-                                    'statistics', 'hasAlreadyPlayed'));
+                                    'statistics', 'gameAlreadyPlayed'));
     }
 
+    public function getGameAlreadyPlayedInformations(Request $request)
+    {
+        $game_id = $request->input('game_id');
+        $gamePlayed_id = $request->input('gamePlayed_id');
+
+        $gameAlreadyPlayed = GamePlayed::find($gamePlayed_id);
+        $allScore = GamePlayed::where('game_id', $game_id)
+                            ->orderBy('total_score', 'DESC')
+                            ->pluck('total_score')
+                            ->toArray();
+                            
+        $percentile = GamePlayed::calculatePercentile($gameAlreadyPlayed->total_score, $allScore);
+        
+        $response = [
+            'gameAlreadyPlayed' => $gameAlreadyPlayed,
+            'percentile' => $percentile,
+        ];
+    
+        return response()->json($response);
+    }
 
     // --- XHR Requests
     public function addVote(Request $request)
@@ -93,9 +119,9 @@ class GameController extends Controller
         $score4 = $request->input('score4');
         $totalScore = $request->input('totalScore');
 
-        GamePlayed::storeGameSession($game_id, $score1, $score2, $score3, $score4, $totalScore);
+        $idGamePlayed = GamePlayed::storeGameSession($game_id, $score1, $score2, $score3, $score4, $totalScore);
 
-        return response()->json(['success - new game stored' => true]);
+        return response()->json(['success - new game stored' => true, 'idGamePlayed' => $idGamePlayed]);
     }   
 
     public function getStatisticsJSON(Request $request)

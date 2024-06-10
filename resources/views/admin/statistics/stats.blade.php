@@ -60,22 +60,18 @@
                                 label: 'Games played',
                                 data: @json($data['data']),
                                 borderColor: 'rgba(75, 192, 192, 1)',
-                                borderWidth: 2,
+                                borderWidth: 1,
                                 fill: false
                             }]
                         },
                         options: {
                             scales: {
-                                x: {
-                                    beginAtZero: true,
-                                },
                                 y: {
                                     beginAtZero: true
                                 }
                             }
                         }
                     });
-
                 </script>
 
                 <div class="stats-charts">

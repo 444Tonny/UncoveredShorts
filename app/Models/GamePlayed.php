@@ -62,8 +62,8 @@ class GamePlayed extends Model
         $now = now()->setTimezone('America/New_York');
 
         $games = Game::where('date_start', '<=', $now)
-            ->orderBy('date_start', 'desc')
-            ->take(10)
+            ->orderBy('date_start', 'asc')
+            ->take(30)
             ->get();
 
         // Initialiser les arrays pour les labels et les données

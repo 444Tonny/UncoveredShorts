@@ -33,6 +33,20 @@ class Game extends Model
         return $this->hasMany(GamePlayed::class);
     }
 
+    public static function getTrackedGamesCount()
+    {
+        $date = '2024-06-10 00:01:00'; 
+        // $date = now()->setTimezone('America/New_York')->subDays(2);
+        return self::where('date_start', '>=', $date)->where('status', '<>', 'ready')->count();
+    }
+
+    public static function nearestLowerEndDate(Game $otherGame)
+    {
+        return self::where('date_end', '<=', $otherGame->date_start)
+                   ->orderBy('date_end', 'desc')
+                   ->first();
+    }
+
     public static function getCurrentGame()
     {
         $now = now()->setTimezone('America/New_York');

@@ -268,10 +268,19 @@ span.single-suggestion button:focus
 {
     margin-bottom: -5px;
     margin-top: -5px;
+    margin-right: 5px;
     font-size: 45px;
     font-weight: 800;
     color: #d3c56b;
     font-family: "switzer", serif;
+}
+
+.go-finalscore
+{
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
 }
 
 .two-column
@@ -280,18 +289,18 @@ span.single-suggestion button:focus
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: center;
-    margin-bottom: 16px;  
+    margin-bottom: 20px;  
     margin-top: 18px;
 }
 
 .two-column span
 {
     width: 90px;
-    margin: 0px 22px;
+    margin: 5px 6px;
     text-align: center;
-    font-size: 14.5px !important;
+    font-size: 13.5px !important;
     text-transform: uppercase;
-    line-height: 18px;
+    line-height: 17px;
 }
 
 .two-column span b
@@ -307,6 +316,7 @@ span.single-suggestion button:focus
 {
     font-size: 22px;
     font-weight: 300;
+    margin-left: 5px;
 }
 
 div.go-bestanswers
@@ -324,9 +334,8 @@ div.go-buttons
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: center;
-    margin-top: 40px;
-    margin-top: 15px;
-    margin-bottom: 15px;
+    margin-top: 30px;
+    margin-bottom: 20px;
 }
 
 div.go-buttons button

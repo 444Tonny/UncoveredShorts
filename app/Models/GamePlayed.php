@@ -56,6 +56,35 @@ class GamePlayed extends Model
         else return -1;
     }
     */
+
+    public static function getLineChartData()
+    {
+        $now = now()->setTimezone('America/New_York');
+
+        $games = Game::where('date_start', '<=', $now)
+            ->orderBy('date_start', 'desc')
+            ->take(10)
+            ->get();
+
+        // Initialiser les arrays pour les labels et les données
+        $labels = [];
+        $data = [];
+
+        // Parcourir chaque jeu pour obtenir le nom et le nombre de jeux joués
+        foreach ($games as $game) {
+            $labels[] = $game->name;
+            $countGamePlayed = GamePlayed::where('game_id', $game->id)->count();
+            $data[] = $countGamePlayed;
+        }
+
+        // Formater les données comme requis
+        $formattedData = [
+            'labels' => $labels,
+            'data' => $data,
+        ];
+
+        return $formattedData;
+    }
     
     public static function storeGameSession($game_id, $score1, $score2, $score3, $score4, $totalScore)
     {
@@ -133,7 +162,8 @@ class GamePlayed extends Model
     }
     private static function getGamesByDate($date)
     {
-        return static::whereDate('created_at', $date)->count();
+        //return static::whereDate('created_at', $date)->count();
+        return static::whereDate(\DB::raw("DATE_SUB(created_at, INTERVAL 4 HOUR)"), $date)->count();
     }
 
     private static function getGamesByDateRange($startDate, $endDate)

@@ -18,7 +18,7 @@
     <!-- Open Graph meta tags -->
     <meta property="og:title" content="Uncovered Shorts">
     <meta property="og:description" content="Uncovered Shorts : The goal of the game is to get the highest score possible. You will be presented with four questions, which will be of two question types 'Unique' and 'Ranked'">
-    <meta property="og:image" content="{{ asset('img/logo.png') }}">
+    <meta property="og:image" content="{{ asset('img/square-logo.png') }}">
     <meta property="og:url" content="https://www.uncoveredshorts.com">
     
     <!-- Twitter Card meta tags -->
@@ -27,7 +27,7 @@
     <meta name="twitter:description" content="Uncovered Shorts : The goal of the game is to get the highest score possible. You will be presented with four questions, which will be of two question types 'Unique' and 'Ranked' ">
     
 
-    <link rel="stylesheet" href="{{ asset('css/header.css') }}">
+    <link rel="stylesheet" href="{{ asset('css/header.css') }}?t=1">
     <link rel="stylesheet" href="{{ asset('css/game.css') }}?t={{ time() }}">
     <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t={{ time() }}">
 
@@ -106,12 +106,14 @@
         <div class="go-box">
           <img src="{{ asset('img/logo.png') }}" width='180' alt="uncovered-shorts-logo" class="gameOverLogo">
           <p class="go-text"><b id='congrats-text'>Your score today:</b></p>
-          <span id="go-points">0</span>
-          <span><b id="go-percentile">(0%)</b></span>
+          <div class='go-finalscore'><span id="go-points">0</span><b id="go-percentile">(0%)</b></div>
           <div class="two-column">
-            <span>Average <br> Score <br><b id='AverageScoreResults'>{{ $statistics['AverageScore'] == intval($statistics['AverageScore']) ? intval($statistics['AverageScore']) : number_format($statistics['AverageScore'], 1) }}</b></span>
-            <span>Top <br>Score <br><b id='TopScoreResults'>{{ $statistics['TopScore'] == intval($statistics['TopScore']) ? intval($statistics['TopScore']) : number_format($statistics['TopScore'], 1) }}</b></span>
+            <span>Today's <br> Average <br> Score <br><b id='AverageScoreResults'>{{ $statistics['AverageScore'] == intval($statistics['AverageScore']) ? intval($statistics['AverageScore']) : number_format($statistics['AverageScore'], 1) }}</b></span>
+            <span>Today's <br> Top <br>Score <br><b id='TopScoreResults'>{{ $statistics['TopScore'] == intval($statistics['TopScore']) ? intval($statistics['TopScore']) : number_format($statistics['TopScore'], 1) }}</b></span>
+            <span>Personal <br> Average <br> Score <br><b id='personalAverage'>0</b></span>
           </div>
+          <span>Games played = <b id='personalGameCount'>0</b>/<b id='trackedGameCount'>{{ $trackedGameCount }}</b> </span>
+          <span><br><b>YOU'RE STREAKING!</b><br> <b id="personalStreak">0</b> days played in a row <br></span>
           <div class="go-buttons">
             <button class="go-share" onclick="openModalById('shareModal'), shareGame()">SHARE</button>
           </div>
@@ -162,6 +164,22 @@
       </div>
 
       <script>
+        /* new statistics */
+        var trackedGameCount = {{ $trackedGameCount }}
+
+        var personalGameCount = parseInt(localStorage.getItem('personalGameCount') ?? 0);
+        var personalAverage = parseInt(localStorage.getItem('personalAverage') ?? 0);
+        var personalStreak = parseInt(localStorage.getItem('personalStreak') ?? 0);
+
+        var personalGameCountHtml = document.getElementById('personalGameCount');
+        var personalAverageHtml = document.getElementById('personalAverage');
+        var lastPlayedGameID = localStorage.getItem('lastPlayedGameID') ?? 0;
+        var personalStreakHtml = document.getElementById('personalStreak');
+        var previousGameID = {{ $previousGame->id }}
+
+        refreshHtmlInLocalStorage();
+        /* --------------- */
+
         var currentGameId = {!! $currentGame->id !!}
         var currentGameName = {!! json_encode($currentGame->name) !!};
 
@@ -416,7 +434,6 @@
           .then(() => {
             // Get updated statistics including the new game
             return getStatistics(currentGameId, playerFinalScore);
-
           })
           .then(statisticsUpdated => {
             //console.log("Stats update =");
@@ -439,12 +456,46 @@
                 element.style.display = 'flex';
             });
 
+            // START - Calculate and show the new statistics () 
+            console.log(Math.round(((personalAverage*personalGameCount) + playerFinalScore)/(parseInt(personalGameCount)+1)));
+            localStorage.setItem('personalAverage', Math.round(((personalAverage*personalGameCount) + playerFinalScore)/(parseInt(personalGameCount)+1)));  
+
+            // increase personal Games Played Count and Update ID last game
+            if(trackedGameCount < parseInt(personalGameCount) + 1) {}
+            else localStorage.setItem('personalGameCount', parseInt(personalGameCount) + 1);
+            localStorage.setItem('lastPlayedGameID', currentGameId);
+
+            // verify if it's a streak
+            if(previousGameID == lastPlayedGameID) localStorage.setItem('personalStreak', parseInt(personalStreak) + 1);
+            else
+            {
+              // no streak
+              localStorage.setItem('personalStreak', 1);
+            }
+
+            refreshHtmlInLocalStorage();
+
             // Open the game over modal
             openModalById('gameOverModal', false);
           })
           .catch(error => {
             console.error("Une erreur s'est produite lors de la récupération des statistiques :", error);
           });
+        }
+
+        function refreshHtmlInLocalStorage()
+        {
+          var personalGameCount = parseInt(localStorage.getItem('personalGameCount') ?? 0);
+          var personalAverage = parseInt(localStorage.getItem('personalAverage') ?? 0);
+          var personalStreak = parseInt(localStorage.getItem('personalStreak') ?? 0);
+
+          console.log('personalGameCount =' +personalGameCount);
+          console.log('personalAverage =' +personalAverage);
+          console.log('personalStreak =' +personalStreak);
+          
+          personalAverageHtml.innerHTML = personalAverage;
+          personalStreakHtml.innerHTML = personalStreak;
+          personalGameCountHtml.innerHTML = personalGameCount;
         }
 
       </script>

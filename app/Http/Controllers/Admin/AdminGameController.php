@@ -20,7 +20,7 @@ class AdminGameController extends Controller
         // To update current game status
         Game::getCurrentGame();
 
-        $games = Game::select('*')->orderBy('id', 'DESC')->get();
+        $games = Game::select('*')->orderBy('date_start', 'DESC')->get();
         return view('admin.games.index', compact('games'));
     }
 

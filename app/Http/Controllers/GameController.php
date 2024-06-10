@@ -38,6 +38,10 @@ class GameController extends Controller
         $currentGame = Game::getCurrentGame();
         $currentGameId = $currentGame->id;
 
+        // New statistics
+        $trackedGameCount = Game::getTrackedGamesCount();
+        $previousGame = Game::nearestLowerEndDate($currentGame);
+
         $questions = Question::byGameId($currentGameId)->get();
 
         $suggestions1 = Game::getDataFromSheet($questions[0]['sheet_url'], $questions[0]->id);
@@ -75,7 +79,7 @@ class GameController extends Controller
         return view('game', compact('currentGame', 'questions', 
                                     'suggestions1', 'suggestions2', 'suggestions3', 'suggestions4',
                                     'uniqueAnswers1', 'uniqueAnswers2', 'rankedAnswers3', 'rankedAnswers4', 
-                                    'statistics', 'gameAlreadyPlayed'));
+                                    'statistics', 'gameAlreadyPlayed', 'trackedGameCount', 'previousGame'));
     }
 
     public function getGameAlreadyPlayedInformations(Request $request)

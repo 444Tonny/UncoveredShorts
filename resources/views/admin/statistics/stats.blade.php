@@ -3,6 +3,7 @@
 
     @section('content')
         <main id="pgmain">
+            <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
             <h2>STATISTICS</h2>
 
@@ -45,13 +46,44 @@
                     </div>
                 </div>
 
+                <div style="width: 80%; min-height: 300px; margin: auto; overflow-x: auto; margin-top: 40px;">
+                    <canvas id="lineChart"></canvas>
+                </div>
+            
+                <script>
+                    var ctx = document.getElementById('lineChart').getContext('2d');
+                    var myChart = new Chart(ctx, {
+                        type: 'line',
+                        data: {
+                            labels: @json($data['labels']),
+                            datasets: [{
+                                label: 'Games played',
+                                data: @json($data['data']),
+                                borderColor: 'rgba(75, 192, 192, 1)',
+                                borderWidth: 2,
+                                fill: false
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                x: {
+                                    beginAtZero: true,
+                                },
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+
+                </script>
+
                 <div class="stats-charts">
                     <h3>COUNTRY</h3>
 
                     <figure>
                         <table class="barChart_h">
                             <caption>Country of visitors</caption>
-                    
                             <tbody>
                             <!-- Y-axis -->
                             <tr>
@@ -59,24 +91,20 @@
                               <th class="y-axis">
                               </th>
                             </tr>
-                            
                             @foreach ($countryStats as $cs)
-                                
                             <!-- Data Rows -->
                             <tr class="firstRow">
                               <th scope="row">{{ empty($cs->country) ? 'Unknown' : $cs->country }}</th>
                               <td><span style="width:{{ ($cs->visits * 100 ) / $visitStats['totalVisits'] }}%"><b>{{ $cs->visits }}</b></span></td>
                             </tr>
-
                             @endforeach
-                          </tbody>
+                            </tbody>
                         </table>
                     </figure>     
                     
                     <figure>
                         <table class="barChart_h">
                             <caption>Country of fully completed quizzes</caption>
-                    
                             <tbody>
                             <!-- Y-axis -->
                             <tr>
@@ -84,7 +112,6 @@
                               <th class="y-axis">
                               </th>
                             </tr>
-                            
                             @foreach ($countryGamesStats as $cgs)
                                 
                             <!-- Data Rows -->

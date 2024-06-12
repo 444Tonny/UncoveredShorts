@@ -113,7 +113,7 @@
             <span>Personal <br> Average <br> Score <br><b id='personalAverage'>0</b></span>
           </div>
           <span>Games played = <b id='personalGameCount'>0</b>/<b id='trackedGameCount'>{{ $trackedGameCount }}</b> </span>
-          <span><br><b>YOU'RE STREAKING!</b><br> <b id="personalStreak">0</b> days played in a row <br></span>
+          <span><br><b>YOU'RE STREAKING!</b><br> <b id="personalStreak">0 day</b> played in a row <br></span>
           <div class="go-buttons">
             <button class="go-share" onclick="openModalById('shareModal'), shareGame()">SHARE</button>
           </div>
@@ -164,6 +164,10 @@
       </div>
 
       <script>
+        
+        var currentGameId = {!! $currentGame->id !!}
+        var currentGameName = {!! json_encode($currentGame->name) !!};
+
         /* new statistics */
         var trackedGameCount = {{ $trackedGameCount }}
 
@@ -177,11 +181,9 @@
         var personalStreakHtml = document.getElementById('personalStreak');
         var previousGameID = {{ $previousGame->id }}
 
+        verifyStreak();
         refreshHtmlInLocalStorage();
         /* --------------- */
-
-        var currentGameId = {!! $currentGame->id !!}
-        var currentGameName = {!! json_encode($currentGame->name) !!};
 
         var suggestions1 = {!! $suggestions1 !!};
         var suggestions2 = {!! $suggestions2 !!};
@@ -466,7 +468,11 @@
             localStorage.setItem('lastPlayedGameID', currentGameId);
 
             // verify if it's a streak
-            if(previousGameID == lastPlayedGameID) localStorage.setItem('personalStreak', parseInt(personalStreak) + 1);
+            if(previousGameID == lastPlayedGameID) 
+            {
+              if(trackedGameCount < parseInt(personalStreak) + 1) {}
+              else localStorage.setItem('personalStreak', parseInt(personalStreak) + 1);
+            }
             else
             {
               // no streak
@@ -488,14 +494,19 @@
           var personalGameCount = parseInt(localStorage.getItem('personalGameCount') ?? 0);
           var personalAverage = parseInt(localStorage.getItem('personalAverage') ?? 0);
           var personalStreak = parseInt(localStorage.getItem('personalStreak') ?? 0);
-
-          console.log('personalGameCount =' +personalGameCount);
-          console.log('personalAverage =' +personalAverage);
-          console.log('personalStreak =' +personalStreak);
           
           personalAverageHtml.innerHTML = personalAverage;
-          personalStreakHtml.innerHTML = personalStreak;
+          personalStreakHtml.innerHTML = personalStreak + (personalStreak > 1 ? ' days' : ' day');
           personalGameCountHtml.innerHTML = personalGameCount;
+        }
+
+        function verifyStreak()
+        {
+          if(previousGameID != lastPlayedGameID && currentGameId != lastPlayedGameID) 
+          {
+            // no streak
+            localStorage.setItem('personalStreak', 0);
+          }
         }
 
       </script>

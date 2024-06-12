@@ -25,7 +25,7 @@ class RankedAnswer extends Model
         return self::where('question_id', $questionId)->orderBy('rank', 'DESC')->get();
     }
 
-    public static function synchronizeInitialRanking($excelValues, $questionId)
+    public static function synchronizeInitialRanking($excelValues, $questionId, $verify = 'yes')
     {
         $rankedAnswerCount = 0;
 
@@ -42,8 +42,11 @@ class RankedAnswer extends Model
             throw new \Exception('Synchronization failed. Please verify the content of the Excel file.');
         }
 
-        if ($rankedAnswerCount != 10) {
-            throw new \Exception('Synchronization failed. Top 10 is incomplete.');
+        if($verify == 'yes')
+        {
+            if ($rankedAnswerCount != 10) {
+                throw new \Exception('Synchronization failed. Top 10 is incomplete.');
+            }
         }
 
         // Delete old percentages and insert new for that questions
@@ -65,10 +68,13 @@ class RankedAnswer extends Model
                 if (empty($answerData[1]) || empty($answerData[0])) 
                 { 
                     // Even if other case are empty, if top 10 count is exact, finish    
-                    if($rankedAnswerCount == 10)
-                    {
-                        DB::commit();
-                        return $excelValues;
+                    if($verify == 'yes')
+                        {
+                        if($rankedAnswerCount == 10)
+                        {
+                            DB::commit();
+                            return $excelValues;
+                        }
                     }  
                 }
         
@@ -85,6 +91,7 @@ class RankedAnswer extends Model
             }
 
             DB::commit();
+            return $excelValues;
         }
         catch (\Exception $e) 
         {

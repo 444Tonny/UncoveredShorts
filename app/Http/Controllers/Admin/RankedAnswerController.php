@@ -96,12 +96,14 @@ class RankedAnswerController extends Controller
 
     public function synchronize(Request $request, $questionId)
     {
+        $verify = $request->query('verify', 'yes');
+
         $question = Question::where('id', $questionId)->first();
         $excelData = Game::getArray2DFromSheet($question->sheet_url, $questionId);
 
         try
         {
-            RankedAnswer::synchronizeInitialRanking($excelData, $questionId);
+            RankedAnswer::synchronizeInitialRanking($excelData, $questionId, $verify);
             Question::synchronizeSuggestions($excelData, $questionId);
             
             return redirect()->back()->with('success', 'Synchronization done successfully.');

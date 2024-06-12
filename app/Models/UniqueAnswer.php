@@ -53,7 +53,7 @@ class UniqueAnswer extends Model
         }
     }
 
-    public static function synchroniseInitialPercentage($excelValues, $questionId)
+    public static function synchroniseInitialPercentage($excelValues, $questionId, $verify = 'yes')
     {
         $totalPercentage = 0;
 
@@ -70,8 +70,11 @@ class UniqueAnswer extends Model
             throw new \Exception('Synchronization failed. Please verify your Excel file.');
         }
 
-        if ($totalPercentage != 100) {
-            throw new \Exception('The sum of percentages must be exactly equal to 100%. Current total = '.$totalPercentage.'%');
+        if($verify == 'yes')
+        {
+            if ($totalPercentage != 100) {
+                throw new \Exception('The sum of percentages must be exactly equal to 100%. Current total = '.$totalPercentage.'%');
+            }
         }
 
         // Delete old percentages and insert new for that questions
@@ -92,11 +95,16 @@ class UniqueAnswer extends Model
                 // Verify if any empty case in the excel
                 if (empty($answerData[1]) || empty($answerData[0])) 
                 { 
-                    // Even if other case are empty, if 100% don't show error message      
-                    if($totalPercentage == 100)
+                    // Even if other case are empty, if 100% don't show error message 
+                    
+                    // Temporary 
+                    if($verify == 'yes')
                     {
-                        DB::commit();
-                        return $excelValues;
+                        if($totalPercentage == 100)
+                        {
+                            DB::commit();
+                            return $excelValues;
+                        }
                     }  
                 }
         
@@ -113,6 +121,7 @@ class UniqueAnswer extends Model
             }
 
             DB::commit();
+            return $excelValues;
         }
         catch (\Exception $e) 
         {

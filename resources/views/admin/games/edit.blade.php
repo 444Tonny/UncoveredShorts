@@ -81,14 +81,19 @@
                                     </svg>
                                 </a>
                             </div>
-                            
+                            <br>
+                            &nbsp;
+                            <div>
+                                <input type="checkbox" name="verify_{{$k}}" id="verify_{{$k}}" onchange="updateHref({{$k}})" checked> Verify Excel data ?
+                            </div>        
+
                             <div class="spacing-20"></div>
 
                             <!-- Bouton "Answer" -->
                             @if ($k <= 2)
-                                <a href="{{ route('unique-answers.synchronize', ['question' => $question->id]) }}" class="btn btn-primary">Synchronize answers</a>
+                                <a id="syncBtn_{{$k}}" href="{{ route('unique-answers.synchronize', ['question' => $question->id]) }}" class="btn btn-primary">Synchronize answers</a>
                             @else
-                                <a href="{{ route('ranked-answers.synchronize', ['question' => $question->id]) }}" class="btn btn-primary">Synchronize answers</a>
+                                <a id="syncBtn_{{$k}}" href="{{ route('ranked-answers.synchronize', ['question' => $question->id]) }}" class="btn btn-primary">Synchronize answers</a>
                             @endif
                         
                         </div>
@@ -97,6 +102,26 @@
                     </div>
                 </form>
             </div>
+
+            <script>
+                function updateHref(k) {
+                    const checkbox = document.getElementById(`verify_${k}`);
+                    const syncBtn = document.getElementById(`syncBtn_${k}`);
+                    const baseUrl = syncBtn.href.split('?')[0];
+                    const verifyParam = checkbox.checked ? 'yes' : 'no';
+            
+                    syncBtn.href = `${baseUrl}?verify=${verifyParam}`;
+                }
+            
+                // Initial call to set the href correctly based on the default state
+                document.addEventListener('DOMContentLoaded', function () {
+                    updateHref(1);
+                    updateHref(2);
+                    updateHref(3);
+                    updateHref(4);
+                });
+            </script>
+
             <div class="spacing"></div>
         </main>
     @endsection

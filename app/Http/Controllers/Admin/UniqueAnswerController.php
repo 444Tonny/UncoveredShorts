@@ -147,12 +147,14 @@ class UniqueAnswerController extends Controller
 
     public function synchronize(Request $request, $questionId)
     {
+        $verify = $request->query('verify', 'yes');
+        
         $question = Question::where('id', $questionId)->first();
         $excelData = Game::getArray2DFromSheet($question->sheet_url, $questionId);
 
         try
         {
-            UniqueAnswer::synchroniseInitialPercentage($excelData, $questionId);
+            UniqueAnswer::synchroniseInitialPercentage($excelData, $questionId, $verify);
             Question::synchronizeSuggestions($excelData, $questionId);
             return redirect()->back()->with('success', 'Synchronization done successfully.');
         }

@@ -28,28 +28,30 @@
                 </div>
 
                 <div class="stats-blocks">
-                    <div class="sb-single sb-single-bw" id='single-TodayGames'>
+                    <div class="sb-single" id='single-TodayGames'>
                         <label for=""><b>TODAY</b><br> Games played </label>
                         <p class='lv-stats' id='TodayGames'>{{ $gamesStats['todayGames'] }}</p>
                     </div>
-                    <div class="sb-single sb-single-bw" id='single-WeekGames'>
+                    <div class="sb-single" id='single-WeekGames'>
                         <label for=""><b>LAST 7 DAYS</b><br> Games played </label>
                         <p class='lv-stats' id='WeekGames'>{{ $gamesStats['weekGames'] }}</p>
                     </div>
-                    <div class="sb-single sb-single-bw" id='single-MonthGames'>
+                    <div class="sb-single" id='single-MonthGames'>
                         <label for=""><b>LAST 30 DAYS</b><br> Games played </label>
                         <p class='lv-stats' id='MonthGames'>{{ $gamesStats['monthGames'] }}</p>
                     </div>
-                    <div class="sb-single sb-single-bw" id='single-TotalGames'>
+                    <div class="sb-single" id='single-TotalGames'>
                         <label for=""><b>OVERALL</b><br> Games played </label>
                         <p class='lv-stats' id='TotalGames'>{{ $gamesStats['totalGames'] }}</p>
                     </div>
                 </div>
 
-                <div style="width: 80%; min-height: 300px; margin: auto; overflow-x: auto; margin-top: 40px;">
+                &nbsp;
+                <div style="width: 90%; min-height: 300px; margin: auto; overflow-x: auto; margin-top: 40px;">
                     <canvas id="lineChart"></canvas>
                 </div>
-            
+                &nbsp;
+
                 <script>
                     var ctx = document.getElementById('lineChart').getContext('2d');
                     var myChart = new Chart(ctx, {
@@ -59,9 +61,11 @@
                             datasets: [{
                                 label: 'Games played',
                                 data: @json($data['data']),
-                                borderColor: 'rgba(75, 192, 192, 1)',
-                                borderWidth: 1,
-                                fill: false
+                                borderColor: 'rgb(40, 48, 57)',
+                                borderWidth: 3,
+                                fill: true,
+                                hoverBorderJoinStyle: 'round',
+                                tension: 0.1
                             }]
                         },
                         options: {

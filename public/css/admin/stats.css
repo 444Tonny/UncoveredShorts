@@ -78,16 +78,16 @@
 
 #single-WeekVisits { background-color: rgb(85, 102, 179) ;}
 
-#single-MonthVisits { background-color: rgb(187, 105, 105) ;}
+#single-MonthVisits { background-color: rgb(226, 128, 128) ;}
 
-#single-TotalVisits { background-color: rgb(44, 44, 44) ;}
+#single-TotalVisits { background-color: rgb(80, 80, 80) ;}
 
 
 #single-TodayGames { background-color: rgb(140, 186, 112) ;}
 
 #single-WeekGames { background-color: rgb(163, 131, 222) ;}
 
-#single-MonthGames { background-color: rgb(193, 79, 79) ;}
+#single-MonthGames { background-color: rgb(254, 109, 109) ;}
 
 #single-TotalGames { background-color: rgb(44, 44, 44) ;}
 
@@ -95,12 +95,12 @@
 
 .stats-charts
 {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: flex-start;
-    align-content: center;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  align-content: center;
 }
 
 .statistics h3

@@ -84,7 +84,7 @@
                             <br>
                             &nbsp;
                             <div>
-                                <input type="checkbox" name="verify_{{$k}}" id="verify_{{$k}}" onchange="updateHref({{$k}})" checked> Verify Excel data ?
+                                <input type="checkbox" name="verify_{{$k}}" id="verify_{{$k}}" onchange="updateHref({{$k}})" checked> Check to verify the data in Google Sheets.
                             </div>        
 
                             <div class="spacing-20"></div>

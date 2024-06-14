@@ -16,6 +16,7 @@ use App\Http\Controllers\FeedbackController;
 
 /* Public */
 Route::get('/', [App\Http\Controllers\GameController::class, 'index'])->name('index');
+Route::get('/terms-of-service', [App\Http\Controllers\GameController::class, 'termsOfService'])->name('terms-of-service');
 
 /* Add vote unique */
 Route::post('/add-vote', [App\Http\Controllers\GameController::class, 'addVote'])->name('addVote');

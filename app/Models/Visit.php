@@ -20,9 +20,10 @@ class Visit extends Model
     public static function getVisitStatsByCountry()
     {
         return static::select('country', DB::raw('COUNT(*) as visits'))
-            ->groupBy('country')
-            ->orderBy('visits', 'desc')
-            ->get();
+                    ->whereDate('date_visit', '>=', Carbon::now()->subDays(6)) // Filtrer les visites des 7 derniers jours
+                    ->groupBy('country')
+                    ->orderByDesc('visits')
+                    ->get();
     }
 
     public static function getTotalVisitsByCountry()

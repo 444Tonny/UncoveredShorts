@@ -1,0 +1,29 @@
+.modal-background {   
+    display: none;
+    background-color: rgba(0, 0, 0, 0.7); /* couleur de fond assombri */
+}
+  
+.terms-of-services
+{
+    padding: 25px 40px;
+    font-family: "switzer", serif;
+    font-weight: 300;
+    color: rgb(177, 177, 177);
+    display: flex;
+    flex-direction: column;
+}
+
+h2
+{
+    margin: 20px 0px 0px 0px;
+}
+
+a
+{
+    color: rgb(177, 177, 177) !important;
+}
+
+@media only screen and (max-width: 768px) 
+{
+    
+}

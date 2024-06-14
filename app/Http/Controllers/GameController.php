@@ -82,6 +82,11 @@ class GameController extends Controller
                                     'statistics', 'gameAlreadyPlayed', 'trackedGameCount', 'previousGame'));
     }
 
+    public function termsOfService(Request $request)
+    {
+        return view('terms-service');
+    }
+
     public function getGameAlreadyPlayedInformations(Request $request)
     {
         $game_id = $request->input('game_id');

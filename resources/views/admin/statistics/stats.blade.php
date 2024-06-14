@@ -4,6 +4,7 @@
     @section('content')
         <main id="pgmain">
             <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-zoom/1.1.1/chartjs-plugin-zoom.min.js"></script>
 
             <h2>STATISTICS</h2>
 
@@ -69,8 +70,25 @@
                             }]
                         },
                         options: {
+                            plugins: {
+                                zoom: {
+                                    zoom: {
+                                        wheel: {
+                                            enabled: true,
+                                        },
+                                        pinch: {
+                                            enabled: true
+                                        },
+                                        mode: 'x'
+                                    }
+                                }
+                            },
                             scales: {
                                 y: {
+                                    beginAtZero: true
+                                },
+                                
+                                x: {
                                     beginAtZero: true
                                 }
                             }
@@ -83,7 +101,7 @@
 
                     <figure>
                         <table class="barChart_h">
-                            <caption>Country of visitors</caption>
+                            <caption>Country of visitors (Last 7 days)</caption>
                             <tbody>
                             <!-- Y-axis -->
                             <tr>
@@ -104,7 +122,7 @@
                     
                     <figure>
                         <table class="barChart_h">
-                            <caption>Country of fully completed quizzes</caption>
+                            <caption>Country of fully completed quizzes (Last 7 days)</caption>
                             <tbody>
                             <!-- Y-axis -->
                             <tr>

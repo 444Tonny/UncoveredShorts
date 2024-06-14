@@ -63,7 +63,6 @@ class GamePlayed extends Model
 
         $games = Game::where('date_start', '<=', $now)
             ->orderBy('date_start', 'desc')
-            ->take(7)
             ->get()
             ->reverse();
 
@@ -131,8 +130,9 @@ class GamePlayed extends Model
     public static function getGamesStatsByCountry()
     {
         return static::select('country', DB::raw('COUNT(*) as played'))
+            ->where('created_at', '>=', Carbon::now()->subDays(7)) // Filtrer les jeux des 7 derniers jours en EST
             ->groupBy('country')
-            ->orderBy('played', 'desc')
+            ->orderByDesc('played')
             ->get();
     }
     

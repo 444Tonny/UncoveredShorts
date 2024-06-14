@@ -421,6 +421,11 @@ div.rules-text p
     margin-top: 10px;
 }
 
+div.rules-text a
+{
+    color: whitesmoke !important;
+}
+
 div.rules-text strong
 {
     font-size: 16px;

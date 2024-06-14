@@ -28,8 +28,8 @@
     
 
     <link rel="stylesheet" href="{{ asset('css/header.css') }}?t=1">
-    <link rel="stylesheet" href="{{ asset('css/game.css') }}?t={{ time() }}">
-    <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t={{ time() }}">
+    <link rel="stylesheet" href="{{ asset('css/game.css') }}?t=1">
+    <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1">
 
     <!-- Fonts -->
     <link href="https://fonts.cdnfonts.com/css/switzer" rel="stylesheet">
@@ -542,6 +542,8 @@
           <br>
           Share your results and compete with friends!
           </p>
+          <br>
+          <a href="{{ route('terms-of-service') }}">Terms of Service</a>
         </div>
         <button class="play" onclick=closeModalById('rulesModal')>PLAY</button>
       </div>

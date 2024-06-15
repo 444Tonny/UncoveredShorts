@@ -97,6 +97,7 @@ b.letter-type
     position: absolute;
     top: 42px;
     font-weight: 200;
+    font-size: 15px;
 }
 
 h2.question
@@ -241,6 +242,7 @@ input.answer:active
     b.letter-type
     {
         top: 30px;
+        font-size: 13px;
     }
 
     .answer-block {

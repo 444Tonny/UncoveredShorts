@@ -129,8 +129,9 @@ class GamePlayed extends Model
     // Statistics for admin ------ start
     public static function getGamesStatsByCountry()
     {
+        $last7days = now()->setTimezone('America/New_York')->subDays(6)->toDateString();
         return static::select('country', DB::raw('COUNT(*) as played'))
-            ->where('created_at', '>=', Carbon::now()->subDays(7)) // Filtrer les jeux des 7 derniers jours en EST
+            ->where('created_at', '>=', $last7days) // Filtrer les jeux des 7 derniers jours en EST
             ->groupBy('country')
             ->orderByDesc('played')
             ->get();

@@ -113,7 +113,7 @@
                             <!-- Data Rows -->
                             <tr class="firstRow">
                               <th scope="row">{{ empty($cs->country) ? 'Unknown' : $cs->country }}</th>
-                              <td><span style="width:{{ ($cs->visits * 100 ) / $visitStats['totalVisits'] }}%"><b>{{ $cs->visits }}</b></span></td>
+                              <td><span style="width:{{ ($cs->visits * 100 ) / $visitStats['weekVisits'] }}%"><b>{{ $cs->visits }}</b></span></td>
                             </tr>
                             @endforeach
                             </tbody>
@@ -135,7 +135,7 @@
                             <!-- Data Rows -->
                             <tr class="firstRow">
                               <th scope="row">{{ empty($cgs->country) ? 'Unknown' : $cgs->country }}</th>
-                              <td><span style="width:{{ ($cgs->played * 100 ) / $gamesStats['totalGames'] }}%"><b>{{ $cgs->played }}</b></span></td>
+                              <td><span style="width:{{ ($cgs->played * 100 ) / $gamesStats['weekGames'] }}%"><b>{{ $cgs->played }}</b></span></td>
                             </tr>
 
                             @endforeach

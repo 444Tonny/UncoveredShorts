@@ -19,8 +19,9 @@ class Visit extends Model
     /* Country stats */
     public static function getVisitStatsByCountry()
     {
+        $last7days = now()->setTimezone('America/New_York')->subDays(6)->toDateString();
         return static::select('country', DB::raw('COUNT(*) as visits'))
-                    ->whereDate('date_visit', '>=', Carbon::now()->subDays(6)) // Filtrer les visites des 7 derniers jours
+                    ->whereDate('date_visit', '>=', $last7days)
                     ->groupBy('country')
                     ->orderByDesc('visits')
                     ->get();
@@ -28,7 +29,9 @@ class Visit extends Model
 
     public static function getTotalVisitsByCountry()
     {
+        $last7days = now()->setTimezone('America/New_York')->subDays(6)->toDateString();
         return static::select(DB::raw('COUNT(*) as total_visits'))
+            ->whereDate('date_visit', '>=', $last7days)
             ->groupBy('country')
             ->orderBy('total_visits', 'desc')
             ->get()

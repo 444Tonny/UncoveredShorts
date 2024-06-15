@@ -91,6 +91,13 @@ span.numero
     border-bottom-right-radius: 4px;
 }
 
+b.letter-type
+{
+    display: block;
+    position: absolute;
+    top: 42px;
+    font-weight: 200;
+}
 
 h2.question
 {
@@ -229,6 +236,11 @@ input.answer:active
         font-size: 12.5px;
         height: 26px;
         width: 25px;
+    }
+    
+    b.letter-type
+    {
+        top: 30px;
     }
 
     .answer-block {

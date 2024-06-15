@@ -28,7 +28,7 @@
     
 
     <link rel="stylesheet" href="{{ asset('css/header.css') }}?t=1">
-    <link rel="stylesheet" href="{{ asset('css/game.css') }}?t=1">
+    <link rel="stylesheet" href="{{ asset('css/game.css') }}?t=1.01">
     <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1">
 
     <!-- Fonts -->
@@ -62,7 +62,7 @@
       <div class='game-section'>
         <div class="game-block">
           <div class="question-block">
-            <span class="numero">Q1</span>
+            <span class="numero">Q1 <b class='letter-type'>U</b> </span>
             <h2 class="question">{!! $questions[0]->value !!}</h2>
             <div class="answer-block">
               <input id='us-ipt1' onclick="setActivePlayerInput('us-ipt1'), openModalById('searchModal'), displaySuggestions(suggestions1)"  class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
@@ -71,7 +71,7 @@
           </div>
 
           <div class="question-block">
-            <span class="numero">Q2</span>
+            <span class="numero">Q2 <b class='letter-type'>U</b></span>
             <h2 class="question">{!! $questions[1]->value !!}</h2>
             <div class="answer-block">
               <input id='us-ipt2' onclick="setActivePlayerInput('us-ipt2'), openModalById('searchModal'), displaySuggestions(suggestions2)" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
@@ -80,7 +80,7 @@
           </div>
 
           <div class="question-block">
-            <span class="numero">Q3</span>
+            <span class="numero">Q3 <b class='letter-type'>R</b></span>
             <h2 class="question">{!! $questions[2]->value !!}</h2>
             <div class="answer-block">
               <input id='us-ipt3' onclick="setActivePlayerInput('us-ipt3'), openModalById('searchModal'), displaySuggestions(suggestions3)" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
@@ -89,7 +89,7 @@
           </div>
 
           <div class="question-block">
-            <span class="numero">Q4</span>
+            <span class="numero">Q4 <b class='letter-type'>R</b></span>
             <h2 class="question">{!! $questions[3]->value !!}</h2>
             <div class="answer-block">
               <input id='us-ipt4' onclick="setActivePlayerInput('us-ipt4'), openModalById('searchModal'), displaySuggestions(suggestions4)" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
@@ -522,7 +522,7 @@
           You will be presented with four questions, which will be of two question types: 
           <br>
           <br>
-          The first two questions will be "Unique" questions. The goal is to name the most unique correct answer. Scoring will change throughout the day based on other user's answers.
+          The first two questions will be "Unique" (indicated by a U below the question number) questions. The goal is to name the most unique correct answer. Scoring will change throughout the day based on other user's answers.
           <br>
           For example:
           <br>
@@ -531,7 +531,7 @@
           <strong>&bull;</strong> Apple, while being a correct answer, will likely yield less points than Hershey
           </br> 
           <br>
-          The second two questions will be "Ranked List" questions. The goal is to name the top ranking of a list. The top 10 will score points in descending order.
+          The second two questions will be "Ranked List" (indicated by a R below the question number) questions. The goal is to name the top ranking of a list. The top 10 will score points in descending order.
           <br>
           For example:
           <br>

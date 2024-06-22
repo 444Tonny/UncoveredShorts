@@ -117,6 +117,7 @@
         <?xml version="1.0" encoding="iso-8859-1"?>
           <span class="folllow-us">Find us on</span>
           <br>
+          <a href="https://www.instagram.com/uncoveredshorts/" target='_blank'>
             <svg fill="#161616" color="" style='background:#EDEDED;' height="30px" width="30px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
             viewBox="0 0 455.73 455.73" xml:space="preserve">
           <path d="M227.86,182.55c-24.98,0-45.32,20.33-45.32,45.31c0,24.99,20.34,45.33,45.32,45.33c24.99,0,45.32-20.34,45.32-45.33
@@ -157,6 +158,7 @@
             c0,24.99,20.34,45.33,45.32,45.33c24.99,0,45.32-20.34,45.32-45.33C273.18,202.88,252.85,182.55,227.86,182.55z"/>
           </svg>
           <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+        </a>
       </div>
     </footer>
 

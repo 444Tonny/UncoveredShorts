@@ -10,7 +10,6 @@ DROP TABLE IF EXISTS `colors_gradient`;
 DROP TABLE IF EXISTS `questions`;
 DROP TABLE IF EXISTS `games`;
 
-
 CREATE TABLE `games` (
   `id` INTEGER AUTO_INCREMENT PRIMARY KEY,
   `date_start` DATETIME,

@@ -27,7 +27,7 @@
     <meta name="twitter:description" content="Uncovered Shorts : The goal of the game is to get the highest score possible. You will be presented with four questions, which will be of two question types 'Unique' and 'Ranked' ">
     
 
-    <link rel="stylesheet" href="{{ asset('css/header.css') }}?t=1">
+    <link rel="stylesheet" href="{{ asset('css/layout.css') }}?t=<?php now() ?>">
     <link rel="stylesheet" href="{{ asset('css/game.css') }}?t=1.01">
     <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1">
 
@@ -38,6 +38,17 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300;400;500;600;700;800;900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
   </head>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-P5M59RPS65"></script>
+  <script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+
+  gtag('config', 'G-P5M59RPS65');
+  </script>
 
   <body>
     <header>
@@ -99,6 +110,55 @@
         </div>
       </div>
     </main>
+
+    <footer>
+      <div class="footer-s1">© 2024 Uncovered Shorts</div>
+      <div class="footer-s2">
+        <?xml version="1.0" encoding="iso-8859-1"?>
+          <span class="folllow-us">Find us on</span>
+          <br>
+            <svg fill="#161616" color="" style='background:#EDEDED;' height="30px" width="30px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
+            viewBox="0 0 455.73 455.73" xml:space="preserve">
+          <path d="M227.86,182.55c-24.98,0-45.32,20.33-45.32,45.31c0,24.99,20.34,45.33,45.32,45.33c24.99,0,45.32-20.34,45.32-45.33
+            C273.18,202.88,252.85,182.55,227.86,182.55z M227.86,182.55c-24.98,0-45.32,20.33-45.32,45.31c0,24.99,20.34,45.33,45.32,45.33
+            c24.99,0,45.32-20.34,45.32-45.33C273.18,202.88,252.85,182.55,227.86,182.55z M303.36,108.66H152.37
+            c-24.1,0-43.71,19.61-43.71,43.71v150.99c0,24.1,19.61,43.71,43.71,43.71h150.99c24.1,0,43.71-19.61,43.71-43.71V152.37
+            C347.07,128.27,327.46,108.66,303.36,108.66z M227.86,306.35c-43.27,0-78.48-35.21-78.48-78.49c0-43.27,35.21-78.48,78.48-78.48
+            c43.28,0,78.49,35.21,78.49,78.48C306.35,271.14,271.14,306.35,227.86,306.35z M308.87,165.61c-10.24,0-18.57-8.33-18.57-18.57
+            s8.33-18.57,18.57-18.57s18.57,8.33,18.57,18.57S319.11,165.61,308.87,165.61z M227.86,182.55c-24.98,0-45.32,20.33-45.32,45.31
+            c0,24.99,20.34,45.33,45.32,45.33c24.99,0,45.32-20.34,45.32-45.33C273.18,202.88,252.85,182.55,227.86,182.55z M303.36,108.66
+            H152.37c-24.1,0-43.71,19.61-43.71,43.71v150.99c0,24.1,19.61,43.71,43.71,43.71h150.99c24.1,0,43.71-19.61,43.71-43.71V152.37
+            C347.07,128.27,327.46,108.66,303.36,108.66z M227.86,306.35c-43.27,0-78.48-35.21-78.48-78.49c0-43.27,35.21-78.48,78.48-78.48
+            c43.28,0,78.49,35.21,78.49,78.48C306.35,271.14,271.14,306.35,227.86,306.35z M308.87,165.61c-10.24,0-18.57-8.33-18.57-18.57
+            s8.33-18.57,18.57-18.57s18.57,8.33,18.57,18.57S319.11,165.61,308.87,165.61z M227.86,182.55c-24.98,0-45.32,20.33-45.32,45.31
+            c0,24.99,20.34,45.33,45.32,45.33c24.99,0,45.32-20.34,45.32-45.33C273.18,202.88,252.85,182.55,227.86,182.55z M0,0v455.73h455.73
+            V0H0z M380.23,303.36c0,42.39-34.48,76.87-76.87,76.87H152.37c-42.39,0-76.87-34.48-76.87-76.87V152.37
+            c0-42.39,34.48-76.87,76.87-76.87h150.99c42.39,0,76.87,34.48,76.87,76.87V303.36z M303.36,108.66H152.37
+            c-24.1,0-43.71,19.61-43.71,43.71v150.99c0,24.1,19.61,43.71,43.71,43.71h150.99c24.1,0,43.71-19.61,43.71-43.71V152.37
+            C347.07,128.27,327.46,108.66,303.36,108.66z M227.86,306.35c-43.27,0-78.48-35.21-78.48-78.49c0-43.27,35.21-78.48,78.48-78.48
+            c43.28,0,78.49,35.21,78.49,78.48C306.35,271.14,271.14,306.35,227.86,306.35z M308.87,165.61c-10.24,0-18.57-8.33-18.57-18.57
+            s8.33-18.57,18.57-18.57s18.57,8.33,18.57,18.57S319.11,165.61,308.87,165.61z M227.86,182.55c-24.98,0-45.32,20.33-45.32,45.31
+            c0,24.99,20.34,45.33,45.32,45.33c24.99,0,45.32-20.34,45.32-45.33C273.18,202.88,252.85,182.55,227.86,182.55z M227.86,182.55
+            c-24.98,0-45.32,20.33-45.32,45.31c0,24.99,20.34,45.33,45.32,45.33c24.99,0,45.32-20.34,45.32-45.33
+            C273.18,202.88,252.85,182.55,227.86,182.55z M227.86,182.55c-24.98,0-45.32,20.33-45.32,45.31c0,24.99,20.34,45.33,45.32,45.33
+            c24.99,0,45.32-20.34,45.32-45.33C273.18,202.88,252.85,182.55,227.86,182.55z M303.36,108.66H152.37
+            c-24.1,0-43.71,19.61-43.71,43.71v150.99c0,24.1,19.61,43.71,43.71,43.71h150.99c24.1,0,43.71-19.61,43.71-43.71V152.37
+            C347.07,128.27,327.46,108.66,303.36,108.66z M227.86,306.35c-43.27,0-78.48-35.21-78.48-78.49c0-43.27,35.21-78.48,78.48-78.48
+            c43.28,0,78.49,35.21,78.49,78.48C306.35,271.14,271.14,306.35,227.86,306.35z M308.87,165.61c-10.24,0-18.57-8.33-18.57-18.57
+            s8.33-18.57,18.57-18.57s18.57,8.33,18.57,18.57S319.11,165.61,308.87,165.61z M227.86,182.55c-24.98,0-45.32,20.33-45.32,45.31
+            c0,24.99,20.34,45.33,45.32,45.33c24.99,0,45.32-20.34,45.32-45.33C273.18,202.88,252.85,182.55,227.86,182.55z M227.86,182.55
+            c-24.98,0-45.32,20.33-45.32,45.31c0,24.99,20.34,45.33,45.32,45.33c24.99,0,45.32-20.34,45.32-45.33
+            C273.18,202.88,252.85,182.55,227.86,182.55z M227.86,182.55c-24.98,0-45.32,20.33-45.32,45.31c0,24.99,20.34,45.33,45.32,45.33
+            c24.99,0,45.32-20.34,45.32-45.33C273.18,202.88,252.85,182.55,227.86,182.55z M303.36,108.66H152.37
+            c-24.1,0-43.71,19.61-43.71,43.71v150.99c0,24.1,19.61,43.71,43.71,43.71h150.99c24.1,0,43.71-19.61,43.71-43.71V152.37
+            C347.07,128.27,327.46,108.66,303.36,108.66z M227.86,306.35c-43.27,0-78.48-35.21-78.48-78.49c0-43.27,35.21-78.48,78.48-78.48
+            c43.28,0,78.49,35.21,78.49,78.48C306.35,271.14,271.14,306.35,227.86,306.35z M308.87,165.61c-10.24,0-18.57-8.33-18.57-18.57
+            s8.33-18.57,18.57-18.57s18.57,8.33,18.57,18.57S319.11,165.61,308.87,165.61z M227.86,182.55c-24.98,0-45.32,20.33-45.32,45.31
+            c0,24.99,20.34,45.33,45.32,45.33c24.99,0,45.32-20.34,45.32-45.33C273.18,202.88,252.85,182.55,227.86,182.55z"/>
+          </svg>
+          <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+      </div>
+    </footer>
 
     <!-- Modals --> 
       <div class="modal" id="gameOverModal">
@@ -181,6 +241,7 @@
         var personalStreakHtml = document.getElementById('personalStreak');
         var previousGameID = {{ $previousGame->id }}
 
+        autoPopulateAlreadyAnswered();
         verifyStreak();
         refreshHtmlInLocalStorage();
         /* --------------- */
@@ -204,7 +265,8 @@
         var score1 = 0, score2 = 0, score3 = 0, score4 = 0;
 
         var playerFinalScore = 0;
-        var answerCount = 0;
+        // The number of already answered questions
+        var answerCount = document.querySelectorAll('.points-set').length;
 
         // Change special chars
 
@@ -390,18 +452,22 @@
             case '1': 
               playerPoints = calculateUniquePoints(uniqueAnswers1, valueSelected, questions[0].id);
               score1 = playerPoints;
+              localStorage.setItem('Points_1_Game_' + currentGameId, playerPoints);
               break;
             case '2': 
               playerPoints = calculateUniquePoints(uniqueAnswers2, valueSelected, questions[1].id);
               score2 = playerPoints;
+              localStorage.setItem('Points_2_Game_' + currentGameId, playerPoints);
               break;
             case '3': 
               playerPoints = calculateRankedPoints(rankedAnswers3, valueSelected, questions[2].id);
               score3 = playerPoints;
+              localStorage.setItem('Points_3_Game_' + currentGameId, playerPoints);
               break;
             case '4': 
               playerPoints = calculateRankedPoints(rankedAnswers4, valueSelected, questions[3].id);
               score4 = playerPoints;
+              localStorage.setItem('Points_4_Game_' + currentGameId, playerPoints);
               break;
           }
 
@@ -486,6 +552,56 @@
           })
           .catch(error => {
             console.error("Une erreur s'est produite lors de la récupération des statistiques :", error);
+          });
+        }
+
+        function autoPopulateAlreadyAnswered()
+        {
+          // Auto populate score boxes
+          let iLoop = 1;
+          var pointsBoxes = document.getElementsByClassName("points");
+          Array.from(pointsBoxes).forEach(element => {
+
+            if(localStorage.getItem('Answer_'+iLoop+'_Game_'+currentGameId) != null)
+            {
+              // Deja repondu a la question
+              element.classList.add("points-set");
+
+              let inputNear = element.previousElementSibling;
+              inputNear.value = localStorage.getItem('Answer_'+iLoop+'_Game_'+currentGameId);
+              inputNear.readOnly = true;
+              inputNear.classList.add("answer-submitted");
+              inputNear.removeAttribute('onclick');
+
+              switch (element.id) 
+              {
+                case 'us-pts1': 
+                  score1 = localStorage.getItem('Points_1_Game_'+currentGameId);
+                  element.classList.add('points-' + Math.round(score1 / 5) * 5);
+                  element.innerHTML = '' + score1;
+                  break;
+                case 'us-pts2': 
+                  score2 = localStorage.getItem('Points_2_Game_'+currentGameId);
+                  element.classList.add('points-' + Math.round(score2 / 5) * 5);
+                  element.innerHTML = '' + score2;
+                  break;
+                case 'us-pts3': 
+                  score3 = localStorage.getItem('Points_3_Game_'+currentGameId);
+                  element.classList.add('points-' + Math.round(score3 / 5) * 5);
+                  element.innerHTML = '' + score3;
+                  break;
+                case 'us-pts4': 
+                  score4 = localStorage.getItem('Points_4_Game_'+currentGameId);
+                  element.classList.add('points-' + Math.round(score4 / 5) * 5);
+                  element.innerHTML = '' + score4;
+                  break;
+              }
+            }
+            else
+            {
+            }
+
+            iLoop++;
           });
         }
 
@@ -630,6 +746,6 @@
       <script src="{{ asset('js/game.js') }}?t={{ time() }}"></script>
 
       @include('cookie-consent::index');
-  </body>
 
+  </body>
 </html>

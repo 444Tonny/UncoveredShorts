@@ -83,6 +83,8 @@ class GamePlayed extends Model
             'data' => $data,
         ];
 
+        //dd($formattedData);
+
         return $formattedData;
     }
     

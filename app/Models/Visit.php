@@ -27,6 +27,47 @@ class Visit extends Model
                     ->get();
     }
 
+    // line graph
+    public static function getLineChartVisitData($displayCount)
+    {
+        $now = now()->setTimezone('America/New_York');
+
+        $visits = Visit::where('date_visit', '<=', $now)
+            ->orderBy('date_visit', 'desc')
+            ->get()
+            ->reverse();
+
+        // Initialiser les arrays pour les labels et les données
+        $labels = [];
+        $data = [];
+
+        // Grouper les visites par date
+        $visitsByDate = $visits->groupBy(function ($visit) {
+            return Carbon::parse($visit->date_visit)->format('Y-m-d');
+        });
+
+        // Parcourir chaque groupe de visites pour obtenir la date et le nombre de visites
+        foreach ($visitsByDate as $date => $dailyVisits) {
+            $labels[] = $date;
+            $data[] = $dailyVisits->count();
+        }
+
+        // Prendre les 10 dernières données
+        $labels = collect($labels)->slice($displayCount * (-1))->values()->all();
+        $data = collect($data)->slice($displayCount * (-1))->values()->all();
+
+
+        // Formater les données comme requis
+        $formattedData = [
+            'labels' => $labels,
+            'data' => $data,
+        ];
+
+        //dd($formattedData);
+
+        return $formattedData;
+    }
+
     public static function getTotalVisitsByCountry()
     {
         $last7days = now()->setTimezone('America/New_York')->subDays(6)->toDateString();

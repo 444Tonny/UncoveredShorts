@@ -58,13 +58,22 @@
                     var myChart = new Chart(ctx, {
                         type: 'line',
                         data: {
-                            labels: @json($data['labels']),
+                            labels: @json($chartDataGames['labels']),
                             datasets: [{
                                 label: 'Games played',
-                                data: @json($data['data']),
+                                data: @json($chartDataGames['data']),
                                 borderColor: 'rgb(40, 48, 57)',
                                 borderWidth: 3,
                                 fill: true,
+                                hoverBorderJoinStyle: 'round',
+                                tension: 0.1
+                            },
+                            {
+                                label: 'Visits',
+                                data: @json($chartDataVisits['data']),
+                                borderColor: 'rgb(75, 192, 192)',
+                                borderWidth: 3,
+                                fill: false,
                                 hoverBorderJoinStyle: 'round',
                                 tension: 0.1
                             }]

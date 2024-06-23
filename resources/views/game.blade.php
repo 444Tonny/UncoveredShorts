@@ -243,7 +243,6 @@
         var personalStreakHtml = document.getElementById('personalStreak');
         var previousGameID = {{ $previousGame->id }}
 
-        autoPopulateAlreadyAnswered();
         verifyStreak();
         refreshHtmlInLocalStorage();
         /* --------------- */
@@ -334,7 +333,7 @@
                   iLoop++;
                 });
  
-                // Display answers cause he already played
+                // Display answers because he already played
                 var bestAnswers = document.getElementsByClassName('go-bestanswers');
                 document.getElementById('gameOverModal').classList.add('show-answers');
 
@@ -353,6 +352,7 @@
             {
               // alert('Not played yet');
               document.getElementById('go-percentile').innerHTML = '(0%)';
+              autoPopulateAlreadyAnswered();
             }
 
             /* Show rules once */
@@ -570,10 +570,11 @@
               element.classList.add("points-set");
 
               let inputNear = element.previousElementSibling;
-              inputNear.value = localStorage.getItem('Answer_'+iLoop+'_Game_'+currentGameId);
+              inputNear.value = ""+localStorage.getItem('Answer_'+iLoop+'_Game_'+currentGameId);
               inputNear.readOnly = true;
               inputNear.classList.add("answer-submitted");
               inputNear.removeAttribute('onclick');
+              console.log(inputNear);
 
               switch (element.id) 
               {

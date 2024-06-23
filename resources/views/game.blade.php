@@ -266,7 +266,7 @@
 
         var playerFinalScore = 0;
         // The number of already answered questions
-        var answerCount = document.querySelectorAll('.points-set').length;
+        var answerCount = 0;
 
         // Change special chars
 
@@ -352,6 +352,9 @@
               // alert('Not played yet');
               document.getElementById('go-percentile').innerHTML = '(0%)';
               autoPopulateAlreadyAnswered();
+              
+              // Compter les points deja autopopulé
+              answerCount = document.querySelectorAll('.points-set').length;
             }
 
             /* Show rules once */
@@ -526,7 +529,7 @@
             });
 
             // START - Calculate and show the new statistics () 
-            console.log(Math.round(((personalAverage*personalGameCount) + playerFinalScore)/(parseInt(personalGameCount)+1)));
+            //console.log(Math.round(((personalAverage*personalGameCount) + playerFinalScore)/(parseInt(personalGameCount)+1)));
             localStorage.setItem('personalAverage', Math.round(((personalAverage*personalGameCount) + playerFinalScore)/(parseInt(personalGameCount)+1)));  
 
             // increase personal Games Played Count and Update ID last game
@@ -573,7 +576,6 @@
               inputNear.readOnly = true;
               inputNear.classList.add("answer-submitted");
               inputNear.removeAttribute('onclick');
-              console.log(inputNear);
 
               switch (element.id) 
               {

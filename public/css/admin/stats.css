@@ -103,14 +103,15 @@
   align-content: center;
 }
 
-.statistics h3
+h3.statistics
 {
     width:100%; 
     text-align:center;
     margin-top: 30px;
-    margin-bottom: 20px;
+    margin-bottom: 0px !important;
     font-size: 32px;
     font-weight: 600;
+    border-bottom: 1px solid rgb(218, 218, 218);
 }
 
  /* FIGURE */
@@ -308,3 +309,43 @@
       width: 60%;
     }
   }
+
+
+/* UPDATES */
+
+.stats-boxes
+{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  flex-direction: row;
+}
+
+.stats-boxes .box
+{
+  padding: auto 10px;
+  border-left: 1px solid rgb(218, 218, 218);
+  border-right: 1px solid rgb(218, 218, 218);
+  display: flex;
+  flex-direction: column;
+  height: 130px;
+  width: 200px;
+}
+
+.stats-boxes label
+{
+  display: inline-block;
+  text-align: center;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+.stats-boxes span
+{
+  display: inline-block;
+  text-align: center;
+  font-size: 28px;
+  font-weight: 800;
+}

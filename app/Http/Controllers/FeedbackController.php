@@ -5,9 +5,41 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\FeedbackMail;
+use Illuminate\Support\Facades\Validator;
+use App\Models\Subscriber;
 
 class FeedbackController extends Controller
 {
+    public function subscribe(Request $request)
+    {
+        // Valider l'email
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email|unique:subscribers,email',
+        ]);
+
+        if ($validator->fails()) {
+            // Si l'email existe déjà ou est invalide, renvoyer une réponse JSON
+            return response()->json([
+                'status' => 'error',
+                'message' => 'The email address is already subscribed or invalid.',
+                'errors' => $validator->errors(),
+            ], 400);
+        }
+
+        $now = now('America/New_York')->toDateTimeString();
+
+        // Créer un nouvel abonné
+        Subscriber::create([
+            'email' => $request->email,
+            'created_at' => $now
+        ]);
+
+        return response()->json([
+            'status' => 'success',
+            'message' => 'Subscription successful!',
+        ], 200);
+    }
+
     public function send(Request $request)
     { 
 

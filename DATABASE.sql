@@ -172,3 +172,12 @@ CREATE TABLE suggestions (
   FOREIGN KEY (`question_id`) REFERENCES `questions` (`id`)
 );
 ALTER TABLE suggestions CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- Email subscribers update 26-06-24
+
+CREATE TABLE subscribers (
+    id BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) UNIQUE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);

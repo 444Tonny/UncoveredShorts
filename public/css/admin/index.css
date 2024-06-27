@@ -177,3 +177,43 @@ td i
     color: white !important;
     max-width: 80px;
 }
+
+/* subscribers table */
+
+.sub-empty
+{
+    margin-top: 50px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.sub-table
+{
+    width: 80% !important;
+    margin-top: 50px !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+}
+
+.sub-table td
+{
+    vertical-align: middle;
+    color: #333 !important;
+    font-weight: 300 !important;
+}
+
+.sub-copy
+{  
+    background-color: rgb(249, 249, 249);
+    border-radius: 5px;
+    margin-right: 5px;
+    border: 1px solid #e0e0e0;
+}
+
+
+.sub-copy:hover,
+.sub-copy:active,
+.sub-copy:focus
+{
+    background-color: rgb(229, 229, 229) !important;
+}

@@ -29,7 +29,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/layout.css') }}?t=<?php now() ?>">
     <link rel="stylesheet" href="{{ asset('css/game.css') }}?t=1.01">
-    <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1">
+    <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=<?php now() ?>">
 
     <!-- Fonts -->
     <link href="https://fonts.cdnfonts.com/css/switzer" rel="stylesheet">
@@ -178,6 +178,14 @@
           <div class="go-buttons">
             <button class="go-share" onclick="openModalById('shareModal'), shareGame()">SHARE</button>
           </div>
+          <div class="subscribing">
+            <label for="">Subscribe to our T+1 daily recap</label>
+            <form id='subscribe-form' class="row sf-form" method="POST">
+              <input class='sf-email' name='sf-email' type="email" placeholder="Your email...">
+              <input class='sf-submit' type="submit" value="SEND">
+            </form>
+            <div id="sf-message" style="color: rgb(202, 59, 59); display: none;"></div>
+          </div>
           <div id="go-bestanswers" class="go-bestanswers">
             <p class="go-text"><b>Q1 - Best answers</b></p>
             <span class='go-best-answer'><b>#1 :</b> {{ $uniqueAnswers1[0]->value ?? '-' }}</span>
@@ -209,6 +217,45 @@
       </div>
 
     <div class="modal-background" id="modalBackground">
+
+      <!-- Subscribing -->
+      <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('subscribe-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+        
+                const email = document.querySelector('input[name="sf-email"]').value;
+                const token = '{{ csrf_token() }}';
+                const messageDiv = document.getElementById('sf-message');
+        
+                fetch('{{ route('subscribe') }}', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': token
+                    },
+                    body: JSON.stringify({ email: email })
+                })
+                .then(response => response.json())
+                .then(data => {
+                  messageDiv.style.display = 'block';
+                  if (data.status === 'success') {
+                      messageDiv.style.color = '#78ad7a';
+                      messageDiv.textContent = data.message;
+                  } else {
+                      messageDiv.style.color = '#d55353';
+                      messageDiv.textContent = data.message;
+                  }
+                })
+                .catch(error => {
+                  messageDiv.style.display = 'block';
+                  messageDiv.style.color = '#d55353';
+                  messageDiv.textContent = 'An unexpected error occurred. Please try again.';
+                  console.error('Error:', error);
+                });
+            });
+        });
+        </script>
 
       <!-- Answers list modal -->
       <div class="modal" id="searchModal">

@@ -377,6 +377,65 @@ button.go-stats
     color: #161616;
 }
 
+/* Subscribing form */
+
+.subscribing
+{
+    margin-top: 10px;
+    margin-bottom: 25px;
+}
+
+.sf-form
+{
+    margin-top: 15px;
+}
+
+.sf-email
+{
+    height: 42px !important;
+    width: 210px;
+    box-sizing: border-box;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+    padding-left: 14px !important;
+    border: none;
+    box-shadow: inset 0px 0px 10px rgba(18, 18, 18, 0.4);
+}
+
+.sf-submit
+{
+    height: 42px;
+    width: 65px;
+    box-sizing: border-box;
+    margin-left: -5px;
+    background: #487349;
+    color: white;
+    border-top-right-radius: 20px;
+    border-bottom-right-radius: 20px;
+    border: none;
+    font-weight: 600;
+}
+
+.sf-submit:hover,
+.sf-submit:active,
+.sf-submit:focus
+{
+    cursor: pointer;
+    transition: 0.2s;
+    -o-transition: 0.2s;
+    -moz-transition: 0.2s;
+    background: #344d34;
+}
+
+#sf-message
+{
+    margin-top: 15px;
+    margin-bottom: 15px;
+    font-weight: 300;
+}
+
+/* __________________ */
+
 /* Rules */
 
 #rulesModal {

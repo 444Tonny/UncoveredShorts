@@ -30,6 +30,9 @@ Route::post('/store-player-ranked', [App\Http\Controllers\Admin\RankedAnswerCont
 Route::post('/record-visit', [App\Http\Controllers\Admin\VisitsController::class, 'recordVisit'])->name('recordVisit');
 Route::post('/send-feedback', [FeedbackController::class, 'send'])->name('send.feedback');
 
+// Subscribe
+Route::post('/subscribe', [FeedbackController::class, 'subscribe'])->name('subscribe');
+
 Route::prefix('admin')->group(function () {
     Auth::routes();
 
@@ -56,6 +59,8 @@ Route::prefix('admin')->group(function () {
         Route::put('questions/{question}/unique-answers/update-all', '\App\Http\Controllers\Admin\UniqueAnswerController@updateAll')->name('unique-answers.updateAll');
         Route::get('questions/{question}/unique-answers/synchronize', '\App\Http\Controllers\Admin\UniqueAnswerController@synchronize')->name('unique-answers.synchronize');
     
+        Route::resource('subscribers', \App\Http\Controllers\Admin\SubscriberController::class);
+
         Route::get('statistics', '\App\Http\Controllers\Admin\StatsController@index')->name('statistics.index');
     });
 });

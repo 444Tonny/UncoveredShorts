@@ -159,6 +159,8 @@ class AdminGameController extends Controller
     {
         $game = Game::find($id_game);
 
+        $scoreStatistics = GamePlayed::getGameStats($id_game);
+
         $questions = Question::where('game_id', $id_game)->get();
         $statistics = [];
 
@@ -200,6 +202,6 @@ class AdminGameController extends Controller
         //dd($statistics[516]['answers']);
 
         // Retourner les données à la vue
-        return view('admin.games.statistics', ['statistics' => $statistics, 'questions' => $questions, 'game' => $game]);
+        return view('admin.games.statistics', ['scoreStatistics' => $scoreStatistics, 'statistics' => $statistics, 'questions' => $questions, 'game' => $game]);
     }
 }

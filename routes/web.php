@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FeedbackController;
-use App\Http\Controllers\admin\SubscriberController;
+use App\Http\Controllers\Admin\SubscriberController;
 
 /*
 |--------------------------------------------------------------------------

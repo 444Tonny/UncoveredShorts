@@ -57,13 +57,18 @@ class SubscriberController extends Controller
             return redirect()->route('subscribers.writeEmail')->withErrors($validator)->withInput();
         }
 
-        $subscriber = Subscriber::find(7);
+        $subscribers = Subscriber::all();
+
+        // Récupérer les données du formulaire
         $subject = $request->input('subject');
         $message = $request->input('message');
-        $encodedMessage =  $message; //mb_convert_encoding($message, 'ISO-8859-1', 'UTF-8');
+        $encodedMessage = $message; // Pas de conversion d'encodage
         $sending_date = $request->input('sending_date');
 
-        $newEmail = $this->emailService->storeEmail($subscriber, $subject, $encodedMessage ,$sending_date);
+        // Boucler sur chaque abonné pour créer l'email
+        foreach ($subscribers as $subscriber) {
+            $this->emailService->storeEmail($subscriber, $subject, $encodedMessage, $sending_date);
+        }
         //$this->emailService->sendEmail($newEmail);
 
         return redirect()->back()->with('success', 'Operation successfull!');

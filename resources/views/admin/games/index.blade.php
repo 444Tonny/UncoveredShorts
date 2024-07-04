@@ -30,7 +30,7 @@
 
             <div class="admin-content">
 
-                <div class="row">
+                <div>
                     <a href="{{ route('games.create') }}" class="primary-btn my-btn create"><b>+</b> Create a new game</a>
                 </div>
 

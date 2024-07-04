@@ -1,0 +1,90 @@
+div.content444
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+/* Titles */
+
+.content444 h3
+{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    width: 100%;
+    text-align: center;
+
+    border-top: 1px solid rgb(197, 197, 197);
+    border-bottom: 1px solid rgb(197, 197, 197);
+}
+
+
+
+.form444
+{
+    width: 90%;
+}
+
+.form444 label
+{
+    font-size: 16px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.form444 input
+{
+    
+}
+
+.form444 input[type='submit']
+{
+    padding: 12px 22px;
+    width: min-content;
+    
+    background-color: #3ea568;
+    color: white;
+    text-transform: uppercase;
+    font-weight: 700;
+
+    border: none;
+    border-radius: 5px;
+}
+
+.form444 input[type='submit']:hover,
+.form444 input[type='submit']:focus,
+.form444 input[type='submit']:active
+{
+    transition: 0.2s;
+    -o-transition: 0.2s;
+    cursor: pointer;
+    background-color: #277546;
+}
+
+/* SPACEUR */
+
+.space444-10 { height: 10px; }
+.space444-20 { height: 20px; }
+.space444-30 { height: 30px; }
+.space444-40 { height: 40px; }
+.space444-50 { height: 50px; }
+
+/* SUMMERNOTE */
+
+.form444 .note-editable
+{
+    height: 300px;
+    overflow-y: scroll;
+}
+
+.table-bordered > tbody > tr > td {
+    border: 1px solid #727272;
+}
+
+

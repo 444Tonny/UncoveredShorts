@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FeedbackController;
+use App\Http\Controllers\admin\SubscriberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,7 +49,6 @@ Route::prefix('admin')->group(function () {
         Route::get('credentials', '\App\Http\Controllers\Admin\CredentialsController@indexEditor')->name('adminCredentials');
         Route::put('credentials', '\App\Http\Controllers\Admin\CredentialsController@editPassword')->name('passwordEdited');
             
-
         Route::resource('ranked-answers', \App\Http\Controllers\Admin\RankedAnswerController::class);
         Route::get('questions/{question}/ranked-answers', '\App\Http\Controllers\Admin\RankedAnswerController@show')->name('ranked-answers.show');
         Route::put('questions/{question}/ranked-answers/update-all', '\App\Http\Controllers\Admin\RankedAnswerController@updateAll')->name('ranked-answers.updateAll');
@@ -59,7 +59,10 @@ Route::prefix('admin')->group(function () {
         Route::put('questions/{question}/unique-answers/update-all', '\App\Http\Controllers\Admin\UniqueAnswerController@updateAll')->name('unique-answers.updateAll');
         Route::get('questions/{question}/unique-answers/synchronize', '\App\Http\Controllers\Admin\UniqueAnswerController@synchronize')->name('unique-answers.synchronize');
     
-        Route::resource('subscribers', \App\Http\Controllers\Admin\SubscriberController::class);
+        Route::get('subscribers', [SubscriberController::class, 'index'])->name('subscribers.index');
+        Route::get('subscribers/unsubscribe', [SubscriberController::class, 'unsubscribe'])->name('subscribers.unsubscribe');
+        Route::get('subscribers/writeEmail', [SubscriberController::class, 'writeEmail'])->name('subscribers.writeEmail');
+        Route::post('subscribers/writeEmail', [SubscriberController::class, 'sendEmail'])->name('subscribers.sendEmail');
 
         Route::get('statistics', '\App\Http\Controllers\Admin\StatsController@index')->name('statistics.index');
     });

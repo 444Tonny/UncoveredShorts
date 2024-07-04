@@ -181,3 +181,17 @@ CREATE TABLE subscribers (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+-- Email subscribers update 28-06-24
+
+CREATE TABLE emails (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    subscriber_id BIGINT,
+    subscriber_email VARCHAR(255),
+    subject VARCHAR(255) NOT NULL,
+    message LONGTEXT NOT NULL,
+    sending_date DATETIME,
+    status ENUM('pending', 'sent', 'failed') NOT NULL DEFAULT 'pending',
+    created_at DATETIME,
+    updated_at DATETIME
+);

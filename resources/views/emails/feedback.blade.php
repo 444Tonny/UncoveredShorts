@@ -4,7 +4,7 @@
     <title>Feedback</title>
 </head>
 <body>
-    <h2>Nouveau Feedback</h2>
+    <h2>New Feedback</h2>
     <p><strong>Name:</strong> {{ $feedback['name'] }}</p>
     <p><strong>Email:</strong> {{ $feedback['email'] }}</p>
     <p><strong>Message:</strong> {{ $feedback['message'] }}</p>

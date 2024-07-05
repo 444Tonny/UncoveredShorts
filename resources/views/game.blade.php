@@ -112,11 +112,6 @@
     </main>
 
     <footer>
-      <?php 
-        $sessionLifetime = config('session.lifetime');
-        echo "La durée de vie de la session est de {$sessionLifetime} minutes.";  
-      ?>
-
       <div class="footer-s1">© 2024 Uncovered Shorts</div>
       <div class="footer-s2">
         <?xml version="1.0" encoding="iso-8859-1"?>

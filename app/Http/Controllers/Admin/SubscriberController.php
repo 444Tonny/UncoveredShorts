@@ -29,7 +29,7 @@ class SubscriberController extends Controller
            
     public function writeEmail()
     {
-        $emails = Email::where('status', 'pending')->get();
+        $emails = Email::where('status', 'pending')->groupBy('message')->get();
         return view('admin.subscribers.write', compact('emails'));
     }
 

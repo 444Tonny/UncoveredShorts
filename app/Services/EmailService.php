@@ -52,8 +52,7 @@ class EmailService
             return $newEmail;
             
         } catch (\Exception $e) {
-            echo "Error in storeEmail service";
-            dd($e);
+            throw $e;
             // $this->handleException($destinataire, $sujet, $htmlContent, $e->getMessage());
         }
     }
@@ -62,15 +61,16 @@ class EmailService
     {
         $is_sent = false;
 
-        try {
+        try 
+        {
             Mail::to($email->subscriber_email)->send(new UCMail($email->subject, $email->message));
 
             $is_sent = true;
-            return $is_sent;
-            
-        } catch (\Exception $e) {
-            echo "Error in sendMail service";
-            dd($e);
+            return $is_sent;    
+        } 
+        catch (\Exception $e) 
+        {
+            echo "SendEmail error: " . $e->getMessage();
             // $this->handleException($destinataire, $sujet, $htmlContent, $e->getMessage());
         }
     }

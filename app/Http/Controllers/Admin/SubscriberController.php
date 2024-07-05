@@ -29,7 +29,7 @@ class SubscriberController extends Controller
            
     public function writeEmail()
     {
-        $emails = Email::all();
+        $emails = Email::where('status', 'pending')->get();
         return view('admin.subscribers.write', compact('emails'));
     }
 
@@ -66,12 +66,20 @@ class SubscriberController extends Controller
         $sending_date = $request->input('sending_date');
 
         // Boucler sur chaque abonné pour créer l'email
-        foreach ($subscribers as $subscriber) {
-            $this->emailService->storeEmail($subscriber, $subject, $encodedMessage, $sending_date);
+        try
+        {
+            foreach ($subscribers as $subscriber) {
+                $this->emailService->storeEmail($subscriber, $subject, $encodedMessage, $sending_date);
+            }
         }
+        catch(\Exception $e)
+        {
+            return redirect()->route('subscribers.writeEmail')->withErrors($e->getMessage())->withInput();
+        }
+
         //$this->emailService->sendEmail($newEmail);
 
-        return redirect()->back()->with('success', 'Operation successfull!');
+        return redirect()->back()->with('success', 'Email sending scheduled successfully!');
 
 
         //$is_sent = $this->emailService->sendEmail($subscriber, $subject, $encodedMessage);

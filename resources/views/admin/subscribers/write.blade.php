@@ -34,18 +34,18 @@
             <form class='form444' action="{{route('subscribers.sendEmail')}}" method='POST'>
                 @csrf
 
-                <label>Subject</label>
+                <label>Object</label>
                 <input type="text" name="subject" id="subject" value="{{ old('subject') }}" required>
                 
                 <label>Message</label>
                 <textarea id="summernote" name="message">{{ old('message') }}</textarea>
 
-                <label>Sending date and time</label>
+                <label>Sending date and time <i>(Eastern time)</i></label>
                 <input type="datetime-local" name="sending_date" id="sending_date" value="{{ old('sending_date') }}" style='width:200px;'>
     
                 <span class="space444-30"></span>
 
-                <input type="submit" value="SEND">
+                <input type="submit" value="Schedule Sending">
             </form>  
 
             <span class="space444-30"></span>
@@ -56,7 +56,7 @@
             @if($emails->isEmpty())
                 <p class='sub-empty'>No emails pending.</p>
             @else
-                <table class="sub-table table">
+                <table class="sub-table table table444">
                     <thead>
                         <tr>
                             <th>Subject</th>
@@ -68,8 +68,8 @@
                         @foreach($emails as $email)
                         <tr>
                             <td>{{ $email->subject }}</td>
-                            <td>{{ $email->sending_date }}</td>
-                            <td>{{ $email->status }}</td>
+                            <td>{!! date('F j, Y', strtotime($email->sending_date)) !!} - {!! date('H:i', strtotime($email->sending_date)) !!} </td>
+                            <td><span class="status444 status444-orange">{{ $email->status }}</span></td>
                         </tr>
                         @endforeach
                     </tbody>

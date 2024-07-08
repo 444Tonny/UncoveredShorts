@@ -273,6 +273,7 @@
 
       <script>
         
+        /* Initialiser le text dans share quand l'use n'a pas encore joué */
         var currentGameId = {!! $currentGame->id !!}
         var currentGameName = {!! json_encode($currentGame->name) !!};
 
@@ -713,7 +714,7 @@
           <a href="{{ route('terms-of-service') }}">Terms of Service</a>
         </div>
         <button class="play" onclick=closeModalById('rulesModal')>PLAY</button>
-      </div>
+      </div>                   
 
       <!-- Rules modal -->
       <div class="modal" id="feedbackModal">
@@ -764,6 +765,10 @@
         </div>
       </div>
 
+      <?php
+        $shareText = $currentGame->name . ", 0pts 🙄\n0 | 🙄\n0 | 🙄\n0 | 🙄\n0\nPlay at uncoveredshorts.com";
+      ?>
+
       <div class="modal share-container" id='shareModal'>
         <button class="close-modal" onclick=closeModalById('shareModal')>×</button>
         <div class="share-text-container">
@@ -776,7 +781,7 @@
         function shareGame() {
           // Générer le texte à copier
           var shareText = "🕵🏼‍♂️ "+currentGameName+", "+playerFinalScore+"pts\n";
-          shareText += "Q1: "+score1+", Q2: "+score2+", Q3: "+score3+", Q4: "+score4+"\n";
+          shareText += getEmoji(score1) + " " + score1 + " | " + getEmoji(score2) + " " + score2 +" | " + getEmoji(score3) + " " + score3 +" | " + getEmoji(score4) + " " + score4 +"\n";
           shareText += "🎲 Play at uncoveredshorts.com";
 
           // Sélectionner les éléments nécessaires

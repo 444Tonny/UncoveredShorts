@@ -115,7 +115,7 @@ function getStatistics(game_id, playerScore) {
                 reject('Request get Statistics failed with status: ' + xhr.status); // Rejeter la promesse avec une erreur
             }
         };
-
+                
         xhr.onerror = function() {
             reject('Request failed'); // Rejeter la promesse avec une erreur
         };
@@ -221,6 +221,25 @@ function storeAnwser(urlEnd, questionId, value, is_correct = false)
 
     xhr.send(JSON.stringify({ question_id: questionId, value: value, is_correct: is_correct }));
 }
+
+function getEmoji(score) {
+    if (score === 100) {
+      return '💯';
+    } else if (score >= 80) {
+      return '🔥';
+    } else if (score >= 60) {
+      return '⭐️';
+    } else if (score >= 40) {
+      return '🫤';
+    } else if (score >= 20) {
+      return '😬';
+    } else if (score >= 1) {
+      return '🫣';
+    } else {
+      return '🙄';
+    }
+}
+  
 
 function createCookie(name, value, days) {
     let expires = "";

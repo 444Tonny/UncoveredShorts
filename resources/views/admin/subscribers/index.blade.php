@@ -31,7 +31,7 @@
 
             <div class="admin-content">
                 <div class="row">
-                    <a href="{{ route('subscribers.writeEmail') }}" class="primary-btn my-btn create"><b>+</b> Send a new email</a>
+                    <a href="{{ route('subscribers.writeEmail') }}" class="primary-btn my-btn create"><b>+</b> Schedule a new email</a>
                 </div>
     
                 @if($subscribers->isEmpty())

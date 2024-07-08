@@ -21,7 +21,8 @@ class SubscriberController extends Controller
     public function index()
     {
         // Récupérer tous les abonnés
-        $subscribers = Subscriber::all();
+        $subscribers = Subscriber::orderBy('created_at', 'desc')->get();
+
 
         // Retourner la vue avec les abonnés
         return view('admin.subscribers.index', compact('subscribers'));

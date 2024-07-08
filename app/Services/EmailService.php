@@ -63,7 +63,8 @@ class EmailService
 
         try 
         {
-            Mail::to($email->subscriber_email)->send(new UCMail($email->subject, $email->message));
+            // Mail::to($email->subscriber_email)->send(new UCMail($email->subject, $email->message));
+            Mail::to('tonny.mtrl@gmail.com')->send(new UCMail($email->subject, $email->message));
 
             $is_sent = true;
             return $is_sent;    

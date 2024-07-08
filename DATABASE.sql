@@ -195,3 +195,5 @@ CREATE TABLE emails (
     created_at DATETIME,
     updated_at DATETIME
 );
+ALTER TABLE emails CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE emails CHANGE message message LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

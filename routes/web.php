@@ -22,6 +22,9 @@ Route::get('/terms-of-service', [App\Http\Controllers\GameController::class, 'te
 /* Add vote unique */
 Route::post('/add-vote', [App\Http\Controllers\GameController::class, 'addVote'])->name('addVote');
 
+/* Add score to the leaderboard */
+Route::post('/add-score-leaderboard', [App\Http\Controllers\GameController::class, 'addScoreToTheLeaderboard'])->name('addScoreToTheLeaderboard');
+
 Route::post('/store-game-session', [App\Http\Controllers\GameController::class, 'storeGameSession'])->name('storeGameSession');
 
 Route::post('/get-game-already-played', [App\Http\Controllers\GameController::class, 'getGameAlreadyPlayedInformations'])->name('getGameAlreadyPlayedInformations');

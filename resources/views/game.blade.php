@@ -62,9 +62,14 @@
           <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="22" height="22"><path d="M13,0h-2c-1.1,0-2,.9-2,2V24h6V2c0-1.1-.9-2-2-2Zm0,22h-2V2h2V22ZM22,6h-2c-1.1,0-2,.9-2,2V24h6V8c0-1.1-.9-2-2-2Zm0,16h-2V8h2v14ZM4,12H2c-1.1,0-2,.9-2,2v10H6V14c0-1.1-.9-2-2-2Zm0,10H2V14h2v8Z"/></svg>
         </button>
 
+        <button class="hl-icon" onclick=openModalById('LeaderboardModal')>
+          <svg fill="#FFFFFF" width="25" height="25" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" style="enable-background:new 0 0 1024 1024" xml:space="preserve"><path d="M918.4 201.6c-6.4-6.4-12.8-9.6-22.4-9.6H768V96c0-9.6-3.2-16-9.6-22.4C752 67.2 745.6 64 736 64H288c-9.6 0-16 3.2-22.4 9.6C259.2 80 256 86.4 256 96v96H128c-9.6 0-16 3.2-22.4 9.6-6.4 6.4-9.6 16-9.6 22.4 3.2 108.8 25.6 185.6 64 224 34.4 34.4 77.56 55.65 127.65 61.99 10.91 20.44 24.78 39.25 41.95 56.41 40.86 40.86 91 65.47 150.4 71.9V768h-96c-9.6 0-16 3.2-22.4 9.6-6.4 6.4-9.6 12.8-9.6 22.4s3.2 16 9.6 22.4c6.4 6.4 12.8 9.6 22.4 9.6h256c9.6 0 16-3.2 22.4-9.6 6.4-6.4 9.6-12.8 9.6-22.4s-3.2-16-9.6-22.4c-6.4-6.4-12.8-9.6-22.4-9.6h-96V637.26c59.4-7.71 109.54-30.01 150.4-70.86 17.2-17.2 31.51-36.06 42.81-56.55 48.93-6.51 90.02-27.7 126.79-61.85 38.4-38.4 60.8-112 64-224 0-6.4-3.2-16-9.6-22.4zM256 438.4c-19.2-6.4-35.2-19.2-51.2-35.2-22.4-22.4-35.2-70.4-41.6-147.2H256v182.4zm390.4 80C608 553.6 566.4 576 512 576s-99.2-19.2-134.4-57.6C342.4 480 320 438.4 320 384V128h384v256c0 54.4-19.2 99.2-57.6 134.4zm172.8-115.2c-16 16-32 25.6-51.2 35.2V256h92.8c-6.4 76.8-19.2 124.8-41.6 147.2zM768 896H256c-9.6 0-16 3.2-22.4 9.6-6.4 6.4-9.6 12.8-9.6 22.4s3.2 16 9.6 22.4c6.4 6.4 12.8 9.6 22.4 9.6h512c9.6 0 16-3.2 22.4-9.6 6.4-6.4 9.6-12.8 9.6-22.4s-3.2-16-9.6-22.4c-6.4-6.4-12.8-9.6-22.4-9.6z"/></svg>
+        </button>
+        
         <button class='hl-icon' onclick=openModalById('feedbackModal')> 
           <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="22" height="22"><path d="m13.5,10.5c0,.828-.672,1.5-1.5,1.5s-1.5-.672-1.5-1.5.672-1.5,1.5-1.5,1.5.672,1.5,1.5Zm3.5-1.5c-.828,0-1.5.672-1.5,1.5s.672,1.5,1.5,1.5,1.5-.672,1.5-1.5-.672-1.5-1.5-1.5Zm-10,0c-.828,0-1.5.672-1.5,1.5s.672,1.5,1.5,1.5,1.5-.672,1.5-1.5-.672-1.5-1.5-1.5Zm17-5v12c0,2.206-1.794,4-4,4h-2.852l-3.848,3.18c-.361.322-.824.484-1.292.484-.476,0-.955-.168-1.337-.507l-3.749-3.157h-2.923c-2.206,0-4-1.794-4-4V4C0,1.794,1.794,0,4,0h16c2.206,0,4,1.794,4,4Zm-2,0c0-1.103-.897-2-2-2H4c-1.103,0-2,.897-2,2v12c0,1.103.897,2,2,2h3.288c.235,0,.464.083.645.235l4.048,3.41,4.171-3.416c.179-.148.404-.229.637-.229h3.212c1.103,0,2-.897,2-2V4Z"/></svg>
         </button>
+
       </div>
     </header>
 
@@ -177,12 +182,13 @@
           <span><br><b>YOU'RE STREAKING!</b><br> <b id="personalStreak">0 day</b> played in a row <br></span>
           <div class="go-buttons">
             <button class="go-share" onclick="openModalById('shareModal'), shareGame()">SHARE</button>
+            <button class="go-leaderboard" onclick="openModalById('LeaderboardModal')">LEADERBOARD</button>
           </div>
           <div class="subscribing">
-            <label for="">Subscribe to our T+1 daily recap</label>
+            <label for="">Get a recap of the most popular answers</label>
             <form id='subscribe-form' class="row sf-form" method="POST">
               <input class='sf-email' name='sf-email' type="email" placeholder="Your email...">
-              <input class='sf-submit' type="submit" value="SEND">
+              <input class='sf-submit' type="submit" value="I'm In!">
             </form>
             <div id="sf-message" style="color: rgb(202, 59, 59); display: none;"></div>
           </div>
@@ -215,6 +221,50 @@
           </div>
         </div>
       </div>
+
+
+      <!-- LEADERBOARD -->
+      <div class="modal" id="LeaderboardModal">
+        <button class="close-modal" onclick=closeModalById('LeaderboardModal')>×</button>
+        <div class="lb-box">
+          <img class='lb-logo' src="{{ asset('img/logo.png') }}" width='180' alt="uncovered-shorts-logo">
+          <span class="spacing-20"></span>
+          <p class="lb-text"><b>TODAY'S TOP SCORES</b></p>
+          <span class="spacing-10"></span>
+          <div class="ranking-bloc">
+            <div class="ranking-row">
+              <span class="ranking-number rn-first">#1</span>
+              <span class="ranking-initial" id="ranking-initial-1">{{ $leaderboard1[0]->initial }}</span>
+              <span class="ranking-score" id="ranking-score-1">{{ $leaderboard1[0]->total_score }}</span>
+            </div>
+            
+            <div class="ranking-row rr-dark">
+                <span class="ranking-number rn-second">#2</span>
+                <span class="ranking-initial" id="ranking-initial-2">{{ $leaderboard1[1]->initial }}</span>
+                <span class="ranking-score" id="ranking-score-2">{{ $leaderboard1[1]->total_score }}</span>
+            </div>
+            
+            <div class="ranking-row">
+                <span class="ranking-number rn-third">#3</span>
+                <span class="ranking-initial" id="ranking-initial-3">{{ $leaderboard1[2]->initial }}</span>
+                <span class="ranking-score" id="ranking-score-3">{{ $leaderboard1[2]->total_score }}</span>
+            </div>
+            
+            <div class="ranking-row rr-dark">
+                <span class="ranking-number">#4</span>
+                <span class="ranking-initial" id="ranking-initial-4">{{ $leaderboard1[3]->initial }}</span>
+                <span class="ranking-score" id="ranking-score-4">{{ $leaderboard1[3]->total_score }}</span>
+            </div>
+            
+            <div class="ranking-row">
+                <span class="ranking-number">#5</span>
+                <span class="ranking-initial" id="ranking-initial-5">{{ $leaderboard1[4]->initial }}</span>
+                <span class="ranking-score" id="ranking-score-5">{{ $leaderboard1[4]->total_score }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      
 
     <div class="modal-background" id="modalBackground">
 
@@ -280,6 +330,13 @@
         /* new statistics */
         var trackedGameCount = {{ $trackedGameCount }}
 
+        /* Leaderboard feature */
+        var personalInital = localStorage.getItem('personalInital') ?? "???"
+        var personalUID = localStorage.getItem('personalUID') ?? "???"
+        
+        var leaderboard1 = @json($leaderboard1);
+        var leaderboard1Fifth = leaderboard1.length > 4 ? leaderboard1[4].total_score : 0;
+
         var personalGameCount = parseInt(localStorage.getItem('personalGameCount') ?? 0);
         var personalAverage = parseInt(localStorage.getItem('personalAverage') ?? 0);
         var personalStreak = parseInt(localStorage.getItem('personalStreak') ?? 0);
@@ -322,7 +379,8 @@
         document.addEventListener('DOMContentLoaded', () => {
 
             // Check if user has already played, if yes show results without the close button
-            // if visitor already played
+
+            // if visitor already played and finished/submitted his game
             if(getCookie('Game_'+currentGameId) !== null)
             {
               // Dans cookie se trouve l'id du game_played
@@ -395,6 +453,7 @@
                 console.error("Resolve promise getGameAlreadyPlayedInformations" + error);
               });  
             }
+            // if visitor hasn't finished/submitted the game yet
             else
             {
               // alert('Not played yet');
@@ -545,6 +604,8 @@
         /* Results */
         function gameOver()
         {
+          // Ecrire le score final du joueur sur la fenetre des statistiques
+          playerFinalScore = parseInt(score1) + parseInt(score2) + parseInt(score3) + parseInt(score4);
           document.getElementById('go-points').innerHTML = ''+playerFinalScore;
 
           localStorage.setItem('Game_'+currentGameId, playerFinalScore, 7);
@@ -597,6 +658,25 @@
               localStorage.setItem('personalStreak', 1);
             }
 
+            // LEADERBOARD Feature
+            // Verify if the player made it to the daily score top 5
+            // He made it
+            if(leaderboard1Fifth <= playerFinalScore)
+            {
+              // Player never submitted his initials, ask him
+              if(localStorage.getItem('personalInital') != "???")
+              {
+                openModalById('initialModal');
+                var initialInput = document.getElementById('playerInitial');
+                initialInput.focus();
+              }
+              // Player already have initials
+              else
+              {
+                addScoreToLeaderboard(currentGameId, playerFinalScore);
+              }
+            }
+
             refreshHtmlInLocalStorage();
 
             // Open the game over modal
@@ -607,6 +687,7 @@
           });
         }
 
+
         function autoPopulateAlreadyAnswered()
         {
           // Auto populate score boxes
@@ -614,6 +695,7 @@
           var pointsBoxes = document.getElementsByClassName("points");
           Array.from(pointsBoxes).forEach(element => {
 
+            // Parcourir s'il y a des reponses enregistrés dans le localstorage
             if(localStorage.getItem('Answer_'+iLoop+'_Game_'+currentGameId) != null)
             {
               // Deja repondu a la question
@@ -625,6 +707,7 @@
               inputNear.classList.add("answer-submitted");
               inputNear.removeAttribute('onclick');
 
+              // Actualiser les valeurs de chaque variable score
               switch (element.id) 
               {
                 case 'us-pts1': 
@@ -690,8 +773,8 @@
           You will be presented with four questions, which will be of two question types: 
           <br>
           <br>
-          The first two questions will be "Unique" (indicated by a U below the question number) questions. The goal is to name the most unique correct answer. Scoring will change throughout the day based on other user's answers.
-          <br>
+          <b>The first two questions will be "Unique" (indicated by a U below the question number) questions. The goal is to name the most unique correct answer.</b> Scoring will change throughout the day based on other user's answers.
+          <br><br>
           For example:
           <br>
           <strong>&bull;</strong> Name a company in the S&P 500?
@@ -699,8 +782,8 @@
           <strong>&bull;</strong> Apple, while being a correct answer, will likely yield less points than Hershey
           </br> 
           <br>
-          The second two questions will be "Ranked List" (indicated by a R below the question number) questions. The goal is to name the top ranking of a list. The top 10 will score points in descending order.
-          <br>
+          <b>The second two questions will be "Ranked List" (indicated by a R below the question number) questions. The goal is to name the top ranking of a list.</b> The top 10 will score points in descending order.
+          <br><br>
           For example:
           <br>
           <strong>&bull;</strong> Name the largest country by total area?
@@ -777,6 +860,23 @@
         </div>
       </div>
 
+      <!-- Enter you initial modal -->
+      <div class="modal share-container" id='initialModal'>
+        <button class="close-modal" onclick=closeModalById('initialModal')>×</button>
+        <div class="share-text-container">
+          <p class="im-text">
+            <b>Congrats You Made the Leaderboard</b>
+          </p>
+          <p class="im-text2">Please, enter your initials</p>
+          <form action="" id='initialForm' class='initialForm'>
+            <input maxlength="3" minlength="3" type="text" name='playerInitial' id='playerInitial' value='' required pattern=".{3,3}" title="Please enter 3 characters">
+            <div class='im-buttons'>
+              <button class="copy-btn" type="submit">I’M THE BEST</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
       <script>
         function shareGame() {
           // Générer le texte à copier
@@ -791,12 +891,45 @@
           shareTextarea.value = shareText;
 
           copyBtn.addEventListener('click', function() {
-          shareTextarea.select();
-          document.execCommand('copy');
-          copyBtn.textContent = 'Copied';
-          copyBtn.classList.add('copied-btn');
+            shareTextarea.select();
+            document.execCommand('copy');
+            copyBtn.textContent = 'Copied';
+            copyBtn.classList.add('copied-btn');
+          });
+        };
+        
+        // Listen to initial form
+        document.getElementById('initialForm').addEventListener('submit', function(event) {
+          event.preventDefault(); // Prevent the default form submission (page refresh)
+
+          const playerInitial = document.getElementById('playerInitial').value;
+
+          if (playerInitial.length === 3) {
+            localStorage.setItem('personalInitial', playerInitial);
+            
+            // Generate a unique identifier
+            const currentDateTime = new Date().toISOString().replace(/[^0-9]/g, ""); // Get current datetime in YYYYMMDDHHMMSS format
+            const uniqueIdentifier = playerInitial + currentDateTime;
+            localStorage.setItem('personalUID', uniqueIdentifier);
+            
+            // Submit score
+            addScoreToLeaderboard(currentGameId, playerFinalScore);
+
+            closeModalById('initialModal');
+          } 
+          else 
+          {
+            alert('Please enter 3 characters.');
+          }
         });
-      };
+
+        // Function that updates the leaderboard html after the new entry
+        function updateLeaderboard(leaderboard) {
+          for (let i = 0; i < leaderboard.length; i++) {
+              document.getElementById(`ranking-initial-${i+1}`).textContent = leaderboard[i].initial;
+              document.getElementById(`ranking-score-${i+1}`).textContent = leaderboard[i].total_score;
+          }
+        }
       </script>
     
       <script src="{{ asset('js/game.js') }}?t={{ time() }}"></script>

@@ -9,6 +9,7 @@ use App\Models\GamePlayed;
 use App\Models\Question; 
 use App\Models\RankedAnswer;
 use App\Models\UniqueAnswer; 
+use App\Models\Leaderboard; 
 use App\Models\Visit; 
 
 class GameController extends Controller
@@ -18,7 +19,6 @@ class GameController extends Controller
      *
      * @return void
      */
-
      
     /*
     public function __construct()
@@ -48,6 +48,8 @@ class GameController extends Controller
         $suggestions2 = Game::getDataFromSheet($questions[1]['sheet_url'], $questions[1]->id);
         $suggestions3 = Game::getDataFromSheet($questions[2]['sheet_url'], $questions[2]->id);
         $suggestions4 = Game::getDataFromSheet($questions[3]['sheet_url'], $questions[3]->id);
+
+        $leaderboard1 = Leaderboard::getTodaysTop($currentGameId, 5);
 
         $uniqueAnswers1 = UniqueAnswer::getAnswersByQuestionId($questions[0]->id);
         $uniqueAnswers2 = UniqueAnswer::getAnswersByQuestionId($questions[1]->id);
@@ -79,12 +81,30 @@ class GameController extends Controller
         return view('game', compact('currentGame', 'questions', 
                                     'suggestions1', 'suggestions2', 'suggestions3', 'suggestions4',
                                     'uniqueAnswers1', 'uniqueAnswers2', 'rankedAnswers3', 'rankedAnswers4', 
-                                    'statistics', 'gameAlreadyPlayed', 'trackedGameCount', 'previousGame'));
+                                    'statistics', 'gameAlreadyPlayed', 'trackedGameCount', 'previousGame',
+                                    'leaderboard1'
+                                ));
     }
 
     public function termsOfService(Request $request)
     {
         return view('terms-service');
+    }
+
+    /* Insert a new score in leaderboard */
+
+    public function addScoreToTheLeaderboard(Request $request)
+    {
+        $gameId = $request->input('gameId');
+        $initial = $request->input('initial');
+        $unique_identifier = $request->input('unique_identifier');
+        $totalScore = $request->input('totalScore');
+
+        $leaderboardEntry = Leaderboard::addScore($gameId, $initial, $unique_identifier, $totalScore);
+
+        $leaderboard1 = Leaderboard::getTodaysTop($gameId, 5);
+
+        return response()->json($leaderboard1);
     }
 
     public function getGameAlreadyPlayedInformations(Request $request)

@@ -294,3 +294,48 @@ document.addEventListener("DOMContentLoaded", function()
         xhr.send(JSON.stringify({}));
     }
 });
+
+/* Leaderboard */
+
+function addScoreToLeaderboard(gameId, totalScore) {
+    const playerInitial = localStorage.getItem('personalInitial');
+    const uniqueIdentifier = localStorage.getItem('personalUID');
+
+    // Prepare the data to be sent in the request
+    const data = {
+      gameId: gameId,
+      initial: playerInitial,
+      unique_identifier: uniqueIdentifier,
+      totalScore: totalScore
+    };
+
+    var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    // Create a new XMLHttpRequest      
+    const xhr = new XMLHttpRequest();
+    let url = baseUrl + '/add-score-leaderboard';
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('X-CSRF-Token', csrfToken);
+
+    // Define what happens on successful data submission
+    xhr.onload = function() {
+        if (xhr.status >= 200 && xhr.status < 400) {
+            // Success!
+            const response = JSON.parse(xhr.responseText);
+            updateLeaderboard(response);
+        } else {
+            // We reached our target server, but it returned an error
+            console('Error: Unable to add score to the leaderboard.');
+        }
+    };
+
+    // Define what happens in case of an error
+    xhr.onerror = function() {
+        // There was a connection error of some sort
+        alert('Request failed.');
+    };
+
+    // Send the request with the data
+    xhr.send(JSON.stringify(data));
+}

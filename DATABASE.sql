@@ -197,3 +197,27 @@ CREATE TABLE emails (
 );
 ALTER TABLE emails CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE emails CHANGE message message LONGTEXT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- Leaderboard update 13-07-24
+
+CREATE TABLE leaderboard (
+  `id` BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  `initial` VARCHAR(50) NOT NULL,
+  `unique_identifier` VARCHAR(255) NOT NULL,
+  `game_id` INT,
+  `total_score` DECIMAL,
+  FOREIGN KEY (`game_id`) REFERENCES `games` (`id`),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE leaderboard (
+  `id` BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  `initial` VARCHAR(50) NOT NULL,
+  `unique_identifier` VARCHAR(255) NOT NULL,
+  `game_id` INT,
+  `total_score` DECIMAL,
+  FOREIGN KEY (`game_id`) REFERENCES `games` (`id`),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);

@@ -391,7 +391,6 @@ button.go-leaderboard
 
 #LeaderboardModal {
     
-    position: fixed;
     top: 0;
     left: 0;
     z-index: 7;
@@ -400,11 +399,12 @@ button.go-leaderboard
     justify-content: center;
     align-content: center;
     align-items: center;
+    align-self: center;
     background-color: #161616;
-    width: 100%;
-    height: 100vh;
+    width: 85%;
+    max-width: 550px;
+    min-width: 350px;
     font-family: "switzer", serif;
-    overflow-y: scroll;
 }
 
 .lb-box
@@ -526,6 +526,7 @@ input[name="playerInitial"]
     color: #efefef;
     text-align: center;
     font-size: 22px;
+    text-transform: uppercase;
     border: 1px solid #272727;
     border-radius: 1px;
 }
@@ -567,14 +568,14 @@ input[name="playerInitial"]
 .sf-email
 {
     height: 42px !important;
-    width: 210px;
+    width: 190px;
     box-sizing: border-box;
     border-top-left-radius: 20px;
     border-bottom-left-radius: 20px;
     border-top-right-radius: 0px;
     border-bottom-right-radius: 0px;
     padding-left: 14px !important;
-    font-size: 14.5px;
+    font-size: 14px;
     border: none;
     box-shadow: inset 0px 0px 10px rgba(18, 18, 18, 0.4);
 }
@@ -582,7 +583,7 @@ input[name="playerInitial"]
 .sf-submit
 {
     height: 42px;
-    width: 68px;
+    width: 78px;
     box-sizing: border-box;
     margin-left: -5px;
     background: #487349;
@@ -593,6 +594,7 @@ input[name="playerInitial"]
     border-bottom-right-radius: 20px;
     border: none;
     font-weight: 600;
+    font-size: 15px;
 }
 
 .sf-submit:hover,

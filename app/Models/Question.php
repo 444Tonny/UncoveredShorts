@@ -43,10 +43,16 @@ class Question extends Model
         return $this->hasMany(RankedSubmitted::class);
     }
 
+    public function suggestions()
+    {
+        return $this->hasMany(Suggestion::class);
+    }
+
     public function scopeByGameId($query, $gameId)
     {
         return $query->where('game_id', $gameId)->orderBy('number');
     }
+
 
     public static function synchronizeSuggestions($excelValues, $questionId)
     {

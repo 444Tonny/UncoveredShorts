@@ -224,6 +224,10 @@
 
 
       <!-- LEADERBOARD -->
+      
+
+    <div class="modal-background" id="modalBackground">
+
       <div class="modal" id="LeaderboardModal">
         <button class="close-modal" onclick=closeModalById('LeaderboardModal')>×</button>
         <div class="lb-box">
@@ -233,19 +237,19 @@
           <span class="spacing-10"></span>
           <div class="ranking-bloc">
             <div class="ranking-row">
-              <span class="ranking-number rn-first">#1</span>
+              <span class="ranking-number">#1</span>
               <span class="ranking-initial" id="ranking-initial-1">{{ $leaderboard1[0]->initial }}</span>
               <span class="ranking-score" id="ranking-score-1">{{ $leaderboard1[0]->total_score }}</span>
             </div>
             
             <div class="ranking-row rr-dark">
-                <span class="ranking-number rn-second">#2</span>
+                <span class="ranking-number">#2</span>
                 <span class="ranking-initial" id="ranking-initial-2">{{ $leaderboard1[1]->initial }}</span>
                 <span class="ranking-score" id="ranking-score-2">{{ $leaderboard1[1]->total_score }}</span>
             </div>
             
             <div class="ranking-row">
-                <span class="ranking-number rn-third">#3</span>
+                <span class="ranking-number">#3</span>
                 <span class="ranking-initial" id="ranking-initial-3">{{ $leaderboard1[2]->initial }}</span>
                 <span class="ranking-score" id="ranking-score-3">{{ $leaderboard1[2]->total_score }}</span>
             </div>
@@ -264,9 +268,6 @@
           </div>
         </div>
       </div>
-      
-
-    <div class="modal-background" id="modalBackground">
 
       <!-- Subscribing -->
       <script>
@@ -331,7 +332,7 @@
         var trackedGameCount = {{ $trackedGameCount }}
 
         /* Leaderboard feature */
-        var personalInital = localStorage.getItem('personalInital') ?? "???"
+        var personalInitial = localStorage.getItem('personalInitial') ?? "???"
         var personalUID = localStorage.getItem('personalUID') ?? "???"
         
         var leaderboard1 = @json($leaderboard1);
@@ -661,10 +662,10 @@
             // LEADERBOARD Feature
             // Verify if the player made it to the daily score top 5
             // He made it
-            if(leaderboard1Fifth <= playerFinalScore)
+            if(leaderboard1Fifth <= playerFinalScore && playerFinalScore > 0)
             {
               // Player never submitted his initials, ask him
-              if(localStorage.getItem('personalInital') != "???")
+              if(localStorage.getItem('personalInitial') == null || localStorage.getItem('personalInitial') == "???")
               {
                 openModalById('initialModal');
                 var initialInput = document.getElementById('playerInitial');
@@ -869,7 +870,7 @@
           </p>
           <p class="im-text2">Please, enter your initials</p>
           <form action="" id='initialForm' class='initialForm'>
-            <input maxlength="3" minlength="3" type="text" name='playerInitial' id='playerInitial' value='' required pattern=".{3,3}" title="Please enter 3 characters">
+            <input maxlength="3" minlength="3" type="text" name='playerInitial' id='playerInitial' value='' required pattern="[A-Za-z0-9]{3}" title="Please enter 3 valid characters">
             <div class='im-buttons'>
               <button class="copy-btn" type="submit">I’M THE BEST</button>
             </div>
@@ -902,15 +903,16 @@
         document.getElementById('initialForm').addEventListener('submit', function(event) {
           event.preventDefault(); // Prevent the default form submission (page refresh)
 
-          const playerInitial = document.getElementById('playerInitial').value;
+          var playerInitial = document.getElementById('playerInitial').value;
 
           if (playerInitial.length === 3) {
-            localStorage.setItem('personalInitial', playerInitial);
             
             // Generate a unique identifier
             const currentDateTime = new Date().toISOString().replace(/[^0-9]/g, ""); // Get current datetime in YYYYMMDDHHMMSS format
             const uniqueIdentifier = playerInitial + currentDateTime;
+
             localStorage.setItem('personalUID', uniqueIdentifier);
+            localStorage.setItem('personalInitial', playerInitial);
             
             // Submit score
             addScoreToLeaderboard(currentGameId, playerFinalScore);

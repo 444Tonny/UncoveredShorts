@@ -139,10 +139,12 @@ class AdminGameController extends Controller
             $question->rankedAnswers()->delete();
             $question->uniqueSubmitted()->delete();
             $question->rankedSubmitted()->delete();
+            $question->suggestions()->delete();
         }
 
         $game->questions()->delete();
         $game->gameplayed()->delete();
+        $game->leaderboards()->delete();
         $game->delete();
         return redirect()->route('games.index');
     }

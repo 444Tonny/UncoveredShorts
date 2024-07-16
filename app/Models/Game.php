@@ -33,6 +33,11 @@ class Game extends Model
         return $this->hasMany(GamePlayed::class);
     }
 
+    public function leaderboards()
+    {
+        return $this->hasMany(Leaderboard::class, 'game_id');
+    }
+
     public static function getTrackedGamesCount()
     {
         $date = '2024-06-10 00:01:00'; 

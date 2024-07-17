@@ -168,8 +168,8 @@ class GamePlayed extends Model
     }
     private static function getGamesByDate($date)
     {
-        //return static::whereDate('created_at', $date)->count();
-        return static::whereDate(\DB::raw("DATE_SUB(created_at, INTERVAL 4 HOUR)"), $date)->count();
+        return static::whereDate('created_at', $date)->count();
+        //return static::whereDate(\DB::raw("DATE_SUB(created_at, INTERVAL 4 HOUR)"), $date)->count();
     }
 
     private static function getGamesByDateRange($startDate, $endDate)

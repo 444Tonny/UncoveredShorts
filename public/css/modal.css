@@ -401,10 +401,15 @@ button.go-leaderboard
     align-items: center;
     align-self: center;
     background-color: #161616;
-    width: 85%;
-    max-width: 550px;
+    width: 95%;
+    max-width: 600px;
     min-width: 350px;
     font-family: "switzer", serif;
+    overflow-y: scroll;
+    height: 96vh;
+    padding-top: 50px;
+    margin-top: 15px;
+    margin-bottom: 15px;
 }
 
 .lb-box

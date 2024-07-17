@@ -49,7 +49,7 @@ class GameController extends Controller
         $suggestions3 = Game::getDataFromSheet($questions[2]['sheet_url'], $questions[2]->id);
         $suggestions4 = Game::getDataFromSheet($questions[3]['sheet_url'], $questions[3]->id);
 
-        $leaderboard1 = Leaderboard::getTodaysTop($currentGameId, 5);
+        $leaderboard1 = Leaderboard::getTodaysTop($currentGameId, 10);
 
         $uniqueAnswers1 = UniqueAnswer::getAnswersByQuestionId($questions[0]->id);
         $uniqueAnswers2 = UniqueAnswer::getAnswersByQuestionId($questions[1]->id);
@@ -102,7 +102,7 @@ class GameController extends Controller
 
         $leaderboardEntry = Leaderboard::addScore($gameId, $initial, $unique_identifier, $totalScore);
 
-        $leaderboard1 = Leaderboard::getTodaysTop($gameId, 5);
+        $leaderboard1 = Leaderboard::getTodaysTop($gameId, 10);
 
         return response()->json($leaderboard1);
     }

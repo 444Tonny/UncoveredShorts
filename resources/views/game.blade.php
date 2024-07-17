@@ -236,35 +236,13 @@
           <p class="lb-text"><b>TODAY'S TOP SCORES</b></p>
           <span class="spacing-10"></span>
           <div class="ranking-bloc">
-            <div class="ranking-row">
-              <span class="ranking-number">#1</span>
-              <span class="ranking-initial" id="ranking-initial-1">{{ $leaderboard1[0]->initial }}</span>
-              <span class="ranking-score" id="ranking-score-1">{{ $leaderboard1[0]->total_score }}</span>
-            </div>
-            
-            <div class="ranking-row rr-dark">
-                <span class="ranking-number">#2</span>
-                <span class="ranking-initial" id="ranking-initial-2">{{ $leaderboard1[1]->initial }}</span>
-                <span class="ranking-score" id="ranking-score-2">{{ $leaderboard1[1]->total_score }}</span>
-            </div>
-            
-            <div class="ranking-row">
-                <span class="ranking-number">#3</span>
-                <span class="ranking-initial" id="ranking-initial-3">{{ $leaderboard1[2]->initial }}</span>
-                <span class="ranking-score" id="ranking-score-3">{{ $leaderboard1[2]->total_score }}</span>
-            </div>
-            
-            <div class="ranking-row rr-dark">
-                <span class="ranking-number">#4</span>
-                <span class="ranking-initial" id="ranking-initial-4">{{ $leaderboard1[3]->initial }}</span>
-                <span class="ranking-score" id="ranking-score-4">{{ $leaderboard1[3]->total_score }}</span>
-            </div>
-            
-            <div class="ranking-row">
-                <span class="ranking-number">#5</span>
-                <span class="ranking-initial" id="ranking-initial-5">{{ $leaderboard1[4]->initial }}</span>
-                <span class="ranking-score" id="ranking-score-5">{{ $leaderboard1[4]->total_score }}</span>
-            </div>
+            @for ($i = 0; $i < 10; $i++)
+              <div class="ranking-row @if($i % 2 != 0) rr-dark @endif">
+                  <span class="ranking-number">#{{ $i + 1 }}</span>
+                  <span class="ranking-initial" id="ranking-initial-{{ $i + 1 }}">{{ $leaderboard1[$i]->initial ?? 'N/A' }}</span>
+                  <span class="ranking-score" id="ranking-score-{{ $i + 1 }}">{{ $leaderboard1[$i]->total_score ?? 'N/A' }}</span>
+              </div>
+            @endfor
           </div>
         </div>
       </div>
@@ -918,6 +896,9 @@
             addScoreToLeaderboard(currentGameId, playerFinalScore);
 
             closeModalById('initialModal');
+            setTimeout(function() {
+              openModalById('LeaderboardModal');
+            }, 600);
           } 
           else 
           {

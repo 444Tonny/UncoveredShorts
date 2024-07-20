@@ -79,36 +79,36 @@
         <div class="game-block">
           <div class="question-block">
             <span class="numero">Q1 <b class='letter-type'>U</b> </span>
-            <h2 class="question">{!! $questions[0]->value !!}</h2>
+            <h2 class="question" data='{!! $questions[0]->value !!}'>{!! $questions[0]->value !!}</h2>
             <div class="answer-block">
-              <input id='us-ipt1' onclick="setActivePlayerInput('us-ipt1'), openModalById('searchModal'), displaySuggestions(suggestions1)"  class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
+              <input id='us-ipt1' onclick="updateCurrentSearchQuestion(event), setActivePlayerInput('us-ipt1'), openModalById('searchModal'), displaySuggestions(suggestions1)"  class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
               <span id='us-pts1' class='points'>-</span>
             </div>
           </div>
 
           <div class="question-block">
             <span class="numero">Q2 <b class='letter-type'>U</b></span>
-            <h2 class="question">{!! $questions[1]->value !!}</h2>
+            <h2 class="question" data='{!! $questions[1]->value !!}'>{!! $questions[1]->value !!}</h2>
             <div class="answer-block">
-              <input id='us-ipt2' onclick="setActivePlayerInput('us-ipt2'), openModalById('searchModal'), displaySuggestions(suggestions2)" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
+              <input id='us-ipt2' onclick="updateCurrentSearchQuestion(event), setActivePlayerInput('us-ipt2'), openModalById('searchModal'), displaySuggestions(suggestions2)" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
               <span id='us-pts2' class='points'>-</span>
             </div>
           </div>
 
           <div class="question-block">
             <span class="numero">Q3 <b class='letter-type'>R</b></span>
-            <h2 class="question">{!! $questions[2]->value !!}</h2>
+            <h2 class="question" data='{!! $questions[2]->value !!}'>{!! $questions[2]->value !!}</h2>
             <div class="answer-block">
-              <input id='us-ipt3' onclick="setActivePlayerInput('us-ipt3'), openModalById('searchModal'), displaySuggestions(suggestions3)" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
+              <input id='us-ipt3' onclick="updateCurrentSearchQuestion(event), setActivePlayerInput('us-ipt3'), openModalById('searchModal'), displaySuggestions(suggestions3)" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
               <span id='us-pts3' class='points'>-</span>
             </div>
           </div>
 
           <div class="question-block">
             <span class="numero">Q4 <b class='letter-type'>R</b></span>
-            <h2 class="question">{!! $questions[3]->value !!}</h2>
+            <h2 class="question" data='{!! $questions[3]->value !!}'>{!! $questions[3]->value !!}</h2>
             <div class="answer-block">
-              <input id='us-ipt4' onclick="setActivePlayerInput('us-ipt4'), openModalById('searchModal'), displaySuggestions(suggestions4)" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
+              <input id='us-ipt4' onclick="updateCurrentSearchQuestion(event), setActivePlayerInput('us-ipt4'), openModalById('searchModal'), displaySuggestions(suggestions4)" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
               <span id='us-pts4' class='points'>-</span>
             </div>
           </div>
@@ -290,6 +290,7 @@
       <div class="modal" id="searchModal">
         <button class="close-modal" onclick=closeModalById('searchModal')>×</button>
         <div class="search-bar">
+          <span id='current-search-question' class="search-question">Choose an answer.</span>
           <input id="us-search" type="text" class='search' oninput="filterSuggestions(this.value)" placeholder="Type here...">
         </div>
         <div id="suggestions" class="suggestions">
@@ -475,6 +476,22 @@
         function setActivePlayerInput(idinput) 
         { 
           activePlayerInput = idinput; 
+        }
+
+        function updateCurrentSearchQuestion(event) {
+          // Get the input element that was clicked
+          var inputElement = event.target;
+
+          // Find the closest question-block
+          var questionBlock = inputElement.closest('.question-block');
+
+          // Get the h2 element within the closest question-block
+          var questionElement = questionBlock.querySelector('.question');
+          var questionData = questionElement.getAttribute('data');
+
+          // Update the content of the <span> element
+          var searchQuestionElement = document.getElementById('current-search-question');
+          searchQuestionElement.innerHTML = '' + questionData;
         }
 
         // Save quelles suggestions utilisons nous mtn

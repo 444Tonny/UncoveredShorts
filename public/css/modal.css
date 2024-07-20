@@ -76,6 +76,16 @@
     padding: 25px 0px 5px 0px;
 }
 
+span.search-question
+{
+    display: flex;
+    margin-bottom: 18px;
+    font-family: "switzer", serif;
+    font-size: 17px;
+    color: #c8c8c8;
+    padding: 0px 5px;
+}
+
 div.search-bar
 {
     box-sizing: border-box;
@@ -406,7 +416,7 @@ button.go-leaderboard
     min-width: 350px;
     font-family: "switzer", serif;
     overflow-y: scroll;
-    height: 96vh;
+    height: 92vh;
     padding-top: 50px;
     margin-top: 15px;
     margin-bottom: 15px;

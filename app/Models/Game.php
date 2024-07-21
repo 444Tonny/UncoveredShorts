@@ -38,6 +38,11 @@ class Game extends Model
         return $this->hasMany(Leaderboard::class, 'game_id');
     }
 
+    public function leaderboardStreak()
+    {
+        return $this->hasMany(StreakLeaderboard::class, 'last_game_id');
+    }
+
     public static function getTrackedGamesCount()
     {
         $date = '2024-06-10 00:01:00'; 
@@ -55,6 +60,9 @@ class Game extends Model
     public static function getCurrentGame()
     {
         $now = now()->setTimezone('America/New_York');
+
+        /* For testing purpose */
+        //$now = now()->setTimezone('America/New_York')->subDays(32);
 
         // Chercher d'abord les jeux actifs
         $game = self::where('date_start', '<=', $now)

@@ -210,3 +210,16 @@ CREATE TABLE leaderboard (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
+
+-- Streak Leaderboard update 20-07-24
+
+CREATE TABLE streak_leaderboard (
+  `id` BIGINT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  `initial` VARCHAR(50) NOT NULL,
+  `unique_identifier` VARCHAR(255) NOT NULL,
+  `last_game_id` INT,
+  `streak` INT,
+  FOREIGN KEY (`last_game_id`) REFERENCES `games` (`id`),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);

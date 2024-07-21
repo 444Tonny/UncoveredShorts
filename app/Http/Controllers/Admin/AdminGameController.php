@@ -145,6 +145,7 @@ class AdminGameController extends Controller
         $game->questions()->delete();
         $game->gameplayed()->delete();
         $game->leaderboards()->delete();
+        $game->leaderboardStreak()->delete();
         $game->delete();
         return redirect()->route('games.index');
     }

@@ -25,6 +25,10 @@ Route::post('/add-vote', [App\Http\Controllers\GameController::class, 'addVote']
 /* Add score to the leaderboard */
 Route::post('/add-score-leaderboard', [App\Http\Controllers\GameController::class, 'addScoreToTheLeaderboard'])->name('addScoreToTheLeaderboard');
 
+/* Add streak to the leaderboard */
+Route::post('/add-streak-leaderboard', [App\Http\Controllers\GameController::class, 'addStreakToTheLeaderboard'])->name('addStreakToTheLeaderboard');
+
+
 Route::post('/store-game-session', [App\Http\Controllers\GameController::class, 'storeGameSession'])->name('storeGameSession');
 
 Route::post('/get-game-already-played', [App\Http\Controllers\GameController::class, 'getGameAlreadyPlayedInformations'])->name('getGameAlreadyPlayedInformations');

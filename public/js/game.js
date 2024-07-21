@@ -295,7 +295,7 @@ document.addEventListener("DOMContentLoaded", function()
     }
 });
 
-/* Leaderboard */
+/* Leaderboard - TOP SCORE */
 
 function addScoreToLeaderboard(gameId, totalScore) {
     const playerInitial = localStorage.getItem('personalInitial');
@@ -324,6 +324,53 @@ function addScoreToLeaderboard(gameId, totalScore) {
             // Success!
             const response = JSON.parse(xhr.responseText);
             updateLeaderboard(response);
+        } else {
+            // We reached our target server, but it returned an error
+            console.log('Error: Unable to add score to the leaderboard.');
+        }
+    };
+
+    // Define what happens in case of an error
+    xhr.onerror = function() {
+        // There was a connection error of some sort
+        alert('Request failed.');
+    };
+
+    // Send the request with the data
+    xhr.send(JSON.stringify(data));
+}
+
+/* Leaderboard - TOP STREAK */
+
+function addStreakToLeaderboard(gameId) {
+    
+    var personalStreak = localStorage.getItem('personalStreak');
+    const playerInitial = localStorage.getItem('personalInitial');
+    const uniqueIdentifier = localStorage.getItem('personalUID');
+
+    // Prepare the data to be sent in the request
+    const data = {
+      gameId: gameId,
+      initial: playerInitial,
+      unique_identifier: uniqueIdentifier,
+      personalStreak: personalStreak
+    };
+
+    var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+
+    // Create a new XMLHttpRequest      
+    const xhr = new XMLHttpRequest();
+    let url = baseUrl + '/add-streak-leaderboard';
+    xhr.open('POST', url, true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.setRequestHeader('X-CSRF-Token', csrfToken);
+
+    // Define what happens on successful data submission
+    xhr.onload = function() {
+        if (xhr.status >= 200 && xhr.status < 400) {
+            // Success!
+            const response2 = JSON.parse(xhr.responseText);
+            updateStreakLeaderboard(response2);
         } else {
             // We reached our target server, but it returned an error
             console.log('Error: Unable to add score to the leaderboard.');

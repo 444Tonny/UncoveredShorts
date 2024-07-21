@@ -10,6 +10,7 @@ use App\Models\Question;
 use App\Models\RankedAnswer;
 use App\Models\UniqueAnswer; 
 use App\Models\Leaderboard; 
+use App\Models\StreakLeaderboard; 
 use App\Models\Visit; 
 
 class GameController extends Controller
@@ -50,6 +51,7 @@ class GameController extends Controller
         $suggestions4 = Game::getDataFromSheet($questions[3]['sheet_url'], $questions[3]->id);
 
         $leaderboard1 = Leaderboard::getTodaysTop($currentGameId, 10);
+        $leaderboard2streak = StreakLeaderboard::getTopStreaks(10);
 
         $uniqueAnswers1 = UniqueAnswer::getAnswersByQuestionId($questions[0]->id);
         $uniqueAnswers2 = UniqueAnswer::getAnswersByQuestionId($questions[1]->id);
@@ -82,7 +84,7 @@ class GameController extends Controller
                                     'suggestions1', 'suggestions2', 'suggestions3', 'suggestions4',
                                     'uniqueAnswers1', 'uniqueAnswers2', 'rankedAnswers3', 'rankedAnswers4', 
                                     'statistics', 'gameAlreadyPlayed', 'trackedGameCount', 'previousGame',
-                                    'leaderboard1'
+                                    'leaderboard1', 'leaderboard2streak'
                                 ));
     }
 
@@ -103,6 +105,20 @@ class GameController extends Controller
         $leaderboardEntry = Leaderboard::addScore($gameId, $initial, $unique_identifier, $totalScore);
 
         $leaderboard1 = Leaderboard::getTodaysTop($gameId, 10);
+
+        return response()->json($leaderboard1);
+    }
+
+    public function addStreakToTheLeaderboard(Request $request)
+    {
+        $gameId = $request->input('gameId');
+        $initial = $request->input('initial');
+        $unique_identifier = $request->input('unique_identifier');
+        $personalStreak = $request->input('personalStreak');
+
+        $leaderboardEntry = StreakLeaderboard::addStreak($gameId, $initial, $unique_identifier, $personalStreak);
+
+        $leaderboard1 = StreakLeaderboard::getTopStreaks(10);
 
         return response()->json($leaderboard1);
     }

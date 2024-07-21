@@ -245,6 +245,22 @@
             @endfor
           </div>
         </div>
+
+        <!-- STREAK LEADERBOARD -->
+        <div class="lb-box">
+          <span class="spacing-20"></span>
+          <p class="lb-text"><b>TOTAL STREAK</b></p>
+          <span class="spacing-10"></span>
+          <div class="ranking-bloc">
+            @for ($i = 0; $i < 10; $i++)
+              <div class="ranking-row @if($i % 2 != 0) rr-dark @endif">
+                  <span class="ranking-number">#{{ $i + 1 }}</span>
+                  <span class="ranking-initial" id="streak-ranking-initial-{{ $i + 1 }}">{{ $leaderboard2streak[$i]->initial ?? 'N/A' }}</span>
+                  <span class="ranking-score" id="streak-ranking-score-{{ $i + 1 }}">{{ $leaderboard2streak[$i]->streak ?? 'N/A' }}</span>
+              </div>
+            @endfor
+          </div>
+        </div>
       </div>
 
       <!-- Subscribing -->
@@ -314,8 +330,13 @@
         var personalInitial = localStorage.getItem('personalInitial') ?? "???"
         var personalUID = localStorage.getItem('personalUID') ?? "???"
         
+        /* Top score */
         var leaderboard1 = @json($leaderboard1);
-        var leaderboard1Fifth = leaderboard1.length > 4 ? leaderboard1[4].total_score : 0;
+        var leaderboard1LastPlace = leaderboard1.length > 9 ? leaderboard1[9].total_score : 0;
+        
+        /* Top score */
+        var leaderboard2streak = @json($leaderboard2streak);
+        var leaderboard2LastPlace = leaderboard2streak.length > 9 ? leaderboard2streak[9].total_score : 0;
 
         var personalGameCount = parseInt(localStorage.getItem('personalGameCount') ?? 0);
         var personalAverage = parseInt(localStorage.getItem('personalAverage') ?? 0);
@@ -357,6 +378,9 @@
 
         // Use a regular expression to find & characters that are not part of an HTML entity
         document.addEventListener('DOMContentLoaded', () => {
+
+            /* Mettre a jour le leaderboard de streak pour verifier si le joueur a deja un  */
+            addStreakToLeaderboard(currentGameId); 
 
             // Check if user has already played, if yes show results without the close button
 
@@ -655,9 +679,10 @@
             }
 
             // LEADERBOARD Feature
-            // Verify if the player made it to the daily score top 5
+
+            // Verify if the player made it to the daily score top 10
             // He made it
-            if(leaderboard1Fifth <= playerFinalScore && playerFinalScore > 0)
+            if(leaderboard1LastPlace <= playerFinalScore && playerFinalScore > 0)
             {
               // Player never submitted his initials, ask him
               if(localStorage.getItem('personalInitial') == null || localStorage.getItem('personalInitial') == "???")
@@ -671,6 +696,13 @@
               {
                 addScoreToLeaderboard(currentGameId, playerFinalScore);
               }
+            }
+
+            /* Si le joueur a deja des initials, enregistrer ses Streaks */
+            if(localStorage.getItem('personalInitial') == null || localStorage.getItem('personalInitial') == "???")
+            {
+              // Ajouter ou mettre a jour e nombre de streak de l'user
+              addStreakToLeaderboard(currentGameId); 
             }
 
             refreshHtmlInLocalStorage();
@@ -909,8 +941,11 @@
             localStorage.setItem('personalUID', uniqueIdentifier);
             localStorage.setItem('personalInitial', playerInitial);
             
-            // Submit score
+            // Submit score to the Top score leaderboard
             addScoreToLeaderboard(currentGameId, playerFinalScore);
+            
+            // Submit score to the Steak leaderboard
+            addStreakToLeaderboard(currentGameId);
 
             closeModalById('initialModal');
             setTimeout(function() {
@@ -923,11 +958,19 @@
           }
         });
 
-        // Function that updates the leaderboard html after the new entry
+        // Function that updates the top score leaderboard html after the new entry
         function updateLeaderboard(leaderboard) {
           for (let i = 0; i < leaderboard.length; i++) {
-              document.getElementById(`ranking-initial-${i+1}`).textContent = leaderboard[i].initial;
-              document.getElementById(`ranking-score-${i+1}`).textContent = leaderboard[i].total_score;
+            document.getElementById(`ranking-initial-${i+1}`).textContent = leaderboard[i].initial;
+            document.getElementById(`ranking-score-${i+1}`).textContent = leaderboard[i].total_score;
+          }
+        }
+
+        // Function that updates the streak score 
+        function updateStreakLeaderboard(leaderboard) {
+          for (let i = 0; i < leaderboard.length; i++) {
+            document.getElementById(`streak-ranking-initial-${i+1}`).textContent = leaderboard[i].initial;
+            document.getElementById(`streak-ranking-score-${i+1}`).textContent = leaderboard[i].streak;
           }
         }
       </script>

@@ -232,31 +232,6 @@ CREATE TABLE leaderboard_category (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
-INSERT INTO leaderboard_category (category_name) VALUES ('None');
-
-ALTER TABLE leaderboard 
-ADD COLUMN id_category INT UNSIGNED,
-ADD COLUMN category_name VARCHAR(250);
-
-UPDATE leaderboard 
-SET id_category = (SELECT id FROM leaderboard_category WHERE category_name = 'None') 
-WHERE id_category IS NULL;
-
-UPDATE leaderboard 
-SET category_name = (SELECT category_name FROM leaderboard_category WHERE category_name = 'None') 
-WHERE category_name IS NULL;
-
---
-ALTER TABLE leaderboard MODIFY COLUMN id_category INT UNSIGNED NOT NULL;
---
-ALTER TABLE leaderboard 
-ADD CONSTRAINT fk_leaderboard_category 
-FOREIGN KEY (id_category) REFERENCES leaderboard_category(id);
-
--- supp 2
-ALTER TABLE leaderboard DROP FOREIGN KEY fk_leaderboard_category;
-ALTER TABLE leaderboard MODIFY COLUMN id_category INT UNSIGNED NULL;
-
 
 -- Sheets 
 CREATE TABLE google_sheets_url (

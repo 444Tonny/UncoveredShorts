@@ -12,7 +12,7 @@
     <meta name="description" content="Uncovered Shorts : The goal of the game is to get the highest score possible. You will be presented with four questions, which will be of two question types 'Unique' and 'Ranked'">
 
 
- <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+  <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <title>Uncovered Shorts - Daily quiz game</title>
 
     <!-- Open Graph meta tags -->
@@ -79,7 +79,7 @@
         <div class="game-block">
           <div class="question-block">
             <span class="numero">Q1 <b class='letter-type'>U</b> </span>
-            <h2 class="question" data='{!! $questions[0]->value !!}'>{!! $questions[0]->value !!}</h2>
+            <h2 class="question" data="{!! $questions[0]->value !!}">{!! $questions[0]->value !!}</h2>
             <div class="answer-block">
               <input id='us-ipt1' onclick="updateCurrentSearchQuestion(event), setActivePlayerInput('us-ipt1'), openModalById('searchModal'), displaySuggestions(suggestions1)"  class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
               <span id='us-pts1' class='points'>-</span>
@@ -88,7 +88,7 @@
 
           <div class="question-block">
             <span class="numero">Q2 <b class='letter-type'>U</b></span>
-            <h2 class="question" data='{!! $questions[1]->value !!}'>{!! $questions[1]->value !!}</h2>
+            <h2 class="question" data="{!! $questions[1]->value !!}">{!! $questions[1]->value !!}</h2>
             <div class="answer-block">
               <input id='us-ipt2' onclick="updateCurrentSearchQuestion(event), setActivePlayerInput('us-ipt2'), openModalById('searchModal'), displaySuggestions(suggestions2)" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
               <span id='us-pts2' class='points'>-</span>
@@ -97,7 +97,7 @@
 
           <div class="question-block">
             <span class="numero">Q3 <b class='letter-type'>R</b></span>
-            <h2 class="question" data='{!! $questions[2]->value !!}'>{!! $questions[2]->value !!}</h2>
+            <h2 class="question" data="{!! $questions[2]->value !!}">{!! $questions[2]->value !!}</h2>
             <div class="answer-block">
               <input id='us-ipt3' onclick="updateCurrentSearchQuestion(event), setActivePlayerInput('us-ipt3'), openModalById('searchModal'), displaySuggestions(suggestions3)" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
               <span id='us-pts3' class='points'>-</span>
@@ -106,7 +106,7 @@
 
           <div class="question-block">
             <span class="numero">Q4 <b class='letter-type'>R</b></span>
-            <h2 class="question" data='{!! $questions[3]->value !!}'>{!! $questions[3]->value !!}</h2>
+            <h2 class="question" data="{!! $questions[3]->value !!}">{!! $questions[3]->value !!}</h2>
             <div class="answer-block">
               <input id='us-ipt4' onclick="updateCurrentSearchQuestion(event), setActivePlayerInput('us-ipt4'), openModalById('searchModal'), displaySuggestions(suggestions4)" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
               <span id='us-pts4' class='points'>-</span>
@@ -181,7 +181,7 @@
           <span>Games played = <b id='personalGameCount'>0</b>/<b id='trackedGameCount'>{{ $trackedGameCount }}</b> </span>
           <span><br><b>YOU'RE STREAKING!</b><br> <b id="personalStreak">0 day</b> played in a row <br></span>
           <div class="go-buttons">
-            <button class="go-share" onclick="openModalById('shareModal'), shareGame()">SHARE</button>
+            <button class="go-share" onclick="openModalById('shareinitialModal'), shareGame()">SHARE</button>
             <button class="go-leaderboard" onclick="openModalById('LeaderboardModal')">LEADERBOARD</button>
           </div>
           <div class="subscribing">
@@ -222,44 +222,69 @@
         </div>
       </div>
 
-
       <!-- LEADERBOARD -->
-      
 
     <div class="modal-background" id="modalBackground">
 
       <div class="modal" id="LeaderboardModal">
         <button class="close-modal" onclick=closeModalById('LeaderboardModal')>×</button>
-        <div class="lb-box">
-          <img class='lb-logo' src="{{ asset('img/logo.png') }}" width='180' alt="uncovered-shorts-logo">
-          <span class="spacing-20"></span>
-          <p class="lb-text"><b>TODAY'S TOP SCORES</b></p>
-          <span class="spacing-10"></span>
-          <div class="ranking-bloc">
-            @for ($i = 0; $i < 10; $i++)
-              <div class="ranking-row @if($i % 2 != 0) rr-dark @endif">
-                  <span class="ranking-number">#{{ $i + 1 }}</span>
-                  <span class="ranking-initial" id="ranking-initial-{{ $i + 1 }}">{{ $leaderboard1[$i]->initial ?? 'N/A' }}</span>
-                  <span class="ranking-score" id="ranking-score-{{ $i + 1 }}">{{ $leaderboard1[$i]->total_score ?? 'N/A' }}</span>
-              </div>
-            @endfor
-          </div>
-        </div>
+        <img class='lb-logo' src="{{ asset('img/logo.png') }}" width='180' alt="uncovered-shorts-logo">
 
-        <!-- STREAK LEADERBOARD -->
-        <div class="lb-box">
-          <span class="spacing-20"></span>
-          <p class="lb-text"><b>TOTAL STREAK</b></p>
-          <span class="spacing-10"></span>
-          <div class="ranking-bloc">
-            @for ($i = 0; $i < 10; $i++)
-              <div class="ranking-row @if($i % 2 != 0) rr-dark @endif">
-                  <span class="ranking-number">#{{ $i + 1 }}</span>
-                  <span class="ranking-initial" id="streak-ranking-initial-{{ $i + 1 }}">{{ $leaderboard2streak[$i]->initial ?? 'N/A' }}</span>
-                  <span class="ranking-score" id="streak-ranking-score-{{ $i + 1 }}">{{ $leaderboard2streak[$i]->streak ?? 'N/A' }}</span>
-              </div>
-            @endfor
+        <div class="list-leaderboard">
+          <div class="lb-box">
+            <span class="spacing-20"></span>
+            <p class="lb-text"><b>TODAY'S TOP SCORES</b></p>
+            <span class="spacing-10"></span>
+            <div class="ranking-bloc">
+              @for ($i = 0; $i < 10; $i++)
+                <div class="ranking-row @if($i % 2 != 0) rr-dark @endif">
+                    <span class="ranking-number">#{{ $i + 1 }}</span>
+                    <span class="ranking-initial" id="ranking-initial-{{ $i + 1 }}">{{ $leaderboard1[$i]->initial ?? 'N/A' }}</span>
+                    <span class="ranking-score" id="ranking-score-{{ $i + 1 }}">{{ $leaderboard1[$i]->total_score ?? 'N/A' }}</span>
+                </div>
+              @endfor
+            </div>
           </div>
+  
+          <!-- PERSONNALIZED LEADERBOARD -->
+          <div class="lb-box">
+            <span class="spacing-20"></span>
+            <form action="">
+              <select name='playerGroup' id='playerGroup' required>
+                <option value="Uncategorized">Uncategorized</option>
+                @foreach ($leaderboardGroups as $group)
+                    <option value="{{ $group->category_name }}">{{ $group->category_name }}</option>
+                @endforeach
+              </select>
+            </form>
+            <span class="spacing-10"></span>
+            <div class="ranking-bloc">
+              @for ($i = 0; $i < 5; $i++)
+                <div class="ranking-row @if($i % 2 != 0) rr-dark @endif">
+                    <span class="ranking-number">#{{ $i + 1 }}</span>
+                    <span class="ranking-initial" id="perso-ranking-initial-{{ $i + 1 }}">???</span>
+                    <span class="ranking-score" id="perso-ranking-score-{{ $i + 1 }}">0</span>
+                </div>
+              @endfor
+            </div>
+          </div>
+  
+          <!-- STREAK LEADERBOARD -->
+          <div class="lb-box">
+            <span class="spacing-20"></span>
+            <p class="lb-text"><b>TOTAL STREAK</b></p>
+            <span class="spacing-10"></span>
+            <div class="ranking-bloc">
+              @for ($i = 0; $i < 10; $i++)
+                <div class="ranking-row @if($i % 2 != 0) rr-dark @endif">
+                    <span class="ranking-number">#{{ $i + 1 }}</span>
+                    <span class="ranking-initial" id="streak-ranking-initial-{{ $i + 1 }}">{{ $leaderboard2streak[$i]->initial ?? 'N/A' }}</span>
+                    <span class="ranking-score" id="streak-ranking-score-{{ $i + 1 }}">{{ $leaderboard2streak[$i]->streak ?? 'N/A' }}</span>
+                </div>
+              @endfor
+            </div>
+          </div>
+
         </div>
       </div>
 
@@ -342,6 +367,13 @@
         var personalAverage = parseInt(localStorage.getItem('personalAverage') ?? 0);
         var personalStreak = parseInt(localStorage.getItem('personalStreak') ?? 0);
 
+        localStorage.setItem('personalLeaderboardGroup', localStorage.getItem('personalLeaderboardGroup') || 'Uncategorized');
+
+        /* Mettre le select par defaut, sa derniere selection */
+        const playerGroupSelect = document.getElementById('playerGroup');
+        // Définit la valeur sélectionnée de l'élément <select>
+        playerGroupSelect.value = localStorage.getItem('personalLeaderboardGroup');
+
         var personalGameCountHtml = document.getElementById('personalGameCount');
         var personalAverageHtml = document.getElementById('personalAverage');
         var lastPlayedGameID = localStorage.getItem('lastPlayedGameID') ?? 0;
@@ -374,10 +406,21 @@
         // The number of already answered questions
         var answerCount = 0;
 
-        // Change special chars
-
         // Use a regular expression to find & characters that are not part of an HTML entity
         document.addEventListener('DOMContentLoaded', () => {
+
+          /* MANAGE LEADERBOARD GROUP SELECTION */
+
+          // affichage initial avec sa categorie actuelle
+          changeScoreGroupLeaderboard(currentGameId, localStorage.getItem('personalLeaderboardGroup'));
+            
+          /* If the player changes the selection leaderboard group */
+          playerGroupSelect.addEventListener('change', function() {
+            const selectedGroup = this.value;
+            localStorage.setItem('personalLeaderboardGroup', selectedGroup);
+
+            changeScoreGroupLeaderboard(currentGameId, localStorage.getItem('personalLeaderboardGroup'));
+          });
 
             /* Mettre a jour le leaderboard de streak pour verifier si le joueur a deja un  */
             addStreakToLeaderboard(currentGameId); 
@@ -515,7 +558,7 @@
 
           // Update the content of the <span> element
           var searchQuestionElement = document.getElementById('current-search-question');
-          searchQuestionElement.innerHTML = '' + questionData;
+          searchQuestionElement.textContent = '' + questionData;
         }
 
         // Save quelles suggestions utilisons nous mtn
@@ -895,7 +938,7 @@
           <p class="im-text">
             <b>Congrats You Made the Leaderboard</b>
           </p>
-          <p class="im-text2">Please, enter your initials</p>
+          <p class="im-text2">Please enter your initials</p>
           <form action="" id='initialForm' class='initialForm'>
             <input maxlength="3" minlength="3" type="text" name='playerInitial' id='playerInitial' value='' required pattern="[A-Za-z0-9]{3}" title="Please enter 3 valid characters">
             <div class='im-buttons'>
@@ -912,7 +955,7 @@
           shareText += getEmoji(score1) + " " + score1 + " | " + getEmoji(score2) + " " + score2 +" | " + getEmoji(score3) + " " + score3 +" | " + getEmoji(score4) + " " + score4 +"\n";
           shareText += "🎲 Play at uncoveredshorts.com";
 
-          // Sélectionner les éléments nécessaires
+          // Sélectionner les éléments nécessaires'
           var shareTextarea = document.querySelector('.share-text');
           var copyBtn = document.querySelector('.copy-btn');
 
@@ -971,6 +1014,22 @@
           for (let i = 0; i < leaderboard.length; i++) {
             document.getElementById(`streak-ranking-initial-${i+1}`).textContent = leaderboard[i].initial;
             document.getElementById(`streak-ranking-score-${i+1}`).textContent = leaderboard[i].streak;
+          }
+        }
+
+        // Function that updates the leaedreboar
+        function updatePersonnalizedLeaderboard(leaderboard) {
+          for (let i = 0; i < leaderboard.length; i++) {
+            document.getElementById(`perso-ranking-initial-${i+1}`).textContent = leaderboard[i].initial;
+            document.getElementById(`perso-ranking-score-${i+1}`).textContent = leaderboard[i].total_score;
+          }
+        }
+
+        // Function that updates the leaedreboar
+        function showBlankPersonnalizedLeaderboard(leaderboard) {
+          for (let i = 0; i < 5; i++) {
+            document.getElementById(`perso-ranking-initial-${i+1}`).textContent = "???";
+            document.getElementById(`perso-ranking-score-${i+1}`).textContent = '0';
           }
         }
       </script>

@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\Admin\SubscriberController;
+use App\Http\Controllers\Admin\LeaderboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,6 +22,9 @@ Route::get('/terms-of-service', [App\Http\Controllers\GameController::class, 'te
 
 /* Add vote unique */
 Route::post('/add-vote', [App\Http\Controllers\GameController::class, 'addVote'])->name('addVote');
+
+/* Add score to the personnalized leaderboard */
+Route::post('/change-score-group', [App\Http\Controllers\GameController::class, 'changeScoreGroupLeaderboard'])->name('changeScoreGroupLeaderboard');
 
 /* Add score to the leaderboard */
 Route::post('/add-score-leaderboard', [App\Http\Controllers\GameController::class, 'addScoreToTheLeaderboard'])->name('addScoreToTheLeaderboard');
@@ -70,6 +74,9 @@ Route::prefix('admin')->group(function () {
         Route::get('subscribers/unsubscribe', [SubscriberController::class, 'unsubscribe'])->name('subscribers.unsubscribe');
         Route::get('subscribers/writeEmail', [SubscriberController::class, 'writeEmail'])->name('subscribers.writeEmail');
         Route::post('subscribers/writeEmail', [SubscriberController::class, 'sendEmail'])->name('subscribers.sendEmail');
+
+        Route::get('leaderboard', [LeaderboardController::class, 'index'])->name('leaderboard.index');
+        Route::get('leaderboard/synchronize', [LeaderboardController::class, 'synchronizeGroups'])->name('leaderboard.synchronize');
 
         Route::get('statistics', '\App\Http\Controllers\Admin\StatsController@index')->name('statistics.index');
     });

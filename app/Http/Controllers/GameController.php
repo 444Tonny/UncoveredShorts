@@ -11,6 +11,7 @@ use App\Models\RankedAnswer;
 use App\Models\UniqueAnswer; 
 use App\Models\Leaderboard; 
 use App\Models\StreakLeaderboard; 
+use App\Models\LeaderboardCategory; 
 use App\Models\Visit; 
 
 class GameController extends Controller
@@ -53,6 +54,8 @@ class GameController extends Controller
         $leaderboard1 = Leaderboard::getTodaysTop($currentGameId, 10);
         $leaderboard2streak = StreakLeaderboard::getTopStreaks(10);
 
+        $leaderboardGroups = LeaderboardCategory::getAllCategoriesAlphabetical();
+
         $uniqueAnswers1 = UniqueAnswer::getAnswersByQuestionId($questions[0]->id);
         $uniqueAnswers2 = UniqueAnswer::getAnswersByQuestionId($questions[1]->id);
         $rankedAnswers3 = RankedAnswer::getAnswersByQuestionId($questions[2]->id);
@@ -84,7 +87,7 @@ class GameController extends Controller
                                     'suggestions1', 'suggestions2', 'suggestions3', 'suggestions4',
                                     'uniqueAnswers1', 'uniqueAnswers2', 'rankedAnswers3', 'rankedAnswers4', 
                                     'statistics', 'gameAlreadyPlayed', 'trackedGameCount', 'previousGame',
-                                    'leaderboard1', 'leaderboard2streak'
+                                    'leaderboard1', 'leaderboard2streak', 'leaderboardGroups'
                                 ));
     }
 
@@ -101,12 +104,26 @@ class GameController extends Controller
         $initial = $request->input('initial');
         $unique_identifier = $request->input('unique_identifier');
         $totalScore = $request->input('totalScore');
+        $selectedGroup = $request->input('selectedGroup');
 
-        $leaderboardEntry = Leaderboard::addScore($gameId, $initial, $unique_identifier, $totalScore);
+        $leaderboardEntry = Leaderboard::addScore($gameId, $initial, $unique_identifier, $totalScore, $selectedGroup);
 
         $leaderboard1 = Leaderboard::getTodaysTop($gameId, 10);
 
         return response()->json($leaderboard1);
+    }
+
+    /* Player selected another group */
+    public function changeScoreGroupLeaderboard(Request $request)
+    {
+        $gameId = $request->input('gameId');
+        $unique_identifier = $request->input('unique_identifier');
+        $selectedGroup = $request->input('selectedGroup');
+
+        Leaderboard::updateCategoryNameByIdentifier($unique_identifier, $selectedGroup);
+        $leaderboardUpdated = Leaderboard::getTopScoresByCategory($gameId, 5, $selectedGroup);
+
+        return response()->json($leaderboardUpdated);
     }
 
     public function addStreakToTheLeaderboard(Request $request)

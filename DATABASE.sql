@@ -233,6 +233,10 @@ CREATE TABLE leaderboard_category (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
+ALTER TABLE leaderboard 
+ADD COLUMN id_category INT UNSIGNED,
+ADD COLUMN category_name VARCHAR(250);
+
 -- Sheets 
 CREATE TABLE google_sheets_url (
     id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -243,3 +247,9 @@ CREATE TABLE google_sheets_url (
 );
 INSERT INTO google_sheets_url (id, sheet_name, sheet_url)
 VALUES (100, 'Group leaderboard', NULL);
+
+-- Error encode
+ALTER TABLE ranked_answers CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE ranked_submitted CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE unique_answers CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+ALTER TABLE unique_submitted CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

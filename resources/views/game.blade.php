@@ -251,14 +251,15 @@
             <span class="spacing-20"></span>
             <form action="">
               <select name='playerGroup' id='playerGroup' required>
-                <option value="Uncategorized">Uncategorized</option>
+                <option value="Group Leaderboard" disabled selected>Group Leaderboard</option>
+                <option value="No Group">No Group</option>
                 @foreach ($leaderboardGroups as $group)
                     <option value="{{ $group->category_name }}">{{ $group->category_name }}</option>
                 @endforeach
               </select>
             </form>
             <span class="spacing-10"></span>
-            <div class="ranking-bloc">
+            <div class="ranking-bloc" id='rb-groupleaderboard'>
               @for ($i = 0; $i < 5; $i++)
                 <div class="ranking-row @if($i % 2 != 0) rr-dark @endif">
                     <span class="ranking-number">#{{ $i + 1 }}</span>
@@ -367,12 +368,21 @@
         var personalAverage = parseInt(localStorage.getItem('personalAverage') ?? 0);
         var personalStreak = parseInt(localStorage.getItem('personalStreak') ?? 0);
 
-        localStorage.setItem('personalLeaderboardGroup', localStorage.getItem('personalLeaderboardGroup') || 'Uncategorized');
+        localStorage.setItem('personalLeaderboardGroup', localStorage.getItem('personalLeaderboardGroup') || 'Group Leaderboard');
 
         /* Mettre le select par defaut, sa derniere selection */
         const playerGroupSelect = document.getElementById('playerGroup');
         // Définit la valeur sélectionnée de l'élément <select>
+        //alert(localStorage.getItem('personalLeaderboardGroup'));
         playerGroupSelect.value = localStorage.getItem('personalLeaderboardGroup');
+
+        /* Cacher le classement par defaut */
+        var rbGroupLeaderboard = document.getElementById('rb-groupleaderboard');
+        if (playerGroupSelect.value === "Group Leaderboard" || this.value === "No Group") 
+        {
+          rbGroupLeaderboard.style.display = 'none';
+        }
+        else rbGroupLeaderboard.style.display = 'flex';
 
         var personalGameCountHtml = document.getElementById('personalGameCount');
         var personalAverageHtml = document.getElementById('personalAverage');
@@ -417,13 +427,26 @@
           /* If the player changes the selection leaderboard group */
           playerGroupSelect.addEventListener('change', function() {
             const selectedGroup = this.value;
-            localStorage.setItem('personalLeaderboardGroup', selectedGroup);
+            localStorage.setItem('personalLeaderboardGroup', selectedGroup);     
 
             changeScoreGroupLeaderboard(currentGameId, localStorage.getItem('personalLeaderboardGroup'));
+
+            if (playerGroupSelect.value === "Group Leaderboard" || this.value === "No Group") 
+            {
+              rbGroupLeaderboard.style.display = 'none';
+            }
+            else rbGroupLeaderboard.style.display = 'flex';
+
           });
 
             /* Mettre a jour le leaderboard de streak pour verifier si le joueur a deja un  */
-            addStreakToLeaderboard(currentGameId); 
+            if(localStorage.getItem('personalInitial') == "???" || localStorage.getItem('personalInitial') == null)
+            {}
+            else
+            {
+              alert(localStorage.getItem('personalInitial'));
+              addStreakToLeaderboard(currentGameId); 
+            }
 
             // Check if user has already played, if yes show results without the close button
 
@@ -725,26 +748,32 @@
 
             // Verify if the player made it to the daily score top 10
             // He made it
-            if(leaderboard1LastPlace <= playerFinalScore && playerFinalScore > 0)
-            {
-              // Player never submitted his initials, ask him
-              if(localStorage.getItem('personalInitial') == null || localStorage.getItem('personalInitial') == "???")
-              {
-                openModalById('initialModal');
-                var initialInput = document.getElementById('playerInitial');
-                initialInput.focus();
-              }
-              // Player already have initials
-              else
-              {
-                addScoreToLeaderboard(currentGameId, playerFinalScore);
-              }
-            }
-
-            /* Si le joueur a deja des initials, enregistrer ses Streaks */
+            // old code ----- if(leaderboard1LastPlace <= playerFinalScore && playerFinalScore > 0)
+            // old code ----- {
+            
+            // Player never submitted his initials, ask him and then add his score
             if(localStorage.getItem('personalInitial') == null || localStorage.getItem('personalInitial') == "???")
             {
+              openModalById('initialModal');
+              var initialInput = document.getElementById('playerInitial');
+              initialInput.focus();
+
+              // function already called - addScoreToLeaderboard(currentGameId, playerFinalScore);
+            }
+            // Player already have initials
+            else
+            {
+              addScoreToLeaderboard(currentGameId, playerFinalScore);
+            }
+            
+
+            /* Si le joueur a deja des initials, enregistrer ses Streaks */
+            if(localStorage.getItem('personalInitial') == "???" || localStorage.getItem('personalInitial') == null)
+            {}
+            else
+            {
               // Ajouter ou mettre a jour e nombre de streak de l'user
+              alert(localStorage.getItem('personalInitial'))
               addStreakToLeaderboard(currentGameId); 
             }
 
@@ -935,10 +964,7 @@
       <div class="modal share-container" id='initialModal'>
         <button class="close-modal" onclick=closeModalById('initialModal')>×</button>
         <div class="share-text-container">
-          <p class="im-text">
-            <b>Congrats You Made the Leaderboard</b>
-          </p>
-          <p class="im-text2">Please enter your initials</p>
+          <p class="im-text2">Enter your initials for the leaderboard</p>
           <form action="" id='initialForm' class='initialForm'>
             <input maxlength="3" minlength="3" type="text" name='playerInitial' id='playerInitial' value='' required pattern="[A-Za-z0-9]{3}" title="Please enter 3 valid characters">
             <div class='im-buttons'>

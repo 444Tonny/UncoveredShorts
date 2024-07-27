@@ -240,7 +240,7 @@ span.single-suggestion button:focus
     width: 60%;
     max-width: 600px;
     min-width: 340px;
-    padding: 40px 20px 30px 20px;
+    padding: 45px 20px 100px 20px;
     color: rgb(220, 220, 220);
     text-align: center;
 }
@@ -594,14 +594,21 @@ input[name="playerInitial"]
     border-radius: 5px;
     height: 48px;
     width: 280px;
-    font-size: 18px;
     padding-left: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    text-align: center;
+    font-size: 16px;
+    font-family: "switzer", serif;
+    color: rgb(220, 220, 220);
 }
 
 #playerGroup option {
     background-color: #161616;
-    font-size: 18px;
-    color: white;
+    font-size: 16px !important;
+    color: rgb(220, 220, 220) !important;
+    text-transform: capitalize !important;
+    font-family: "switzer", serif !important;
 }
 
 #playerGroup:focus {

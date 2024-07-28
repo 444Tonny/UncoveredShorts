@@ -224,7 +224,7 @@ span.single-suggestion button:focus {
     width: 60%;
     max-width: 600px;
     min-width: 340px;
-    padding: 45px 20px 100px 20px;
+    padding: 70px 20px 100px 20px;
     color: rgb(220, 220, 220);
     text-align: center;
 }
@@ -369,6 +369,7 @@ button.go-leaderboard {
 /* Leaderboard */
 
 #LeaderboardModal {
+    position: fixed;
     top: 0;
     left: 0;
     z-index: 7;
@@ -385,11 +386,9 @@ button.go-leaderboard {
     overflow-y: scroll;
     height: 100vh;
     padding-left: 9px;
-    padding-top: 9px;
+    padding-right: 9px;
     padding-top: 50px;
-    padding-bottom: 50px;
-    margin-top: 25px;
-    margin-bottom: 25px;
+    padding-bottom: 80px;
 }
 
 .list-leaderboard {
@@ -535,17 +534,19 @@ div.info-group
 	background-color: #FFFFFF;
 	padding: 12px 15px;
     width: fit-content;
+    max-width: 280px;
 	height: auto;
 	position: absolute;
 	left: 50%;
 	transform: translate(-50%, 5%);
 	border-radius: 3px;
-/* 	border: 1px solid #E0E0E0; */
 	box-shadow: 0 0px 20px 0 rgba(0,0,0,0.1);
 	color: #37393D;
 	font-size: 12px;
 	line-height: 18px;
 	z-index: 99;
+    -webkit-animation: fadeIn 0.1s ease;
+    animation: fadeIn 0.1s ease;
 }
 
 .help-tip p a {
@@ -583,12 +584,12 @@ div.info-group
 /* CSS animation */
 @-webkit-keyframes fadeIn {
     0% { opacity:0; }
-    100% { opacity:100%; }
+    100% { opacity: 1; }
 }
 
 @keyframes fadeIn {
     0% { opacity:0; }
-    100% { opacity:100%; }
+    100% { opacity: 1; }
 }
 
 /* Enter your initial modal */

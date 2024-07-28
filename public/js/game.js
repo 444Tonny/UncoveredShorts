@@ -1,10 +1,10 @@
-//var baseUrl = 'http://localhost:8080/UncoveredShorts/public'; 
-var baseUrl = 'https://phplaravel-1258294-4520213.cloudwaysapps.com';
+var baseUrl = 'http://localhost:8080/UncoveredShorts/public'; 
+//var baseUrl = 'https://phplaravel-1258294-4520213.cloudwaysapps.com';
 
 var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
 function openModalById(modalId, showBackground = true) {
-    if (modalId !== "gameOverModal") {
+    if (modalId !== "gameOverModal" && modalId !== "LeaderboardModal") {
         document.getElementById("modalBackground").style.display = "flex";
     }
 

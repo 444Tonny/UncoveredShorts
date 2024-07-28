@@ -29,7 +29,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/layout.css') }}?t=<?php now() ?>">
     <link rel="stylesheet" href="{{ asset('css/game.css') }}?t=1.02">
-    <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1.1">
+    <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1.137">
 
     <!-- Fonts -->
     <link href="https://fonts.cdnfonts.com/css/switzer" rel="stylesheet">
@@ -223,9 +223,6 @@
       </div>
 
       <!-- LEADERBOARD -->
-
-    <div class="modal-background" id="modalBackground">
-
       <div class="modal" id="LeaderboardModal">
         <button class="close-modal" onclick=closeModalById('LeaderboardModal')>×</button>
         <img class='lb-logo' src="{{ asset('img/logo.png') }}" width='180' alt="uncovered-shorts-logo">
@@ -294,6 +291,8 @@
 
         </div>
       </div>
+
+    <div class="modal-background" id="modalBackground">
 
       <!-- Subscribing -->
       <script>

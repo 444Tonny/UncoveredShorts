@@ -28,8 +28,8 @@
     
 
     <link rel="stylesheet" href="{{ asset('css/layout.css') }}?t=<?php now() ?>">
-    <link rel="stylesheet" href="{{ asset('css/game.css') }}?t=1.01">
-    <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=<?php now() ?>">
+    <link rel="stylesheet" href="{{ asset('css/game.css') }}?t=1.02">
+    <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1.1">
 
     <!-- Fonts -->
     <link href="https://fonts.cdnfonts.com/css/switzer" rel="stylesheet">
@@ -249,7 +249,7 @@
           <!-- PERSONNALIZED LEADERBOARD -->
           <div class="lb-box">
             <span class="spacing-20"></span>
-            <form action="">
+            <form action="" class="form-group-selection">
               <select name='playerGroup' id='playerGroup' required>
                 <option value="Group Leaderboard" disabled selected>Group Leaderboard</option>
                 <option value="No Group">No Group</option>
@@ -257,6 +257,10 @@
                     <option value="{{ $group->category_name }}">{{ $group->category_name }}</option>
                 @endforeach
               </select>
+              <div class="info-group">
+                <span class="info-icon" tabindex="0">i</span>
+                <div class="info-message">If you want a specific group leaderboard added, please contact tucker@uncoveredshorts.com</div>
+              </div>
             </form>
             <span class="spacing-10"></span>
             <div class="ranking-bloc" id='rb-groupleaderboard'>
@@ -267,6 +271,7 @@
                     <span class="ranking-score" id="perso-ranking-score-{{ $i + 1 }}">0</span>
                 </div>
               @endfor
+            <!-- icon info leaderboard -->
             </div>
           </div>
   
@@ -444,7 +449,7 @@
             {}
             else
             {
-              alert(localStorage.getItem('personalInitial'));
+              //alert(localStorage.getItem('personalInitial'));
               addStreakToLeaderboard(currentGameId); 
             }
 
@@ -773,7 +778,7 @@
             else
             {
               // Ajouter ou mettre a jour e nombre de streak de l'user
-              alert(localStorage.getItem('personalInitial'))
+              //alert(localStorage.getItem('personalInitial'))
               addStreakToLeaderboard(currentGameId); 
             }
 

@@ -257,10 +257,11 @@
                     <option value="{{ $group->category_name }}">{{ $group->category_name }}</option>
                 @endforeach
               </select>
-              <div class="info-group">
-                <span class="info-icon" tabindex="0">i</span>
-                <div class="info-message">If you want a specific group leaderboard added, please contact tucker@uncoveredshorts.com</div>
-              </div>
+              <div class="help-tip">
+                <p>If you want a specific group leaderboard added, please contact
+                  <a href="mailto:tucker@uncoveredshorts.com">tucker@uncoveredshorts.com</a>
+                </p>
+            </div>
             </form>
             <span class="spacing-10"></span>
             <div class="ranking-bloc" id='rb-groupleaderboard'>

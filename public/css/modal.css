@@ -496,63 +496,99 @@ div.info-group
     align-items: center;
 }
 
-.info-icon {
-    display: inline-block;
-    width: 26px;
-    height: 26px;
-    line-height: 20px;
+/* The icon */
+.help-tip{
+	margin: auto;
     text-align: center;
+    border: 2px solid #dcdcdc;
     border-radius: 50%;
-    cursor: pointer;
-    border: 2px solid white;
+    width: 23px;
+    height: 23px;
+    font-size: 14.5px;
+    line-height: 20px;
+    cursor: default;
     margin-left: 10px;
-    vertical-align: middle;
-    padding-top: 1px;
-    box-sizing: border-box;
-    font-size: 15px;
-    font-weight: 700;
+    font-family: "switzer", serif;  
+}
+
+.help-tip:before{
+    content:'i';
     font-family: "switzer", serif;
+    font-weight: 600;
+    color:#dcdcdc;
 }
 
-.info-message {
-    display: none;
-    position: absolute;
-    top: 80%;
-    left: 50%;
-    transform: translateX(-50%);
-    background-color: #fff;
-    color: #000;
-    padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    width: 200px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    height: fit-content;
+.help-tip:hover p{
+    display:block;
+    transform-origin: 100% 0%;
+    -webkit-animation: fadeIn 0.3s ease;
+    animation: fadeIn 0.3s ease;
+}
+
+/* The tooltip */
+.help-tip p {    
+	display: none;
     font-family: "switzer", serif;
-    font-size: 14px;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	text-align: center;
+	background-color: #FFFFFF;
+	padding: 12px 15px;
+    width: fit-content;
+	height: auto;
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, 5%);
+	border-radius: 3px;
+/* 	border: 1px solid #E0E0E0; */
+	box-shadow: 0 0px 20px 0 rgba(0,0,0,0.1);
+	color: #37393D;
+	font-size: 12px;
+	line-height: 18px;
+	z-index: 99;
 }
 
-.info-icon:hover+.info-message,
-.info-icon:focus+.info-message {
-    display: block;
+.help-tip p a {
+	color: #067df7;
+	text-decoration: none;
 }
 
-/* Styles spécifiques pour mobile */
-@media (max-width: 600px) {
-    
-    .info-message {
-        top: 100% !important;
-    }
+.help-tip p a:hover {
+	text-decoration: underline;
+}
 
-    .info-icon:hover+.info-message,
-    .info-icon:focus+.info-message {
-        display: none;
-    }
+/* The pointer of the tooltip */
+.help-tip p:before { 
+	position: absolute;
+	content: '';
+	width: 0;
+	height: 0;
+	border: 10px solid transparent;
+	border-bottom-color:#FFFFFF;
+	top: -9px;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
 
-    .info-icon:active+.info-message {
-        display: block;
-    }
+ /* Prevents the tooltip from being hidden */
+.help-tip p:after {
+	width: 10px;
+	height: 40px;
+	content:'';
+	position: absolute;
+	top: -40px;
+	left: 0;
+}
+
+/* CSS animation */
+@-webkit-keyframes fadeIn {
+    0% { opacity:0; }
+    100% { opacity:100%; }
+}
+
+@keyframes fadeIn {
+    0% { opacity:0; }
+    100% { opacity:100%; }
 }
 
 /* Enter your initial modal */

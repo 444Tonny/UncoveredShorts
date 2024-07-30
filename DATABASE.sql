@@ -249,6 +249,8 @@ INSERT INTO google_sheets_url (id, sheet_name, sheet_url)
 VALUES (100, 'Group leaderboard', NULL);
 
 -- Error encode
+ALTER DATABASE your_database_name CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
+
 ALTER TABLE ranked_answers CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE ranked_submitted CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE unique_answers CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

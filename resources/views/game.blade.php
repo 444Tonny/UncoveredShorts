@@ -455,7 +455,8 @@
 
             // Check if user has already played, if yes show results without the close button
 
-            // if visitor already played and finished/submitted his game
+            // if visitor already played and finished/submitted his game 
+            // Dans cookie se trouve l'id du game_played
             if(getCookie('Game_'+currentGameId) !== null)
             {
               // Dans cookie se trouve l'id du game_played
@@ -608,7 +609,7 @@
         var suggestionsContainer = document.getElementById('suggestions');
         var suggestions = suggestionsContainer.getElementsByClassName('single-suggestion');
         
-        /* Search */
+        /* Fonction de recherche et filtre */
         function filterSuggestions(searchTerm) {
 
           suggestionsContainer.innerHTML = '';

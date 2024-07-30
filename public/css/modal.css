@@ -380,7 +380,6 @@ button.go-leaderboard {
     align-self: center;
     background-color: #161616;
     width: 100%;
-    max-width: 600px;
     min-width: 350px;
     font-family: "switzer", serif;
     overflow-y: scroll;

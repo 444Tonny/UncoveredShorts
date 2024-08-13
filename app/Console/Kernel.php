@@ -14,6 +14,7 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')->hourly();
         $schedule->command('emails:send-scheduled')->everyMinute();
+        $schedule->command('streak:reset')->dailyAt('05:01');
     }
 
     /**

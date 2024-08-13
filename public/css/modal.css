@@ -200,7 +200,7 @@ span.single-suggestion button:focus {
     z-index: 5;
     display: none;
     flex-direction: column;
-    justify-content: center;
+    justify-content: start;
     align-content: center;
     align-items: center;
     background-color: #161616;

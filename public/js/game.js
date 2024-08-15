@@ -1,4 +1,4 @@
-// var baseUrl = 'http://localhost:8080/UncoveredShorts/public'; 
+//var baseUrl = 'http://localhost:8080/UncoveredShorts/public'; 
 var baseUrl = 'https://phplaravel-1258294-4520213.cloudwaysapps.com';
 
 var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');

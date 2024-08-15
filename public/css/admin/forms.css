@@ -54,6 +54,11 @@ button:hover {
     flex-wrap: wrap;
 }
 
+.myadmin-block textarea
+{
+    padding: 10px;
+}
+
 /* Credentials */
 
 form#credentials {

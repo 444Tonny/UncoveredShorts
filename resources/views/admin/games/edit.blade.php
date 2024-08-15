@@ -60,7 +60,7 @@
                             <input type="hidden" name="questions[{{ $k }}][id]" value="{{ $question->id }}">
 
                             <label for="question_{{ $question->id }}">Question {{ $question->number }}</label>
-                            <input type="text" placeholder='Type the question...' name="questions[{{ $k }}][value]" value="{{ $question->value }}" id="question_{{ $k }}">
+                            <textarea placeholder='Type the question...' name="questions[{{ $k }}][value]" id="question_{{ $k }}">{{ $question->value }}</textarea>
 
                             <label for="type_{{ $k }}">Type</label>
                             <select name="questions[{{ $k }}][type]" id="type_{{ $k }}">

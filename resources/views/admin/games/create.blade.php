@@ -35,7 +35,7 @@
                     <div class="mywrapped-block">
                         <div class="myadmin-block">
                             <label for="date_end">Game name:</label>
-                            <input type="text" name="name" id="name" value="{{ old('name') ?: 'Game#' . $nextId }}" required>
+                            <input type="text" name="name" id="name" value="{{ old('name') ?: 'Uncovered Shorts #' . $nextId }}" required>
                         </div>  
     
                         <div class="myadmin-block">
@@ -54,7 +54,7 @@
                             <input type="hidden" name="questions[{{ $i }}][number]" value="{{ $i }}">
 
                             <label for="question_{{ $i }}">Question {{ $i }}</label>
-                            <input type="text" placeholder='Type the question...' name="questions[{{ $i }}][value]" value="{{ old('questions.'.$i.'.value') }}" id="question_{{ $i }}">
+                            <textarea placeholder='Type the question...' name="questions[{{ $i }}][value]" id="question_{{ $i }}">{{ old('questions.'.$i.'.value') }}</textarea>
 
                             <label for="type_{{ $i }}">Type</label>
                             <select name="questions[{{ $i }}][type]" id="type_{{ $i }}">

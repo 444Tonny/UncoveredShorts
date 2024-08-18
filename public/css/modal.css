@@ -389,12 +389,12 @@ button.go-leaderboard {
     align-items: center;
     align-self: center;
     background-color: #161616;
-    width: 85%;
+    width: 88%;
     max-width: 450px;
     min-width: 320px;
     font-family: "switzer", serif;
     overflow-y: scroll;
-    height: 95vh;
+    height: 90vh;
     padding-left: 9px;
     padding-right: 9px;
     padding-top: 50px;

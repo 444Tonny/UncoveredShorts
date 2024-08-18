@@ -27,7 +27,7 @@
     <meta name="twitter:description" content="Uncovered Shorts : The goal of the game is to get the highest score possible. You will be presented with four questions, which will be of two question types 'Unique' and 'Ranked' ">
     
 
-    <link rel="stylesheet" href="{{ asset('css/layout.css') }}?t=<?php now() ?>">
+    <link rel="stylesheet" href="{{ asset('css/layout.css') }}?t=1.09">
     <link rel="stylesheet" href="{{ asset('css/game.css') }}?t=1.03">
     <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1.139">
 
@@ -178,7 +178,7 @@
         <button class="close-modal" onclick=closeModalById('gameOverModal')>×</button>
         <div class="go-box">
           <img src="{{ asset('img/logo.png') }}" width='180' alt="uncovered-shorts-logo" class="gameOverLogo">
-          <p class="go-text"><b id='congrats-text'>Your score today:</b></p>
+          <p class="go-text"><b id="congrats-text">Your score {{ $is_valid_for_streak == 1 ? 'today:' : '' }}</b></p>
           <div class='go-finalscore'><span id="go-points">0</span><b id="go-percentile">(0%)</b></div>
           <div class="two-column">
             <span>Today's <br> Average <br> Score <br><b id='AverageScoreResults'>{{ $statistics['AverageScore'] == intval($statistics['AverageScore']) ? intval($statistics['AverageScore']) : number_format($statistics['AverageScore'], 1) }}</b></span>

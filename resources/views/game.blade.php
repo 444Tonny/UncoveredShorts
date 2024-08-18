@@ -27,9 +27,9 @@
     <meta name="twitter:description" content="Uncovered Shorts : The goal of the game is to get the highest score possible. You will be presented with four questions, which will be of two question types 'Unique' and 'Ranked' ">
     
 
-    <link rel="stylesheet" href="{{ asset('css/layout.css') }}?t=1.09">
-    <link rel="stylesheet" href="{{ asset('css/game.css') }}?t=1.03">
-    <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1.139">
+    <link rel="stylesheet" href="{{ asset('css/layout.css') }}?t=1.11">
+    <link rel="stylesheet" href="{{ asset('css/game.css') }}?t=1.04">
+    <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1.14">
 
     <!-- Fonts -->
     <link href="https://fonts.cdnfonts.com/css/switzer" rel="stylesheet">

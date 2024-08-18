@@ -394,7 +394,7 @@ button.go-leaderboard {
     min-width: 320px;
     font-family: "switzer", serif;
     overflow-y: scroll;
-    height: 90vh;
+    height: 88vh;
     padding-left: 9px;
     padding-right: 9px;
     padding-top: 50px;
@@ -425,7 +425,7 @@ P.archive-text
     border-bottom: 1px solid white !important;
     background-color: whitesmoke;
     color: #161616;
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .table-archive tbody tr
@@ -436,7 +436,7 @@ P.archive-text
 
 .table-archive td
 {
-    font-size: 13px;
+    font-size: 14px;
 }
 
 .table-archive a

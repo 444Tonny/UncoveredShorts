@@ -32,21 +32,15 @@ class ResetStreakCommand extends Command
         // Set the cutoff time to 00:01 of the current day in the 'America/New_York' timezone
         $cutoffTime = Carbon::now('America/New_York')->startOfDay()->addMinutes(1)->subDay();
 
-        // Get the count of entries where updated_at is not within the last 24 hours
-        $entriesToReset = StreakLeaderboard::where('updated_at', '<', $cutoffTime);
+        // Find all entries where updated_at is not within the last 24 hours and set streak to 0
+        StreakLeaderboard::where('updated_at', '<', $cutoffTime)
+            ->update(['streak' => 0]);
 
-        // Count the entries that will be reset
-        $count = $entriesToReset->count();
-
-        // Reset the streak to 0 for the counted entries
-        $entriesToReset->update(['streak' => 0]);
-
-        // Format the cutoff time for the message
         $formattedCutoffTime = $cutoffTime->format('Y-m-d H:i:s');
 
-        // Display the message with the cutoff time and the number of entries reset
-        $this->info("Streaks reset successfully for {$count} entries not updated before {$formattedCutoffTime} (EST).");
-
+        // Display the message with the cutoff time
+        $this->info("Streaks reset successfully for entries not updated before {$formattedCutoffTime} (EST).");
+    
         return 0;
     }
 }

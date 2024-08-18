@@ -152,7 +152,7 @@ function getGameAlreadyPlayedInformations(gamePlayed_id, game_id) {
 }
 
 // Store the game when it's finished
-function storeGameSession(game_id, score1, score2, score3, score4, totalScore) {
+function storeGameSession(game_id, score1, score2, score3, score4, totalScore, is_valid_for_streak) {
     let url = baseUrl + '/store-game-session';
 
     return new Promise((resolve, reject) => {
@@ -193,7 +193,8 @@ function storeGameSession(game_id, score1, score2, score3, score4, totalScore) {
             score2: score2,
             score3: score3,
             score4: score4,
-            totalScore: totalScore
+            totalScore: totalScore,
+            is_valid_for_streak: is_valid_for_streak
         }));
     });
 }

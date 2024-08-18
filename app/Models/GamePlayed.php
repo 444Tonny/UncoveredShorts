@@ -24,7 +24,8 @@ class GamePlayed extends Model
         'score_4',
         'total_score',
         'ip_address',
-        'country'
+        'country',
+        'is_valid_for_streak'
     ];
 
     public $timestamps = true;
@@ -88,7 +89,7 @@ class GamePlayed extends Model
         return $formattedData;
     }
     
-    public static function storeGameSession($game_id, $score1, $score2, $score3, $score4, $totalScore)
+    public static function storeGameSession($game_id, $score1, $score2, $score3, $score4, $totalScore, $is_valid_for_streak)
     {
         $ip_address = Request::ip();
         $countryName = Visit::getCountryFromIP($ip_address);
@@ -101,7 +102,8 @@ class GamePlayed extends Model
             'score_4' => $score4,
             'total_score' => $totalScore,
             'ip_address' => $ip_address,
-            'country' => $countryName
+            'country' => $countryName,
+            'is_valid_for_streak' => $is_valid_for_streak
         ]);
 
         $gamePlayed->save();

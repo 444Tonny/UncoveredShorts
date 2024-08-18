@@ -39,6 +39,7 @@
                 <table>
                     <thead>
                         <tr>
+                            <th class='center'>Archive</th>
                             <th>#</th>
                             <th>Status</th>
                             <th>Date</th>
@@ -49,6 +50,14 @@
                     <tbody>
                         @foreach ($games as $game)
                             <tr>
+                                <form action="{{ route('games.update_archiveable', $game->id) }}" method="POST">
+                                    @csrf
+                                    @method('PATCH')
+                                    <td class="center">
+                                        <input type="checkbox" name="is_archiveable" id="archive-checkbox-{{ $game->id }}"
+                                                onchange="this.form.submit()" {{ $game->is_archiveable ? 'checked' : '' }}>
+                                    </td>
+                                </form>
                                 <td>{{ $game->name ?: 'Game#'.$game->id }}</td>
                                 <td>
                                     <span class='game-status {{ $game->status }}'> {{ $game->status }} </span>

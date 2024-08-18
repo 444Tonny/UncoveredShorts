@@ -34,11 +34,29 @@ class GameController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function index(Request $request)
+    public function index(Request $request, $game_id = null)
     {
+        // Variable pour differencier si c'est le jeu actuel ou un jeu dans archive :
+        $is_valid_for_streak = 1;
+
         //Visit::getCountryFromIP('70.26.212.228');
-        $currentGame = Game::getCurrentGame();
+        if ($game_id) {
+            // Si un game_id est passé, l'utiliser comme currentGame
+            $currentGame = Game::find($game_id);
+            $is_valid_for_streak = 0; 
+        } else {
+            // Sinon, récupérer le jeu actuel
+            $currentGame = Game::getCurrentGame();
+            $is_valid_for_streak = 1; 
+        }
+
         $currentGameId = $currentGame->id;
+
+        // Recuperer la liste des autres jeux a afficher dans archive
+        $archiveGames = Game::where('id', '!=', $currentGameId)
+                        ->where('is_archiveable', 1)
+                        ->orderBy('date_start', 'DESC')
+                        ->get();
 
         // New statistics
         $trackedGameCount = Game::getTrackedGamesCount();
@@ -83,7 +101,8 @@ class GameController extends Controller
             $gameAlreadyPlayed = null;
         }
 
-        return view('game', compact('currentGame', 'questions', 
+        return view('game', compact('currentGame', 'questions',
+                                    'archiveGames', 'is_valid_for_streak',
                                     'suggestions1', 'suggestions2', 'suggestions3', 'suggestions4',
                                     'uniqueAnswers1', 'uniqueAnswers2', 'rankedAnswers3', 'rankedAnswers4', 
                                     'statistics', 'gameAlreadyPlayed', 'trackedGameCount', 'previousGame',
@@ -180,8 +199,9 @@ class GameController extends Controller
         $score3 = $request->input('score3');
         $score4 = $request->input('score4');
         $totalScore = $request->input('totalScore');
+        $is_valid_for_streak = $request->input('is_valid_for_streak');
 
-        $idGamePlayed = GamePlayed::storeGameSession($game_id, $score1, $score2, $score3, $score4, $totalScore);
+        $idGamePlayed = GamePlayed::storeGameSession($game_id, $score1, $score2, $score3, $score4, $totalScore, $is_valid_for_streak);
 
         return response()->json(['success - new game stored' => true, 'idGamePlayed' => $idGamePlayed]);
     }   

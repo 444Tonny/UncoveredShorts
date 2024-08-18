@@ -255,3 +255,15 @@ ALTER TABLE ranked_answers CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unic
 ALTER TABLE ranked_submitted CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE unique_answers CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 ALTER TABLE unique_submitted CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+
+-- Archive 18-08-2024
+ALTER TABLE games
+ADD COLUMN is_archiveable BOOLEAN DEFAULT 0;
+
+
+ALTER TABLE games_played
+ADD COLUMN is_valid_for_streak BOOLEAN DEFAULT 1;
+
+
+

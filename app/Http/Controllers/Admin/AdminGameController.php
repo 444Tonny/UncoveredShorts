@@ -24,6 +24,16 @@ class AdminGameController extends Controller
         return view('admin.games.index', compact('games'));
     }
 
+    public function updateArchiveable(Request $request, Game $game)
+    {
+        // Mettre à jour la colonne is_archiveable en fonction de la valeur de la case à cocher
+        $game->is_archiveable = $request->has('is_archiveable') ? 1 : 0;
+        $game->save();
+
+        // Rediriger ou retourner une réponse
+        return back()->with('success', 'The archive status has been updated.');
+    }
+
     public function create()
     {
         $nextId = Game::max('id') + 1;

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FeedbackController;
 use App\Http\Controllers\Admin\SubscriberController;
 use App\Http\Controllers\Admin\LeaderboardController;
+use App\Http\Controllers\Admin\AdminGameController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +18,8 @@ use App\Http\Controllers\Admin\LeaderboardController;
 */
 
 /* Public */
-Route::get('/', [App\Http\Controllers\GameController::class, 'index'])->name('index');
+Route::get('/', [App\Http\Controllers\GameController::class, 'index'])->name('index0');
+Route::get('/play/{game_id?}', [App\Http\Controllers\GameController::class, 'index'])->name('index');
 Route::get('/terms-of-service', [App\Http\Controllers\GameController::class, 'termsOfService'])->name('terms-of-service');
 
 /* Add vote unique */
@@ -51,8 +53,10 @@ Route::prefix('admin')->group(function () {
     Route::middleware('auth')->group(function () {
         Route::get('/', [App\Http\Controllers\Admin\AdminGameController::class, 'index'])->name('home');
     
-        Route::resource('games', \App\Http\Controllers\Admin\AdminGameController::class);
-        Route::get('games/{id}/statistics', '\App\Http\Controllers\Admin\AdminGameController@showStatistics')->name('game.showStatistics');
+        Route::resource('games', AdminGameController::class);
+        Route::get('games/{id}/statistics', [AdminGameController::class, 'showStatistics'])->name('game.showStatistics');
+        Route::patch('/games/{game}/update-archiveable', [AdminGameController::class, 'updateArchiveable'])->name('games.update_archiveable');
+
 
         Route::resource('questions', \App\Http\Controllers\Admin\QuestionController::class);
         Route::resource('questions', \App\Http\Controllers\Admin\QuestionController::class);

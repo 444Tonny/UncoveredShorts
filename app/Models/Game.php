@@ -19,6 +19,7 @@ class Game extends Model
         'status',
         'date_start',
         'date_end',
+        'is_archiveable '
     ];
 
     public $timestamps = true;

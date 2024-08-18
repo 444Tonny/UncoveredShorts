@@ -28,8 +28,8 @@
     
 
     <link rel="stylesheet" href="{{ asset('css/layout.css') }}?t=<?php now() ?>">
-    <link rel="stylesheet" href="{{ asset('css/game.css') }}?t=1.02">
-    <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1.137">
+    <link rel="stylesheet" href="{{ asset('css/game.css') }}?t=1.03">
+    <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1.139">
 
     <!-- Fonts -->
     <link href="https://fonts.cdnfonts.com/css/switzer" rel="stylesheet">
@@ -65,11 +65,18 @@
         <button class="hl-icon" onclick=openModalById('LeaderboardModal')>
           <svg fill="#FFFFFF" width="25" height="25" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" style="enable-background:new 0 0 1024 1024" xml:space="preserve"><path d="M918.4 201.6c-6.4-6.4-12.8-9.6-22.4-9.6H768V96c0-9.6-3.2-16-9.6-22.4C752 67.2 745.6 64 736 64H288c-9.6 0-16 3.2-22.4 9.6C259.2 80 256 86.4 256 96v96H128c-9.6 0-16 3.2-22.4 9.6-6.4 6.4-9.6 16-9.6 22.4 3.2 108.8 25.6 185.6 64 224 34.4 34.4 77.56 55.65 127.65 61.99 10.91 20.44 24.78 39.25 41.95 56.41 40.86 40.86 91 65.47 150.4 71.9V768h-96c-9.6 0-16 3.2-22.4 9.6-6.4 6.4-9.6 12.8-9.6 22.4s3.2 16 9.6 22.4c6.4 6.4 12.8 9.6 22.4 9.6h256c9.6 0 16-3.2 22.4-9.6 6.4-6.4 9.6-12.8 9.6-22.4s-3.2-16-9.6-22.4c-6.4-6.4-12.8-9.6-22.4-9.6h-96V637.26c59.4-7.71 109.54-30.01 150.4-70.86 17.2-17.2 31.51-36.06 42.81-56.55 48.93-6.51 90.02-27.7 126.79-61.85 38.4-38.4 60.8-112 64-224 0-6.4-3.2-16-9.6-22.4zM256 438.4c-19.2-6.4-35.2-19.2-51.2-35.2-22.4-22.4-35.2-70.4-41.6-147.2H256v182.4zm390.4 80C608 553.6 566.4 576 512 576s-99.2-19.2-134.4-57.6C342.4 480 320 438.4 320 384V128h384v256c0 54.4-19.2 99.2-57.6 134.4zm172.8-115.2c-16 16-32 25.6-51.2 35.2V256h92.8c-6.4 76.8-19.2 124.8-41.6 147.2zM768 896H256c-9.6 0-16 3.2-22.4 9.6-6.4 6.4-9.6 12.8-9.6 22.4s3.2 16 9.6 22.4c6.4 6.4 12.8 9.6 22.4 9.6h512c9.6 0 16-3.2 22.4-9.6 6.4-6.4 9.6-12.8 9.6-22.4s-3.2-16-9.6-22.4c-6.4-6.4-12.8-9.6-22.4-9.6z"/></svg>
         </button>
-        
-        <button class='hl-icon' onclick=openModalById('feedbackModal')> 
-          <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24" width="22" height="22"><path d="m13.5,10.5c0,.828-.672,1.5-1.5,1.5s-1.5-.672-1.5-1.5.672-1.5,1.5-1.5,1.5.672,1.5,1.5Zm3.5-1.5c-.828,0-1.5.672-1.5,1.5s.672,1.5,1.5,1.5,1.5-.672,1.5-1.5-.672-1.5-1.5-1.5Zm-10,0c-.828,0-1.5.672-1.5,1.5s.672,1.5,1.5,1.5,1.5-.672,1.5-1.5-.672-1.5-1.5-1.5Zm17-5v12c0,2.206-1.794,4-4,4h-2.852l-3.848,3.18c-.361.322-.824.484-1.292.484-.476,0-.955-.168-1.337-.507l-3.749-3.157h-2.923c-2.206,0-4-1.794-4-4V4C0,1.794,1.794,0,4,0h16c2.206,0,4,1.794,4,4Zm-2,0c0-1.103-.897-2-2-2H4c-1.103,0-2,.897-2,2v12c0,1.103.897,2,2,2h3.288c.235,0,.464.083.645.235l4.048,3.41,4.171-3.416c.179-.148.404-.229.637-.229h3.212c1.103,0,2-.897,2-2V4Z"/></svg>
-        </button>
 
+        <button class="hl-icon" onclick=openModalById('archiveModal')>
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17 14C17.5523 14 18 13.5523 18 13C18 12.4477 17.5523 12 17 12C16.4477 12 16 12.4477 16 13C16 13.5523 16.4477 14 17 14Z" fill="#FFFFFF"/>
+            <path d="M17 18C17.5523 18 18 17.5523 18 17C18 16.4477 17.5523 16 17 16C16.4477 16 16 16.4477 16 17C16 17.5523 16.4477 18 17 18Z" fill="#FFFFFF"/>
+            <path d="M13 13C13 13.5523 12.5523 14 12 14C11.4477 14 11 13.5523 11 13C11 12.4477 11.4477 12 12 12C12.5523 12 13 12.4477 13 13Z" fill="#FFFFFF"/>
+            <path d="M13 17C13 17.5523 12.5523 18 12 18C11.4477 18 11 17.5523 11 17C11 16.4477 11.4477 16 12 16C12.5523 16 13 16.4477 13 17Z" fill="#FFFFFF"/>
+            <path d="M7 14C7.55229 14 8 13.5523 8 13C8 12.4477 7.55229 12 7 12C6.44772 12 6 12.4477 6 13C6 13.5523 6.44772 14 7 14Z" fill="#FFFFFF"/>
+            <path d="M7 18C7.55229 18 8 17.5523 8 17C8 16.4477 7.55229 16 7 16C6.44772 16 6 16.4477 6 17C6 17.5523 6.44772 18 7 18Z" fill="#FFFFFF"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M7 1.75C7.41421 1.75 7.75 2.08579 7.75 2.5V3.26272C8.412 3.24999 9.14133 3.24999 9.94346 3.25H14.0564C14.8586 3.24999 15.588 3.24999 16.25 3.26272V2.5C16.25 2.08579 16.5858 1.75 17 1.75C17.4142 1.75 17.75 2.08579 17.75 2.5V3.32709C18.0099 3.34691 18.2561 3.37182 18.489 3.40313C19.6614 3.56076 20.6104 3.89288 21.3588 4.64124C22.1071 5.38961 22.4392 6.33855 22.5969 7.51098C22.75 8.65018 22.75 10.1058 22.75 11.9435V14.0564C22.75 15.8941 22.75 17.3498 22.5969 18.489C22.4392 19.6614 22.1071 20.6104 21.3588 21.3588C20.6104 22.1071 19.6614 22.4392 18.489 22.5969C17.3498 22.75 15.8942 22.75 14.0565 22.75H9.94359C8.10585 22.75 6.65018 22.75 5.51098 22.5969C4.33856 22.4392 3.38961 22.1071 2.64124 21.3588C1.89288 20.6104 1.56076 19.6614 1.40314 18.489C1.24997 17.3498 1.24998 15.8942 1.25 14.0564V11.9436C1.24998 10.1058 1.24997 8.65019 1.40314 7.51098C1.56076 6.33855 1.89288 5.38961 2.64124 4.64124C3.38961 3.89288 4.33856 3.56076 5.51098 3.40313C5.7439 3.37182 5.99006 3.34691 6.25 3.32709V2.5C6.25 2.08579 6.58579 1.75 7 1.75ZM5.71085 4.88976C4.70476 5.02502 4.12511 5.27869 3.7019 5.7019C3.27869 6.12511 3.02502 6.70476 2.88976 7.71085C2.86685 7.88123 2.8477 8.06061 2.83168 8.25H21.1683C21.1523 8.06061 21.1331 7.88124 21.1102 7.71085C20.975 6.70476 20.7213 6.12511 20.2981 5.7019C19.8749 5.27869 19.2952 5.02502 18.2892 4.88976C17.2615 4.75159 15.9068 4.75 14 4.75H10C8.09318 4.75 6.73851 4.75159 5.71085 4.88976ZM2.75 12C2.75 11.146 2.75032 10.4027 2.76309 9.75H21.2369C21.2497 10.4027 21.25 11.146 21.25 12V14C21.25 15.9068 21.2484 17.2615 21.1102 18.2892C20.975 19.2952 20.7213 19.8749 20.2981 20.2981C19.8749 20.7213 19.2952 20.975 18.2892 21.1102C17.2615 21.2484 15.9068 21.25 14 21.25H10C8.09318 21.25 6.73851 21.2484 5.71085 21.1102C4.70476 20.975 4.12511 20.7213 3.7019 20.2981C3.27869 19.8749 3.02502 19.2952 2.88976 18.2892C2.75159 17.2615 2.75 15.9068 2.75 14V12Z" fill="#FFFFFF"/>
+          </svg>
+        </button>
       </div>
     </header>
 
@@ -333,6 +340,49 @@
         });
         </script>
 
+      <!-- ARCHIVE -->
+      <div class="modal" id="archiveModal">
+        <button class="close-modal" onclick=closeModalById('archiveModal')>×</button>
+        <img class='lb-logo' src="{{ asset('img/logo.png') }}" width='180' alt="uncovered-shorts-logo">
+
+        <div class="list-archive">
+          <p class="archive-text"><b>PREVIOUS GAMES</b></p>
+          <table class='table-archive'>
+            <thead>
+              <tr>
+                <th>GAME</th>
+                <th>DATE</th>
+                <th>PLAY</th>
+              </tr>
+            </thead>
+            <tbody>
+              @foreach ($archiveGames as $archiveGame)
+                <tr>
+                  <td>{{ $archiveGame->id }}</td>
+                  <td>{{ date('Y-m-d', strtotime($archiveGame->date_start)) }}</td>
+                  <td><a href="{{ route('index', ['game_id' => $archiveGame->id]) }}" class="game-link" data-game-id="{{ $archiveGame->id }}">Play now</a></td>
+                </tr>
+              @endforeach
+            </tbody>
+        </table>
+        </div>
+      </div>
+
+      <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Sélectionner tous les liens avec la classe "game-link"
+            document.querySelectorAll('.game-link').forEach(function(link) {
+                let gameId = link.getAttribute('data-game-id');
+                let cookieName = 'Game_' + gameId;
+
+                // Vérifier si le cookie existe
+                if (getCookie(cookieName)) {
+                    link.textContent = 'Completed';
+                }
+            });
+        });
+      </script>
+
       <!-- Answers list modal -->
       <div class="modal" id="searchModal">
         <button class="close-modal" onclick=closeModalById('searchModal')>×</button>
@@ -393,9 +443,17 @@
         var personalAverageHtml = document.getElementById('personalAverage');
         var lastPlayedGameID = localStorage.getItem('lastPlayedGameID') ?? 0;
         var personalStreakHtml = document.getElementById('personalStreak');
-        var previousGameID = {{ $previousGame->id }}
 
-        verifyStreak();
+        // S'il n'y a pas de jeu auparavant mettre un id random pour eviter les erreurs 
+        var previousGameID = {{ $previousGame ? $previousGame->id : 9999999 }};
+
+        var is_valid_for_streak = {{ $is_valid_for_streak }};
+
+        // Si c'est un jeu d'archive, on verifie pas si c'est un streak avec le jeu precedent 
+        if(is_valid_for_streak == 1) 
+        {
+          verifyStreak();
+        }
         refreshHtmlInLocalStorage();
         /* --------------- */
 
@@ -703,7 +761,7 @@
           localStorage.setItem('Game_'+currentGameId, playerFinalScore, 7);
 
           // Insert game 
-          storeGameSession(currentGameId, score1, score2, score3, score4, playerFinalScore)
+          storeGameSession(currentGameId, score1, score2, score3, score4, playerFinalScore, is_valid_for_streak)
           .then(() => {
             // Get updated statistics including the new game
             return getStatistics(currentGameId, playerFinalScore);
@@ -738,16 +796,19 @@
             else localStorage.setItem('personalGameCount', parseInt(personalGameCount) + 1);
             localStorage.setItem('lastPlayedGameID', currentGameId);
 
-            // verify if it's a streak
-            if(previousGameID == lastPlayedGameID) 
+            // verify if it's a streak, if yes add 1 streak point
+            if(is_valid_for_streak == 1)
             {
-              if(trackedGameCount < parseInt(personalStreak) + 1) {}
-              else localStorage.setItem('personalStreak', parseInt(personalStreak) + 1);
-            }
-            else
-            {
-              // no streak
-              localStorage.setItem('personalStreak', 1);
+              if(previousGameID == lastPlayedGameID) 
+              {
+                if(trackedGameCount < parseInt(personalStreak) + 1) {}
+                else localStorage.setItem('personalStreak', parseInt(personalStreak) + 1);
+              }
+              else
+              {
+                // no streak
+                localStorage.setItem('personalStreak', 1);
+              }
             }
 
             // LEADERBOARD Feature
@@ -773,7 +834,7 @@
             }
             
 
-            /* Si le joueur a deja des initials, enregistrer ses Streaks */
+            /* Si le joueur a deja des initiales, enregistrer ses Streaks */
             if(localStorage.getItem('personalInitial') == "???" || localStorage.getItem('personalInitial') == null)
             {}
             else

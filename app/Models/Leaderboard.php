@@ -46,7 +46,7 @@ class Leaderboard extends Model
 
         // Query to get the top entries for today's date
         $topScores = self::where('game_id', $gameId)
-            ->whereDate('created_at', $today)
+            //->whereDate('created_at', $today)
             ->orderBy('total_score', 'desc')
             ->orderBy('created_at', 'desc')
             ->take($topEntries)

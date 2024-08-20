@@ -358,7 +358,13 @@
             <tbody>
               @foreach ($archiveGames as $archiveGame)
                 <tr>
-                  <td>{{ $archiveGame->id }}</td>
+                  <td>
+                    @if (Str::contains(strtolower($archiveGame->name), 'shorts'))
+                        US#{{ preg_replace('/[^0-9]/', '', $archiveGame->name) }}
+                    @else
+                        Leisure#{{ preg_replace('/[^0-9]/', '', $archiveGame->name) }}
+                    @endif
+                  </td>
                   <td>{{ date('Y-m-d', strtotime($archiveGame->date_start)) }}</td>
                   <td><a href="{{ route('index', ['game_id' => $archiveGame->id]) }}" class="game-link" data-game-id="{{ $archiveGame->id }}">Play now</a></td>
                 </tr>

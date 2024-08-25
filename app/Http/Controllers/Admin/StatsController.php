@@ -23,11 +23,16 @@ class StatsController extends Controller
         $countryGamesStats = GamePlayed::getGamesStatsByCountry();
 
         /* Line chart */
-        $chartDataGames  = GamePlayed::getLineChartData();
+        $chartDataGames  = GamePlayed::getLineChartDataTodaysGame();
         $chartDataGamesCount = count($chartDataGames['data']);
+
+        $chartDataOverallGames = GamePlayed::getLineChartDataOverallGameByDay();
+
         $chartDataVisits = Visit::getLineChartVisitData($chartDataGamesCount);
 
-        return view('admin.statistics.stats', compact('chartDataGames', 'chartDataVisits', 'visitStats', 'gamesStats', 'countryStats', 'countryGamesStats'));
+        return view('admin.statistics.stats', compact('chartDataGames', 'chartDataVisits', 
+                                                        'visitStats', 'chartDataOverallGames', 
+                                                        'gamesStats', 'countryStats', 'countryGamesStats'));
     }
 
 

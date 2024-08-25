@@ -59,12 +59,22 @@
                         type: 'line',
                         data: {
                             labels: @json($chartDataGames['labels']),
-                            datasets: [{
-                                label: 'Games played',
+                            datasets: [
+                            {
+                                label: "Today's games",
                                 data: @json($chartDataGames['data']),
                                 borderColor: 'rgb(40, 48, 57)',
                                 borderWidth: 3,
                                 fill: true,
+                                hoverBorderJoinStyle: 'round',
+                                tension: 0.1
+                            },
+                            {
+                                label: 'All games',
+                                data: @json($chartDataOverallGames['data']),
+                                borderColor: '#e0de4f',
+                                borderWidth: 3,
+                                fill: false,
                                 hoverBorderJoinStyle: 'round',
                                 tension: 0.1
                             },

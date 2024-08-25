@@ -168,11 +168,22 @@ class AdminGameController extends Controller
         //
     }
 
+
+    // Afficher les statistique de chaque jeu individuel dans l'admin
     public function showStatistics(Request $request, $id_game)
     {
         $game = Game::find($id_game);
 
         $scoreStatistics = GamePlayed::getGameStats($id_game);
+
+        // Nombre de jeux joué à temps
+        $gamePlayedTheDayCount = GamePlayed::where('game_id', $id_game)
+                                ->where('created_at', '>=', $game->date_start)
+                                ->where('created_at', '<=', $game->date_end)->count();
+
+        // Nombre de jeux joué via archive
+        $gamePlayedArchiveCount = GamePlayed::where('game_id', $id_game)
+                                ->where('created_at', '>', $game->date_end)->count();
 
         $questions = Question::where('game_id', $id_game)->get();
         $statistics = [];
@@ -215,6 +226,6 @@ class AdminGameController extends Controller
         //dd($statistics[516]['answers']);
 
         // Retourner les données à la vue
-        return view('admin.games.statistics', ['scoreStatistics' => $scoreStatistics, 'statistics' => $statistics, 'questions' => $questions, 'game' => $game]);
+        return view('admin.games.statistics', ['scoreStatistics' => $scoreStatistics, 'statistics' => $statistics, 'questions' => $questions, 'game' => $game, 'gamePlayedArchiveCount' => $gamePlayedArchiveCount, 'gamePlayedTheDayCount' => $gamePlayedTheDayCount]);
     }
 }

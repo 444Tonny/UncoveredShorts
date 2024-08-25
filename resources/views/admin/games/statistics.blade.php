@@ -20,7 +20,17 @@
                 </div>
 
                 <div class="box">
-                    <label>GAMES PLAYED</label>
+                    <label>GAMES TODAY</label>
+                    <span class="value">{{ $gamePlayedTheDayCount }}</span>
+                </div>
+
+                <div class="box">
+                    <label>GAMES ARCHIVE</label>
+                    <span class="value">{{ $gamePlayedArchiveCount }}</span>
+                </div>
+                
+                <div class="box">
+                    <label>TOTAL GAMES</label>
                     <span class="value">{{ $scoreStatistics['GamesPlayed'] }}</span>
                 </div>
             </div>

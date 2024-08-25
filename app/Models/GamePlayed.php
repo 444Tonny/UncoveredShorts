@@ -58,37 +58,6 @@ class GamePlayed extends Model
     }
     */
 
-    public static function getLineChartData()
-    {
-        $now = now()->setTimezone('America/New_York');
-
-        $games = Game::where('date_start', '<=', $now)
-            ->orderBy('date_start', 'desc')
-            ->get()
-            ->reverse();
-
-        // Initialiser les arrays pour les labels et les données
-        $labels = [];
-        $data = [];
-
-        // Parcourir chaque jeu pour obtenir le nom et le nombre de jeux joués
-        foreach ($games as $game) {
-            $labels[] = $game->name;
-            $countGamePlayed = GamePlayed::where('game_id', $game->id)->count();
-            $data[] = $countGamePlayed;
-        }
-
-        // Formater les données comme requis
-        $formattedData = [
-            'labels' => $labels,
-            'data' => $data,
-        ];
-
-        //dd($formattedData);
-
-        return $formattedData;
-    }
-    
     public static function storeGameSession($game_id, $score1, $score2, $score3, $score4, $totalScore, $is_valid_for_streak)
     {
         $ip_address = Request::ip();
@@ -130,23 +99,107 @@ class GamePlayed extends Model
         ];
     }
 
+
     // Statistics for admin ------ start
+
+
+    // Recupere les jeux joué uniquement par id et le jour meme
+    public static function getLineChartDataTodaysGame()
+    {
+        $now = now()->setTimezone('America/New_York');
+
+        $startOfDay = $now->copy()->startOfDay(); // today at 00:00
+        $endOfDay = $now->copy()->endOfDay(); // today at 23:59
+
+        $games = Game::where('date_start', '<=', $now)
+                        ->orderBy('date_start', 'desc')
+                        ->get()
+                        ->reverse();
+
+                        //dd($games);
+
+        // Initialiser les arrays pour les labels et les données
+        $labels = [];
+        $data = [];
+
+        // Parcourir chaque jeu pour obtenir le nom et le nombre de jeux joués
+        foreach ($games as $game) {
+            $labels[] = date('d/m/y',  strtotime($game->date_start));
+            $countGamePlayed = GamePlayed::where('game_id', $game->id)
+                                            ->where('created_at', '<=', $game->date_end)
+                                            ->where('created_at', '>=', $game->date_start)
+                                            ->count();
+            $data[] = $countGamePlayed;
+
+            $startOfDay->subDay();
+        }
+
+        // Formater les données comme requis
+        $formattedData = [
+            'labels' => $labels,
+            'data' => $data,
+        ];
+
+        //dd($formattedData);
+
+        return $formattedData;
+    }
+
+    // Recupere les jeux joués aujourd'hui uniquement
+    public static function getLineChartDataOverallGameByDay()
+    {
+        $now = now()->setTimezone('America/New_York');
+
+        // Initialiser les arrays pour les labels et les données
+        $labels = [];
+        $data = [];
+
+        // pour boucler au meme nombre de jeux
+        $games = Game::where('date_start', '<=', $now)
+            ->orderBy('date_start', 'desc')
+            ->get()
+            ->reverse();
+
+
+        // Parcourir chaque jeu pour obtenir le nom 
+        foreach ($games as $game) {
+            $labels[] = $game->name;
+
+            // Compter le nombre de jeux joués aujourd'hui (any)
+            //$countGamePlayed = GamePlayed::whereBetween('created_at', [$startOfDay, $endOfDay])->count();
+            $countGamePlayed = static::getGamesByDate(Carbon::parse($game->date_start)->toDateString());
+
+            //dd(Carbon::parse($game->date_start)->toDateString());
+
+            $data[] = $countGamePlayed;
+        }
+
+        $formattedData = [
+            'labels' => $labels,
+            'data' => $data,
+        ];
+
+        //dd($formattedData);
+        return $formattedData;
+    }
+
     public static function getGamesStatsByCountry()
     {
-        
+
         $now = now()->setTimezone('America/New_York')->toDateString();
         $last7days = now()->setTimezone('America/New_York')->subDays(6)->toDateString();
         return static::select('country', DB::raw('COUNT(*) as played'))
-            ->whereBetween('created_at',[$last7days,$now]) // Filtrer les jeux des 7 derniers jours en EST
+            ->whereBetween('created_at', [$last7days, $now]) // Filtrer les jeux des 7 derniers jours en EST
             ->groupBy('country')
             ->orderByDesc('played')
             ->get();
     }
-    
+
+    // Pour les blocs de 8 carres avec les stats
     public static function getAdminGameStats()
     {
         $now = now()->setTimezone('America/New_York');
-        
+
         $todayGames = static::getGamesByDate($now->toDateString());
 
         $weekGames = static::getGamesByDateRange(
@@ -168,6 +221,8 @@ class GamePlayed extends Model
             'totalGames' => $totalGames,
         ];
     }
+
+    // Fonction pour recuperer le nombres de jeux d'une game via une date donnée
     private static function getGamesByDate($date)
     {
         return static::whereDate('created_at', $date)->count();
@@ -179,32 +234,33 @@ class GamePlayed extends Model
         return static::whereBetween('created_at', [$startDate, $endDate])->count();
     }
 
-    public static function calculatePercentile($playerScore, $allScore) {
+    public static function calculatePercentile($playerScore, $allScore)
+    {
 
-        if($playerScore == 0) return 0;
+        if ($playerScore == 0)
+            return 0;
 
         // Trier les scores des jeux joués en ordre décroissant
         rsort($allScore);
-    
+
         // Trouver l'index du score du joueur dans le tableau trié
         $rank = array_search($playerScore, $allScore) + 1;
-    
+
         // Calculer le percentile en utilisant la formule
         $totalPlayers = count($allScore);
-        
-        if($totalPlayers == 1 && $playerScore > 0) return 100;
-        else if($totalPlayers == 1 && $playerScore == 0) return 0;
 
-        try
-        {
+        if ($totalPlayers == 1 && $playerScore > 0)
+            return 100;
+        else if ($totalPlayers == 1 && $playerScore == 0)
+            return 0;
+
+        try {
             $percentile = (($totalPlayers - $rank) / ($totalPlayers - 1)) * 100;
             $percentile = round($percentile);
             return $percentile;
-        }
-        catch(\Exception $e)
-        {
+        } catch (\Exception $e) {
             return 0;
         }
     }
-    
+
 }

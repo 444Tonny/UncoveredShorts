@@ -235,10 +235,10 @@ span.single-suggestion button:focus {
 }
 
 .go-text {
-    margin-bottom: 0px;
+    margin-bottom: 6px;
     margin-top: 8px;
     font-weight: 100;
-    line-height: 32px;
+    line-height: 25px;
     font-size: 18px;
     font-family: "switzer", serif;
     text-transform: uppercase;
@@ -250,8 +250,8 @@ span.single-suggestion button:focus {
 }
 
 .go-text b {
-    font-size: 17px;
-    font-weight: 800;
+    font-size: 15.5px;
+    font-weight: 600;
     font-family: "switzer", serif;
 }
 
@@ -310,6 +310,7 @@ div.go-bestanswers {
     justify-content: center;
     align-items: center;
     align-content: center;
+    margin-top: 28px;
 }
 
 div.go-buttons {
@@ -761,7 +762,6 @@ input[name="playerInitial"] {
 
 .subscribing {
     margin-top: 10px;
-    margin-bottom: 25px;
 }
 
 .sf-form {

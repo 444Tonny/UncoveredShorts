@@ -91,6 +91,24 @@ CREATE TABLE `games_played` (
   FOREIGN KEY (`game_id`) REFERENCES `games` (`id`)
 ) AUTO_INCREMENT=700;
 
+ALTER TABLE games_played
+MODIFY COLUMN score_1 DECIMAL(10, 1);
+
+ALTER TABLE games_played
+MODIFY COLUMN score_2 DECIMAL(10, 1);
+
+ALTER TABLE games_played
+MODIFY COLUMN score_3 DECIMAL(10, 1);
+
+ALTER TABLE games_played
+MODIFY COLUMN score_4 DECIMAL(10, 1);
+
+ALTER TABLE games_played
+MODIFY COLUMN total_score DECIMAL(10, 1);
+
+ALTER TABLE games_played
+ADD COLUMN country VARCHAR(255) NULL;
+
 CREATE TABLE `colors_gradient` (
   `id` INTEGER AUTO_INCREMENT PRIMARY KEY,
   `limit` INTEGER,
@@ -114,21 +132,6 @@ ADD COLUMN name VARCHAR(255);
 ALTER TABLE unique_answers
 MODIFY COLUMN percentage DECIMAL(10, 1);
 
-ALTER TABLE games_played
-MODIFY COLUMN score_1 DECIMAL(10, 1);
-
-ALTER TABLE games_played
-MODIFY COLUMN score_2 DECIMAL(10, 1);
-
-ALTER TABLE games_played
-MODIFY COLUMN score_3 DECIMAL(10, 1);
-
-ALTER TABLE games_played
-MODIFY COLUMN score_4 DECIMAL(10, 1);
-
-ALTER TABLE games_played
-MODIFY COLUMN total_score DECIMAL(10, 1);
-
 --ALTER TABLE unique_answers DROP COLUMN votes;
 
 ALTER TABLE unique_answers
@@ -146,8 +149,6 @@ CREATE TABLE visits (
   updated_at DATETIME
 );
 
-ALTER TABLE games_played
-ADD COLUMN country VARCHAR(255) NULL;
 
 --- Jeudi 
 ALTER TABLE unique_answers CONVERT TO CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

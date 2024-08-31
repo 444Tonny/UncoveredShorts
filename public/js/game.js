@@ -1,4 +1,4 @@
-// var baseUrl = 'http://localhost:8080/UncoveredShorts/public'; 
+//var baseUrl = 'http://localhost:8080/UncoveredShorts/public'; 
 var baseUrl = 'https://phplaravel-1258294-4520213.cloudwaysapps.com';
 
 var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
@@ -151,7 +151,7 @@ function getGameAlreadyPlayedInformations(gamePlayed_id, game_id) {
     })
 }
 
-// Store the game when it's finished
+// Store the game when it's finished and create a cookie with the game_played->id as value
 function storeGameSession(game_id, score1, score2, score3, score4, totalScore, is_valid_for_streak) {
     let url = baseUrl + '/store-game-session';
 

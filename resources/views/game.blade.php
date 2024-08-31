@@ -29,7 +29,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/layout.css') }}?t=1.11">
     <link rel="stylesheet" href="{{ asset('css/game.css') }}?t=1.04">
-    <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1.14">
+    <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1.15">
 
     <!-- Fonts -->
     <link href="https://fonts.cdnfonts.com/css/switzer" rel="stylesheet">
@@ -406,7 +406,6 @@
 
       <script>
         
-        /* Initialiser le text dans share quand l'use n'a pas encore joué */
         var currentGameId = {!! $currentGame->id !!}
         var currentGameName = {!! json_encode($currentGame->name) !!};
 
@@ -517,10 +516,10 @@
               addStreakToLeaderboard(currentGameId); 
             }
 
-            // Check if user has already played, if yes show results without the close button
 
-            // if visitor already played and finished/submitted his game 
-            // Dans cookie se trouve l'id du game_played
+            // CHECK IF USER HAS ALREADY PLAYED WITH THE COOKIE GAME_GAMEID
+            // THE COOKIE STORES THE GAME_PLAYED GAMEID
+
             if(getCookie('Game_'+currentGameId) !== null)
             {
               // Dans cookie se trouve l'id du game_played
@@ -593,15 +592,22 @@
                 console.error("Resolve promise getGameAlreadyPlayedInformations" + error);
               });  
             }
-            // if visitor hasn't finished/submitted the game yet
+            
+            // THE PLAYER DID NOT PLAY THE GAME YET
             else
             {
-              // alert('Not played yet');
+              // Count how many answers are already completed
               document.getElementById('go-percentile').innerHTML = '(0%)';
               autoPopulateAlreadyAnswered();
               
-              // Compter les points deja autopopulé
               answerCount = document.querySelectorAll('.points-set').length;
+
+              // alert('Not played yet');
+              if(answerCount == 4)
+              {
+                alert('Not submitted yet but full');
+                gameOver();
+              }
             }
 
             /* Show rules once */
@@ -701,6 +707,7 @@
 
           let valueSelected = event.target.getAttribute('data-value');
 
+          // Mettre la reponse selectonnée dans le input et desactiver le input
           inputTarget.value = valueSelected;
           inputTarget.readOnly = true;
           inputTarget.classList.add("answer-submitted");

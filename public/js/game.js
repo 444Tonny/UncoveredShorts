@@ -1,5 +1,5 @@
-//var baseUrl = 'http://localhost:8080/UncoveredShorts/public'; 
-var baseUrl = 'https://phplaravel-1258294-4520213.cloudwaysapps.com';
+var baseUrl = 'http://localhost:8080/UncoveredShorts/public'; 
+//var baseUrl = 'https://phplaravel-1258294-4520213.cloudwaysapps.com';
 
 var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -177,6 +177,7 @@ function storeGameSession(game_id, score1, score2, score3, score4, totalScore, i
             } else {
                 // console.error('Request failed with status:', xhr.status);
                 reject('Request failed with status: ' + xhr.status); // Rejeter la promesse
+                openModalById('errorModal');
             }
         };
 

@@ -725,6 +725,36 @@ input[name="playerInitial"] {
     border: 1px solid #5e5e5e !important;
 }
 
+/* Error modal */
+
+#errorModal
+{
+    display: none;
+}
+
+.error-container
+{
+    background: #101010;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    padding-left: 17px;
+    padding-right: 17px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    min-width: 350px;
+}
+
+.error-icon
+{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 12px;
+}
+
+
 /* Select  leaderboard group */
 
 #playerGroup {

@@ -602,10 +602,10 @@
               
               answerCount = document.querySelectorAll('.points-set').length;
 
-              // alert('Not played yet');
+              // Si le player a deja complete les 4 reponses mais
+              // il n'y a pas encore de localStorage Game donc pas encore submit
               if(answerCount == 4)
               {
-                alert('Not submitted yet but full');
                 gameOver();
               }
             }

@@ -29,7 +29,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/layout.css') }}?t=1.11">
     <link rel="stylesheet" href="{{ asset('css/game.css') }}?t=1.04">
-    <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1.17">
+    <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1.18">
 
     <!-- Fonts -->
     <link href="https://fonts.cdnfonts.com/css/switzer" rel="stylesheet">
@@ -792,7 +792,7 @@
             document.getElementById('TopScoreResults').innerHTML = '' + statisticsUpdated.TopScore;
             document.getElementById('AverageScoreResults').innerHTML = '' + statisticsUpdated.AverageScore;
 
-            // Display answers
+            // Display answers 
             var bestAnswers = document.getElementsByClassName('go-bestanswers');
             document.getElementById('gameOverModal').classList.add('show-answers');
 
@@ -828,8 +828,6 @@
 
             // Verify if the player made it to the daily score top 10
             // He made it
-            // old code ----- if(leaderboard1LastPlace <= playerFinalScore && playerFinalScore > 0)
-            // old code ----- {
             
             // Player never submitted his initials, ask him and then add his score
             if(localStorage.getItem('personalInitial') == null || localStorage.getItem('personalInitial') == "???")
@@ -856,6 +854,9 @@
               //alert(localStorage.getItem('personalInitial'))
               addStreakToLeaderboard(currentGameId); 
             }
+
+            // Actualiser le score du group leaderboard
+            changeScoreGroupLeaderboard(currentGameId, localStorage.getItem('personalLeaderboardGroup'));
 
             refreshHtmlInLocalStorage();
 
@@ -1088,7 +1089,7 @@
           });
         };
         
-        // Listen to initial form
+        // Listner le formulaire pour entrer les initiales
         document.getElementById('initialForm').addEventListener('submit', function(event) {
           event.preventDefault(); // Prevent the default form submission (page refresh)
 
@@ -1109,6 +1110,9 @@
             // Submit score to the Steak leaderboard
             addStreakToLeaderboard(currentGameId);
 
+            // Ajouter score dans le group leaderboard
+            changeScoreGroupLeaderboard(currentGameId, localStorage.getItem('personalLeaderboardGroup'));
+
             closeModalById('initialModal');
             setTimeout(function() {
               openModalById('LeaderboardModal');
@@ -1125,6 +1129,15 @@
           for (let i = 0; i < leaderboard.length; i++) {
             document.getElementById(`ranking-initial-${i+1}`).textContent = leaderboard[i].initial;
             document.getElementById(`ranking-score-${i+1}`).textContent = leaderboard[i].total_score;
+
+            let myRow = document.getElementById(`ranking-initial-${i+1}`).closest('.ranking-row');
+
+            // colorer le row en vert si c'est l'initial du joueur
+            if(localStorage.getItem('personalUID') === leaderboard[i].unique_identifier)
+            {
+              myRow.classList.add('highlight-green');
+            }
+            else  myRow.classList.remove('highlight-green');
           }
         }
 
@@ -1133,6 +1146,15 @@
           for (let i = 0; i < leaderboard.length; i++) {
             document.getElementById(`streak-ranking-initial-${i+1}`).textContent = leaderboard[i].initial;
             document.getElementById(`streak-ranking-score-${i+1}`).textContent = leaderboard[i].streak;
+            
+            let myRow = document.getElementById(`streak-ranking-initial-${i+1}`).closest('.ranking-row');
+
+            // colorer le row en vert si c'est l'initial du joueur
+            if(localStorage.getItem('personalUID') === leaderboard[i].unique_identifier)
+            {
+              myRow.classList.add('highlight-green');
+            }
+            else  myRow.classList.remove('highlight-green');
           }
         }
 
@@ -1141,6 +1163,15 @@
           for (let i = 0; i < leaderboard.length; i++) {
             document.getElementById(`perso-ranking-initial-${i+1}`).textContent = leaderboard[i].initial;
             document.getElementById(`perso-ranking-score-${i+1}`).textContent = leaderboard[i].total_score;
+            
+            let myRow = document.getElementById(`perso-ranking-initial-${i+1}`).closest('.ranking-row');
+
+            // colorer le row en vert si c'est l'initial du joueur
+            if(localStorage.getItem('personalUID') === leaderboard[i].unique_identifier)
+            {
+              myRow.classList.add('highlight-green');
+            }
+            else  myRow.classList.remove('highlight-green');
           }
         }
 
@@ -1149,6 +1180,15 @@
           for (let i = 0; i < 5; i++) {
             document.getElementById(`perso-ranking-initial-${i+1}`).textContent = "???";
             document.getElementById(`perso-ranking-score-${i+1}`).textContent = '0';
+          
+            let myRow = document.getElementById(`perso-ranking-initial-${i+1}`).closest('.ranking-row');
+
+            // colorer le row en vert si c'est l'initial du joueur
+            if(localStorage.getItem('personalUID') === leaderboard[i].unique_identifier)
+            {
+              myRow.classList.add('highlight-green');
+            }
+            else  myRow.classList.remove('highlight-green');
           }
         }
       </script>

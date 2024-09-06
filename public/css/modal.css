@@ -555,6 +555,10 @@ P.archive-text
     background: #272727;
 }
 
+.highlight-green {
+    background-color: #487349 !important;
+}
+
 /* icon */
 
 .form-group-selection
@@ -1177,6 +1181,7 @@ div.rules-text strong {
     padding: 20px 10px;
     font-size: 17px;
     margin-bottom: 15px;
+    resize: none !important;
 }
 
 .copy-btn {

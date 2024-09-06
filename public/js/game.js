@@ -1,5 +1,5 @@
-var baseUrl = 'http://localhost:8080/UncoveredShorts/public'; 
-//var baseUrl = 'https://phplaravel-1258294-4520213.cloudwaysapps.com';
+//var baseUrl = 'http://localhost:8080/UncoveredShorts/public'; 
+var baseUrl = 'https://phplaravel-1258294-4520213.cloudwaysapps.com';
 
 var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -177,13 +177,13 @@ function storeGameSession(game_id, score1, score2, score3, score4, totalScore, i
             } else {
                 // console.error('Request failed with status:', xhr.status);
                 reject('Request failed with status: ' + xhr.status); // Rejeter la promesse
-                openModalById('errorModal');
             }
         };
 
         // Gestionnaire d'erreur de la requête
         xhr.onerror = function() {
             console.error('storeGameSession Request failed');
+            openModalById('errorModal');
             reject('Request failed'); // Rejeter la promesse
         };
 
@@ -238,7 +238,7 @@ function getEmoji(score) {
     } else if (score >= 1) {
       return '🫣';
     } else {
-      return '🙄';
+      return '🧊';
     }
 }
   
@@ -300,7 +300,7 @@ document.addEventListener("DOMContentLoaded", function()
 
 /* LEADERBOARD */
 
-/* Leaderboard - Show top score for a specific category */
+/* Leaderboard - Show top score for a specific group */
 function changeScoreGroupLeaderboard(gameId, selectedGroup) 
 {
     // Si uncategorized, affihcer un leaderboard vide: 

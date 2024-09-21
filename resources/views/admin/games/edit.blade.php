@@ -68,6 +68,7 @@
                                 <option value="unique" selected>Unique</option>
                                 @else
                                 <option value="ranked" selected>Ranked</option>
+                                <option value="ranked-few">Ranked (Few suggestions)</option>
                                 @endif
                             </select>             
 

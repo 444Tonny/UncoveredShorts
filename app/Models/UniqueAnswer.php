@@ -72,8 +72,8 @@ class UniqueAnswer extends Model
 
         if($verify == 'yes')
         {
-            if ($totalPercentage != 100) {
-                throw new \Exception('The sum of percentages must be exactly equal to 100%. Current total = '.$totalPercentage.'%');
+            if (number_format($totalPercentage, 1) != 100) {
+                throw new \Exception('The sum of percentages must be exactly equal to 100%. Current total = '.number_format($totalPercentage, 1).'%');
             }
         }
 

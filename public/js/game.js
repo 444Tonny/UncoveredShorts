@@ -236,9 +236,9 @@ function getEmoji(score) {
     } else if (score >= 20) {
       return '😬';
     } else if (score >= 1) {
-      return '🫣';
-    } else {
       return '🧊';
+    } else {
+      return '📉';
     }
 }
   
@@ -354,48 +354,52 @@ function changeScoreGroupLeaderboard(gameId, selectedGroup)
 
 /* Leaderboard - TOP SCORE */
 function addScoreToLeaderboard(gameId, totalScore) {
-    const playerInitial = localStorage.getItem('personalInitial');
-    const uniqueIdentifier = localStorage.getItem('personalUID');
-    const selectedGroup = localStorage.getItem('personalLeaderboardGroup');
+    return new Promise((resolve, reject) => {
+        const playerInitial = localStorage.getItem('personalInitial');
+        const uniqueIdentifier = localStorage.getItem('personalUID');
+        const selectedGroup = localStorage.getItem('personalLeaderboardGroup');
 
-    // Prepare the data to be sent in the request
-    const data = {
-      gameId: gameId,
-      initial: playerInitial,
-      unique_identifier: uniqueIdentifier,
-      totalScore: totalScore,
-      selectedGroup: selectedGroup
-    };
+        // Prepare the data to be sent in the request
+        const data = {
+        gameId: gameId,
+        initial: playerInitial,
+        unique_identifier: uniqueIdentifier,
+        totalScore: totalScore,
+        selectedGroup: selectedGroup
+        };
 
-    var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+        var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
-    // Create a new XMLHttpRequest      
-    const xhr = new XMLHttpRequest();
-    let url = baseUrl + '/add-score-leaderboard';
-    xhr.open('POST', url, true);
-    xhr.setRequestHeader('Content-Type', 'application/json');
-    xhr.setRequestHeader('X-CSRF-Token', csrfToken);
+        // Create a new XMLHttpRequest      
+        const xhr = new XMLHttpRequest();
+        let url = baseUrl + '/add-score-leaderboard';
+        xhr.open('POST', url, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.setRequestHeader('X-CSRF-Token', csrfToken);
 
-    // Define what happens on successful data submission
-    xhr.onload = function() {
-        if (xhr.status >= 200 && xhr.status < 400) {
-            // Success!
-            const response = JSON.parse(xhr.responseText);
-            updateLeaderboard(response);
-        } else {
-            // We reached our target server, but it returned an error
-            console.log('Error: Unable to add score to the leaderboard.');
-        }
-    };
+        // Define what happens on successful data submission
+        xhr.onload = function() {
+            if (xhr.status >= 200 && xhr.status < 400) {
+                // Success!
+                const response = JSON.parse(xhr.responseText);
+                updateLeaderboard(response);
+                resolve(response);
+            } else {
+                // We reached our target server, but it returned an error
+                console.log('Error: Unable to add score to the leaderboard.');
+                reject(new Error('Unable to add score to the leaderboard.'));
+            }
+        };
 
-    // Define what happens in case of an error
-    xhr.onerror = function() {
-        // There was a connection error of some sort
-        alert('Request failed.');
-    };
+        // Define what happens in case of an error
+        xhr.onerror = function() {
+            // There was a connection error of some sort
+            alert('Request failed.');
+        };
 
-    // Send the request with the data
-    xhr.send(JSON.stringify(data));
+        // Send the request with the data
+        xhr.send(JSON.stringify(data));
+    });
 }
 
 /* Leaderboard - TOP STREAK */

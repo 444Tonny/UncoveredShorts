@@ -79,7 +79,8 @@ button.hl-icon svg path:active
 
     .h-logo
     {
-        height: 35px;    
+        height: 35px;  
+        margin-top: 5px;  
     }
 
     div.header-links

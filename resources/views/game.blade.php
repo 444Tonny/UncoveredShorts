@@ -27,7 +27,7 @@
     <meta name="twitter:description" content="Uncovered Shorts : The goal of the game is to get the highest score possible. You will be presented with four questions, which will be of two question types 'Unique' and 'Ranked' ">
     
 
-    <link rel="stylesheet" href="{{ asset('css/layout.css') }}?t=1.11">
+    <link rel="stylesheet" href="{{ asset('css/layout.css') }}?t=1.12">
     <link rel="stylesheet" href="{{ asset('css/game.css') }}?t=1.04">
     <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1.18">
 
@@ -52,7 +52,9 @@
 
   <body>
     <header>
-      <img class='h-logo' src="{{ asset('img/logo.png') }}" alt="uncovered-short-logo">
+      <a href='/'>
+        <img class='h-logo' src="{{ asset('img/logo.png') }}" alt="uncovered-short-logo">
+      </a>
       <div class="header-links">
         <button class='hl-icon' onclick=openModalById('rulesModal')> 
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="22" height="22"><g id="_01_align_center" data-name="01 align center"><path d="M12,24A12,12,0,1,1,24,12,12.013,12.013,0,0,1,12,24ZM12,2A10,10,0,1,0,22,12,10.011,10.011,0,0,0,12,2Z"/><path d="M14,19H12V12H10V10h2a2,2,0,0,1,2,2Z"/><circle cx="12" cy="6.5" r="1.5"/></g></svg>
@@ -88,7 +90,7 @@
             <span class="numero">Q1 <b class='letter-type'>U</b> </span>
             <h2 class="question" data="{!! $questions[0]->value !!}">{!! $questions[0]->value !!}</h2>
             <div class="answer-block">
-              <input id='us-ipt1' onclick="updateCurrentSearchQuestion(event), setActivePlayerInput('us-ipt1'), openModalById('searchModal'), displaySuggestions(suggestions1)"  class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
+              <input id='us-ipt1' onclick="updateCurrentSearchQuestion(event), setActivePlayerInput('us-ipt1'), openModalById('searchModal'), displaySuggestions(suggestions1, '{!! $questions[0]->type !!}')"  class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
               <span id='us-pts1' class='points'>-</span>
             </div>
           </div>
@@ -97,7 +99,7 @@
             <span class="numero">Q2 <b class='letter-type'>U</b></span>
             <h2 class="question" data="{!! $questions[1]->value !!}">{!! $questions[1]->value !!}</h2>
             <div class="answer-block">
-              <input id='us-ipt2' onclick="updateCurrentSearchQuestion(event), setActivePlayerInput('us-ipt2'), openModalById('searchModal'), displaySuggestions(suggestions2)" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
+              <input id='us-ipt2' onclick="updateCurrentSearchQuestion(event), setActivePlayerInput('us-ipt2'), openModalById('searchModal'), displaySuggestions(suggestions2, '{!! $questions[1]->type !!}')" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
               <span id='us-pts2' class='points'>-</span>
             </div>
           </div>
@@ -106,7 +108,7 @@
             <span class="numero">Q3 <b class='letter-type'>R</b></span>
             <h2 class="question" data="{!! $questions[2]->value !!}">{!! $questions[2]->value !!}</h2>
             <div class="answer-block">
-              <input id='us-ipt3' onclick="updateCurrentSearchQuestion(event), setActivePlayerInput('us-ipt3'), openModalById('searchModal'), displaySuggestions(suggestions3)" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
+              <input id='us-ipt3' onclick="updateCurrentSearchQuestion(event), setActivePlayerInput('us-ipt3'), openModalById('searchModal'), displaySuggestions(suggestions3,'{!! $questions[2]->type !!}')" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
               <span id='us-pts3' class='points'>-</span>
             </div>
           </div>
@@ -115,7 +117,7 @@
             <span class="numero">Q4 <b class='letter-type'>R</b></span>
             <h2 class="question" data="{!! $questions[3]->value !!}">{!! $questions[3]->value !!}</h2>
             <div class="answer-block">
-              <input id='us-ipt4' onclick="updateCurrentSearchQuestion(event), setActivePlayerInput('us-ipt4'), openModalById('searchModal'), displaySuggestions(suggestions4)" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
+              <input id='us-ipt4' onclick="updateCurrentSearchQuestion(event), setActivePlayerInput('us-ipt4'), openModalById('searchModal'), displaySuggestions(suggestions4,'{!! $questions[3]->type !!}')" class='answer' type="text" name="answer" value='' placeholder='ANSWER HERE...' readonly>
               <span id='us-pts4' class='points'>-</span>
             </div>
           </div>
@@ -241,10 +243,18 @@
             <span class="spacing-10"></span>
             <div class="ranking-bloc">
               @for ($i = 0; $i < 10; $i++)
-                <div class="ranking-row @if($i % 2 != 0) rr-dark @endif">
-                    <span class="ranking-number">#{{ $i + 1 }}</span>
-                    <span class="ranking-initial" id="ranking-initial-{{ $i + 1 }}">{{ $leaderboard1[$i]->initial ?? 'N/A' }}</span>
-                    <span class="ranking-score" id="ranking-score-{{ $i + 1 }}">{{ $leaderboard1[$i]->total_score ?? 'N/A' }}</span>
+                <div id='classic-lb-row-{{ $i }}' class="ranking-row @if($i % 2 != 0) rr-dark @endif">
+                  <span class="ranking-number">#{{ $i + 1 }}</span>
+                  <span class="ranking-initial" id="ranking-initial-{{ $i + 1 }}">{{ $leaderboard1[$i]->initial ?? 'N/A' }}</span>
+                  <span class="ranking-score" id="ranking-score-{{ $i + 1 }}">{{ $leaderboard1[$i]->total_score ?? 'N/A' }}</span>
+                
+                  <script>
+                    // Si l'uid est similaire au localstorage uid, surligner en vert
+                    var uniqueIdentifier = "{{ $leaderboard1[$i]->unique_identifier }}"
+                    if (localStorage.getItem('personalUID') === uniqueIdentifier) {
+                      document.getElementById('classic-lb-row-{{ $i }}').classList.add('highlight-green');
+                    }
+                  </script>  
                 </div>
               @endfor
             </div>
@@ -271,9 +281,9 @@
             <div class="ranking-bloc" id='rb-groupleaderboard'>
               @for ($i = 0; $i < 5; $i++)
                 <div class="ranking-row @if($i % 2 != 0) rr-dark @endif">
-                    <span class="ranking-number">#{{ $i + 1 }}</span>
-                    <span class="ranking-initial" id="perso-ranking-initial-{{ $i + 1 }}">???</span>
-                    <span class="ranking-score" id="perso-ranking-score-{{ $i + 1 }}">0</span>
+                  <span class="ranking-number">#{{ $i + 1 }}</span>
+                  <span class="ranking-initial" id="perso-ranking-initial-{{ $i + 1 }}">???</span>
+                  <span class="ranking-score" id="perso-ranking-score-{{ $i + 1 }}">0</span>
                 </div>
               @endfor
             <!-- icon info leaderboard -->
@@ -287,11 +297,20 @@
             <span class="spacing-10"></span>
             <div class="ranking-bloc">
               @for ($i = 0; $i < 10; $i++)
-                <div class="ranking-row @if($i % 2 != 0) rr-dark @endif">
-                    <span class="ranking-number">#{{ $i + 1 }}</span>
-                    <span class="ranking-initial" id="streak-ranking-initial-{{ $i + 1 }}">{{ $leaderboard2streak[$i]->initial ?? 'N/A' }}</span>
-                    <span class="ranking-score" id="streak-ranking-score-{{ $i + 1 }}">{{ $leaderboard2streak[$i]->streak ?? 'N/A' }}</span>
+                <div id='streak-lb-row-{{ $i }}' class="ranking-row @if($i % 2 != 0) rr-dark @endif">
+                  <span class="ranking-number">#{{ $i + 1 }}</span>
+                  <span class="ranking-initial" id="streak-ranking-initial-{{ $i + 1 }}">{{ $leaderboard2streak[$i]->initial ?? 'N/A' }}</span>
+                  <span class="ranking-score" id="streak-ranking-score-{{ $i + 1 }}">{{ $leaderboard2streak[$i]->streak ?? 'N/A' }}</span>
                 </div>
+
+                <script>
+                  // Si l'uid est similaire au localstorage uid, surligner en vert
+                  var uniqueIdentifier = "{{ $leaderboard2streak[$i]->unique_identifier }}"
+                  
+                  if (localStorage.getItem('personalUID') === uniqueIdentifier) {
+                    document.getElementById('streak-lb-row-{{ $i }}').classList.add('highlight-green');
+                  }
+                </script>  
               @endfor
             </div>
           </div>
@@ -304,6 +323,7 @@
       <!-- Subscribing -->
       <script>
         document.addEventListener('DOMContentLoaded', function () {
+
             document.getElementById('subscribe-form').addEventListener('submit', function (e) {
                 e.preventDefault();
         
@@ -386,6 +406,14 @@
                     link.textContent = 'Completed';
                 }
             });
+
+            // Scripts pour Maj les cookies individuellement - ATTENTION
+            if(localStorage.getItem('personalUID') === 'HDD20240718163030266')
+            {
+              //console.log("Script injected");
+              //localStorage.setItem('personalAverage', 218);  
+              //localStorage.setItem('personalStreak', 58); 
+            }
         });
       </script>
 
@@ -637,7 +665,15 @@
         for (let index = 1; index <= 4; index++) {
           const inputElement = document.getElementById('us-ipt'+index);
           inputElement.value = '';
+
+          console.log(index +' : ' + localStorage.getItem('Answer_' + index + '_Game_' + currentGameId));
         }
+
+        console.log(currentGameId);
+        console.log('P1 :' +localStorage.getItem('Points_1_Game_' + currentGameId))
+        console.log('P2 :' +localStorage.getItem('Points_2_Game_' + currentGameId))
+        console.log('P3 :' +localStorage.getItem('Points_3_Game_' + currentGameId))
+        console.log('P4 :' +localStorage.getItem('Points_4_Game_' + currentGameId))
 
         function setActivePlayerInput(idinput) 
         { 
@@ -663,17 +699,34 @@
         // Save quelles suggestions utilisons nous mtn
         var currentSuggestions;
 
-        function displaySuggestions(suggestions) 
+        function displaySuggestions(suggestions, type = 'default') 
         {          
           currentSuggestions = suggestions;
           var suggestionsContainer = document.getElementById('suggestions');
           var searchInput = document.getElementById('us-search');
           suggestionsContainer.innerHTML = '';
           searchInput.value = '';
-        
+
+          // Afficher toutes les suggestions si toutes c'est un ranked few
+          if(type == 'ranked-few')
+          {
+            // cacher la barre de recherche
+            searchInput.style.display = 'none'; 
+
+            //alert('ranked-few');
+            currentSuggestions.forEach(text => {
+              // Créer l'élément de suggestion et l'ajouter au conteneur
+              var span = document.createElement('span');
+              span.className = 'single-suggestion';
+              span.innerHTML = '<p>' + text + '</p><button onclick=selectSuggestion(event) data-value="'+ text +'" data-inputTargetId="'+ activePlayerInput +'" class="selectButton">Select</button>';
+              suggestionsContainer.appendChild(span);
+            });
+          }
+          else{  
           // auto focus on input
-          searchInput.focus();
-          searchInput.select();
+            searchInput.focus();
+            searchInput.select();
+          }
         }
 
         var suggestionsContainer = document.getElementById('suggestions');
@@ -707,7 +760,7 @@
 
           let valueSelected = event.target.getAttribute('data-value');
 
-          // Mettre la reponse selectonnée dans le input et desactiver le input
+          // Mettre la reponse selectionnée dans le input et desactiver le input
           inputTarget.value = valueSelected;
           inputTarget.readOnly = true;
           inputTarget.classList.add("answer-submitted");
@@ -776,6 +829,7 @@
           // Insert game 
           storeGameSession(currentGameId, score1, score2, score3, score4, playerFinalScore, is_valid_for_streak)
           .then(() => {
+            
             // Get updated statistics including the new game
             return getStatistics(currentGameId, playerFinalScore);
           })
@@ -841,10 +895,16 @@
             // Player already have initials
             else
             {
-              addScoreToLeaderboard(currentGameId, playerFinalScore);
+              // Ajouter le nouveau score dans le group leaderboard
+              addScoreToLeaderboard(currentGameId, playerFinalScore).then(response => {
+                // Une fois le score ajouté, on peut avoir le classement par groupe actualisé
+                changeScoreGroupLeaderboard(currentGameId, localStorage.getItem('personalLeaderboardGroup'));
+              })
+              .catch(error => {
+                  console.error('Erreur 879 add Score:', error);
+              });
             }
             
-
             /* Si le joueur a deja des initiales, enregistrer ses Streaks */
             if(localStorage.getItem('personalInitial') == "???" || localStorage.getItem('personalInitial') == null)
             {}
@@ -854,9 +914,6 @@
               //alert(localStorage.getItem('personalInitial'))
               addStreakToLeaderboard(currentGameId); 
             }
-
-            // Actualiser le score du group leaderboard
-            changeScoreGroupLeaderboard(currentGameId, localStorage.getItem('personalLeaderboardGroup'));
 
             refreshHtmlInLocalStorage();
 
@@ -871,6 +928,9 @@
 
         function autoPopulateAlreadyAnswered()
         {
+          // Utilise pour resoummettre les reponses si null
+          var questions = {!! $questions !!};
+
           // Auto populate score boxes
           let iLoop = 1;
           var pointsBoxes = document.getElementsByClassName("points");
@@ -893,21 +953,54 @@
               {
                 case 'us-pts1': 
                   score1 = localStorage.getItem('Points_1_Game_'+currentGameId);
+
+                  // Dans le cas ou le score est null 
+                  if(score1 == null)
+                  {
+                    // Recalculer le score en renvoyant sa reponse
+                    score1 = calculateUniquePoints(uniqueAnswers1, localStorage.getItem('Answer_1_Game_'+currentGameId), questions[0].id);
+                    localStorage.setItem('Points_1_Game_' + currentGameId, score1);
+                  }
                   element.classList.add('points-' + Math.round(score1 / 5) * 5);
                   element.innerHTML = '' + score1;
+                  
                   break;
                 case 'us-pts2': 
                   score2 = localStorage.getItem('Points_2_Game_'+currentGameId);
+
+                  if(score2 == null)
+                  {
+                    // Recalculer le score en renvoyant sa reponse
+                    score2 = calculateUniquePoints(uniqueAnswers2, localStorage.getItem('Answer_2_Game_'+currentGameId), questions[1].id);
+                    localStorage.setItem('Points_1_Game_' + currentGameId, score2);
+                  }
+
                   element.classList.add('points-' + Math.round(score2 / 5) * 5);
                   element.innerHTML = '' + score2;
                   break;
                 case 'us-pts3': 
                   score3 = localStorage.getItem('Points_3_Game_'+currentGameId);
+
+                  if(score3 == null)
+                  {
+                    // Recalculer le score en renvoyant sa reponse
+                    score3 = calculateUniquePoints(uniqueAnswers3, localStorage.getItem('Answer_3_Game_'+currentGameId), questions[2].id);
+                    localStorage.setItem('Points_1_Game_' + currentGameId, score3);
+                  }
+
                   element.classList.add('points-' + Math.round(score3 / 5) * 5);
                   element.innerHTML = '' + score3;
                   break;
                 case 'us-pts4': 
                   score4 = localStorage.getItem('Points_4_Game_'+currentGameId);
+
+                  if(score4 == null)
+                  {
+                    // Recalculer le score en renvoyant sa reponse
+                    score4 = calculateUniquePoints(uniqueAnswers4, localStorage.getItem('Answer_4_Game_'+currentGameId), questions[3].id);
+                    localStorage.setItem('Points_4_Game_' + currentGameId, score4);
+                  }
+
                   element.classList.add('points-' + Math.round(score4 / 5) * 5);
                   element.innerHTML = '' + score4;
                   break;
@@ -979,23 +1072,6 @@
         </div>
         <button class="play" onclick=closeModalById('rulesModal')>PLAY</button>
       </div>                   
-
-      <!-- Rules modal -->
-      <div class="modal" id="feedbackModal">
-        <button class="close-modal" onclick=closeModalById('feedbackModal')>×</button>
-        <h3>FEEDBACK</h3>
-        <span class='feedback-text'>Hi there! We'd greatly appreciate your feedback on our game to help us enhance the experience for everyone. Thanks for sharing! </span>
-        <form class='feedback-form' action="{{ route('send.feedback') }}" method="POST">
-          @csrf
-          <label for="">Name</label>
-          <input name='name' type="text" placeholder="Name..." required>
-          <label for="">Your email</label>
-          <input name='email' type="email" placeholder="youremail@example.com" required>
-          <label for="">Message</label>
-          <textarea name="message" id="" cols="30" rows="10" placeholder="Message..." required></textarea>
-          <input type="submit" class='send' value="SEND">
-        </form>
-      </div>
 
       <!-- Stats -->
       <div class="modal" id="statsModal">
@@ -1105,7 +1181,12 @@
             localStorage.setItem('personalInitial', playerInitial);
             
             // Submit score to the Top score leaderboard
-            addScoreToLeaderboard(currentGameId, playerFinalScore);
+            addScoreToLeaderboard(currentGameId, playerFinalScore).then(response => {
+              // Une fois le score ajouté, on peut avoir le classement par groupe actualisé
+              changeScoreGroupLeaderboard(currentGameId, localStorage.getItem('personalLeaderboardGroup'));
+            }).catch(error => {
+                console.error('Erreur 1144 add Score:', error);
+            });
             
             // Submit score to the Steak leaderboard
             addStreakToLeaderboard(currentGameId);

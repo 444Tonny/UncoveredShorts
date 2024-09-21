@@ -96,7 +96,7 @@ class AdminGameController extends Controller
     
             DB::transaction(function () use ($request, $id) {
                 $game = Game::findOrFail($id);
-                $game->update($request->only('date_start', 'date_end'));
+                $game->update($request->only('name', 'date_start', 'date_end'));
     
                 // Update or insert the questions associated with this game
                 foreach ($request->questions as $questionData) {

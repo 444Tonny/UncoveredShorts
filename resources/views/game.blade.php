@@ -199,6 +199,7 @@
               <input class='sf-email' name='sf-email' type="email" placeholder="Your email...">
               <input class='sf-submit' type="submit" value="I'm In!">
             </form>
+
             <div id="sf-message" style="color: rgb(202, 59, 59); display: none;"></div>
           </div>
           <div id="go-bestanswers" class="go-bestanswers">
@@ -706,6 +707,7 @@
           var searchInput = document.getElementById('us-search');
           suggestionsContainer.innerHTML = '';
           searchInput.value = '';
+          searchInput.style.display = 'initial'; 
 
           // Afficher toutes les suggestions si toutes c'est un ranked few
           if(type == 'ranked-few')

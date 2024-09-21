@@ -67,8 +67,8 @@
                                 @if ($k <= 2)
                                 <option value="unique" selected>Unique</option>
                                 @else
-                                <option value="ranked" selected>Ranked</option>
-                                <option value="ranked-few">Ranked (Few suggestions)</option>
+                                <option value="ranked" <?php if ($question->type === 'ranked') echo 'selected'; ?>>Ranked</option>
+                                <option value="ranked-few" <?php if ($question->type === 'ranked-few') echo 'selected'; ?>>Ranked (Few suggestions)</option>
                                 @endif
                             </select>             
 

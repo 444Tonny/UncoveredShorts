@@ -201,6 +201,25 @@ input.answer:active
 .points-100 { background-color: #2d6744; }
 
 
+/* Substack */
+
+.embed-page 
+{
+    background: #161616;
+    border: none !important;
+}
+
+.subscribe-btn
+{
+    background: #487349 !important;
+    border: none !important;
+}
+
+.pencraft 
+{
+    border: none !important;
+}
+
 /* MOBILE */
 
 @media only screen and (max-width: 768px) 

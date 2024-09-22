@@ -191,14 +191,15 @@ class AdminGameController extends Controller
         foreach ($questions as $question) {
             $answers = [];
 
-            if ($question->type == 'ranked') {
+            if ($question->type == 'ranked' or $question->type == 'ranked-few') {
                 $totalVotes = RankedSubmitted::where('question_id', $question->id)->count();
                 $submittedAnswers = RankedSubmitted::select('value', 'is_correct', \DB::raw('count(*) as count'))
                     ->where('question_id', $question->id)
                     ->groupBy('value', 'is_correct')
                     ->orderBy('count', 'desc') 
                     ->get();
-            } else {
+            }
+            else {
                 $totalVotes = UniqueSubmitted::where('question_id', $question->id)->count();
                 $submittedAnswers = UniqueSubmitted::select('value', 'is_correct', \DB::raw('count(*) as count'))
                     ->where('question_id', $question->id)

@@ -51,7 +51,7 @@
                                     </tr>
                                     
                                     <!-- Data Rows -->
-                                    @if($statistics[$question->id]['type'] == 'ranked')
+                                    @if($statistics[$question->id]['type'] == 'ranked' or $statistics[$question->id]['type'] == 'ranked-few')
                                         @foreach($statistics[$question->id]['answers'] as $answer)
                                             <tr>
                                                 <th scope="row">

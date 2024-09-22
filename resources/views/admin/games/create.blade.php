@@ -60,9 +60,12 @@
                             <select name="questions[{{ $i }}][type]" id="type_{{ $i }}">
                                 @if ($i <= 2)
                                 <option value="unique" selected>Unique</option>
-                                @else
+                                @elseif ($i == 3)
                                 <option value="ranked" selected>Ranked</option>
-                                <option value="ranked-few">Ranked (Few suggestions)</option>
+                                <option value="ranked-few">Ranked (Show suggestions)</option>
+                                @elseif ($i == 4)
+                                <option value="ranked">Ranked</option>
+                                <option value="ranked-few" selected>Ranked (Show suggestions)</option>
                                 @endif
                             </select>                              
 

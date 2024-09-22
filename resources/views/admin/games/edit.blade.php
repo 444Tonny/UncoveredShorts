@@ -68,7 +68,7 @@
                                 <option value="unique" selected>Unique</option>
                                 @else
                                 <option value="ranked" <?php if ($question->type === 'ranked') echo 'selected'; ?>>Ranked</option>
-                                <option value="ranked-few" <?php if ($question->type === 'ranked-few') echo 'selected'; ?>>Ranked (Few suggestions)</option>
+                                <option value="ranked-few" <?php if ($question->type === 'ranked-few') echo 'selected'; ?>>Ranked (Show suggestions)</option>
                                 @endif
                             </select>             
 
@@ -85,7 +85,7 @@
                             <br>
                             &nbsp;
                             <div>
-                                <input type="checkbox" name="verify_{{$k}}" id="verify_{{$k}}" onchange="updateHref({{$k}})" checked> Check to verify the data in Google Sheets.
+                                <input type="checkbox" name="verify_{{$k}}" id="verify_{{$k}}" onchange="updateHref({{$k}})" <?php if ($question->type !== 'ranked-few') echo 'checked'; ?>> Check to verify the data in Google Sheets.
                             </div>        
 
                             <div class="spacing-20"></div>

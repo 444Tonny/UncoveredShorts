@@ -194,11 +194,28 @@
             <button class="go-leaderboard" onclick="openModalById('LeaderboardModal')">LEADERBOARD</button>
           </div>
           <div class="subscribing">
-            <label for="">Get a recap of the most popular answers</label>
-            <form id='subscribe-form' class="row sf-form" method="POST">
-              <input class='sf-email' name='sf-email' type="email" placeholder="Your email...">
-              <input class='sf-submit' type="submit" value="I'm In!">
-            </form>
+            <label for="">Get a recap of the most popular answers</label> <br>
+            
+            <div id="custom-substack-embed" style='margin-top:15px;'></div>
+
+            <script>
+              window.CustomSubstackWidget = {
+                substackUrl: "uncoveredshorts.substack.com",
+                placeholder: "Your email...",
+                buttonText: "I'm In!",
+                theme: "custom",
+                colors: {
+                  primary: "#487349",
+                  input: "#FFFFFF",
+                  email: "#2E2E2E",
+                  text: "#FFFFFF",
+                },
+
+                // Go to substackapi.com to unlock custom redirect
+
+              };
+            </script>
+            <script src="https://substackapi.com/widget.js" async></script>
 
             <div id="sf-message" style="color: rgb(202, 59, 59); display: none;"></div>
           </div>
@@ -321,7 +338,7 @@
 
     <div class="modal-background" id="modalBackground">
 
-      <!-- Subscribing -->
+      <!-- Subscribing 
       <script>
         document.addEventListener('DOMContentLoaded', function () {
 
@@ -360,6 +377,7 @@
             });
         });
         </script>
+      -->
 
       <!-- ARCHIVE -->
       <div class="modal" id="archiveModal">

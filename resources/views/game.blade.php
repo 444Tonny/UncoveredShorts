@@ -29,7 +29,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/layout.css') }}?t=1.12">
     <link rel="stylesheet" href="{{ asset('css/game.css') }}?t=1.04">
-    <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1.21">
+    <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1.23">
 
     <!-- Fonts -->
     <link href="https://fonts.cdnfonts.com/css/switzer" rel="stylesheet">
@@ -1061,15 +1061,15 @@
 
       <!-- Rules modal -->
       <div class="modal" id="rulesModal">
-        <button class="close-modal" onclick=closeModalById('rulesModal')>×</button>
+        <button class="close-modal" onclick="closeModalById('rulesModal'); checkAllCheckboxes()">×</button>
         <h3>RULES</h3>
         <div class="rules-text accordeon">
         <ul>
             <li>
-                <input type="checkbox" id='toggleCheckbox' checked>
+                <input type="checkbox" class='info-checkbox' id='toggleCheckbox' checked>
                 <i class="arrow"></i>
                 <div class="col">
-                  <i class="fas fa-calendar"></i>
+                  <i class="fas fa-gift"></i>
                   <h2 class="title_accordeon">Get Daily Uncovered Shorts Tips</h2>
                 </div>
                 <p>Uncovered Shorts publishes a daily recap of the prior day’s game every morning.  
@@ -1078,28 +1078,28 @@
                 <div id="custom-substack-embed" class="info-signup" style='margin-top:15px;'></div>
             </li>
             <li>
-                <input type="checkbox" checked>
+                <input type="checkbox" class='info-checkbox' checked>
                 <i class="arrow"></i>
                 <div class="col">
                   <i class="fas fa-group"></i>
                   <h2 class="title_accordeon">Create a Group Leaderboard</h2>
                 </div>
-                <p>There are groups of colleagues, family members, friends, alumni all competing with each other via their own Group Leaderboards that show directly below the main leaderboard.  
-                  You can create your own by email <a href='mailto:tucker@uncoveredshorts.com'>tucker@uncoveredshorts.com</a> with the name of your Group Leaderboard.  
+                <p>There are groups of colleagues, family members, friends and alumni all competing with each other via their own Group Leaderboards that show directly below the main leaderboard.  
+                  You can create your own by emailing <a href='mailto:tucker@uncoveredshorts.com'>tucker@uncoveredshorts.com</a> with the name of your Group Leaderboard.  
                 </p>
             </li>
             <li>
-                <input type="checkbox" checked>
+                <input type="checkbox" class='info-checkbox' checked>
                 <i class="arrow"></i>
                 <div class="col">
-                  <i class="fas fa-archive"></i>
+                  <i class="fas fa-calendar"></i>
                   <h2 class="title_accordeon">Explore the Games Archive</h2>
                 </div>
                 <p>The top right icon on the main page allows you to play just about any game from the last few months.  
                 </p>
             </li>
             <li>
-              <input type="checkbox" checked>
+              <input type="checkbox" class='info-checkbox' checked>
               <i class="arrow"></i>
               <div class="col">
                 <i class="fas fa-list"></i>
@@ -1136,7 +1136,7 @@
                 </p>
           </li>
           <li>
-            <input type="checkbox" checked>
+            <input type="checkbox" class='info-checkbox' checked>
             <i class="arrow"></i>
             <div class="col">
               <i class="fas fa-info-circle"></i>
@@ -1178,33 +1178,51 @@
           <br>
           <a href="{{ route('terms-of-service') }}">Terms of Service</a> -->
         </div>
-        <button class="play" onclick=closeModalById('rulesModal')>PLAY</button>
+        <button class="play" onclick="closeModalById('rulesModal'), checkAllCheckboxes()">PLAY</button>
       </div>  
       
       <script>
         document.getElementById('toggleCheckbox').addEventListener('change', function() {
-        var infoSignup = document.getElementsByClassName('info-signup')[0];
-        
-        if (this.checked) {
-            // Affiche l'élément si la case est cochée
-            infoSignup.style.display = 'none';
-        } else {
-            // Cache l'élément si la case est décochée
-            infoSignup.style.display = 'block';
-        }
-    });
+            var infoSignup = document.getElementsByClassName('info-signup')[0];
+            
+            if (this.checked) {
+                // Affiche l'élément si la case est cochée
+                infoSignup.style.display = 'none';
+            } else {
+                // Cache l'élément si la case est décochée
+                infoSignup.style.display = 'block';
+            }
+        });
 
-    // Pour s'assurer que l'état initial est correct au chargement de la page
-    window.onload = function() {
-        var checkbox = document.getElementById('toggleCheckbox');
-        var infoSignup = document.getElementsByClassName('info-signup')[0];
-        
-        if (checkbox.checked) {
+        // Pour s'assurer que l'état initial est correct au chargement de la page
+        window.onload = function() {
+            var checkbox = document.getElementById('toggleCheckbox');
+            var infoSignup = document.getElementsByClassName('info-signup')[0];
+            
+            if (checkbox.checked) {
+                infoSignup.style.display = 'none';
+            } else {
+                infoSignup.style.display = 'block';
+            }
+        };
+
+        // Pour fermer tous les toggles en fermant la section info
+        function checkAllCheckboxes() {
+            // Récupère tous les éléments ayant la classe 'info-checkbox'
+            var checkboxes = document.getElementsByClassName('info-checkbox');
+            
+            // Parcourt chaque checkbox
+            for (var i = 0; i < checkboxes.length; i++) {
+                if (!checkboxes[i].checked) {
+                    // Si la checkbox n'est pas cochée, on la coche
+                    checkboxes[i].checked = true;
+                }
+            }
+
+            // Cacher le formulaire
+            var infoSignup = document.getElementsByClassName('info-signup')[0];
             infoSignup.style.display = 'none';
-        } else {
-            infoSignup.style.display = 'block';
         }
-    };
       </script>
 
       <!-- Stats -->

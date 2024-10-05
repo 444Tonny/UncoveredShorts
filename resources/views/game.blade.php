@@ -29,7 +29,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/layout.css') }}?t=1.12">
     <link rel="stylesheet" href="{{ asset('css/game.css') }}?t=1.04">
-    <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1.2">
+    <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1.21">
 
     <!-- Fonts -->
     <link href="https://fonts.cdnfonts.com/css/switzer" rel="stylesheet">

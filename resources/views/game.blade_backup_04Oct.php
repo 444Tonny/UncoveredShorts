@@ -9,27 +9,27 @@
     <meta name="robots" content="index, follow">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <meta name="description" content="Uncovered Shorts is a daily trivia game focused on finance and economics, challenge your friends today.">
+    <meta name="description" content="Uncovered Shorts : The goal of the game is to get the highest score possible. You will be presented with four questions, which will be of two question types 'Unique' and 'Ranked'">
 
 
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Uncovered Shorts = Wordle for Wall Street</title>
+    <title>Uncovered Shorts - Daily quiz game</title>
 
     <!-- Open Graph meta tags -->
     <meta property="og:title" content="Uncovered Shorts">
-    <meta property="og:description" content="Uncovered Shorts is a daily trivia game focused on finance and economics, challenge your friends today.">
+    <meta property="og:description" content="Uncovered Shorts : The goal of the game is to get the highest score possible. You will be presented with four questions, which will be of two question types 'Unique' and 'Ranked'">
     <meta property="og:image" content="{{ asset('img/square-logo.png') }}">
     <meta property="og:url" content="https://www.uncoveredshorts.com">
     
     <!-- Twitter Card meta tags -->
     <meta name="twitter:card" content="uncovered_shorts_image">
     <meta name="twitter:title" content="Uncovered Shorts">
-    <meta name="twitter:description" content="Uncovered Shorts is a daily trivia game focused on finance and economics, challenge your friends today.">
+    <meta name="twitter:description" content="Uncovered Shorts : The goal of the game is to get the highest score possible. You will be presented with four questions, which will be of two question types 'Unique' and 'Ranked' ">
     
 
     <link rel="stylesheet" href="{{ asset('css/layout.css') }}?t=1.12">
     <link rel="stylesheet" href="{{ asset('css/game.css') }}?t=1.04">
-    <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1.2">
+    <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1.18">
 
     <!-- Fonts -->
     <link href="https://fonts.cdnfonts.com/css/switzer" rel="stylesheet">
@@ -37,9 +37,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300;400;500;600;700;800;900&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/1c2c2462bf.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
   </head>
 
   <!-- Google tag (gtag.js) -->
@@ -1063,92 +1060,7 @@
       <div class="modal" id="rulesModal">
         <button class="close-modal" onclick=closeModalById('rulesModal')>×</button>
         <h3>RULES</h3>
-        <div class="rules-text accordeon">
-        <ul>
-            <li>
-                <input type="checkbox" id='toggleCheckbox' checked>
-                <i class="arrow"></i>
-                <div class="col">
-                  <i class="fas fa-calendar"></i>
-                  <h2 class="title_accordeon">Get Daily Uncovered Shorts Tips</h2>
-                </div>
-                <p>Uncovered Shorts publishes a daily recap of the prior day’s game every morning.  
-                  Tips for the current day’s game are often included.  Sign up here
-                </p>
-                <div id="custom-substack-embed" class="info-signup" style='margin-top:15px;'></div>
-            </li>
-            <li>
-                <input type="checkbox" checked>
-                <i class="arrow"></i>
-                <div class="col">
-                  <i class="fas fa-group"></i>
-                  <h2 class="title_accordeon">Create a Group Leaderboard</h2>
-                </div>
-                <p>There are groups of colleagues, family members, friends, alumni all competing with each other via their own Group Leaderboards that show directly below the main leaderboard.  
-                  You can create your own by email <a href='mailto:tucker@uncoveredshorts.com'>tucker@uncoveredshorts.com</a> with the name of your Group Leaderboard.  
-                </p>
-            </li>
-            <li>
-                <input type="checkbox" checked>
-                <i class="arrow"></i>
-                <div class="col">
-                  <i class="fas fa-archive"></i>
-                  <h2 class="title_accordeon">Explore the Games Archive</h2>
-                </div>
-                <p>The top right icon on the main page allows you to play just about any game from the last few months.  
-                </p>
-            </li>
-            <li>
-              <input type="checkbox" checked>
-              <i class="arrow"></i>
-              <div class="col">
-                <i class="fas fa-list"></i>
-                <h2 class="title_accordeon">Rules</h2>
-              </div>
-              <p>
-                The goal is to get the highest score possible.
-                <br>
-                You will be presented with four questions, which will be of two question types: 
-                <br>
-                <br>
-                <b>The first two questions will be "Unique" (indicated by a U below the question number) questions. The goal is to name the most unique correct answer.</b> Scoring will change throughout the day based on other user's answers.
-                <br><br>
-                For example:
-                <br>
-                <strong>&bull;</strong> Name a company in the S&P 500?
-                <br>
-                <strong>&bull;</strong> Apple, while being a correct answer, will likely yield less points than Hershey
-                </br> 
-                <br>
-                <b>The second two questions will be "Ranked List" (indicated by a R below the question number) questions. The goal is to name the top ranking of a list.</b> The top 10 will score points in descending order.
-                <br><br>
-                For example:
-                <br>
-                <strong>&bull;</strong> Name the largest country by total area?
-                <br>
-                <strong>&bull;</strong> Answering Russia will be worth the maximum 100pts, Canada (#2) will score 90pts, Algeria (#10) will score 10pts
-                <br>  
-                <br>
-                Share your results and compete with friends!
-                <br>
-                <a href="{{ route('terms-of-service') }}">Terms of Service</a>
-                <br>
-                </p>
-          </li>
-          <li>
-            <input type="checkbox" checked>
-            <i class="arrow"></i>
-            <div class="col">
-              <i class="fas fa-info-circle"></i>
-              <h2 class="title_accordeon">About</h2>
-            </div>
-            <p>Uncovered Shorts is a daily trivia game focused on finance and economics 
-              during the week, with leisure questions on the weekend.  
-            </p>
-        </li>
-        </ul>
-
-          <!--
+        <div class="rules-text">
           <p>
           The goal is to get the highest score possible.
           <br>
@@ -1176,36 +1088,10 @@
           Share your results and compete with friends!
           </p>
           <br>
-          <a href="{{ route('terms-of-service') }}">Terms of Service</a> -->
+          <a href="{{ route('terms-of-service') }}">Terms of Service</a>
         </div>
         <button class="play" onclick=closeModalById('rulesModal')>PLAY</button>
-      </div>  
-      
-      <script>
-        document.getElementById('toggleCheckbox').addEventListener('change', function() {
-        var infoSignup = document.getElementsByClassName('info-signup')[0];
-        
-        if (this.checked) {
-            // Affiche l'élément si la case est cochée
-            infoSignup.style.display = 'none';
-        } else {
-            // Cache l'élément si la case est décochée
-            infoSignup.style.display = 'block';
-        }
-    });
-
-    // Pour s'assurer que l'état initial est correct au chargement de la page
-    window.onload = function() {
-        var checkbox = document.getElementById('toggleCheckbox');
-        var infoSignup = document.getElementsByClassName('info-signup')[0];
-        
-        if (checkbox.checked) {
-            infoSignup.style.display = 'none';
-        } else {
-            infoSignup.style.display = 'block';
-        }
-    };
-      </script>
+      </div>                   
 
       <!-- Stats -->
       <div class="modal" id="statsModal">

@@ -40,10 +40,10 @@
     
                         <div class="myadmin-block">
                             <label for="date_start">Start date: (Eastern Time)</label>
-                            <input type="datetime-local" name="date_start" id="date_start" value="{{ old('date_start') }}">
+                            <input type="datetime-local" name="date_start" id="date_start" value="{{ old('date_start', \Carbon\Carbon::now()->format('Y-m-d') . 'T00:01') }}">
                             
                             <label for="date_end">End date: (Eastern Time)</label>
-                            <input type="datetime-local" name="date_end" id="date_end" value="{{ old('date_end') }}">
+                            <input type="datetime-local" name="date_end" id="date_end" value="{{ old('date_end', \Carbon\Carbon::now()->addDay()->format('Y-m-d') . 'T00:00') }}">
                         </div>   
                     </div>                 
                         

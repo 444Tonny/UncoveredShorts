@@ -9,6 +9,7 @@ use App\Models\GamePlayed;
 use App\Models\Question; 
 use App\Models\RankedAnswer;
 use App\Models\UniqueAnswer; 
+use App\Models\UniqueSubmitted; 
 use App\Models\Leaderboard; 
 use App\Models\StreakLeaderboard; 
 use App\Models\LeaderboardCategory; 
@@ -74,10 +75,26 @@ class GameController extends Controller
 
         $leaderboardGroups = LeaderboardCategory::getAllCategoriesAlphabetical();
 
+        // Les reponses utilisees pour le calcul des points
         $uniqueAnswers1 = UniqueAnswer::getAnswersByQuestionId($questions[0]->id);
         $uniqueAnswers2 = UniqueAnswer::getAnswersByQuestionId($questions[1]->id);
         $rankedAnswers3 = RankedAnswer::getAnswersByQuestionId($questions[2]->id);
         $rankedAnswers4 = RankedAnswer::getAnswersByQuestionId($questions[3]->id);
+
+        // Pour afficher les reponses corrects les plus choisies
+        $submittedAnswers1 = UniqueSubmitted::select('value', 'is_correct', \DB::raw('count(*) as count'))
+                    ->where('question_id', $questions[0]->id)
+                    ->where('is_correct', 1)
+                    ->groupBy('value', 'is_correct')
+                    ->orderBy('count', 'desc') 
+                    ->get();
+
+        $submittedAnswers2 = UniqueSubmitted::select('value', 'is_correct', \DB::raw('count(*) as count'))
+                    ->where('question_id', $questions[1]->id)
+                    ->where('is_correct', 1)
+                    ->groupBy('value', 'is_correct')
+                    ->orderBy('count', 'desc') 
+                    ->get();
 
         $statistics = GamePlayed::getGameStats($currentGameId);
 
@@ -105,6 +122,7 @@ class GameController extends Controller
                                     'archiveGames', 'is_valid_for_streak',
                                     'suggestions1', 'suggestions2', 'suggestions3', 'suggestions4',
                                     'uniqueAnswers1', 'uniqueAnswers2', 'rankedAnswers3', 'rankedAnswers4', 
+                                    'submittedAnswers1', 'submittedAnswers2',
                                     'statistics', 'gameAlreadyPlayed', 'trackedGameCount', 'previousGame',
                                     'leaderboard1', 'leaderboard2streak', 'leaderboardGroups'
                                 ));

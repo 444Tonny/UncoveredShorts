@@ -224,16 +224,16 @@
           </div>
           <div id="go-bestanswers" class="go-bestanswers">
             <p class="go-text"><b id="q1">{!! $questions[0]->value !!}</b></p>
-            <span class='go-best-answer'><b>#1 :</b> {{ $uniqueAnswers1[0]->value ?? '-' }}</span>
-            <span class='go-best-answer'><b>#2 :</b> {{ $uniqueAnswers1[1]->value ?? '-' }}</span>
-            <span class='go-best-answer'><b>#3 :</b> {{ $uniqueAnswers1[2]->value ?? '-' }}</span>
+            <span class='go-best-answer'><b>#1 :</b> {{ ucwords($submittedAnswers1[0]->value ?? '-') }}</span>
+            <span class='go-best-answer'><b>#2 :</b> {{ ucwords($submittedAnswers1[1]->value ?? '-') }}</span>
+            <span class='go-best-answer'><b>#3 :</b> {{ ucwords($submittedAnswers1[2]->value ?? '-') }}</span>
           </div>
           <br>
           <div  class="go-bestanswers">
             <p class="go-text"><b id="q2">{!! $questions[1]->value !!}</b></p>
-            <span class='go-best-answer'><b>#1 :</b> {{ $uniqueAnswers2[0]->value ?? '-' }}</span>
-            <span class='go-best-answer'><b>#2 :</b> {{ $uniqueAnswers2[1]->value ?? '-' }}</span>
-            <span class='go-best-answer'><b>#3 :</b> {{ $uniqueAnswers2[2]->value ?? '-' }}</span>
+            <span class='go-best-answer'><b>#1 :</b> {{ ucwords($submittedAnswers2[0]->value ?? '-') }}</span>
+            <span class='go-best-answer'><b>#2 :</b> {{ ucwords($submittedAnswers2[1]->value ?? '-') }}</span>
+            <span class='go-best-answer'><b>#3 :</b> {{ ucwords($submittedAnswers2[2]->value ?? '-') }}</span>
           </div>
           <br>
           <div class="go-bestanswers">
@@ -915,6 +915,23 @@
 
               // function already called - addScoreToLeaderboard(currentGameId, playerFinalScore);
             }
+
+            let forbiddenInitials = [
+              'CUM', 'ASS', 'A5S', 'A55', 'SEX', 'FUK', 'FUC', 'FUQ',
+              'DIK', 'D1K', 'SHT', 'SUX', 'BUT'
+            ];
+
+            // If player has a forbidden nickname 
+            // Player never submitted his initials, ask him and then add his score
+            if(forbiddenInitials.includes(localStorage.getItem('personalInitial')))
+            {
+              openModalById('initialModal');
+              var initialInput = document.getElementById('playerInitial');
+              initialInput.focus();
+
+              // function already called - addScoreToLeaderboard(currentGameId, playerFinalScore);
+            }
+
             // Player already have initials
             else
             {
@@ -1062,7 +1079,7 @@
       <!-- Rules modal -->
       <div class="modal" id="rulesModal">
         <button class="close-modal" onclick="closeModalById('rulesModal'); checkAllCheckboxes()">×</button>
-        <h3>RULES</h3>
+        <h3>INFO</h3>
         <div class="rules-text accordeon">
         <ul>
             <li>
@@ -1095,7 +1112,7 @@
                   <i class="fas fa-calendar"></i>
                   <h2 class="title_accordeon">Explore the Games Archive</h2>
                 </div>
-                <p>The top right icon on the main page allows you to play just about any game from the last few months.  
+                <p>The top right icon on the main page allows you to play any game from the last few months.  
                 </p>
             </li>
             <li>
@@ -1321,35 +1338,51 @@
         document.getElementById('initialForm').addEventListener('submit', function(event) {
           event.preventDefault(); // Prevent the default form submission (page refresh)
 
-          var playerInitial = document.getElementById('playerInitial').value;
+          var playerInitial = document.getElementById('playerInitial').value.toUpperCase();
+          let forbiddenInitials = [
+            'CUM', 'ASS', 'A5S', 'A55', 'SEX', '5EX', 'S3X', '53X', 'FUK', 'FUC', 'FUQ',
+            'DIK', 'D1K', 'SHT', '5HT', 'SUX', 'BUT'
+          ];
+
 
           if (playerInitial.length === 3) {
-            
-            // Generate a unique identifier
-            const currentDateTime = new Date().toISOString().replace(/[^0-9]/g, ""); // Get current datetime in YYYYMMDDHHMMSS format
-            const uniqueIdentifier = playerInitial + currentDateTime;
 
-            localStorage.setItem('personalUID', uniqueIdentifier);
-            localStorage.setItem('personalInitial', playerInitial);
-            
-            // Submit score to the Top score leaderboard
-            addScoreToLeaderboard(currentGameId, playerFinalScore).then(response => {
-              // Une fois le score ajouté, on peut avoir le classement par groupe actualisé
+            // Vérifier si la valeur fait partie des initiales interdites
+            if (forbiddenInitials.includes(playerInitial)) {
+              alert("The initials you entered are not allowed.");
+            }
+            else
+            {
+              // Generate a unique identifier
+              const currentDateTime = new Date().toISOString().replace(/[^0-9]/g, ""); // Get current datetime in YYYYMMDDHHMMSS format
+              const uniqueIdentifier = playerInitial + currentDateTime;
+
+              // Verifier si l'id existe deja pour ceux qui avaient un initial problematique, on change juste les initiales
+              if(localStorage.getItem('personalUID') == null) 
+              {
+                localStorage.setItem('personalUID', uniqueIdentifier);
+              }
+              localStorage.setItem('personalInitial', playerInitial);
+              
+              // Submit score to the Top score leaderboard
+              addScoreToLeaderboard(currentGameId, playerFinalScore).then(response => {
+                // Une fois le score ajouté, on peut avoir le classement par groupe actualisé
+                changeScoreGroupLeaderboard(currentGameId, localStorage.getItem('personalLeaderboardGroup'));
+              }).catch(error => {
+                  console.error('Erreur 1144 add Score:', error);
+              });
+              
+              // Submit score to the Steak leaderboard
+              addStreakToLeaderboard(currentGameId);
+
+              // Ajouter score dans le group leaderboard
               changeScoreGroupLeaderboard(currentGameId, localStorage.getItem('personalLeaderboardGroup'));
-            }).catch(error => {
-                console.error('Erreur 1144 add Score:', error);
-            });
-            
-            // Submit score to the Steak leaderboard
-            addStreakToLeaderboard(currentGameId);
 
-            // Ajouter score dans le group leaderboard
-            changeScoreGroupLeaderboard(currentGameId, localStorage.getItem('personalLeaderboardGroup'));
-
-            closeModalById('initialModal');
-            setTimeout(function() {
-              openModalById('LeaderboardModal');
-            }, 600);
+              closeModalById('initialModal');
+              setTimeout(function() {
+                openModalById('LeaderboardModal');
+              }, 600);
+            }
           } 
           else 
           {

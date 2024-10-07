@@ -84,14 +84,12 @@ class GameController extends Controller
         // Pour afficher les reponses corrects les plus choisies
         $submittedAnswers1 = UniqueSubmitted::select('value', 'is_correct', \DB::raw('count(*) as count'))
                     ->where('question_id', $questions[0]->id)
-                    ->where('is_correct', 1)
                     ->groupBy('value', 'is_correct')
                     ->orderBy('count', 'desc') 
                     ->get();
 
         $submittedAnswers2 = UniqueSubmitted::select('value', 'is_correct', \DB::raw('count(*) as count'))
                     ->where('question_id', $questions[1]->id)
-                    ->where('is_correct', 1)
                     ->groupBy('value', 'is_correct')
                     ->orderBy('count', 'desc') 
                     ->get();
@@ -122,7 +120,6 @@ class GameController extends Controller
                                     'archiveGames', 'is_valid_for_streak',
                                     'suggestions1', 'suggestions2', 'suggestions3', 'suggestions4',
                                     'uniqueAnswers1', 'uniqueAnswers2', 'rankedAnswers3', 'rankedAnswers4', 
-                                    'submittedAnswers1', 'submittedAnswers2',
                                     'statistics', 'gameAlreadyPlayed', 'trackedGameCount', 'previousGame',
                                     'leaderboard1', 'leaderboard2streak', 'leaderboardGroups'
                                 ));

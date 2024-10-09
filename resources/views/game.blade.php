@@ -223,17 +223,17 @@
             <div id="sf-message" style="color: rgb(202, 59, 59); display: none;"></div>
           </div>
           <div id="go-bestanswers" class="go-bestanswers">
-            <p class="go-text"><b id="q1">{!! $questions[0]->value !!}</b></p>
-            <span class='go-best-answer'><b>#1 :</b> {{ $uniqueAnswers1[count($uniqueAnswers1)]->value ?? '-' }}</span>
-            <span class='go-best-answer'><b>#2 :</b> {{ $uniqueAnswers1[count($uniqueAnswers1)-1]->value ?? '-' }}</span>
-            <span class='go-best-answer'><b>#3 :</b> {{ $uniqueAnswers1[count($uniqueAnswers1)-2]->value ?? '-' }}</span>
+            <p class="go-text"><b id="q1">{!! $questions[0]->value !!} <br> (MOST POPULAR)</b></p>
+            <span class='go-best-answer'><b>#1 :</b> {{ $uniqueAnswers1[count($uniqueAnswers1)-1]->value ?? '-' }}</span>
+            <span class='go-best-answer'><b>#2 :</b> {{ $uniqueAnswers1[count($uniqueAnswers1)-2]->value ?? '-' }}</span>
+            <span class='go-best-answer'><b>#3 :</b> {{ $uniqueAnswers1[count($uniqueAnswers1)-3]->value ?? '-' }}</span>
           </div>
           <br>
           <div  class="go-bestanswers">
-            <p class="go-text"><b id="q2">{!! $questions[1]->value !!}</b></p>
-            <span class='go-best-answer'><b>#1 :</b> {{ $uniqueAnswers2[count($uniqueAnswers2)]->value ?? '-' }}</span>
-            <span class='go-best-answer'><b>#2 :</b> {{ $uniqueAnswers2[count($uniqueAnswers2)-1]->value ?? '-' }}</span>
-            <span class='go-best-answer'><b>#3 :</b> {{ $uniqueAnswers2[count($uniqueAnswers2)-2]->value ?? '-' }}</span>
+            <p class="go-text"><b id="q2">{!! $questions[1]->value !!} <br> (MOST POPULAR)</b></p>
+            <span class='go-best-answer'><b>#1 :</b> {{ $uniqueAnswers2[count($uniqueAnswers2)-1]->value ?? '-' }}</span>
+            <span class='go-best-answer'><b>#2 :</b> {{ $uniqueAnswers2[count($uniqueAnswers2)-2]->value ?? '-' }}</span>
+            <span class='go-best-answer'><b>#3 :</b> {{ $uniqueAnswers2[count($uniqueAnswers2)-3]->value ?? '-' }}</span>
           </div>
           <br>
           <div class="go-bestanswers">
@@ -917,7 +917,7 @@
             }
 
             let forbiddenInitials = [
-              'CUM', 'ASS', 'A5S', 'A55', 'SEX', 'FUK', 'FUC', 'FUQ','DIK', 'D1K', 'SHT', 'SUX'
+              'CUM', 'ASS', 'A5S', 'A55', 'SEX', 'FUK', 'FUC', 'FUQ','DIK', 'D1K', 'SHT', 'SUX', 'FAG', 'NIG'
             ];
 
             // If player has a forbidden nickname 
@@ -1091,7 +1091,9 @@
                 <p>Uncovered Shorts publishes a daily recap of the prior day’s game every morning.  
                   Tips for the current day’s game are often included.  Sign up here
                 </p>
+                <!--
                 <div id="custom-substack-embed" class="info-signup" style='margin-top:15px;'></div>
+                -->
             </li>
             <li>
                 <input type="checkbox" class='info-checkbox' checked>
@@ -1339,7 +1341,7 @@
 
           var playerInitial = document.getElementById('playerInitial').value.toUpperCase();
           let forbiddenInitials = [
-            'CUM', 'ASS', 'A5S', 'A55', 'SEX', 'FUK', 'FUC', 'FUQ','DIK', 'D1K', 'SHT', 'SUX'
+            'CUM', 'ASS', 'A5S', 'A55', 'SEX', 'FUK', 'FUC', 'FUQ','DIK', 'D1K', 'SHT', 'SUX', 'FAG', 'NIG'
           ];
 
 

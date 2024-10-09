@@ -199,7 +199,11 @@
           <div class="subscribing">
             <label for="">Get a recap of the most popular answers</label> <br>
             
+            <!--
             <div id="custom-substack-embed" style='margin-top:15px;'></div>
+            -->
+
+            <iframe src="https://uncoveredshorts.substack.com/embed" width="480" height="150" style="border:1px solid #EEE; background:white;" frameborder="0" scrolling="no"></iframe>
 
             <script>
               window.CustomSubstackWidget = {
@@ -1201,6 +1205,7 @@
       
       <script>
         document.getElementById('toggleCheckbox').addEventListener('change', function() {
+          /*
             var infoSignup = document.getElementsByClassName('info-signup')[0];
             
             if (this.checked) {
@@ -1210,11 +1215,13 @@
                 // Cache l'élément si la case est décochée
                 infoSignup.style.display = 'block';
             }
+                */
         });
 
         // Pour s'assurer que l'état initial est correct au chargement de la page
         window.onload = function() {
             var checkbox = document.getElementById('toggleCheckbox');
+            /*
             var infoSignup = document.getElementsByClassName('info-signup')[0];
             
             if (checkbox.checked) {
@@ -1222,6 +1229,7 @@
             } else {
                 infoSignup.style.display = 'block';
             }
+                */
         };
 
         // Pour fermer tous les toggles en fermant la section info
@@ -1238,8 +1246,8 @@
             }
 
             // Cacher le formulaire
-            var infoSignup = document.getElementsByClassName('info-signup')[0];
-            infoSignup.style.display = 'none';
+            //var infoSignup = document.getElementsByClassName('info-signup')[0];
+            //infoSignup.style.display = 'none';
         }
       </script>
 

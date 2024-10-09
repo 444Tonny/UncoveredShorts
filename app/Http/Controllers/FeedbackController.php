@@ -21,7 +21,7 @@ class FeedbackController extends Controller
             // Si l'email existe déjà ou est invalide, renvoyer une réponse JSON
             return response()->json([
                 'status' => 'error',
-                'message' => 'The email address is already subscribed or invalid.',
+                'message' => 'The email address is either already subscribed or is invalid.',
                 'errors' => $validator->errors(),
             ], 400);
         }

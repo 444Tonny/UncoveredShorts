@@ -198,12 +198,13 @@
           </div>
           <div class="subscribing">
             <label for="">Get a recap of the most popular answers</label> <br>
+            <form id='subscribe-form' class="row sf-form" method="POST">
+              <input class='sf-email' name='sf-email' type="email" placeholder="Your email...">
+              <input class='sf-submit' type="submit" value="I'm In!">
+            </form>
+            <div id="sf-message" class="sf-message" style="color: rgb(202, 59, 59); display: none;"></div>
             
-            <!--
-            <div id="custom-substack-embed" style='margin-top:15px;'></div>
-            -->
-
-            <iframe src="https://uncoveredshorts.substack.com/embed" width="480" height="150" style="border:1px solid #EEE; background:white;" frameborder="0" scrolling="no"></iframe>
+            <!-- <div id="custom-substack-embed" style='margin-top:15px;'></div> -->
 
             <script>
               window.CustomSubstackWidget = {
@@ -223,8 +224,6 @@
               };
             </script>
             <script src="https://substackapi.com/widget.js" async></script>
-
-            <div id="sf-message" style="color: rgb(202, 59, 59); display: none;"></div>
           </div>
           <div id="go-bestanswers" class="go-bestanswers">
             <p class="go-text"><b id="q1">{!! $questions[0]->value !!} <br> (MOST POPULAR)</b></p>
@@ -345,16 +344,16 @@
 
     <div class="modal-background" id="modalBackground">
 
-      <!-- Subscribing 
       <script>
         document.addEventListener('DOMContentLoaded', function () {
 
-            document.getElementById('subscribe-form').addEventListener('submit', function (e) {
+            document.querySelectorAll('.sf-form').forEach(form => {
+              form.addEventListener('submit', function (e) {
                 e.preventDefault();
         
                 const email = document.querySelector('input[name="sf-email"]').value;
                 const token = '{{ csrf_token() }}';
-                const messageDiv = document.getElementById('sf-message');
+                const messageDiv = document.getElementsByClassName('sf-message');
         
                 fetch('{{ route('subscribe') }}', {
                     method: 'POST',
@@ -366,25 +365,36 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                  messageDiv.style.display = 'block';
+                  messageDiv[0].style.display = 'block';
+                  messageDiv[1].style.display = 'block';
                   if (data.status === 'success') {
-                      messageDiv.style.color = '#78ad7a';
-                      messageDiv.textContent = data.message;
+                    messageDiv[0].style.color = '#78ad7a';
+                    messageDiv[0].textContent = data.message;
+                    
+                    messageDiv[1].style.color = '#78ad7a';
+                    messageDiv[1].textContent = data.message;
                   } else {
-                      messageDiv.style.color = '#d55353';
-                      messageDiv.textContent = data.message;
+                      messageDiv[0].style.color = '#d55353';
+                      messageDiv[0].textContent = data.message;
+                      
+                      messageDiv[1].style.color = '#d55353';
+                      messageDiv[1].textContent = data.message;
                   }
                 })
                 .catch(error => {
-                  messageDiv.style.display = 'block';
-                  messageDiv.style.color = '#d55353';
-                  messageDiv.textContent = 'An unexpected error occurred. Please try again.';
+                  messageDiv[0].style.display = 'block';
+                  messageDiv[0].style.color = '#d55353';
+                  messageDiv[0].textContent = 'An unexpected error occurred. Please try again.';
+                  
+                  messageDiv[1].style.display = 'block';
+                  messageDiv[1].style.color = '#d55353';
+                  messageDiv[1].textContent = 'An unexpected error occurred. Please try again.';
                   console.error('Error:', error);
                 });
+              });
             });
         });
         </script>
-      -->
 
       <!-- ARCHIVE -->
       <div class="modal" id="archiveModal">
@@ -1095,9 +1105,12 @@
                 <p>Uncovered Shorts publishes a daily recap of the prior day’s game every morning.  
                   Tips for the current day’s game are often included.  Sign up here
                 </p>
-                <!--
-                <div id="custom-substack-embed" class="info-signup" style='margin-top:15px;'></div>
-                -->
+                <!-- <div id="custom-substack-embed" class="info-signup" style='margin-top:15px;'></div> -->
+                <form id='subscribe-form' class="row sf-form info-signup" method="POST">
+                  <input class='sf-email' name='sf-email' type="email" placeholder="Your email...">
+                  <input class='sf-submit' type="submit" value="I'm In!">
+                  <div id="sf-message" class="sf-message" style="color: rgb(202, 59, 59); display: none;"></div>
+                </form>
             </li>
             <li>
                 <input type="checkbox" class='info-checkbox' checked>
@@ -1205,7 +1218,6 @@
       
       <script>
         document.getElementById('toggleCheckbox').addEventListener('change', function() {
-          /*
             var infoSignup = document.getElementsByClassName('info-signup')[0];
             
             if (this.checked) {
@@ -1215,13 +1227,11 @@
                 // Cache l'élément si la case est décochée
                 infoSignup.style.display = 'block';
             }
-                */
         });
 
         // Pour s'assurer que l'état initial est correct au chargement de la page
         window.onload = function() {
             var checkbox = document.getElementById('toggleCheckbox');
-            /*
             var infoSignup = document.getElementsByClassName('info-signup')[0];
             
             if (checkbox.checked) {
@@ -1229,7 +1239,6 @@
             } else {
                 infoSignup.style.display = 'block';
             }
-                */
         };
 
         // Pour fermer tous les toggles en fermant la section info
@@ -1246,8 +1255,8 @@
             }
 
             // Cacher le formulaire
-            //var infoSignup = document.getElementsByClassName('info-signup')[0];
-            //infoSignup.style.display = 'none';
+            var infoSignup = document.getElementsByClassName('info-signup')[0];
+            infoSignup.style.display = 'none';
         }
       </script>
 

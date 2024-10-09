@@ -64,7 +64,7 @@
                                     </td>
                                     <td>{!! date('F j, Y', strtotime($subscriber->created_at)) !!}</td>
                                     <td style="text-align:center;">  
-                                        <a href="{{ route('subscribers.unsubscribe', ['email' => $subscriber->email]) }}" onclick="return confirmUnsubscribe(this);">Unsubscribe</a> 
+                                        <a href="{{ route('subscribers.unsubscribe', ['email' => $subscriber->email]) }}" onclick="return confirmUnsubscribe(this);">Delete</a> 
                                     </td>
                                 </tr>
                             @endforeach

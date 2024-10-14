@@ -39,10 +39,13 @@
                 
                 <div class="stats-charts">
 
+                    <?php $iCA = 0 ?>
                     @foreach($questions as $question)
                         <figure>
                             <table class="barChart_h">
                                 <caption>Q{{ $question->number }}: {{ $question->value }}</caption>
+                                <caption><br>Correct answers : {{ $correctAnswerCount[$iCA] }} / {{ $totalVotes[$iCA] }}</caption>
+                                <?php $iCA++ ?>
                                 <tbody>
                                     <!-- Y-axis -->
                                     <tr>

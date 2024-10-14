@@ -198,14 +198,15 @@
           </div>
           <div class="subscribing">
             <label for="">Get a recap of the most popular answers</label> <br>
-            <!--
+            
             <form id='subscribe-form' class="row sf-form" method="POST">
               <input class='sf-email' name='sf-email' type="email" placeholder="Your email...">
               <input class='sf-submit' type="submit" value="I'm In!">
             </form>
-             <div id="sf-message" class="sf-message" style="color: rgb(202, 59, 59); display: none;"></div> -->
-            
+            <div id="sf-message" class="sf-message" style="color: rgb(202, 59, 59); display: none;"></div> 
+            <!--
             <div id="custom-substack-embed" style='margin-top:15px;'></div> 
+            -->
 
             <script>
               window.CustomSubstackWidget = {
@@ -932,7 +933,7 @@
             }
 
             let forbiddenInitials = [
-              'CUM', 'ASS', 'A5S', 'A55', 'SEX', 'FUK', 'FUC', 'FUQ','DIK', 'D1K', 'SHT', 'SUX', 'FAG', 'NIG'
+              'CUM', 'ASS', 'A5S', 'A55', 'SEX', 'FUK', 'FUC', 'FUQ','DIK', 'D1K', 'SHT', 'SUX', 'FAG', 'NIG', 'JIZ', 'KKK' 
             ];
 
             // If player has a forbidden nickname 
@@ -1105,15 +1106,16 @@
                 </div>
                 <p>Uncovered Shorts publishes a daily recap of the prior day’s game every morning.  
                   Tips for the current day’s game are often included.  Sign up here
-                </p>
-                 <div id="custom-substack-embed" class="info-signup" style='margin-top:15px;'></div> 
-                <!--
+                </p><!--
+                 <div id="custom-substack-embed" class="info-signup" style='margin-top:15px;'></div>
+                 
+                --> 
+                
                  <form id='subscribe-form' class="row sf-form info-signup" method="POST">
                   <input class='sf-email' name='sf-email' type="email" placeholder="Your email...">
                   <input class='sf-submit' type="submit" value="I'm In!">
                   <div id="sf-message" class="sf-message" style="color: rgb(202, 59, 59); display: none;"></div>
                 </form>
-                -->
             </li>
             <li>
                 <input type="checkbox" class='info-checkbox' checked>
@@ -1361,7 +1363,7 @@
 
           var playerInitial = document.getElementById('playerInitial').value.toUpperCase();
           let forbiddenInitials = [
-            'CUM', 'ASS', 'A5S', 'A55', 'SEX', 'FUK', 'FUC', 'FUQ','DIK', 'D1K', 'SHT', 'SUX', 'FAG', 'NIG'
+            'CUM', 'ASS', 'A5S', 'A55', 'SEX', 'FUK', 'FUC', 'FUQ','DIK', 'D1K', 'SHT', 'SUX', 'FAG', 'NIG', 'JIZ', 'KKK'
           ];
 
 

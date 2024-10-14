@@ -11,38 +11,38 @@
             <div class="statistics">
                 <div class="stats-blocks">
                     <div class="sb-single" id='single-TodayVisits'>
-                        <label for=""><b>TODAY</b><br> Unique visits </label>
-                        <p class='lv-stats' id='TodayVisits'>{{ $visitStats['todayVisits'] }}</p>
+                        <label for=""><b>TODAY</b><br> Today's games played </label>
+                        <p class='lv-stats' id='TodayVisits'>{{ $todaysGameStats['todayGames'] }}</p>
                     </div>                 
                     <div class="sb-single" id='single-WeekVisits'>
-                        <label for=""><b>LAST 7 DAYS</b><br> Unique visits </label>
-                        <p class='lv-stats' id='WeekVisits'>{{ $visitStats['weekVisits'] }}</p>
+                        <label for=""><b>LAST 7 DAYS</b><br> Today's games played </label>
+                        <p class='lv-stats' id='WeekVisits'>{{ $todaysGameStats['weekGames'] }}</p>
                     </div>                  
                     <div class="sb-single" id='single-MonthVisits'>
-                        <label for=""><b>LAST 30 DAYS</b><br> Unique visits </label>
-                        <p class='lv-stats' id='MonthVisits'>{{ $visitStats['monthVisits'] }}</p>
+                        <label for=""><b>LAST 30 DAYS</b><br> Today's games played </label>
+                        <p class='lv-stats' id='MonthVisits'>{{ $todaysGameStats['monthGames'] }}</p>
                     </div>        
                     <div class="sb-single" id='single-TotalVisits'>
-                        <label for=""><b>OVERALL</b><br> Unique visits </label>
-                        <p class='lv-stats' id='TotalVisits'>{{ $visitStats['totalVisits'] }}</p>
+                        <label for=""><b>OVERALL</b><br> Today's games played </label>
+                        <p class='lv-stats' id='TotalVisits'>{{ $todaysGameStats['totalGames'] }}</p>
                     </div>
                 </div>
 
                 <div class="stats-blocks">
                     <div class="sb-single" id='single-TodayGames'>
-                        <label for=""><b>TODAY</b><br> Games played </label>
+                        <label for=""><b>TODAY</b><br> All games played </label>
                         <p class='lv-stats' id='TodayGames'>{{ $gamesStats['todayGames'] }}</p>
                     </div>
                     <div class="sb-single" id='single-WeekGames'>
-                        <label for=""><b>LAST 7 DAYS</b><br> Games played </label>
+                        <label for=""><b>LAST 7 DAYS</b><br> All games played </label>
                         <p class='lv-stats' id='WeekGames'>{{ $gamesStats['weekGames'] }}</p>
                     </div>
                     <div class="sb-single" id='single-MonthGames'>
-                        <label for=""><b>LAST 30 DAYS</b><br> Games played </label>
+                        <label for=""><b>LAST 30 DAYS</b><br> All games played </label>
                         <p class='lv-stats' id='MonthGames'>{{ $gamesStats['monthGames'] }}</p>
                     </div>
                     <div class="sb-single" id='single-TotalGames'>
-                        <label for=""><b>OVERALL</b><br> Games played </label>
+                        <label for=""><b>OVERALL</b><br> All games played </label>
                         <p class='lv-stats' id='TotalGames'>{{ $gamesStats['totalGames'] }}</p>
                     </div>
                 </div>

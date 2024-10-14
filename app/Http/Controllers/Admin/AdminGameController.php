@@ -188,28 +188,44 @@ class AdminGameController extends Controller
         $questions = Question::where('game_id', $id_game)->get();
         $statistics = [];
 
+
+        // index pour stocker le nombre de correct answer
+        $iCA = 0; 
+        $correctAnswerCount = array();
+        $totalVotes = array();
+
         foreach ($questions as $question) {
             $answers = [];
+            $correctAnswerCount[$iCA] = 0;
+            $totalVotes[$iCA] = 0;
 
             if ($question->type == 'ranked' or $question->type == 'ranked-few') {
-                $totalVotes = RankedSubmitted::where('question_id', $question->id)->count();
+                $totalVotes[$iCA] = RankedSubmitted::where('question_id', $question->id)->count();
                 $submittedAnswers = RankedSubmitted::select('value', 'is_correct', \DB::raw('count(*) as count'))
                     ->where('question_id', $question->id)
                     ->groupBy('value', 'is_correct')
                     ->orderBy('count', 'desc') 
                     ->get();
+
+                $correctAnswerCount[$iCA] = RankedSubmitted::where('question_id', $question->id)
+                    ->where('is_correct', 1)
+                    ->count();
             }
             else {
-                $totalVotes = UniqueSubmitted::where('question_id', $question->id)->count();
+                $totalVotes[$iCA] = UniqueSubmitted::where('question_id', $question->id)->count();
                 $submittedAnswers = UniqueSubmitted::select('value', 'is_correct', \DB::raw('count(*) as count'))
                     ->where('question_id', $question->id)
                     ->groupBy('value', 'is_correct')
                     ->orderBy('count', 'desc') 
                     ->get();
+
+                $correctAnswerCount[$iCA] = UniqueSubmitted::where('question_id', $question->id)
+                    ->where('is_correct', 1)
+                    ->count();
             }
 
             foreach ($submittedAnswers as $answer) {
-                $percentage = $totalVotes > 0 ? ($answer->count / $totalVotes) * 100 : 0;
+                $percentage = $totalVotes[$iCA] > 0 ? ($answer->count / $totalVotes[$iCA]) * 100 : 0;
                 $answers[] = [
                     'value' => $answer->value,
                     'is_correct' => $answer->is_correct,
@@ -222,11 +238,11 @@ class AdminGameController extends Controller
                 'type' => $question->type,
                 'answers' => $answers,
             ];
+
+            $iCA++;
         }
 
-        //dd($statistics[516]['answers']);
-
         // Retourner les données à la vue
-        return view('admin.games.statistics', ['scoreStatistics' => $scoreStatistics, 'statistics' => $statistics, 'questions' => $questions, 'game' => $game, 'gamePlayedArchiveCount' => $gamePlayedArchiveCount, 'gamePlayedTheDayCount' => $gamePlayedTheDayCount]);
+        return view('admin.games.statistics', ['totalVotes' => $totalVotes, 'scoreStatistics' => $scoreStatistics, 'statistics' => $statistics, 'questions' => $questions, 'game' => $game, 'gamePlayedArchiveCount' => $gamePlayedArchiveCount, 'gamePlayedTheDayCount' => $gamePlayedTheDayCount, 'correctAnswerCount' => $correctAnswerCount]);
     }
 }

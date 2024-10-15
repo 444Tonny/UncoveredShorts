@@ -44,7 +44,7 @@
                         <figure>
                             <table class="barChart_h">
                                 <caption>Q{{ $question->number }}: {{ $question->value }}</caption>
-                                <caption><br>Correct answers : {{ $correctAnswerCount[$iCA] }} / {{ $totalVotes[$iCA] }}</caption>
+                                <caption><br>Correct answers : {{ $correctAnswerCount[$iCA] }} / {{ $totalVotes[$iCA] }} = {{ round(($correctAnswerCount[$iCA] / $totalVotes[$iCA]) * 100, 0) }}%</caption>
                                 <?php $iCA++ ?>
                                 <tbody>
                                     <!-- Y-axis -->

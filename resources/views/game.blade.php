@@ -473,6 +473,7 @@
       <script>
         
         var currentGameId = {!! $currentGame->id !!}
+        console.log('curent = '+currentGameId);
         var currentGameName = {!! json_encode($currentGame->name) !!};
 
         /* new statistics */

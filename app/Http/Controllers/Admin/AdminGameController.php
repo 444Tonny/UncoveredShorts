@@ -12,6 +12,11 @@ use App\Models\Game;
 use App\Models\Question;
 use App\Models\RankedSubmitted;
 use App\Models\UniqueSubmitted;
+use App\Models\RankedAnswer;
+use App\Models\UniqueAnswer; 
+use App\Models\Leaderboard; 
+use App\Models\StreakLeaderboard; 
+use App\Models\LeaderboardCategory; 
 
 class AdminGameController extends Controller
 {
@@ -20,8 +25,77 @@ class AdminGameController extends Controller
         // To update current game status
         Game::getCurrentGame();
 
-        $games = Game::select('*')->orderBy('date_start', 'DESC')->get();
+        $games = Game::select('*')->orderBy('date_start', 'DESC')->paginate(30);
         return view('admin.games.index', compact('games'));
+    }
+
+    public function previewGame($gameID)
+    {
+        $currentGame = Game::find($gameID);
+        // Sinon, récupérer le jeu actuel
+        $is_valid_for_streak = 0; 
+
+        $currentGameId = $currentGame->id;
+
+        // Recuperer la liste des autres jeux a afficher dans archive
+        $archiveGames = Game::where('id', '!=', $currentGameId)
+                        ->where('is_archiveable', 1)
+                        ->orderBy('date_start', 'DESC')
+                        ->get();
+
+        // New statistics
+        $trackedGameCount = Game::getTrackedGamesCount();
+        $previousGame = Game::nearestLowerEndDate($currentGame);
+
+        $questions = Question::byGameId($currentGameId)->get();
+
+        $suggestions1 = Game::getDataFromSheet($questions[0]['sheet_url'], $questions[0]->id);
+        $suggestions2 = Game::getDataFromSheet($questions[1]['sheet_url'], $questions[1]->id);
+        $suggestions3 = Game::getDataFromSheet($questions[2]['sheet_url'], $questions[2]->id);
+        $suggestions4 = Game::getDataFromSheet($questions[3]['sheet_url'], $questions[3]->id);
+
+        $leaderboard1 = Leaderboard::getTodaysTop($currentGameId, 10);
+        $leaderboard2streak = StreakLeaderboard::getTopStreaks(10);
+
+        $leaderboardGroups = LeaderboardCategory::getAllCategoriesAlphabetical();
+
+        // Les reponses utilisees pour le calcul des points
+        $uniqueAnswers1 = UniqueAnswer::getAnswersByQuestionId($questions[0]->id);
+        $uniqueAnswers2 = UniqueAnswer::getAnswersByQuestionId($questions[1]->id);
+        $rankedAnswers3 = RankedAnswer::getAnswersByQuestionId($questions[2]->id);
+        $rankedAnswers4 = RankedAnswer::getAnswersByQuestionId($questions[3]->id);
+
+        // Pour afficher les reponses corrects les plus choisies
+        $submittedAnswers1 = UniqueSubmitted::select('value', 'is_correct', \DB::raw('count(*) as count'))
+                    ->where('question_id', $questions[0]->id)
+                    ->groupBy('value', 'is_correct')
+                    ->orderBy('count', 'desc') 
+                    ->get();
+
+        $submittedAnswers2 = UniqueSubmitted::select('value', 'is_correct', \DB::raw('count(*) as count'))
+                    ->where('question_id', $questions[1]->id)
+                    ->groupBy('value', 'is_correct')
+                    ->orderBy('count', 'desc') 
+                    ->get();
+
+        $statistics = GamePlayed::getGameStats($currentGameId);
+
+        // Check if a user has played (if the cookie with the game id exist in the user cookies)
+        
+        $statistics['Percentile'] = 0;
+        $gameAlreadyPlayed = null;
+
+        // Donner un id temporaire 
+        $currentGame->id = mt_rand(199999, 999999);
+        
+
+        return view('game', compact('currentGame', 'questions',
+                                    'archiveGames', 'is_valid_for_streak',
+                                    'suggestions1', 'suggestions2', 'suggestions3', 'suggestions4',
+                                    'uniqueAnswers1', 'uniqueAnswers2', 'rankedAnswers3', 'rankedAnswers4', 
+                                    'statistics', 'gameAlreadyPlayed', 'trackedGameCount', 'previousGame',
+                                    'leaderboard1', 'leaderboard2streak', 'leaderboardGroups'
+                                ));
     }
 
     public function updateArchiveable(Request $request, Game $game)

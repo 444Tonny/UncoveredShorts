@@ -63,9 +63,9 @@
                                     <span class='game-status {{ $game->status }}'> {{ $game->status }} </span>
                                 </td>
                                 <td>
-                                    {!! date('F j, Y', strtotime($game->date_start)) !!} <br> <i> {!! date('H:i', strtotime($game->date_start)) !!} (Start) </i>
+                                    <b>{!! date('F j, Y', strtotime($game->date_start)) !!}</b> <br> <i> {!! date('H:i', strtotime($game->date_start)) !!} (Start) </i>
                                     <br><br> 
-                                    {!! date('F j, Y', strtotime($game->date_end)) !!} <br> <i> {!! date('H:i', strtotime($game->date_end)) !!} (End) </i>
+                                    <b>{!! date('F j, Y', strtotime($game->date_end)) !!}</b> <br> <i> {!! date('H:i', strtotime($game->date_end)) !!} (End) </i>
                                 
                                 </td>
                                 <td>
@@ -78,6 +78,10 @@
                                             STATS</a>
                                 </td>
                                 <td class='center-buttons'>
+                                    <?php if ($game->status == 'ready') { ?>
+                                        <a target='_blank' href="{{ route('games.preview', $game->id) }}" class='preview'>Preview</a>
+                                        <br>
+                                    <?php } ?>
                                     <a href="{{ route('games.edit', $game->id) }}" class='edit'>Edit</a>
                                     <form action="{{ route('games.destroy', $game->id) }}" method="POST">
                                         @csrf
@@ -89,6 +93,9 @@
                         @endforeach
                     </tbody>
                 </table>
+                <div class="pagination">
+                    {{ $games->links() }}
+                </div>
                 <div class="spacing"></div>
             </div>            
         </main>

@@ -47,13 +47,15 @@
 /* Style buttons actions */
 .admin-content td a,
 .admin-content td button {
+    display: inline-block;
     padding: 8px 18px;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 400;
     color: #333;
     background-color: #f5f5f5;
     border: 1px solid #ddd;
     border-radius: 3px;
+    margin: 6px 10px;
 }
 
 .admin-content td a:hover,
@@ -148,13 +150,24 @@ td i
 
 .center-buttons form
 {
-    margin-top: 17px;
-    margin-bottom: 10px;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
     align-content: center;
+}
+
+.preview
+{
+    border: #6cb86c solid 1.2px !important;
+    background-color: #e5ffe5 !important;
+    color: #286220 !important;
+}
+
+.preview:hover
+{
+    background-color: #6cb86c !important;
+    color:  #ffffff !important;
 }
 
 .edit
@@ -216,4 +229,23 @@ td i
 .sub-copy:focus
 {
     background-color: rgb(229, 229, 229) !important;
+}
+
+/* Navigation */
+.pagination
+{
+    margin-top: 40px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+}
+
+nav[role="navigation"] > div > div:nth-child(1) {
+    margin-top: 20px;
+}
+
+nav[role="navigation"] > div > div:nth-child(2) {
+    display: none;
 }

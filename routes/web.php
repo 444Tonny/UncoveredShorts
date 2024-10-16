@@ -54,6 +54,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/', [App\Http\Controllers\Admin\AdminGameController::class, 'index'])->name('home');
     
         Route::resource('games', AdminGameController::class);
+        Route::get('games/{id}/preview', [AdminGameController::class, 'previewGame'])->name(name: 'games.preview');
         Route::get('games/{id}/statistics', [AdminGameController::class, 'showStatistics'])->name('game.showStatistics');
         Route::patch('/games/{game}/update-archiveable', [AdminGameController::class, 'updateArchiveable'])->name('games.update_archiveable');
 

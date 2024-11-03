@@ -747,8 +747,8 @@
           searchInput.value = '';
           searchInput.style.display = 'initial'; 
 
-          // Afficher toutes les suggestions si toutes c'est un ranked few
-          if(type == 'ranked-few')
+          // Afficher toutes les suggestions si toutes c'est un ranked few ou unique-few
+          if(type == 'ranked-few' || type == 'unique-few')
           {
             // cacher la barre de recherche
             searchInput.style.display = 'none'; 
@@ -758,7 +758,7 @@
               // Créer l'élément de suggestion et l'ajouter au conteneur
               var span = document.createElement('span');
               span.className = 'single-suggestion';
-              span.innerHTML = '<p>' + text + '</p><button onclick=selectSuggestion(event) data-value="'+ text +'" data-inputTargetId="'+ activePlayerInput +'" class="selectButton">Select</button>';
+              span.innerHTML = '<p>' + text + '</p><button onclick=selectSuggestion(event) data-value="'+ text.replace(/"/g, '&quot;') +'" data-inputTargetId="'+ activePlayerInput +'" class="selectButton">Select</button>';
               suggestionsContainer.appendChild(span);
             });
           }
@@ -934,7 +934,7 @@
             }
 
             let forbiddenInitials = [
-              'CUM', 'ASS', 'A5S', 'A55', 'SEX', 'FUK', 'FUC', 'FUQ','DIK', 'D1K', 'SHT', 'SUX', 'FAG', 'NIG', 'JIZ', 'KKK' 
+              'T1T', 'TIT', 'CUM', 'ASS', 'A5S', 'A55', 'SEX', 'FUK', 'FUC', 'FUQ','DIK', 'D1K', 'SHT', 'SUX', 'FAG', 'NIG', 'JIZ', 'KKK' 
             ];
 
             // If player has a forbidden nickname 
@@ -1364,7 +1364,7 @@
 
           var playerInitial = document.getElementById('playerInitial').value.toUpperCase();
           let forbiddenInitials = [
-            'CUM', 'ASS', 'A5S', 'A55', 'SEX', 'FUK', 'FUC', 'FUQ','DIK', 'D1K', 'SHT', 'SUX', 'FAG', 'NIG', 'JIZ', 'KKK'
+            'T1T', 'TIT', 'CUM', 'ASS', 'A5S', 'A55', 'SEX', 'FUK', 'FUC', 'FUQ','DIK', 'D1K', 'SHT', 'SUX', 'FAG', 'NIG', 'JIZ', 'KKK'
           ];
 
 

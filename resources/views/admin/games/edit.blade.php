@@ -65,7 +65,8 @@
                             <label for="type_{{ $k }}">Type</label>
                             <select name="questions[{{ $k }}][type]" id="type_{{ $k }}">
                                 @if ($k <= 2)
-                                <option value="unique" selected>Unique</option>
+                                <option value="unique"  <?php if ($question->type === 'unique') echo 'selected'; ?>>Unique</option>
+                                <option value="unique-few"  <?php if ($question->type === 'unique-few') echo 'selected'; ?>>Unique (Show suggestions)</option>
                                 @else
                                 <option value="ranked" <?php if ($question->type === 'ranked') echo 'selected'; ?>>Ranked</option>
                                 <option value="ranked-few" <?php if ($question->type === 'ranked-few') echo 'selected'; ?>>Ranked (Show suggestions)</option>
@@ -85,7 +86,7 @@
                             <br>
                             &nbsp;
                             <div>
-                                <input type="checkbox" name="verify_{{$k}}" id="verify_{{$k}}" onchange="updateHref({{$k}})" <?php if ($question->type !== 'ranked-few') echo 'checked'; ?>> Check to verify the data in Google Sheets.
+                                <input type="checkbox" name="verify_{{$k}}" id="verify_{{$k}}" onchange="updateHref({{$k}})" <?php if ($question->type !== 'ranked-few' && $question->type !== 'unique-few') echo 'checked'; ?>> Check to verify the data in Google Sheets.
                             </div>        
 
                             <div class="spacing-20"></div>

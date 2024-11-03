@@ -44,7 +44,10 @@
                         <figure>
                             <table class="barChart_h">
                                 <caption>Q{{ $question->number }}: {{ $question->value }}</caption>
-                                <caption><br>Correct answers : {{ $correctAnswerCount[$iCA] }} / {{ $totalVotes[$iCA] }} = {{ round(($correctAnswerCount[$iCA] / $totalVotes[$iCA]) * 100, 0) }}%</caption>
+                                <caption>
+                                    <br>Correct answers : {{ $correctAnswerCount[$iCA] }} / {{ $totalVotes[$iCA] }} = 
+                                    {{ $totalVotes[$iCA] > 0 ? round(($correctAnswerCount[$iCA] / $totalVotes[$iCA]) * 100, 0) : 0 }}%
+                                </caption>
                                 <?php $iCA++ ?>
                                 <tbody>
                                     <!-- Y-axis -->
@@ -68,7 +71,7 @@
                                                 </td>
                                             </tr>
                                         @endforeach
-                                    @elseif($statistics[$question->id]['type'] == 'unique')
+                                    @elseif($statistics[$question->id]['type'] == 'unique' or $statistics[$question->id]['type'] == 'unique-few')
                                         @foreach($statistics[$question->id]['answers'] as $answer)
                                             <tr>
                                                 <th scope="row">

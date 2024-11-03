@@ -92,12 +92,19 @@ class Game extends Model
     public static function updateGameStatus($idGame)
     {
         DB::beginTransaction();
+        $now = now()->setTimezone('America/New_York');
 
         try {
             // Update status of other games
             self::where('id', '!=', $idGame)
                 ->where('status', 'current')
+                ->where('date_start', '<', $now)
                 ->update(['status' => 'finished']);
+
+            // Update status of other games
+            self::where('id', '!=', $idGame)
+            ->where('date_start', '>', $now)
+            ->update(['status' => 'ready']);
 
             $game = self::find($idGame);
             if ($game) {

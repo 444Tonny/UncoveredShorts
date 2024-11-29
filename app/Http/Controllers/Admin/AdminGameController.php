@@ -243,6 +243,29 @@ class AdminGameController extends Controller
     }
 
 
+    // Show all leaderboard of a specific game in the admin page
+    public function showAllLeaderboard(Request $request, $currentGameId)
+    {
+        $game = Game::find($currentGameId);
+
+        // leaerboard1 = principal overall
+        $overallLeaderboard = Leaderboard::getTodaysTop($currentGameId, 999);
+
+        // get all the groups
+        $leaderboardGroups = LeaderboardCategory::getAllCategoriesAlphabetical();
+
+        $groupLeaderboards = array();
+        $i = 0;
+
+        // mettre tous les classement dans le tableau $groupLeaderboards
+        foreach ($leaderboardGroups as $group) {
+            $groupLeaderboards[$i] = Leaderboard::getTopScoresByCategory($currentGameId, 999, $group['category_name']);
+            $i++;
+        }
+
+        return view('admin.games.leaderboard', ['overallLeaderboard' => $overallLeaderboard, 'groupLeaderboards' => $groupLeaderboards,]);
+    }  
+
     // Afficher les statistique de chaque jeu individuel dans l'admin
     public function showStatistics(Request $request, $id_game)
     {

@@ -129,6 +129,8 @@ class GamePlayed extends Model
                                             ->where('created_at', '<=', $game->date_end)
                                             ->where('created_at', '>=', $game->date_start)
                                             ->count();
+            
+
             $data[] = $countGamePlayed;
 
             $startOfDay->subDay();

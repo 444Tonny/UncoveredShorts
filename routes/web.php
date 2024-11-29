@@ -56,6 +56,7 @@ Route::prefix('admin')->group(function () {
         Route::resource('games', AdminGameController::class);
         Route::get('games/{id}/preview', [AdminGameController::class, 'previewGame'])->name(name: 'games.preview');
         Route::get('games/{id}/statistics', [AdminGameController::class, 'showStatistics'])->name('game.showStatistics');
+        Route::get('games/{id}/leaderboard', [AdminGameController::class, 'showAllLeaderboard'])->name('game.showAllLeaderboard');
         Route::patch('/games/{game}/update-archiveable', [AdminGameController::class, 'updateArchiveable'])->name('games.update_archiveable');
 
 

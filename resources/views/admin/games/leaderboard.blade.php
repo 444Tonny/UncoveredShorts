@@ -7,22 +7,12 @@
             <h2>LEADERBOARDS</h2>
 
             <div class="container">
-                <!--
-                <div class="tabs">
-                    <div id='tab1' class="tab active" onclick="showTable('1')">Overall</div>
-                    <?php /* $k = 2; ?>
-                    @foreach ($groupLeaderboards as $groupLeaderboard)
-                        <div id='tab{{$k}}' class="tab" onclick="showTable('{{$k}}')">{{$groupLeaderboard[0]['category_name']}}</div>
-                        <?php $k++; 
-                    @endforeach */ ?>
-                </div>
-                -->
 
                 <select onchange="showTable(this.value)">
                     <option value="1" selected>Overall</option>
                     @php $k = 2; @endphp
-                    @foreach ($groupLeaderboards as $groupLeaderboard)
-                        <option value="{{ $k }}">{{ $groupLeaderboard[0]['category_name'] }}</option>
+                    @foreach ($groups as $group)
+                        <option value="{{ $k }}">{{ $group['category_name'] }}</option>
                         @php $k++; @endphp
                     @endforeach
                 </select>
@@ -39,8 +29,10 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($overallLeaderboard as $element)
-                                <?php if($element['initial'] === '???'){ break; }?>
+                            @forelse ($overallLeaderboard as $element)
+                                <?php if($element['initial'] === '???'){ ?>
+                                    <tr><td colspan="5" style="text-align: center;">End of results</td></tr>
+                                <?php break;} ?>
                                 <tr>
                                     <td>{{ $element['unique_identifier'] }}</td>
                                     <td>{{ strtoupper($element['initial']) }}</td>
@@ -54,7 +46,11 @@
                                         @endif
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="5" style="text-align: center;">End of results</td>
+                                </tr>
+                            @endforelse
                         </tbody>
                     </table>
                 </div>
@@ -75,7 +71,9 @@
                             </thead>
                             <tbody>
                                 @foreach ($groupLeaderboard as $element)
-                                    <?php if($element->unique_identifier == 'Unknown'){ break; } ?>
+                                    <?php if($element->unique_identifier == 'Unknown'){ ?>
+                                        <tr><td colspan="5" style="text-align: center;">End of results</td></tr>
+                                    <?php break;} ?>
                                     <tr>
                                         <td>{{ $element->unique_identifier}}</td>
                                         <td>{{ strtoupper($element->initial) }}</td>

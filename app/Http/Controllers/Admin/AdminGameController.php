@@ -263,7 +263,7 @@ class AdminGameController extends Controller
             $i++;
         }
 
-        return view('admin.games.leaderboard', ['overallLeaderboard' => $overallLeaderboard, 'groupLeaderboards' => $groupLeaderboards,]);
+        return view('admin.games.leaderboard', ['groups' => $leaderboardGroups, 'overallLeaderboard' => $overallLeaderboard, 'groupLeaderboards' => $groupLeaderboards,]);
     }  
 
     // Afficher les statistique de chaque jeu individuel dans l'admin

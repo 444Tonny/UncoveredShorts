@@ -21,6 +21,7 @@
                     <table>
                         <thead>
                             <tr>
+                                <th>Rank</th>
                                 <th>User ID</th>
                                 <th>Initials</th>
                                 <th>Total Score</th>
@@ -29,11 +30,13 @@
                             </tr>
                         </thead>
                         <tbody>
+                            <?php $r = 1; ?>
                             @forelse ($overallLeaderboard as $element)
                                 <?php if($element['initial'] === '???'){ ?>
                                     <tr><td colspan="5" style="text-align: center;">End of results</td></tr>
                                 <?php break;} ?>
                                 <tr>
+                                    <td>{{ $r }}</td>
                                     <td>{{ $element['unique_identifier'] }}</td>
                                     <td>{{ strtoupper($element['initial']) }}</td>
                                     <td>{{ $element['total_score'] }}</td>
@@ -46,6 +49,7 @@
                                         @endif
                                     </td>
                                 </tr>
+                                <?php $r++; ?>
                             @empty
                                 <tr>
                                     <td colspan="5" style="text-align: center;">End of results</td>
@@ -62,6 +66,7 @@
                         <table>
                             <thead>
                                 <tr>
+                                    <th>Rank</th>
                                     <th>User ID</th>
                                     <th>Initials</th>
                                     <th>Total Score</th>
@@ -70,17 +75,20 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                <?php $g = 1; ?>
                                 @foreach ($groupLeaderboard as $element)
                                     <?php if($element->unique_identifier == 'Unknown'){ ?>
                                         <tr><td colspan="5" style="text-align: center;">End of results</td></tr>
                                     <?php break;} ?>
                                     <tr>
+                                        <td>{{ $g }}</td>
                                         <td>{{ $element->unique_identifier}}</td>
                                         <td>{{ strtoupper($element->initial) }}</td>
                                         <td>{{ $element->total_score}}</td>
                                         <td>{{ \Carbon\Carbon::parse($element->created_at)->format('d/m/Y H:i') }}</td>
                                         <td>{{ $element->category_name}}</td>
                                     </tr>
+                                    <?php $g++ ?>
                                 @endforeach
                             </tbody>
                         </table>

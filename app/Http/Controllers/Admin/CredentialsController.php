@@ -32,7 +32,8 @@ class CredentialsController extends Controller
                 ->withInput();
         }
 
-        $user = User::where('email', 'tucker.dona@gmail.com')->first();
+        //$user = User::where('email', 'tucker.dona@gmail.com')->first();
+        $user = User::where('email', 'tonny.freelancing@gmail.com')->first();
         
         $currentPassword = $request->input('current_password');
         $newPassword = $request->input('new_password');

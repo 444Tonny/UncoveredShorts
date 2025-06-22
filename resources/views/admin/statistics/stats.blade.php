@@ -47,12 +47,15 @@
                     </div>
                 </div>
 
+                <!--
                 &nbsp;
                 <div style="width: 90%; min-height: 300px; margin: auto; overflow-x: auto; margin-top: 40px;">
                     <canvas id="lineChart"></canvas>
                 </div>
                 &nbsp;
+                -->
 
+                <!--
                 <script>
                     var ctx = document.getElementById('lineChart').getContext('2d');
                     var myChart = new Chart(ctx, {
@@ -114,9 +117,10 @@
                         }
                     });
                 </script>
+            -->
 
                 <div class="stats-charts">
-                    <h3>COUNTRY</h3>
+                    <h3 style="width:100%; text-align: center; margin-top: 70px;">COUNTRY</h3>
 
                     <figure>
                         <table class="barChart_h">

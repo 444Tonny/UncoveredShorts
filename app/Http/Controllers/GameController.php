@@ -49,7 +49,7 @@ class GameController extends Controller
             // Sinon, récupérer le jeu actuel
             $currentGame = Game::getCurrentGame();
             $is_valid_for_streak = 1; 
-        }
+        }       
 
         $currentGameId = $currentGame->id;
 
@@ -147,7 +147,7 @@ class GameController extends Controller
         return response()->json($leaderboard1);
     }
 
-    /* Player selected another group */
+    /* Player selected another group leaderboard */
     public function changeScoreGroupLeaderboard(Request $request)
     {
         $gameId = $request->input('gameId');

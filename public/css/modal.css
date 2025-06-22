@@ -74,6 +74,7 @@
     min-width: 340px;
     max-height: 85vh;
     padding: 25px 0px 5px 0px;
+    z-index: 11 !important;
 }
 
 span.search-question {
@@ -316,7 +317,8 @@ div.go-bestanswers {
 
 div.go-buttons {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    gap: 18px;
     flex-wrap: nowrap;
     justify-content: center;
     margin-top: 30px;
@@ -356,9 +358,9 @@ button.go-share
 */
 
 button.go-share {
-    background: whitesmoke;
-    border: 1.5px solid whitesmoke;
-    color: #161616;
+    background: #487349;
+    border: 1.5px solid #487349;
+    color: #ffffff;
 }
 
 button.go-leaderboard {
@@ -907,6 +909,13 @@ div.rules-text strong {
     font-weight: 500;
 }
 
+span.indented-text
+{
+    display: block;
+    padding-left: 15px !important; 
+    text-indent: 0; 
+}
+
 #rulesModal button.play,
 .copy-btn {
     display: flex;
@@ -1235,7 +1244,7 @@ div.rules-text strong {
 .accordeon p {
 	color: #dcdcdc;
 	font-size: 15px;
-	line-height: 26px;
+	line-height: 30px;
 	letter-spacing: 1px;
 	position: relative;
 	overflow: hidden;

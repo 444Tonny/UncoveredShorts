@@ -21,7 +21,7 @@ body {
 
 /* (B) SIDEBAR */
 /* (B1) SIDEBAR ITSELF */
-#pgside {
+#pgside {   
     box-sizing: border-box;
     width: 200px;
     flex-shrink: 0;

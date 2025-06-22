@@ -33,7 +33,7 @@
                             <?php $r = 1; ?>
                             @forelse ($overallLeaderboard as $element)
                                 <?php if($element['initial'] === '???'){ ?>
-                                    <tr><td colspan="5" style="text-align: center;">End of results</td></tr>
+                                    <tr><td colspan="6" style="text-align: center;">End of results</td></tr>
                                 <?php break;} ?>
                                 <tr>
                                     <td>{{ $r }}</td>
@@ -78,7 +78,7 @@
                                 <?php $g = 1; ?>
                                 @foreach ($groupLeaderboard as $element)
                                     <?php if($element->unique_identifier == 'Unknown'){ ?>
-                                        <tr><td colspan="5" style="text-align: center;">End of results</td></tr>
+                                        <tr><td colspan="6" style="text-align: center;">End of results</td></tr>
                                     <?php break;} ?>
                                     <tr>
                                         <td>{{ $g }}</td>

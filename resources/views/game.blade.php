@@ -27,9 +27,9 @@
     <meta name="twitter:description" content="Uncovered Shorts is a daily trivia game focused on finance and economics, challenge your friends today.">
     
 
-    <link rel="stylesheet" href="{{ asset('css/layout.css') }}?t=1.12">
-    <link rel="stylesheet" href="{{ asset('css/game.css') }}?t=1.04">
-    <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1.23">
+    <link rel="stylesheet" href="{{ asset('css/layout.css') }}?t=1.13">
+    <link rel="stylesheet" href="{{ asset('css/game.css') }}?t=1.05">
+    <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1.25">
 
     <!-- Fonts -->
     <link href="https://fonts.cdnfonts.com/css/switzer" rel="stylesheet">
@@ -129,7 +129,7 @@
     </main>
 
     <footer>
-      <div class="footer-s1">© 2024 Uncovered Shorts</div>
+      <div class="footer-s1">© 2025 Uncovered Shorts</div>
       <div class="footer-s2">
         <?xml version="1.0" encoding="iso-8859-1"?>
           <span class="folllow-us">Find us on</span>
@@ -473,7 +473,7 @@
       <script>
         
         var currentGameId = {!! $currentGame->id !!}
-        console.log('curent = '+currentGameId);
+        //console.log('curent = '+currentGameId);
         var currentGameName = {!! json_encode($currentGame->name) !!};
 
         /* new statistics */
@@ -705,14 +705,14 @@
           const inputElement = document.getElementById('us-ipt'+index);
           inputElement.value = '';
 
-          console.log(index +' : ' + localStorage.getItem('Answer_' + index + '_Game_' + currentGameId));
+          //console.log(index +' : ' + localStorage.getItem('Answer_' + index + '_Game_' + currentGameId));
         }
 
-        console.log(currentGameId);
-        console.log('P1 :' +localStorage.getItem('Points_1_Game_' + currentGameId))
-        console.log('P2 :' +localStorage.getItem('Points_2_Game_' + currentGameId))
-        console.log('P3 :' +localStorage.getItem('Points_3_Game_' + currentGameId))
-        console.log('P4 :' +localStorage.getItem('Points_4_Game_' + currentGameId))
+        //console.log(currentGameId);
+        //console.log('P1 :' +localStorage.getItem('Points_1_Game_' + currentGameId))
+        //console.log('P2 :' +localStorage.getItem('Points_2_Game_' + currentGameId))
+        //console.log('P3 :' +localStorage.getItem('Points_3_Game_' + currentGameId))
+        //console.log('P4 :' +localStorage.getItem('Points_4_Game_' + currentGameId))
 
         function setActivePlayerInput(idinput) 
         { 
@@ -934,7 +934,7 @@
             }
 
             let forbiddenInitials = [
-              'T1T', 'TIT', 'CUM', 'ASS', 'A5S', 'A55', 'SEX', 'FUK', 'FUC', 'FUQ','DIK', 'D1K', 'SHT', 'SUX', 'FAG', 'NIG', 'JIZ', 'KKK' 
+              'T1T', 'TIT', 'CUM', 'ASS', 'A5S', 'A55', 'SEX', 'FUK', 'FUC', 'FUQ','DIK', 'D1K', 'SHT', 'SUX', 'FAG', 'NIG', 'JIZ', 'KKK', 'NUT', 'LOL'
             ];
 
             // If player has a forbidden nickname 
@@ -1098,25 +1098,65 @@
         <h3>INFO</h3>
         <div class="rules-text accordeon">
         <ul>
-            <li>
-                <input type="checkbox" class='info-checkbox' id='toggleCheckbox' checked>
-                <i class="arrow"></i>
-                <div class="col">
-                  <i class="fas fa-gift"></i>
-                  <h2 class="title_accordeon">Get Daily Uncovered Shorts Tips</h2>
-                </div>
-                <p>Uncovered Shorts publishes a daily recap of the prior day’s game every morning.  
-                  Tips for the current day’s game are often included.  Sign up here
-                </p><!--
-                 <div id="custom-substack-embed" class="info-signup" style='margin-top:15px;'></div>
-                 
-                --> 
-                
-                 <form id='subscribe-form' class="row sf-form info-signup" method="POST">
-                  <input class='sf-email' name='sf-email' type="email" placeholder="Your email...">
-                  <input class='sf-submit' type="submit" value="I'm In!">
-                  <div id="sf-message" class="sf-message" style="color: rgb(202, 59, 59); display: none;"></div>
-                </form>
+          <li>
+            <input type="checkbox" class='info-checkbox' checked>
+            <i class="arrow"></i>
+            <div class="col">
+              <i class="fas fa-list"></i>
+              <h2 class="title_accordeon">How to Play</h2>
+            </div>
+            <p>
+              • You only get one guess per question
+              <br>
+              • Answers score from 0 to 100
+              <br>
+              • Scoring for Questions 1 & 2 is based on the "Uniqueness" of your answer compared to other players' answers
+              <br>
+              • Scoring for Questions 3 & 4 is based on the objective "Rank" of your answer on a set ranked list
+              <br>
+              • After you play, you'll see the correct answers and today's leaderboard
+              <br>
+              <br>
+              <b>Example "Unique" Question (Q1 & Q2)</b>
+              <br>
+              <img style="max-width: 340px;" src="{{ asset('img/how1.png') }}" alt="how-to-play-1">
+              <br>
+              <img style="max-width: 340px;" src="{{ asset('img/how2.png') }}" alt="how-to-play-2">
+              <br>
+              Explanation:
+              <br>
+              • Pfizer, while correct, only scored 76 points because it was a popular guess
+              <br>
+              • Gilead Sciences scored 99 points as it was a very "unique" answer, meaning few (if any) other players guessed it
+              <br>
+              <br>
+              <b>Example "Ranked List" Question (Q3 & Q4)</b>
+              <br>
+              <img style="max-width: 340px;" src="{{ asset('img/how3.png') }}" alt="how-to-play-3">
+              <br>
+              <img style="max-width: 340px;" src="{{ asset('img/how4.png') }}" alt="how-to-play-4">
+              <br>
+              Explanation:
+              <br>
+              • Blackrock was the correct answer and scored 100 points.
+              <br>
+              • Coca Cola was the second highest ranked answer on the ranked list and scored 90 points
+              <br>
+              • Estee Lauder was not in the top 10 but still received some points for the attempt
+              <br>
+              <br>
+              <b>Pro Tips</b>
+              <br>
+              • Blackrock was the correct answer and scored 100 points.
+              <br>
+              • When answer choices are not shown, you can type in a letter to see possible answer choices
+              <br>
+              • We want you to think through possible options and use your intuition, there's no reward for cheating with Google
+              <br>
+              <br>
+              <a href="{{ route('terms-of-service') }}">Terms of Service</a>
+              <br>
+              </p>
             </li>
             <li>
                 <input type="checkbox" class='info-checkbox' checked>
@@ -1139,43 +1179,6 @@
                 <p>The top right icon on the main page allows you to play any game from the last few months.  
                 </p>
             </li>
-            <li>
-              <input type="checkbox" class='info-checkbox' checked>
-              <i class="arrow"></i>
-              <div class="col">
-                <i class="fas fa-list"></i>
-                <h2 class="title_accordeon">Rules</h2>
-              </div>
-              <p>
-                The goal is to get the highest score possible.
-                <br>
-                You will be presented with four questions, which will be of two question types: 
-                <br>
-                <br>
-                <b>The first two questions will be "Unique" (indicated by a U below the question number) questions. The goal is to name the most unique correct answer.</b> Scoring will change throughout the day based on other user's answers.
-                <br><br>
-                For example:
-                <br>
-                <strong>&bull;</strong> Name a company in the S&P 500?
-                <br>
-                <strong>&bull;</strong> Apple, while being a correct answer, will likely yield less points than Hershey
-                </br> 
-                <br>
-                <b>The second two questions will be "Ranked List" (indicated by a R below the question number) questions. The goal is to name the top ranking of a list.</b> The top 10 will score points in descending order.
-                <br><br>
-                For example:
-                <br>
-                <strong>&bull;</strong> Name the largest country by total area?
-                <br>
-                <strong>&bull;</strong> Answering Russia will be worth the maximum 100pts, Canada (#2) will score 90pts, Algeria (#10) will score 10pts
-                <br>  
-                <br>
-                Share your results and compete with friends!
-                <br>
-                <a href="{{ route('terms-of-service') }}">Terms of Service</a>
-                <br>
-                </p>
-          </li>
           <li>
             <input type="checkbox" class='info-checkbox' checked>
             <i class="arrow"></i>
@@ -1364,7 +1367,7 @@
 
           var playerInitial = document.getElementById('playerInitial').value.toUpperCase();
           let forbiddenInitials = [
-            'T1T', 'TIT', 'CUM', 'ASS', 'A5S', 'A55', 'SEX', 'FUK', 'FUC', 'FUQ','DIK', 'D1K', 'SHT', 'SUX', 'FAG', 'NIG', 'JIZ', 'KKK'
+            'T1T', 'TIT', 'CUM', 'ASS', 'A5S', 'A55', 'SEX', 'FUK', 'FUC', 'FUQ','DIK', 'D1K', 'SHT', 'SUX', 'FAG', 'NIG', 'JIZ', 'KKK', 'NUT', 'LOL'
           ];
 
 

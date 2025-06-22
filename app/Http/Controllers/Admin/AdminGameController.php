@@ -330,7 +330,7 @@ class AdminGameController extends Controller
                     'percentage' => $percentage,
                 ];
             }
-
+ 
             $statistics[$question->id] = [
                 'type' => $question->type,
                 'answers' => $answers,

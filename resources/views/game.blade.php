@@ -1226,33 +1226,6 @@
       </div>  
       
       <script>
-        document.getElementById('toggleCheckbox').addEventListener('change', function() {
-          
-            //var infoSignup = document.getElementsByClassName('info-signup')[0];
-            /*
-            if (this.checked) {
-                // Affiche l'élément si la case est cochée
-                infoSignup.style.display = 'none';
-            } else {
-                // Cache l'élément si la case est décochée
-                infoSignup.style.display = 'block';
-            }
-                */
-        });
-
-        // Pour s'assurer que l'état initial est correct au chargement de la page
-        window.onload = function() {
-            var checkbox = document.getElementById('toggleCheckbox');
-            /*
-            var infoSignup = document.getElementsByClassName('info-signup')[0];
-            
-            if (checkbox.checked) {
-                infoSignup.style.display = 'none';
-            } else {
-                infoSignup.style.display = 'block';
-            }
-                */
-        };
 
         // Pour fermer tous les toggles en fermant la section info
         function checkAllCheckboxes() {

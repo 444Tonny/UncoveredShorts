@@ -28,7 +28,7 @@ class StatsController extends Controller
             /* Line chart */
 
             // Recuperer le nombre de todays game 1j/7j/39j et Overall à partir du $chartDataGames
-            $chartDataGames  = GamePlayed::getLineChartDataTodaysGame();
+            $chartDataGames  = GamePlayed::getLineChartDataTodaysGame(30);
             $chartDataGamesCount = count($chartDataGames['data']);
 
             // Inverser le tableau pour mettre au premier index le plus recents
@@ -45,12 +45,13 @@ class StatsController extends Controller
 
 
             // Recuperer les overall game
-            $chartDataOverallGames = GamePlayed::getLineChartDataOverallGameByDay();
+            $chartDataOverallGames = GamePlayed::getLineChartDataOverallGameByDay(30);
 
-            //$chartDataVisits = Visit::getLineChartVisitData($chartDataGamesCount);
+            $chartDataVisits = Visit::getLineChartVisitData($chartDataGamesCount, $chartDataGames['labels'][0]); 
+            // $chartDataGames['labels'][0] contient la date la premiere date la plus ancienne dans le chart 
 
             return view('admin.statistics.stats', compact('chartDataGames', 
-                                                            'visitStats', 'chartDataOverallGames', 
+                                                            'visitStats', 'chartDataOverallGames', 'chartDataVisits',
                                                             'gamesStats', 'todaysGameStats', 'countryStats', 'countryGamesStats'));
             } 
             catch (\Exception $e) {
@@ -58,6 +59,4 @@ class StatsController extends Controller
                 dd($e->getMessage());
             }
         }
-
-
 }

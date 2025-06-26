@@ -104,7 +104,7 @@ class GamePlayed extends Model
 
 
     // Recupere les jeux joué uniquement par id et le jour meme
-    public static function getLineChartDataTodaysGame()
+    public static function getLineChartDataTodaysGame($limit)
     {
         $now = now()->setTimezone('America/New_York');
 
@@ -113,6 +113,7 @@ class GamePlayed extends Model
 
         $games = Game::where('date_start', '<=', $now)
                         ->orderBy('date_start', 'desc')
+                        ->limit($limit)
                         ->get()
                         ->reverse();
 
@@ -148,7 +149,7 @@ class GamePlayed extends Model
     }
 
     // Recupere les jeux joués aujourd'hui uniquement
-    public static function getLineChartDataOverallGameByDay()
+    public static function getLineChartDataOverallGameByDay($limit)
     {
         $now = now()->setTimezone('America/New_York');
 
@@ -158,7 +159,8 @@ class GamePlayed extends Model
 
         // pour boucler au meme nombre de jeux
         $games = Game::where('date_start', '<=', $now)
-            ->orderBy('date_start', 'desc')
+            ->orderBy('date_start', 'asc')
+            ->limit($limit)
             ->get()
             ->reverse();
 

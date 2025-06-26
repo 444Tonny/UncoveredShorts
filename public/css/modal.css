@@ -931,27 +931,42 @@ span.indented-text
     margin-top: 15px;
     margin-bottom: 5px;
 
-    font-size: 16px;
-    width: 220px;
+    font-size: 15px;
+    width: 160px;
     text-transform: uppercase;
     padding: 14px 20px;
     height: 50px;
     font-weight: 700;
 }
 
+.btn-x
+{ 
+    display: flex;
+    flex-direction: row;
+    color: white;
+    border: white solid 2px;
+    background-color: #000000;
+    padding: 14px 10px;
+}
+
 #rulesModal button.play:hover,
 #rulesModal button.play:active,
 #rulesModal button.play:focus,
 .copy-btn:hover,
-
 .copy-btn:focus,
-
 .copy-btn:active {
     transition: 0.2s;
     -o-transition: 0.2s;
     -moz-transition: 0.2s;
     cursor: pointer;
     background-color: #487349;
+}
+
+.btn-x:hover,
+.btn-x:focus,
+.btn-x:active 
+{
+    background-color: #161616;
 }
 
 /* Feedback */
@@ -1270,6 +1285,12 @@ span.indented-text
 	padding-bottom: 4px;
 	padding-top: 18px;
     border-top: 1px solid #313131;
+}
+
+.copy-btn
+{
+    width: 130px;
+    font-size: 13px;
 }
 
 ul li:nth-child(1){ border:none; }

@@ -66,6 +66,7 @@
                                     <b>{!! date('F j, Y', strtotime($game->date_start)) !!}</b> <br> <i> {!! date('H:i', strtotime($game->date_start)) !!} (Start) </i>
                                     <br><br> 
                                     <b>{!! date('F j, Y', strtotime($game->date_end)) !!}</b> <br> <i> {!! date('H:i', strtotime($game->date_end)) !!} (End) </i>
+                                
                                 </td>
                                 <td>
                                     <a href="{{ route('game.showStatistics', ['id' => $game->id]) }}" class="btn btn-primary">Statistics</a>

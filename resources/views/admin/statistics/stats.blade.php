@@ -12,50 +12,48 @@
                 <div class="stats-blocks">
                     <div class="sb-single" id='single-TodayVisits'>
                         <label for=""><b>TODAY</b><br> Today's games played </label>
-                        <p class='lv-stats' id='TodayVisits'>{{ $todaysGameStats['todayGames'] }}</p>
+                        <p class='lv-stats' id='TodayVisits'>{{ number_format($todaysGameStats['todayGames']) }}</p>
                     </div>                 
                     <div class="sb-single" id='single-WeekVisits'>
                         <label for=""><b>LAST 7 DAYS</b><br> Today's games played </label>
-                        <p class='lv-stats' id='WeekVisits'>{{ $todaysGameStats['weekGames'] }}</p>
+                        <p class='lv-stats' id='WeekVisits'>{{ number_format($todaysGameStats['weekGames']) }}</p>
                     </div>                  
                     <div class="sb-single" id='single-MonthVisits'>
                         <label for=""><b>LAST 30 DAYS</b><br> Today's games played </label>
-                        <p class='lv-stats' id='MonthVisits'>{{ $todaysGameStats['monthGames'] }}</p>
+                        <p class='lv-stats' id='MonthVisits'>{{ number_format($todaysGameStats['monthGames']) }}</p>
                     </div>        
                     <div class="sb-single" id='single-TotalVisits'>
                         <label for=""><b>OVERALL</b><br> Today's games played </label>
-                        <p class='lv-stats' id='TotalVisits'>{{ $todaysGameStats['totalGames'] }}</p>
+                        <p class='lv-stats' id='TotalVisits'>{{ number_format($todaysGameStats['totalGames']) }}</p>
                     </div>
                 </div>
 
                 <div class="stats-blocks">
                     <div class="sb-single" id='single-TodayGames'>
                         <label for=""><b>TODAY</b><br> All games played </label>
-                        <p class='lv-stats' id='TodayGames'>{{ $gamesStats['todayGames'] }}</p>
+                        <p class='lv-stats' id='TodayGames'>{{ number_format($gamesStats['todayGames']) }}</p>
                     </div>
                     <div class="sb-single" id='single-WeekGames'>
                         <label for=""><b>LAST 7 DAYS</b><br> All games played </label>
-                        <p class='lv-stats' id='WeekGames'>{{ $gamesStats['weekGames'] }}</p>
+                        <p class='lv-stats' id='WeekGames'>{{ number_format($gamesStats['weekGames']) }}</p>
                     </div>
                     <div class="sb-single" id='single-MonthGames'>
                         <label for=""><b>LAST 30 DAYS</b><br> All games played </label>
-                        <p class='lv-stats' id='MonthGames'>{{ $gamesStats['monthGames'] }}</p>
+                        <p class='lv-stats' id='MonthGames'>{{ number_format($gamesStats['monthGames']) }}</p>
                     </div>
                     <div class="sb-single" id='single-TotalGames'>
                         <label for=""><b>OVERALL</b><br> All games played </label>
-                        <p class='lv-stats' id='TotalGames'>{{ $gamesStats['totalGames'] }}</p>
+                        <p class='lv-stats' id='TotalGames'>{{ number_format($gamesStats['totalGames']) }}</p>
                     </div>
                 </div>
 
-                <!--
                 &nbsp;
                 <div style="width: 90%; min-height: 300px; margin: auto; overflow-x: auto; margin-top: 40px;">
                     <canvas id="lineChart"></canvas>
                 </div>
                 &nbsp;
-                -->
+                
 
-                <!--
                 <script>
                     var ctx = document.getElementById('lineChart').getContext('2d');
                     var myChart = new Chart(ctx, {
@@ -117,7 +115,6 @@
                         }
                     });
                 </script>
-            -->
 
                 <div class="stats-charts">
                     <h3 style="width:100%; text-align: center; margin-top: 70px;">COUNTRY</h3>

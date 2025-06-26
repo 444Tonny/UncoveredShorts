@@ -28,11 +28,13 @@ class Visit extends Model
     }
 
     // line graph
-    public static function getLineChartVisitData($displayCount)
+    public static function getLineChartVisitData($displayCount, $limit_date_wf)
     {
         $now = now()->setTimezone('America/New_York');
 
-        $visits = Visit::where('date_visit', '<=', $now)
+        $limit_date = Carbon::createFromFormat('d/m/y', $limit_date_wf);
+
+        $visits = Visit::whereBetween('date_visit', [$limit_date , $now])
             ->orderBy('date_visit', 'desc')
             ->get()
             ->reverse();
@@ -52,7 +54,7 @@ class Visit extends Model
             $data[] = $dailyVisits->count();
         }
 
-        // Prendre les 10 dernières données
+        // Prendre les X dernières données
         $labels = collect($labels)->slice($displayCount * (-1))->values()->all();
         $data = collect($data)->slice($displayCount * (-1))->values()->all();
 

@@ -13,7 +13,7 @@
 
 
   <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Uncovered Shorts = Wordle for Wall Street</title>
+    <title>Uncovered Shorts = A daily challenge of knowledge and risk</title>
 
     <!-- Open Graph meta tags -->
     <meta property="og:title" content="Uncovered Shorts">
@@ -28,8 +28,8 @@
     
 
     <link rel="stylesheet" href="{{ asset('css/layout.css') }}?t=1.13">
-    <link rel="stylesheet" href="{{ asset('css/game.css') }}?t=1.05">
-    <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1.25">
+    <link rel="stylesheet" href="{{ asset('css/game.css') }}?t=1.06">
+    <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1.26">
 
     <!-- Fonts -->
     <link href="https://fonts.cdnfonts.com/css/switzer" rel="stylesheet">
@@ -1286,7 +1286,10 @@
         <button class="close-modal" onclick=closeModalById('shareModal')>×</button>
         <div class="share-text-container">
           <textarea id='share-text' class="share-text" readonly>{{ $currentGame->name }}, 0pts Q1: 90, Q2: 85, Q3: 90, Q4: 40. Play at uncoveredshorts.com</textarea>
-          <button class="copy-btn">COPY</button>
+          <div style="display:flex; justify-content: center; gap: 20px; flex-direction: row;">
+            <button class="copy-btn">COPY</button>
+            <button id="twitterBtn" class="copy-btn btn-x">SHARE ON <img width="18" src="{{ asset('img/x_2025.png') }}" style="margin-left:5px;"></button>
+          </div>
         </div>
       </div>
 
@@ -1330,12 +1333,20 @@
 
           shareTextarea.value = shareText;
 
+          // Bouton de partage classique
           copyBtn.addEventListener('click', function() {
             shareTextarea.select();
             document.execCommand('copy');
             copyBtn.textContent = 'Copied';
             copyBtn.classList.add('copied-btn');
           });
+
+          // Bouton de partage X
+          var twitterBtn = document.getElementById('twitterBtn');
+          twitterBtn.onclick = function () {
+              var tweetUrl = "https://twitter.com/intent/tweet?text=" + encodeURIComponent(shareText);
+              window.open(tweetUrl, '_blank');
+          };
         };
         
         // Listner le formulaire pour entrer les initiales

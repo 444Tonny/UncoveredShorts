@@ -1161,7 +1161,7 @@
                 <input type="checkbox" class='info-checkbox' checked>
                 <i class="arrow"></i>
                 <div class="col">
-                  <i class="fas fa-group"></i>
+                  <i class="fas fa-users"></i>
                   <h2 class="title_accordeon">Create a Group Leaderboard</h2>
                 </div>
                 <p>There are groups of colleagues, family members, friends and alumni all competing with each other via their own Group Leaderboards that show directly below the main leaderboard.  

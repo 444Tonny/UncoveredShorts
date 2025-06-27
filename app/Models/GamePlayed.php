@@ -99,12 +99,10 @@ class GamePlayed extends Model
         ];
     }
 
-
     // Statistics for admin ------ start
 
-
     // Recupere les jeux joué uniquement par id et le jour meme
-    public static function getLineChartDataTodaysGame($limit)
+    public static function getLineChartDataTodaysGame()
     {
         $now = now()->setTimezone('America/New_York');
 
@@ -113,7 +111,6 @@ class GamePlayed extends Model
 
         $games = Game::where('date_start', '<=', $now)
                         ->orderBy('date_start', 'desc')
-                        ->limit($limit)
                         ->get()
                         ->reverse();
 
@@ -129,11 +126,9 @@ class GamePlayed extends Model
             $countGamePlayed = GamePlayed::where('game_id', $game->id)
                                             ->where('created_at', '<=', $game->date_end)
                                             ->where('created_at', '>=', $game->date_start)
-                                            ->count();
-            
+                                            ->count();           
 
             $data[] = $countGamePlayed;
-
             $startOfDay->subDay();
         }
 
@@ -159,7 +154,7 @@ class GamePlayed extends Model
 
         // pour boucler au meme nombre de jeux
         $games = Game::where('date_start', '<=', $now)
-            ->orderBy('date_start', 'asc')
+            ->orderBy('date_start', 'desc')
             ->limit($limit)
             ->get()
             ->reverse();
@@ -199,7 +194,34 @@ class GamePlayed extends Model
             ->get();
     }
 
-    // Pour les blocs de 8 carres avec les stats
+    // Pour les blocs de 4 carres TODAY avec les stats
+    public static function getAdminGameStatsForTodaysGame()
+    {
+        $now = now()->setTimezone('America/New_York');
+
+        $todayGames = static::getGamesPlayedSameDayByDateRange($now->copy()->startOfDay(), $now->copy()->startOfDay()->addHours(25));
+
+        $weekGames = static::getGamesPlayedSameDayByDateRange(
+            $now->copy()->subDays(7)->toDateString(),
+            $now->toDateString()
+        );
+
+        $monthGames = static::getGamesPlayedSameDayByDateRange(
+            $now->copy()->subDays(30)->toDateString(),
+            $now->toDateString()
+        );
+
+        $totalGames = static::getGamesPlayedSameDayByDateRange('2024-01-01', now());
+
+        return [
+            'todayGames' => $todayGames,
+            'weekGames' => $weekGames,
+            'monthGames' => $monthGames,
+            'totalGames' => $totalGames,
+        ];
+    }
+
+    // Pour les blocs de 4 carres OVERALL avec les stats
     public static function getAdminGameStats()
     {
         $now = now()->setTimezone('America/New_York');
@@ -207,12 +229,12 @@ class GamePlayed extends Model
         $todayGames = static::getGamesByDate($now->toDateString());
 
         $weekGames = static::getGamesByDateRange(
-            $now->copy()->subDays(6)->toDateString(),
+            $now->copy()->subDays(7)->toDateString(),
             $now->toDateString()
         );
 
         $monthGames = static::getGamesByDateRange(
-            $now->copy()->subDays(29)->toDateString(),
+            $now->copy()->subDays(30)->toDateString(),
             $now->toDateString()
         );
 
@@ -233,9 +255,29 @@ class GamePlayed extends Model
         //return static::whereDate(\DB::raw("DATE_SUB(created_at, INTERVAL 4 HOUR)"), $date)->count();
     }
 
+    // Pour recuperer le nombre de tous les jeux entre deux dates
     private static function getGamesByDateRange($startDate, $endDate)
     {
         return static::whereBetween('created_at', [$startDate, $endDate])->count();
+    }
+
+    // Pour recuperer le nombre de jeux jouées le jour même. 
+    public static function getGamesPlayedSameDayByDateRange($startDate, $endDate)
+    {
+        // Récupérer les jeux dont la période est dans l'intervalle donné
+        $games = Game::where('date_start', '>=', $startDate)
+             ->where('date_end', '<=', $endDate)
+             ->get();
+
+        $total = 0;
+
+        foreach ($games as $game) {
+            $total += self::where('game_id', $game->id)
+                        ->whereBetween('created_at', [$game->date_start, $game->date_end])
+                        ->count();
+        }
+
+        return $total;
     }
 
     public static function calculatePercentile($playerScore, $allScore)
@@ -266,5 +308,4 @@ class GamePlayed extends Model
             return 0;
         }
     }
-
 }

@@ -31,19 +31,19 @@
                 <div class="stats-blocks">
                     <div class="sb-single" id='single-TodayGames'>
                         <label for=""><b>TODAY</b><br> All games played </label>
-                        <p class='lv-stats' id='TodayGames'>{{ number_format($gamesStats['todayGames']) }}</p>
+                        <p class='lv-stats' id='TodayGames'>{{ number_format($overallGamesStats['todayGames']) }}</p>
                     </div>
                     <div class="sb-single" id='single-WeekGames'>
                         <label for=""><b>LAST 7 DAYS</b><br> All games played </label>
-                        <p class='lv-stats' id='WeekGames'>{{ number_format($gamesStats['weekGames']) }}</p>
+                        <p class='lv-stats' id='WeekGames'>{{ number_format($overallGamesStats['weekGames']) }}</p>
                     </div>
                     <div class="sb-single" id='single-MonthGames'>
                         <label for=""><b>LAST 30 DAYS</b><br> All games played </label>
-                        <p class='lv-stats' id='MonthGames'>{{ number_format($gamesStats['monthGames']) }}</p>
+                        <p class='lv-stats' id='MonthGames'>{{ number_format($overallGamesStats['monthGames']) }}</p>
                     </div>
                     <div class="sb-single" id='single-TotalGames'>
                         <label for=""><b>OVERALL</b><br> All games played </label>
-                        <p class='lv-stats' id='TotalGames'>{{ number_format($gamesStats['totalGames']) }}</p>
+                        <p class='lv-stats' id='TotalGames'>{{ number_format($overallGamesStats['totalGames']) }}</p>
                     </div>
                 </div>
 
@@ -74,15 +74,6 @@
                                 label: 'All games',
                                 data: @json($chartDataOverallGames['data']),
                                 borderColor: '#e0de4f',
-                                borderWidth: 3,
-                                fill: false,
-                                hoverBorderJoinStyle: 'round',
-                                tension: 0.1
-                            },
-                            {
-                                label: 'Visits',
-                                data: @json($chartDataVisits['data']),
-                                borderColor: 'rgb(75, 192, 192)',
                                 borderWidth: 3,
                                 fill: false,
                                 hoverBorderJoinStyle: 'round',
@@ -155,7 +146,7 @@
                             <!-- Data Rows -->
                             <tr class="firstRow">
                               <th scope="row">{{ empty($cgs->country) ? 'Unknown' : $cgs->country }}</th>
-                              <td><span style="width:{{ ($cgs->played * 100 ) / $gamesStats['weekGames'] }}%"><b>{{ $cgs->played }}</b></span></td>
+                              <td><span style="width:{{ ($cgs->played * 100 ) / $overallGamesStats['weekGames'] }}%"><b>{{ $cgs->played }}</b></span></td>
                             </tr>
 
                             @endforeach

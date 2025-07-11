@@ -933,7 +933,7 @@
             }
 
             let forbiddenInitials = [
-              'T1T', 'TIT', 'CUM', 'ASS', 'A5S', 'A55', 'SEX', 'FUK', 'FUC', 'FUQ','DIK', 'D1K', 'SHT', 'SUX', 'FAG', 'NIG', 'JIZ', 'KKK', 'NUT', 'LOL'
+              'T1T', 'TIT', 'CUM', 'ASS', 'A5S', 'A55', 'SEX', 'FUK', 'FUC', 'FUQ','DIK', 'D1K', 'SHT', 'SUX', 'FAG', 'NIG', 'JIZ', 'KKK', 'NUT', 'LOL', 'POO'
             ];
 
             // If player has a forbidden nickname 
@@ -1354,7 +1354,7 @@
 
           var playerInitial = document.getElementById('playerInitial').value.toUpperCase();
           let forbiddenInitials = [
-            'T1T', 'TIT', 'CUM', 'ASS', 'A5S', 'A55', 'SEX', 'FUK', 'FUC', 'FUQ','DIK', 'D1K', 'SHT', 'SUX', 'FAG', 'NIG', 'JIZ', 'KKK', 'NUT', 'LOL'
+            'T1T', 'TIT', 'CUM', 'ASS', 'A5S', 'A55', 'SEX', 'FUK', 'FUC', 'FUQ','DIK', 'D1K', 'SHT', 'SUX', 'FAG', 'NIG', 'JIZ', 'KKK', 'NUT', 'LOL', 'POO'
           ];
 
 

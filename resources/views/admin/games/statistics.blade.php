@@ -70,7 +70,7 @@
                                                     <span style="width:{{ $answer['percentage'] }}%"><b>{{ $answer['count'] }}</b></span>
                                                 </td>
                                             </tr>
-                                        @endforeach
+                                        @endforeach 
                                     @elseif($statistics[$question->id]['type'] == 'unique' or $statistics[$question->id]['type'] == 'unique-few')
                                         @foreach($statistics[$question->id]['answers'] as $answer)
                                             <tr>

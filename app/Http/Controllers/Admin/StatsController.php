@@ -27,7 +27,7 @@ class StatsController extends Controller
 
             // Recuperer le nombre de todays game 1j/7j/39j et Overall à partir du $chartDataGames
             $chartDataGames  = GamePlayed::getLineChartDataTodaysGame();
-            $chartDataGamesCount = count($chartDataGames['data']);
+            $chartDataGamesCount = count($chartDataGames['data']);      
 
             // Compter les datas
             $data = $chartDataGames['data'];

@@ -31,16 +31,16 @@ class Leaderboard extends Model
     {
         $ip_address = Request::ip(); 
 
-        $ip_address6FirstChar = substr(strtoupper($ip_address), 0, 6);
+        $ip_address10FirstChar = substr(strtoupper($ip_address), 0, 6);
         $initial13Char = substr(strtoupper($initial), 0, 13);
 
-        $scoreMin = $totalScore - 3;
-        $scoreMax = $totalScore + 3;
+        $scoreMin = $totalScore - 5;
+        $scoreMax = $totalScore + 5;
 
         // Vérifie si une entrée similaire existe dans les 3 dernières minutes
         $recentMatch = self::where('game_id', $gameId)
-            ->where(function ($query) use ($ip_address6FirstChar, $initial13Char) {
-                $query->whereRaw('UPPER(LEFT(ip_address, 6)) = ?', [$ip_address6FirstChar])
+            ->where(function ($query) use ($ip_address10FirstChar, $initial13Char) {
+                $query->whereRaw('UPPER(LEFT(ip_address, 10)) = ?', [$ip_address10FirstChar])
                     ->orWhereRaw('UPPER(LEFT(initial, 13)) = ?', [$initial13Char]);
             })
             ->whereBetween('total_score', [$scoreMin, $scoreMax])

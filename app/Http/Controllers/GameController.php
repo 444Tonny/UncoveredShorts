@@ -14,6 +14,7 @@ use App\Models\Leaderboard;
 use App\Models\StreakLeaderboard; 
 use App\Models\LeaderboardCategory; 
 use App\Models\Visit; 
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 class GameController extends Controller
 {
@@ -116,12 +117,15 @@ class GameController extends Controller
             $gameAlreadyPlayed = null;
         }
 
+        $forbiddenInitials = ['T1T', 'TIT', 'CUM', 'ASS', 'A5S', 'A55', 'SEX', 'FUK', 'FUC', 'FUQ','DIK', 'D1K', 'SHT', 'SUX', 'FAG', 'NIG', 'JIZ', 'KKK', 'NUT', 'LOL', 'POO'];
+
         return view('game', compact('currentGame', 'questions',
                                     'archiveGames', 'is_valid_for_streak',
                                     'suggestions1', 'suggestions2', 'suggestions3', 'suggestions4',
                                     'uniqueAnswers1', 'uniqueAnswers2', 'rankedAnswers3', 'rankedAnswers4', 
                                     'statistics', 'gameAlreadyPlayed', 'trackedGameCount', 'previousGame',
-                                    'leaderboard1', 'leaderboard2streak', 'leaderboardGroups'
+                                    'leaderboard1', 'leaderboard2streak', 'leaderboardGroups',
+                                    'forbiddenInitials'
                                 ));
     }
 
@@ -134,17 +138,32 @@ class GameController extends Controller
 
     public function addScoreToTheLeaderboard(Request $request)
     {
-        $gameId = $request->input('gameId');
-        $initial = $request->input('initial');
-        $unique_identifier = $request->input('unique_identifier');
-        $totalScore = $request->input('totalScore');
-        $selectedGroup = $request->input('selectedGroup');
+        try{
+            $gameId = $request->input('gameId');
+            $initial = $request->input('initial');
+            $unique_identifier = $request->input('unique_identifier');
+            $totalScore = $request->input('totalScore');
+            $selectedGroup = $request->input('selectedGroup');
 
-        $leaderboardEntry = Leaderboard::addScore($gameId, $initial, $unique_identifier, $totalScore, $selectedGroup);
+            Leaderboard::addScore($gameId, $initial, $unique_identifier, $totalScore, $selectedGroup);
+            $leaderboard1 = Leaderboard::getTodaysTop($gameId, 10);
 
-        $leaderboard1 = Leaderboard::getTodaysTop($gameId, 10);
-
-        return response()->json($leaderboard1);
+            return response()->json($leaderboard1);
+        }
+        catch (HttpException $e) {
+            // Si abort(403) a été déclenché, on capte ici
+            return response()->json([
+                'success' => false,
+                'message' => $e->getMessage()
+            ], $e->getStatusCode());
+        }
+        catch (\Exception $e) {
+            // Pour toute autre erreur éventuelle
+            return response()->json([
+                'success' => false,
+                'message' => 'An error occured: addScoreToTheLeaderboard'
+            ], 500);
+        }
     }
 
     /* Player selected another group leaderboard */
@@ -208,17 +227,26 @@ class GameController extends Controller
 
     public function storeGameSession(Request $request)
     {
-        $game_id = $request->input('game_id');
-        $score1 = $request->input('score1');
-        $score2 = $request->input('score2');
-        $score3 = $request->input('score3');
-        $score4 = $request->input('score4');
-        $totalScore = $request->input('totalScore');
-        $is_valid_for_streak = $request->input('is_valid_for_streak');
+        try{
+            $game_id = $request->input('game_id');
+            $score1 = $request->input('score1');
+            $score2 = $request->input('score2');
+            $score3 = $request->input('score3');
+            $score4 = $request->input('score4');
+            $totalScore = $request->input('totalScore');
+            $is_valid_for_streak = $request->input('is_valid_for_streak');
 
-        $idGamePlayed = GamePlayed::storeGameSession($game_id, $score1, $score2, $score3, $score4, $totalScore, $is_valid_for_streak);
+            $idGamePlayed = GamePlayed::storeGameSession($game_id, $score1, $score2, $score3, $score4, $totalScore, $is_valid_for_streak);
 
-        return response()->json(['success - new game stored' => true, 'idGamePlayed' => $idGamePlayed]);
+            return response()->json(['success' => true, 'idGamePlayed' => $idGamePlayed]);
+        }
+        catch (\Exception $e) {
+            // Pour toute autre erreur éventuelle
+            return response()->json([
+                'success' => false,
+                'message' => 'Une erreur est survenue lors de l’enregistrement du jeu.'
+            ], 500);
+        }
     }   
 
     public function getStatisticsJSON(Request $request)

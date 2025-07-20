@@ -62,7 +62,7 @@ class GamePlayed extends Model
     {
         $ip_address = Request::ip();
         $countryName = Visit::getCountryFromIP($ip_address);
-
+        
         $gamePlayed = new GamePlayed([
             'game_id' => $game_id,
             'score_1' => $score1,

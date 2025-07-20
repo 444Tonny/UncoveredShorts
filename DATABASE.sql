@@ -266,5 +266,6 @@ ADD COLUMN is_archiveable BOOLEAN DEFAULT 0;
 ALTER TABLE games_played
 ADD COLUMN is_valid_for_streak BOOLEAN DEFAULT 1;
 
-
-
+-- Jul 25 - Block ip
+ALTER TABLE leaderboard
+ADD COLUMN ip_address VARCHAR(45);

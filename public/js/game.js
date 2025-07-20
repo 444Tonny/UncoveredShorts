@@ -1,5 +1,5 @@
-//var baseUrl = 'http://localhost:8080/UncoveredShorts/public'; 
-var baseUrl = 'https://phplaravel-1258294-4520213.cloudwaysapps.com';
+var baseUrl = 'http://localhost:8080/UncoveredShorts/public'; 
+//var baseUrl = 'https://phplaravel-1258294-4520213.cloudwaysapps.com';
 
 var csrfToken = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
 
@@ -163,6 +163,7 @@ function storeGameSession(game_id, score1, score2, score3, score4, totalScore, i
 
         // Gestionnaire de succès de la requête
         xhr.onload = function() {
+
             if (xhr.status >= 200 && xhr.status < 300) {
                 // console.log(xhr.responseText);
                 var responseObj = JSON.parse(xhr.responseText);
@@ -174,7 +175,8 @@ function storeGameSession(game_id, score1, score2, score3, score4, totalScore, i
                 let myCookieValue = getCookie('Game_'+game_id);
 
                 resolve(xhr.responseText); // Résoudre la promesse
-            } else {
+            }
+            else {
                 // console.error('Request failed with status:', xhr.status);
                 reject('Request failed with status: ' + xhr.status); // Rejeter la promesse
             }
@@ -384,7 +386,13 @@ function addScoreToLeaderboard(gameId, totalScore) {
                 const response = JSON.parse(xhr.responseText);
                 updateLeaderboard(response);
                 resolve(response);
-            } else {
+            }
+            else if (xhr.status === 403) 
+            {
+                alert(" Unauthorized activity detected. Your score cannot be submitted.");
+                reject(new Error('403 Forbidden'));
+            } 
+            else {
                 // We reached our target server, but it returned an error
                 console.log('Error: Unable to add score to the leaderboard.');
                 reject(new Error('Unable to add score to the leaderboard.'));

@@ -67,6 +67,11 @@ button.hl-icon svg path:active
     */
 }
 
+.winfield_logo:hover
+{
+    opacity: 0.6;
+}
+
 @media only screen and (max-width: 768px) 
 {
     header

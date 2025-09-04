@@ -27,7 +27,7 @@
     <meta name="twitter:description" content="Uncovered Shorts is a daily trivia game focused on finance and economics, challenge your friends today.">
     
 
-    <link rel="stylesheet" href="{{ asset('css/layout.css') }}?t=1.15">
+    <link rel="stylesheet" href="{{ asset('css/layout.css') }}?t=1.16">
     <link rel="stylesheet" href="{{ asset('css/game.css') }}?t=1.08">
     <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1.28">
 
@@ -87,7 +87,7 @@
 
         <button class="hl-icon" onclick=openModalById('LeaderboardModal')>
           <a href="https://winfieldgame.com/" target="_blank" style="text-decoration: none;">
-            <img src="{{ asset('img/the_winfield_game.png') }}" alt="The winfield game logo" width="20" height="20" style="opacity: 0.8;">
+            <img calss="winfield_logo" src="{{ asset('img/the_winfield_game.png') }}" alt="The winfield game logo" width="20" height="20" style="opacity: 0.9;">
           </a>
         </button>
       </div>

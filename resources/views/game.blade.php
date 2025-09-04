@@ -87,7 +87,7 @@
 
         <button class="hl-icon" onclick=openModalById('LeaderboardModal')>
           <a href="https://winfieldgame.com/" target="_blank" style="text-decoration: none;">
-            <img src="{{ asset('img/the_winfield_game.png') }}" alt="The winfield game logo" width="22" height="22">
+            <img src="{{ asset('img/the_winfield_game.png') }}" alt="The winfield game logo" width="20" height="20" style="opacity: 0.8;">
           </a>
         </button>
       </div>

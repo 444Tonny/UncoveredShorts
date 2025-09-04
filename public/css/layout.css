@@ -28,7 +28,7 @@ header
 
 div.header-links
 {
-    width: 150px;
+    width: 180px;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -85,7 +85,7 @@ button.hl-icon svg path:active
 
     div.header-links
     {
-        width: 130px;
+        width: 160px;
         display: flex;
         flex-direction: row;
         justify-content: space-between;

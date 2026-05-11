@@ -86,10 +86,11 @@ class AdminGameController extends Controller
         $gameAlreadyPlayed = null;
 
         // Donner un id temporaire 
-        $currentGame->id = mt_rand(199999, 999999);
+        $currentGame->id = mt_rand(1199999, 9999999);
         
+        $forbiddenInitials = ['T1T', 'TIT', 'CUM', 'ASS', 'A5S', 'A55', 'SEX', 'FUK', 'FUC', 'FUQ','DIK', 'D1K', 'SHT', 'SUX', 'FAG', 'NIG', 'JIZ', 'KKK', 'NUT', 'LOL', 'POO', 'PEE', 'BUT', 'PE3', 'P33', 'PO0', 'P0O'];
 
-        return view('game', compact('currentGame', 'questions',
+        return view('game', compact('currentGame', 'questions', 'forbiddenInitials',
                                     'archiveGames', 'is_valid_for_streak',
                                     'suggestions1', 'suggestions2', 'suggestions3', 'suggestions4',
                                     'uniqueAnswers1', 'uniqueAnswers2', 'rankedAnswers3', 'rankedAnswers4', 

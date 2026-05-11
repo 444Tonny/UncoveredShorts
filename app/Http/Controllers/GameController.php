@@ -117,7 +117,7 @@ class GameController extends Controller
             $gameAlreadyPlayed = null;
         }
 
-        $forbiddenInitials = ['T1T', 'TIT', 'CUM', 'ASS', 'A5S', 'A55', 'SEX', 'FUK', 'FUC', 'FUQ','DIK', 'D1K', 'SHT', 'SUX', 'FAG', 'NIG', 'JIZ', 'KKK', 'NUT', 'LOL', 'POO'];
+        $forbiddenInitials = ['T1T', 'TIT', 'CUM', 'ASS', 'A5S', 'A55', 'SEX', 'FUK', 'FUC', 'FUQ','DIK', 'D1K', 'SHT', 'SUX', 'FAG', 'NIG', 'JIZ', 'KKK', 'NUT', 'LOL', 'POO', 'PEE', 'BUT', 'PE3', 'P33', 'PO0', 'P0O'];
 
         return view('game', compact('currentGame', 'questions',
                                     'archiveGames', 'is_valid_for_streak',

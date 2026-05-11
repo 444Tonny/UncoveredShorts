@@ -56,9 +56,9 @@ return array(
                 'mysql' => array(
                         'driver'    => 'mysql',
                         'host'      => 'localhost',
-                        'database'  => 'uncovered_shorts_live',
-                        'username'  => 'root',
-                        'password'  => 'root',
+                        'database'  => 'ttjwnbfkvj',
+                        'username'  => 'ttjwnbfkvj',
+                        'password'  => 'Ajm9t3CKE6',
                         'charset'   => 'utf8',
                         'collation' => 'utf8_unicode_ci',
                         'prefix'    => '',

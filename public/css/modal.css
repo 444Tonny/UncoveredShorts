@@ -158,6 +158,7 @@ span.single-suggestion button {
     height: 36px;
     font-weight: 500;
     line-height: 22px;
+    touch-action: manipulation;
 }
 
 span.single-suggestion button:hover,

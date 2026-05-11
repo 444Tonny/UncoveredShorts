@@ -747,6 +747,16 @@
 
         var suggestionsContainer = document.getElementById('suggestions');
         var suggestions = suggestionsContainer.getElementsByClassName('single-suggestion');
+
+        var suggestionsIsScrolling = false;
+        var suggestionsScrollTimer;
+        suggestionsContainer.addEventListener('scroll', function() {
+            suggestionsIsScrolling = true;
+            clearTimeout(suggestionsScrollTimer);
+            suggestionsScrollTimer = setTimeout(function() {
+                suggestionsIsScrolling = false;
+            }, 150);
+        }, { passive: true });
         
         /* Fonction de recherche et filtre */
         function filterSuggestions(searchTerm) {
@@ -767,8 +777,10 @@
         }
 
         /* Select answer , show points and disable input onclick*/
-        function selectSuggestion(event) 
+        function selectSuggestion(event)
         {
+          if (suggestionsIsScrolling) return;
+
           var questions = {!! $questions !!};
 
           var inputTargetId = event.target.getAttribute('data-inputTargetId');

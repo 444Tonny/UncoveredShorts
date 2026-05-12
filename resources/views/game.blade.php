@@ -29,7 +29,7 @@
 
     <link rel="stylesheet" href="{{ asset('css/layout.css') }}?t=1.16">
     <link rel="stylesheet" href="{{ asset('css/game.css') }}?t=1.08">
-    <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1.28">
+    <link rel="stylesheet" href="{{ asset('css/modal.css') }}?t=1.29">
 
     <!-- Fonts -->
     <link href="https://fonts.cdnfonts.com/css/switzer" rel="stylesheet">
@@ -720,8 +720,9 @@
           var suggestionsContainer = document.getElementById('suggestions');
           var searchInput = document.getElementById('us-search');
           suggestionsContainer.innerHTML = '';
+          suggestionsContainer.scrollTop = 0;
           searchInput.value = '';
-          searchInput.style.display = 'initial'; 
+          searchInput.style.display = 'initial';
 
           // Afficher toutes les suggestions si toutes c'est un ranked few ou unique-few
           if(type == 'ranked-few' || type == 'unique-few')
